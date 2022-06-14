@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   includes.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:40:19 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/14 09:28:42 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/14 16:50:34 by earendil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 // useful macros
 # include <limits.h>
+# include <linux/limits.h>
 
 // read, write, file handling ...
 # include <unistd.h>

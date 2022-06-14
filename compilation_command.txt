@@ -1,0 +1,1 @@
+gcc -Wall -Werror -Wextra minishell.c utils/ft_string_utils.c utils/utils.c read/prompt.c -lreadline -o minishell

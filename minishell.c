@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/14 09:30:58 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/14 17:23:58 by earendil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	main(int argc, char const *argv[], char *const envp[])
 	}
 	return (EXIT_SUCCESS);
 	if (argv)
-		;
+	{}
 }
 
 static void	print_signature(void)
@@ -65,5 +65,6 @@ static void	print_signature(void)
 888  Y8P  888 888 888  888 888 Y8888b.  888  888 8888888  888 888\n\
 888       888 888 888  888 888      X88 888  888 Y8b.     888 888\n\
 888       888 888 888  888 888  88888P  888  888  Y8888   888 888\n\n" RESET);
+	printf(RED "As Beautiful as a Shell 😏\n\n" RESET);
 	printf(GREEN "Courtesy of:\n\tmmarinel\n\taligabbos\n\n" RESET);
 }
