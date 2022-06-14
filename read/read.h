@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   read.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/13 14:45:22 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/14 08:49:57 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/06/14 08:34:22 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/06/14 08:52:03 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef READ_H
+# define READ_H
 
-# include "includes.h"
+# include "../includes.h"
+
+// user defined exposed functions
+char	*shell_read( char *const envp[]);
 
 #endif

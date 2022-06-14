@@ -6,15 +6,14 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/13 14:50:21 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/14 09:30:58 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_signature(void);
-
-char	*shell_read(void);
+char		*shell_read( char *const envp[]);
+static void	print_signature(void);
 
 /**
  * @brief handler for all
@@ -34,49 +33,28 @@ void	sig_handler(int signum)
 	}
 }
 
-// void	quit_controller(void)
-// {
-// 	char	c;
-
-// 	while (read(STDIN_FILENO, &c, sizeof(char)))
-// 		;
-// 	kill(0, SIGUSR1);
-// }
-
-int main(void)
+int	main(int argc, char const *argv[], char *const envp[])
 {
 	char	*command;
-	// pid_t	monitor = 1;
 
-	while (1)
+	if (argc != 1)
+		return (EXIT_SUCCESS);
+	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, SIG_IGN);
+	print_signature();
+	while (e_true)
 	{
-		command = shell_read();
+		command = shell_read(envp);
 		// [result, fd] = shell_evaluate(command) ....return struct
 		// shell_print(fd, result) .....use write(fd, ...)
 		free(command);
 	}
-	return 0;
+	return (EXIT_SUCCESS);
+	if (argv)
+		;
 }
 
-char	*shell_read(void)
-{
-	char	*command;
-
-	print_signature();
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, SIG_IGN);
-	command = "";
-	while (*command == '\0')
-	{
-		command = readline(MAGENTA "prompettino: " RESET);
-		if (!command)
-			exit(EXIT_SUCCESS);
-	}
-	printf("line read: %s\n", command);
-	return (command);
-}
-
-void	print_signature(void)
+static void	print_signature(void)
 {
 	printf(RED "\
 888b     d888 d8b          d8b          888               888 888\n\

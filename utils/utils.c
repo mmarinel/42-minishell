@@ -6,11 +6,11 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 14:42:56 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/13 14:51:08 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/14 08:25:29 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "../minishell.h"
 
 void	*ft_malloc(size_t size)
 {
@@ -21,4 +21,3 @@ void	*ft_malloc(size_t size)
 		exit(EXIT_FAILURE);
 	return (ptr);
 }
-

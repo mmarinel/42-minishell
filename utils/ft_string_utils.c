@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:54:58 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/13 16:13:46 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/14 08:28:16 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ size_t	ft_strlcpy(char **dst, const char *src, size_t dstsize)
 
 	if (!src || !(*src))
 		return (0);
-	*dst = (char *) px_malloc((px_strlen(src) + 1) * sizeof(char));
+	*dst = (char *) ft_malloc((ft_strlen(src) + 1) * sizeof(char));
 	i = 0;
 	while (src[i] != '\0' && dstsize && i < (dstsize - 1))
 	{
@@ -54,7 +54,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	while (e_true)
 	{
 		if (s1[i] == '\0' || s2[i] == '\0'
-			|| i > last_index)
+			|| (int)i > last_index)
 			return (0);
 		if (s1[i] != s2[i])
 			break ;
