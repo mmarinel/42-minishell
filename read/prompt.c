@@ -6,7 +6,7 @@
 /*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:34:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/14 17:19:47 by earendil         ###   ########.fr       */
+/*   Updated: 2022/06/15 18:46:41 by earendil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,40 +15,49 @@
 static char		*get_current_working_directory(void);
 static char		*get_decorated_cwd(char *cwd);
 static t_bool	asked_for_termination(char	*command);
-static void		exit_shell(int exit_status, char *command);
+static char		*ft_readline(char *prompt, t_bool free_prompt);
 
 char	*shell_read( char *const envp[])
 {
 	char	*command;
 
-	command = "";
-	while (*command == '\0')
-	{
-		command = readline(get_current_working_directory());
-		if (asked_for_termination(command))
-			exit_shell(EXIT_SUCCESS, command);
-	}
+	command = ft_readline(get_current_working_directory(), e_true);
 	printf("line read: %s\n", command);
 	return (command);
 	if (envp)
 	{}
 }
 
+// ! readline library function always takes terminating '\n' off, so a new line is actually EOF (\0)
+/**
+ * @brief This function tries to read line until a non empty one is entered
+ * or ctr + D is hit
+ * 
+ * @param prompt the prompt to be displayed with the readline library function.
+ * @param free_prompt true if prompt needs to be freed after use
+ * @return char* the next line read
+ */
+static char	*ft_readline(char *prompt, t_bool free_prompt)
+{
+	char	*command;
+
+	command = readline(prompt);
+	if (asked_for_termination(command))
+		exit_shell(EXIT_SUCCESS, e_true);
+	else if (*command == '\0')
+		return (ft_readline(prompt, free_prompt));
+	if (free_prompt)
+		free(prompt);
+	return (command);
+}
+
 static t_bool	asked_for_termination(char	*command)
 {
-
 	if (!command)
 		return (e_true);
 	else if (ft_strncmp(command, "exit", 4) == 0 && ft_strlen(command) == 4)
 			return (e_true);
 	return (e_false);
-}
-
-static	void	exit_shell(int exit_status, char *command)
-{
-	if (!command)
-		printf("\n");
-	exit(exit_status);
 }
 
 static char	*get_current_working_directory(void)
