@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:34:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/16 17:18:53 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/16 19:19:45 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ char	*shell_read( char *const envp[])
 // ! readline library function always takes terminating '\n' off,
 // ! so a new line is actually EOF (\0)
 /**
- * @brief This function tries to read line until a non empty one is entered
+ * @brief This function tries to read a line until a non empty-quote balanced 
+ * one is entered
  * or ctr + D is hit
  * 
  * @param prompt the prompt to be displayed with the readline library function.
@@ -40,13 +41,32 @@ char	*shell_read( char *const envp[])
  */
 static char	*ft_readline(char *prompt, t_bool free_prompt)
 {
-	char	*command;
+	static char	*command = NULL;
+	char		*continuation;
 
-	command = readline(prompt);
+	if (ft_strncmp(prompt, ">", 1))
+		command = NULL;
+	continuation = readline(prompt);
+	command = ft_strjoin(command, continuation,
+			command != NULL, e_true);
 	if (asked_for_termination(command))
 		exit_shell(EXIT_SUCCESS, e_true);
 	else if (*command == '\0')
+	{
+		free(command);
 		return (ft_readline(prompt, free_prompt));
+	}
+	else if (!continuation)
+	{
+		free(command);
+		command = NULL;
+	}
+	else if (e_false == ft_quote_occurrence_balanced(command))
+	{
+		// signal(SIGINT, SIG_IGN);
+		ft_readline(">", e_false);
+		// signal(SIGINT, sig_handler);
+	}
 	if (free_prompt)
 		free(prompt);
 	return (command);

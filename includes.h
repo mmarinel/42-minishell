@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:40:19 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/16 17:17:39 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/16 19:17:23 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,8 @@
 # include "utils/ft_utils.h"
 
 extern void	rl_replace_line(const char *text, int clear_undo);
+
+// TODO > move to signals module !
+void		sig_handler(int signum);
 
 #endif
