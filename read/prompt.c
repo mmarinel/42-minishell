@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:34:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/15 18:46:41 by earendil         ###   ########.fr       */
+/*   Updated: 2022/06/16 17:18:53 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ char	*shell_read( char *const envp[])
 	{}
 }
 
-// ! readline library function always takes terminating '\n' off, so a new line is actually EOF (\0)
+// ! readline library function always takes terminating '\n' off,
+// ! so a new line is actually EOF (\0)
 /**
  * @brief This function tries to read line until a non empty one is entered
  * or ctr + D is hit
@@ -56,7 +57,7 @@ static t_bool	asked_for_termination(char	*command)
 	if (!command)
 		return (e_true);
 	else if (ft_strncmp(command, "exit", 4) == 0 && ft_strlen(command) == 4)
-			return (e_true);
+		return (e_true);
 	return (e_false);
 }
 
@@ -91,9 +92,11 @@ static char	*get_current_working_directory(void)
 static char	*get_decorated_cwd(char *cwd)
 {
 	return (
-		ft_strjoin(
+		ft_strjoin
+		(
 			"📁:-",
-			ft_strjoin(
+			ft_strjoin
+			(
 				ft_strjoin(MAGENTA, cwd, e_false, e_false),
 				": " RESET,
 				e_true,

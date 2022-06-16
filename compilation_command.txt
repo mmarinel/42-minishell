@@ -1,1 +1,3 @@
-gcc -Wall -Werror -Wextra minishell.c utils/ft_string_utils.c utils/utils.c read/prompt.c read/tokenize.c read/read_utils/read_utils_1.c -lreadline -o minishell
+linux: gcc -Wall -Werror -Wextra minishell.c utils/ft_string_utils.c utils/utils.c read/prompt.c read/tokenize.c read/read_utils/read_utils_1.c -lreadline -o minishell
+
+macos: gcc -Wall -Werror -Wextra minishell.c utils/ft_string_utils.c utils/utils.c read/prompt.c  exit/exit.c read/read_utils/read_utils_1.c -L/usr/include -lreadline -L$HOME/.brew/opt/readline/lib -I$HOME/.brew/opt/readline/include -o minishell

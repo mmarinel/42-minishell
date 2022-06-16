@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:13:18 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/15 21:28:40 by earendil         ###   ########.fr       */
+/*   Updated: 2022/06/16 17:08:58 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,6 @@ void	ft_free(void *ptr);
 
 // * shell utils
 
-/**
- * @brief this function exits the current shell.
- * 
- * @param exit_status exit status chosen
- * @param go_on_new_line iff true, a '\ n ' gets printed before exiting.
- */
-void	exit_shell(int exit_status, t_bool go_on_newline);
-
 // * misc utils
 
 /**
@@ -47,9 +39,11 @@ void	exit_shell(int exit_status, t_bool go_on_newline);
  * @param point the point to map
  * @param right_edge the right edge of interval [0, right_edge)
  * @param left_spill_val the point where to map inputs that fall behind 0
- * @param right_spill_val the point where to map inputs that fall "above" (>=) right_edge
+ * @param right_spill_val the point where to map inputs that
+ * fall "above" (>=) right_edge
  * @return int the mapped point
  */
-int	range_spill(int point, int right_edge, int left_spill_val, int right_spill_val);
+int		range_spill(int point, int right_edge,
+			int left_spill_val, int right_spill_val);
 
 #endif

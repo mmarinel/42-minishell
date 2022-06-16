@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   types.h                                            :+:      :+:    :+:   */
+/*   exit.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/13 15:19:19 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/16 17:09:43 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/06/16 17:11:39 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/06/16 17:12:33 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TYPES_H
-# define TYPES_H
+#ifndef EXIT_H
+# define EXIT_H
 
-typedef enum e_bool
-{
-	e_true = 1,
-	e_false = 0
-}	t_bool;
+# include "../includes.h"
+
+/**
+ * @brief this function exits the current shell.
+ * 
+ * @param exit_status exit status chosen
+ * @param go_on_new_line iff true, a '\ n ' gets printed before exiting.
+ */
+void	exit_shell(int exit_status, t_bool go_on_newline);
 
 #endif
