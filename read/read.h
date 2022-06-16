@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:34:22 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/15 22:12:07 by earendil         ###   ########.fr       */
+/*   Updated: 2022/06/16 17:28:22 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,26 @@ typedef enum e_op_code
 	e_STORE_NXT_TOK,
 	e_STORE_STR,
 	e_RETURN_CUR_STR,
-	e_ADVANCE_STR
+	e_ADVANCE_STR,
+	e_CLEAN
 }	t_op_code;
 
 typedef enum e_token_id
 {
-	CMD_LIST,
-	CMD,
-	IDENTIFIER
+	e_ARG,
+	e_EXPORT,
+	e_VAR_NAME,
+	e_FILENAME,
+	e_USR_PROGRAM,
+	e_DOUBLE_QUOTE,
+	e_SINGLE_QUOTE,
+	e_PARENTHESIS,
+	e_OPERATOR,
+	e_REDIRECT,
+	e_LOGICAL,
+	e_ASSIGN,
+	e_PIPE,
+	e_NONE
 }	t_token_id;
 
 typedef struct s_token

@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   read_utils_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 20:53:21 by earendil          #+#    #+#             */
-/*   Updated: 2022/06/15 22:11:08 by earendil         ###   ########.fr       */
+/*   Updated: 2022/06/16 17:27:05 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #include "../read.h"
 #include "read_utils.h"
 
-void *lexer_input_handling(void *arg, char **input_string_ref, int *offset, t_op_code op_code)
+void	*lexer_input_handling(void *arg, char **input_string_ref,
+			int *offset, t_op_code op_code)
 {
 	if (op_code == e_STORE_STR && *offset > -1)
 	{
@@ -25,7 +26,7 @@ void *lexer_input_handling(void *arg, char **input_string_ref, int *offset, t_op
 		*offset = range_spill(
 				*offset + *((int *)arg),
 				ft_strlen(*input_string_ref),
-				 0, -1
+				0, -1
 				);
 		if (*offset == -1)
 			free(*input_string_ref);
@@ -37,7 +38,8 @@ void *lexer_input_handling(void *arg, char **input_string_ref, int *offset, t_op
 	return (NULL);
 }
 
-void *lexer_token_handling(void *arg, t_token **cur_token, t_op_code op_code)
+void	*lexer_token_handling(void *arg, t_token **cur_token,
+			t_op_code op_code)
 {
 	if (op_code == e_STORE_NXT_TOK)
 	{

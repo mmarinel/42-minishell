@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_utils.h                                       :+:      :+:    :+:   */
+/*   lexer_patterns.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/15 20:54:53 by earendil          #+#    #+#             */
-/*   Updated: 2022/06/16 17:27:22 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/06/16 15:41:26 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef READ_UTILS_H
-# define READ_UTILS_H
+#include "read.h"
 
-# include "../read.h"
+int	scan_arg(char **str)
+{
+}
 
-// * user defined functions
+int	scan_name(char **str, t_op_code	*possible_names)
+{
+	int	new_offset;
 
-void	*lexer_input_handling(void *arg, char **input_string_ref,
-			int *offset, t_op_code op_code);
-void	*lexer_token_handling(void *arg, t_token **cur_token,
-			t_op_code op_code);
-
-#endif
+	if (*possible_names == e_NONE)
+		return (-1);
+	new_offset = scan(&str, *possible_names);
+	if (new_offset == -1)
+		return (scan_name(str, possible_names + 1));
+	else
+		return (new_offset);
+}
