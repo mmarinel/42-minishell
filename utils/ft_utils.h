@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:13:18 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/16 18:11:02 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/17 09:56:22 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	*ft_malloc(size_t size);
 void	ft_free(void *ptr);
 
 // * shell utils
+
+t_bool	asked_for_termination(char	*command);
 
 // * misc utils
 

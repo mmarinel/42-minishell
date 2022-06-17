@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:40:19 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/16 19:17:23 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/17 10:19:27 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,6 @@ extern void	rl_replace_line(const char *text, int clear_undo);
 
 // TODO > move to signals module !
 void		sig_handler(int signum);
+void		prompt_line_completion_sig_handler(int signum);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:07:21 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/17 09:28:55 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/17 09:33:55 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*get_next_line(int fd)
 {
 	static t_fd_buffer	buf_handle = (t_fd_buffer){NULL, BUFFER_SIZE, 0};
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if ((fd < 0 || fd > OPEN_MAX) || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (buf_handle.offset == 0)
 		buf_handle.buffer_size = BUFFER_SIZE;

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:34:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/16 19:19:45 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/17 11:03:54 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 static char		*get_current_working_directory(void);
 static char		*get_decorated_cwd(char *cwd);
-static t_bool	asked_for_termination(char	*command);
 static char		*ft_readline(char *prompt, t_bool free_prompt);
+// TODO :-> return EXIT CODE 258 for ctrl + D
+// TODO :-> while trying to complete line (exit/errors module)
+static char		*prompt_complete_line(char **command_ref);
 
+// TODO :-> put error where exit_shell is (put error will also use exit_shell)
 char	*shell_read( char *const envp[])
 {
 	char	*command;
@@ -25,15 +28,14 @@ char	*shell_read( char *const envp[])
 	printf("line read: %s\n", command);
 	return (command);
 	if (envp)
-	{}
+		;
 }
 
 // ! readline library function always takes terminating '\n' off,
 // ! so a new line is actually EOF (\0)
 /**
  * @brief This function tries to read a line until a non empty-quote balanced 
- * one is entered
- * or ctr + D is hit
+ * one is entered or ctr + D is hit
  * 
  * @param prompt the prompt to be displayed with the readline library function.
  * @param free_prompt true if prompt needs to be freed after use
@@ -41,14 +43,9 @@ char	*shell_read( char *const envp[])
  */
 static char	*ft_readline(char *prompt, t_bool free_prompt)
 {
-	static char	*command = NULL;
-	char		*continuation;
+	char	*command;
 
-	if (ft_strncmp(prompt, ">", 1))
-		command = NULL;
-	continuation = readline(prompt);
-	command = ft_strjoin(command, continuation,
-			command != NULL, e_true);
+	command = readline(prompt);
 	if (asked_for_termination(command))
 		exit_shell(EXIT_SUCCESS, e_true);
 	else if (*command == '\0')
@@ -56,31 +53,51 @@ static char	*ft_readline(char *prompt, t_bool free_prompt)
 		free(command);
 		return (ft_readline(prompt, free_prompt));
 	}
-	else if (!continuation)
-	{
-		free(command);
-		command = NULL;
-	}
 	else if (e_false == ft_quote_occurrence_balanced(command))
 	{
-		// signal(SIGINT, SIG_IGN);
-		ft_readline(">", e_false);
-		// signal(SIGINT, sig_handler);
+		command = prompt_complete_line(&command);
 	}
 	if (free_prompt)
 		free(prompt);
 	return (command);
 }
 
-static t_bool	asked_for_termination(char	*command)
+// TODO :-> return EXIT CODE 258 for ctrl + D while 
+// TODO trying to complete line (exit/errors module)
+static char	*prompt_complete_line(char **command_ref)
 {
-	if (!command)
-		return (e_true);
-	else if (ft_strncmp(command, "exit", 4) == 0 && ft_strlen(command) == 4)
-		return (e_true);
-	return (e_false);
+	pid_t	new_prompt_id;
+	int		new_prompt_exit_code;
+	char	*continuation;
+
+	new_prompt_id = fork();
+	if (!new_prompt_id)
+	{
+		signal(SIGINT, prompt_line_completion_sig_handler);
+		while (e_false == ft_quote_occurrence_balanced(*command_ref))
+		{
+			continuation = readline(">");
+			if (!continuation)
+				exit(EXIT_FAILURE);
+			*command_ref = ft_strjoin(*command_ref, continuation, e_true, e_true
+					);
+		}
+		exit(EXIT_SUCCESS);
+	}
+	waitpid(new_prompt_id, &new_prompt_exit_code, 0);
+	if (new_prompt_exit_code != EXIT_SUCCESS)
+	{
+		free(*command_ref);
+		return (NULL);
+	}
+	return (*command_ref);
 }
 
+/**
+ * @brief Get the current working directory (not with full path)
+ * 
+ * @return char* 
+ */
 static char	*get_current_working_directory(void)
 {
 	char	*abs_path;

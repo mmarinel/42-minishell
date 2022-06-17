@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 14:42:56 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/16 17:08:18 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/17 09:58:36 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,19 @@ int	range_spill(int point, int right_edge,
 		return (right_spill_val);
 	else
 		return (point);
+}
+
+/**
+ * @brief this function returns true iff command is exit or ctrl + D was hit
+ * 
+ * @param command 
+ * @return t_bool 
+ */
+t_bool	asked_for_termination(char	*command)
+{
+	if (!command)
+		return (e_true);
+	else if (ft_strncmp(command, "exit", 4) == 0 && ft_strlen(command) == 4)
+		return (e_true);
+	return (e_false);
 }
