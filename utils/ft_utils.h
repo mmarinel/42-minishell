@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:13:18 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/17 09:56:22 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/17 16:23:32 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ size_t	ft_strlen(const char *str);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	ft_strcpy(char *buf, char *src, int src_len);
 char	*ft_strjoin(char *pre, char *post, t_bool free_pre, t_bool free_post);
+char	*ft_itoa(int nbr);
+int		ft_atoi(const char *str);
 /**
  * @brief this function checks wether the number of occurrences
  * of the quote at the beginning of the input string is balanced
@@ -31,12 +33,18 @@ char	*ft_strjoin(char *pre, char *post, t_bool free_pre, t_bool free_post);
  */
 t_bool	ft_quote_occurrence_balanced(char *str);
 
+// * math utils
+
+unsigned int	ft_pow(unsigned int m, unsigned int e);
+
 // * memory utils
 
 void	*ft_malloc(size_t size);
 void	ft_free(void *ptr);
 
 // * shell utils
+
+void	close_pipe(int pipe_[]);
 
 t_bool	asked_for_termination(char	*command);
 

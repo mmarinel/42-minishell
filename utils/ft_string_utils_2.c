@@ -6,18 +6,14 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:45:17 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/16 18:29:08 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/17 15:03:45 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_utils.h"
 
 static char	take_starting_quote(char *str);
-
-t_bool	ft_isspace(char c)
-{
-	return (c == 32 || (c >= '\t' && c <= '\r'));
-}
+static int	ft_atoi_rec(const char *str, int *exponent);
 
 /**
  * @brief this function checks wether the number of occurrences
@@ -57,6 +53,43 @@ static char	take_starting_quote(char *str)
 		str++;
 	}
 	return ('\0');
+}
+
+char	*ft_itoa(int nbr)
+{
+	char	digit[2];
+
+	if	(nbr == INT_MIN)
+		return (ft_strjoin(
+			ft_itoa(INT_MIN / 10), ft_itoa((INT_MAX % 10) + 1), e_true, e_true));
+	if (nbr < 0)
+		return (ft_strjoin("-", ft_itoa(-nbr), e_false, e_true));
+	digit[0] = (nbr % 10) + 48;
+	digit[1] = '\0';
+	if (nbr > 9)
+		return (ft_strjoin(ft_itoa(nbr / 10), digit, e_true, e_false));
+	return (ft_strjoin("", digit, e_false, e_false));
+}
+
+int	ft_atoi(const char *str)
+{
+	int	e;
+
+	return (ft_atoi_rec(str, &e));
+}
+
+static int	ft_atoi_rec(const char *str, int *exponent)
+{
+	int	rec_res;
+	int	res;
+
+	if (!(*str)
+		|| (*str < '0' || *str > '9'))
+		return (*exponent = 0);
+	rec_res = ft_atoi_rec(str + 1, exponent);
+	res = rec_res + ft_pow(10, *exponent) * (*str - '0');
+	*exponent = *exponent + 1;
+	return (res);
 }
 
 // static t_bool	dels_member(char c, int delimiters[])

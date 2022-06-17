@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 14:42:56 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/17 09:58:36 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/17 14:31:59 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,10 @@ t_bool	asked_for_termination(char	*command)
 	else if (ft_strncmp(command, "exit", 4) == 0 && ft_strlen(command) == 4)
 		return (e_true);
 	return (e_false);
+}
+
+void	close_pipe(int pipe_[])
+{
+	close(pipe_[0]);
+	close(pipe_[1]);
 }
