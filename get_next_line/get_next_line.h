@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 14:14:58 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/17 09:28:11 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/18 18:56:30 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,18 @@ typedef struct s_fd_buffer {
 	unsigned int	offset;
 }	t_fd_buffer;
 
+# ifndef T_BOOL_H
+#  define T_BOOL_H
 typedef enum e_bool
 {
 	e_true = 1,
 	e_false = 0
 }	t_bool;
+# endif
 
 // * main EXPOSED function
 
-char	*get_next_line(int fd);
+char	*get_next_line(int fd, int buffer_size);
 
 // * helper functions
 

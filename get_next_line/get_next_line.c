@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:07:21 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/17 09:33:55 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/18 18:48:45 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,19 @@ static t_bool	gnl_buffer_read_from_file(t_fd_buffer *buf_handle, int fd);
 static t_bool	gnl_get_line_from_buffer(t_fd_buffer *buf_handle, char **str);
 static int		find_new_line(char *str, int offset, int len, t_bool *nl_found);
 
-char	*get_next_line(int fd)
+char	*get_next_line(int fd, int buffer_size)
 {
 	static t_fd_buffer	buf_handle = (t_fd_buffer){NULL, BUFFER_SIZE, 0};
 
 	if ((fd < 0 || fd > OPEN_MAX) || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (buf_handle.offset == 0)
-		buf_handle.buffer_size = BUFFER_SIZE;
+	{
+		if (buffer_size < 0)
+			buf_handle.buffer_size = BUFFER_SIZE;
+		else
+			buf_handle.buffer_size = buffer_size;
+	}
 	return (get_next_line_rec(fd, &buf_handle));
 }
 

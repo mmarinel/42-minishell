@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:34:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/18 18:24:23 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/18 19:19:53 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,26 +43,13 @@ char	*ft_readline(char *prompt, t_bool free_prompt)
 	if (e_true == here_doc_line(command))
 	{
 		g_shell_env->here_doc.delimiter = here_doc_take_delimiter(command);
-		g_shell_env->here_doc.fd = here_doc_read();
+		// printf("delimiter is %s and len is %d\n", g_shell_env->here_doc.delimiter, (int)ft_strlen(g_shell_env->here_doc.delimiter));
+		here_doc_read(g_shell_env->here_doc.delimiter);//g_shell_env->here_doc.fd = here_doc_read();
 	}
 	ft_add_history(command);
 	if (free_prompt)
 		free(prompt);
 	return (command);
-}
-
-char	*here_doc_take_delimiter(char *command)
-{
-	char	*delimiter;
-	int		delimiter_len;
-	char	*start;
-
-	start = take_substr(command, "<<");
-	if (!start)
-		return (NULL);
-	while (ft_isspace(*start))
-		start++;
-	return (take_next_word(command));
 }
 
 /**

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:40:19 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/18 17:41:06 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/18 18:52:03 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 
 // * global variable
 
+// * PROBABLY I DON'T NEED THIS
 typedef struct s_here_doc
 {
 	char	*delimiter;
 	int		fd;
 }	t_here_doc;
 
+// * PROBABLY I DON'T NEED THIS
 typedef struct s_shell_env
 {
 	t_here_doc	here_doc;
@@ -52,6 +54,7 @@ t_shell_env	*g_shell_env;
 
 // user dfined headers
 # include "types.h"
+# include "get_next_line/get_next_line.h"
 # include "read/read.h"
 # include "exit/exit.h"
 # include "colors.h"
