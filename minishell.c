@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/15 21:57:04 by earendil         ###   ########.fr       */
+/*   Updated: 2022/06/18 09:23:16 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	main(int argc, char const *argv[], char *const envp[])
 
 	if (argc != 1)
 		return (EXIT_SUCCESS);
+	g_shell_env = (t_shell_env *) malloc(sizeof(t_shell_env));
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
 	print_signature();
@@ -49,6 +50,7 @@ int	main(int argc, char const *argv[], char *const envp[])
 		// shell_print(fd, result) .....use write(fd, ...)
 		free(command);
 	}
+	clear_history();
 	return (EXIT_SUCCESS);
 	if (argv)
 	{}

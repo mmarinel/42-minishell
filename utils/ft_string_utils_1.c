@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:54:58 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/17 12:13:39 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/18 13:55:04 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,11 @@ void	ft_strcpy(char *buf, char *src, int src_len)
 {
 	int	i;
 
+	if (!buf)
+	{
+		buf = (char *) malloc((src_len + 1) * sizeof(char));
+		buf[src_len] = '\0';
+	}
 	i = 0;
 	while (i < src_len)
 	{

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:13:18 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/17 16:23:32 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/18 18:23:44 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,17 @@ void	ft_strcpy(char *buf, char *src, int src_len);
 char	*ft_strjoin(char *pre, char *post, t_bool free_pre, t_bool free_post);
 char	*ft_itoa(int nbr);
 int		ft_atoi(const char *str);
+t_bool	ft_isspace(char c);
+char	*take_substr(char *str, char *substr);
+/**
+ * @brief this function takes the next word
+ * (i.e.: anything except isspace characters)
+ * starting from the current position of char pointer 'str'
+ * 
+ * @param str 
+ * @return char* 
+ */
+char	*take_next_word(char *str);
 /**
  * @brief this function checks wether the number of occurrences
  * of the quote at the beginning of the input string is balanced
@@ -32,6 +43,10 @@ int		ft_atoi(const char *str);
  * @return t_bool 
  */
 t_bool	ft_quote_occurrence_balanced(char *str);
+char	take_starting_quote(char *str);
+char	*string_strip(char *str, char c, t_bool free_input);
+int		str_number_occurrences(char *str, char c);
+t_bool	str_not_empty(char *str);
 
 // * math utils
 
@@ -44,9 +59,9 @@ void	ft_free(void *ptr);
 
 // * shell utils
 
-void	close_pipe(int pipe_[]);
-
+void 	ft_add_history(char *command);
 t_bool	asked_for_termination(char	*command);
+void	close_pipe(int pipe_[]);
 
 // * misc utils
 

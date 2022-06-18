@@ -6,13 +6,12 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:45:17 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/17 15:03:45 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/18 09:36:58 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_utils.h"
 
-static char	take_starting_quote(char *str);
 static int	ft_atoi_rec(const char *str, int *exponent);
 
 /**
@@ -42,8 +41,10 @@ t_bool	ft_quote_occurrence_balanced(char *str)
 	return (occurrences % 2 == 0);
 }
 
-static char	take_starting_quote(char *str)
+char	take_starting_quote(char *str)
 {
+	if (!str)
+		return ('\0');
 	while (*str)
 	{
 		if (*str == '"')
