@@ -1,5 +1,1 @@
-linux: gcc -Wall -Werror -Wextra minishell.c utils/ft_string_utils.c utils/utils.c read/prompt.c read/tokenize.c read/read_utils/read_utils_1.c -lreadline -o minishell
-
-macos: gcc -Wall -Werror -Wextra minishell.c utils/ft_string_utils.c utils/utils.c read/prompt.c  exit/exit.c read/read_utils/read_utils_1.c -L/usr/include -lreadline -L$HOME/.brew/opt/readline/lib -I$HOME/.brew/opt/readline/include -o minishell
-
-macos: gcc -Wall -Werror -Wextra minishell.c utils/ft_string_utils.c utils/ft_string_utils_2.c  utils/utils.c read/prompt.c  exit/exit.c signals.c read/read_utils/read_utils_1.c utils/ft_string_utils_3.c utils/math_utils.c -L/usr/include -lreadline -L$HOME/.brew/opt/readline/lib -I$HOME/.brew/opt/readline/include -o minishell
+macos: gcc -g -Wall -Werror -Wextra minishell.c utils/ft_string_utils_1.c utils/ft_string_utils_2.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c utils/utils.c read/prompt/line_continuation_prompt.c read/prompt/prompt.c read/read.c exit/exit.c signals.c read/read_utils/read_utils_1.c utils/ft_string_utils_3.c utils/shell_utils.c utils/math_utils.c utils/ft_string_utils_4.c read/prompt/prompt_utils/prompt_utils.c -L/usr/include -lreadline -L/Users/mmarinel/.brew/opt/readline/lib -I/Users/mmarinel/.brew/opt/readline/include -o minishell

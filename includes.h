@@ -6,29 +6,31 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:40:19 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/18 18:52:03 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/18 19:41:48 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INCLUDES_H
 # define INCLUDES_H
 
-// * global variable
+////////////// 
+// // * global variable
 
-// * PROBABLY I DON'T NEED THIS
-typedef struct s_here_doc
-{
-	char	*delimiter;
-	int		fd;
-}	t_here_doc;
+// // * PROBABLY I DON'T NEED THIS
+// typedef struct s_here_doc
+// {
+// 	char	*delimiter;
+// 	int		fd;
+// }	t_here_doc;
 
-// * PROBABLY I DON'T NEED THIS
-typedef struct s_shell_env
-{
-	t_here_doc	here_doc;
-}	t_shell_env;
+// // * PROBABLY I DON'T NEED THIS
+// typedef struct s_shell_env
+// {
+// 	t_here_doc	here_doc;
+// }	t_shell_env;
 
-t_shell_env	*g_shell_env;
+// t_shell_env	*g_shell_env;
+///////////////////
 
 // signal handling ...
 # include <signal.h>

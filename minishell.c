@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/18 09:23:16 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/18 19:49:38 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int argc, char const *argv[], char *const envp[])
 
 	if (argc != 1)
 		return (EXIT_SUCCESS);
-	g_shell_env = (t_shell_env *) malloc(sizeof(t_shell_env));
+	// g_shell_env = (t_shell_env *) malloc(sizeof(t_shell_env));
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
 	print_signature();
@@ -49,6 +49,7 @@ int	main(int argc, char const *argv[], char *const envp[])
 		// [result, fd] = shell_evaluate(command) ....return struct
 		// shell_print(fd, result) .....use write(fd, ...)
 		free(command);
+		// * unlink(".here_doc"); DEBUG: COMMENTED BECAUSE WE MAY NEED TO SEE WHAT'S INSIDE OF THE FILE
 	}
 	clear_history();
 	return (EXIT_SUCCESS);

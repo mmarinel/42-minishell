@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 19:00:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/18 19:19:49 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/18 19:38:03 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,16 @@ void	here_doc_read(char *delimiter)
 		exit_shell(EXIT_FAILURE, e_false);
 	while (e_true)
 	{
+		write(STDOUT_FILENO, "heredoc> ",
+			ft_strlen("heredoc> ") * sizeof(char));
 		next_line = get_next_line(STDIN_FILENO, 1);
-		write(fd_here_document, next_line, ft_strlen(next_line));
-		// printf("delimiter is %s and len is %d\n", delimiter, delimiter_len);
 		if (!ft_strncmp(delimiter, next_line, delimiter_len))
 			break ;
 		else
+		{
+			write(fd_here_document, next_line, ft_strlen(next_line));
 			free(next_line);
+		}
 	}
 	free(next_line);
 	close(fd_here_document);
@@ -48,11 +51,10 @@ char	*here_doc_take_delimiter(char *command)
 	char	*start;
 
 	start = take_substr(command, "<<");
-	printf("here_doc: %s\n", start);
 	if (!start)
 		return (NULL);
 	start += 2;
 	while (ft_isspace(*start))
 		start++;
-	return (take_next_word(command));
+	return (take_next_word(start));
 }
