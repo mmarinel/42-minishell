@@ -6,15 +6,14 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/19 18:37:55 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/19 19:54:05 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tok_utils.h"
 
-char	*scan_var_name(char *cursor)
+char	*scan_var_name(char *cursor, char **name)
 {
-	char	*name;
 	char	*name_cursor;
 	size_t	name_len;
 
@@ -27,41 +26,42 @@ char	*scan_var_name(char *cursor)
 			|| *name_cursor == '_')
 		)
 		name_cursor++;
-	if (e_false == bash_control_character(*name_cursor)
+	if (*name_cursor
+		&& e_false == bash_control_character(*name_cursor)
 		&& *name_cursor != '=')
 		return (NULL);
 	name_len = ft_strlen(cursor) - ft_strlen(name_cursor);
-	name = (char *) malloc((name_len + 1) * sizeof(char));
-	name[name_len] = '\0';
-	ft_strcpy(name, cursor, name_len);
-	return (name);
+	*name = (char *) malloc((name_len + 1) * sizeof(char));
+	(*name)[name_len] = '\0';
+	ft_strcpy(*name, cursor, name_len);
+	return (name_cursor);
 }
 
-char	*scan_var_value(char *cursor)
+char	*scan_var_value(char *cursor, char **value)
 {
-	char	*value;
 	char	*value_cursor;
 	size_t	value_len;
 
 	value_cursor = cursor;
 	if (*value_cursor != "=")
 		return (NULL);
+	value_cursor++;
 	while (*value_cursor)
 	{
 		if (e_true == bash_control_character(*value_cursor))
 			break ;
 		value_cursor++;
 	}
-	if (value_cursor == cursor)
+	if (value_cursor == cursor + 1)
 		return (NULL);
 	value_len = ft_strlen(cursor) - ft_strlen(value_cursor);
-	value = (char *) malloc((value_len + 1) * sizeof(char));
-	value[value_len] = '\0';
-	ft_strcpy(value, cursor, value_len);
-	return (value);
+	(*value) = (char *) malloc((value_len + 1) * sizeof(char));
+	(*value)[value_len] = '\0';
+	ft_strcpy((*value), cursor, value_len);
+	return (value_cursor);
 }
 
-void	*lexer_input_handling(void *arg, char **input_string_ref,
+static void	*lexer_input_handling(void *arg, char **input_string_ref,
 			int *offset, t_op_code op_code)
 {
 	if (op_code == e_STORE_STR && *offset > -1)
@@ -86,7 +86,7 @@ void	*lexer_input_handling(void *arg, char **input_string_ref,
 	return (NULL);
 }
 
-void	*lexer_token_handling(void *arg, t_token **cur_token,
+static void	*lexer_token_handling(void *arg, t_token **cur_token,
 			t_op_code op_code)
 {
 	if (op_code == e_STORE_NXT_TOK)
@@ -99,5 +99,30 @@ void	*lexer_token_handling(void *arg, t_token **cur_token,
 	{
 		return (*cur_token);
 	}
+	return (NULL);
+}
+
+// ! to DECOMMENT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void	*lexer(void *arg, t_op_code op_code)
+{
+	static char		*__input_string = NULL;
+	static int		offset = -1;
+	static t_token	*cur_token = NULL;
+
+	if (op_code == e_CLEAN)
+	{
+		ft_free(__input_string);
+		__input_string = NULL;
+		ft_free(cur_token);
+		cur_token = NULL;
+		offset = -1;
+	}
+	if (op_code == e_STORE_STR || op_code == e_RETURN_CUR_STR
+		|| op_code == e_ADVANCE_STR)
+		return (lexer_input_handling(arg,
+				&__input_string, &offset, op_code));
+	else if (op_code == e_STORE_NXT_TOK || op_code == e_RETURN_TOK)
+		return (lexer_token_handling(arg,
+				&cur_token, op_code));
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/19 18:08:16 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/19 20:56:22 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,23 @@ int	scan_name(char **str, t_op_code	*possible_names)
 		return (new_offset);
 }
 
-t_token	*scan_shell_var(char *str)
+/**
+ * @brief this function scans the input string for the next
+ * shell variable token and feeds it to the lexer if it is found.
+ * 
+ * @param str the (eventually shifted) pointer to the line inputted
+ * to the prompt
+ * @return int the updated offset inside the given input string
+ * if the token is found, -1 otherwise
+ */
+int	scan_shell_var(char *str)
 {
-	char	*cursor;
-	char	*scanned;
-	size_t	scanned_len;
-	int		i;
+	return (scan_var(str, e_SHELL_VAR_NAME));
+}
 
-	cursor = scan_var_name(str);
-	if (!cursor)
-		return (NULL);
-	if (*cursor == "=")
-	{
-
-	}
-	scanned_len = ft_strlen(str) - ft_strlen(cursor);
-	scanned = (char *) malloc(sizeof(char) * scanned_len);
-	i = -1;
-	while (++i < scanned_len)
-		scanned[i] = str[i];
-	scanned[scanned_len] = '\0';
-	return (scanned);
+int	scan_env_var(char *str)
+{
+	if (!str || ft_strncmp(str, "export", 6 * sizeof(char)))
+		return (-1);
+	return (scan_var(str + 6, e_ENV_VAR_NAME));
 }

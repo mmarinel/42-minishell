@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 18:48:51 by earendil          #+#    #+#             */
-/*   Updated: 2022/06/19 11:25:22 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/19 19:56:03 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,36 +15,11 @@
 // ! to DECOMMENT !!!!!!!!!!!!!!!!!!!!!!!!!!
 int	scan_name(char **str, t_op_code	*possible_names);
 
-
-// ! to DECOMMENT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-static void	*lexer(void *arg, t_op_code op_code)
-{
-	static char		*__input_string = NULL;
-	static int		offset = -1;
-	static t_token	*cur_token = NULL;
-
-	if (op_code == e_CLEAN)
-	{
-		ft_free(__input_string);
-		__input_string = NULL;
-		ft_free(cur_token);
-		cur_token = NULL;
-		offset = -1;
-	}
-	if (op_code == e_STORE_STR || op_code == e_RETURN_CUR_STR
-		|| op_code == e_ADVANCE_STR)
-		return (lexer_input_handling(arg,
-				&__input_string, &offset, op_code));
-	else if (op_code == e_STORE_NXT_TOK || op_code == e_RETURN_TOK)
-		return (lexer_token_handling(arg,
-				&cur_token, op_code));
-	return (NULL);
-}
-
 void	tokenizer_feed_input(char **input_str_ref)
 {
 	if (input_str_ref == NULL)
 		return ;
+	lexer(NULL, e_CLEAN);
 	lexer(input_str_ref, e_STORE_STR);
 }
 
@@ -52,7 +27,7 @@ t_token	*get_cur_token(void)
 {
 	return (lexer(NULL, e_RETURN_TOK));
 }
-*/
+
 
 // ! TO DECOMMENT !!!!!!!!!!!!!!!!!
 void	scan_next_token(void)
