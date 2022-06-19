@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 17:11:39 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/16 17:12:33 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/19 12:35:32 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define EXIT_H
 
 # include "../includes.h"
+# include "../read/prompt/prompt_utils/prompt_utils.h"
 
 /**
  * @brief this function exits the current shell.

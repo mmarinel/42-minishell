@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:34:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/19 08:02:00 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/19 12:30:17 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,12 @@
 
 static char		*get_decorated_cwd(char *cwd);
 
+// * alert 1
 // ! readline library function always takes terminating '\n' off,
 // ! so a new line is actually EOF (\0)
+// * alert 2
+// ! non empty means NO CHAR present except '\0'
+// ! (i.e.: a string full of spaces is not considered empty!)
 /**
  * @brief This function tries to read a line until a non empty-quote balanced 
  * one is entered or ctr + D is hit.

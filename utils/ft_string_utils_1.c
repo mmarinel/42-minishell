@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_string_utils.c                                  :+:      :+:    :+:   */
+/*   ft_string_utils_1.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:54:58 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/18 13:55:04 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/19 12:42:05 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ size_t	ft_strlen(const char *str)
 {
 	size_t	i;
 
+	if (!str)
+		return (0);
 	i = 0;
 	while (str[i] != '\0')
 		i++;
@@ -63,7 +65,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
-void	ft_strcpy(char *buf, char *src, int src_len)
+char	*ft_strcpy(char *buf, char *src, int src_len)
 {
 	int	i;
 
@@ -78,6 +80,7 @@ void	ft_strcpy(char *buf, char *src, int src_len)
 		buf[i] = src[i];
 		i++;
 	}
+	return (buf);
 }
 
 char	*ft_strjoin(char *pre, char *post, t_bool free_pre, t_bool free_post)

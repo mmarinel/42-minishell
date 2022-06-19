@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 17:07:46 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/16 17:21:19 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/19 12:37:11 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ void	exit_shell(int exit_status, t_bool go_on_newline)
 {
 	if (go_on_newline == e_true)
 		; // printf("\n"); // ! Only on Linux !!!
+	ft_free(*ft_add_history(NULL));
 	exit(exit_status);
 }

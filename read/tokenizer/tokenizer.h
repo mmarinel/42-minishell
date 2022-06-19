@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_utils.h                                     :+:      :+:    :+:   */
+/*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/18 19:04:09 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/19 12:31:24 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/06/19 11:23:53 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/06/19 11:25:10 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROMPT_UTILS_H
-# define PROMPT_UTILS_H
+#ifndef TOKENIZER_H
+# define TOKENIZER_H
 
-#include "../../read.h"
-
-char	**ft_add_history(char *command);
-
-t_bool	here_doc_line(char *command);
-void	here_doc_read(char *delimiter);
-char	*here_doc_take_delimiter(char *command);
+#include "../read.h"
+#include "../read_utils/read_utils.h"
 
 #endif

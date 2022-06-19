@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 18:16:45 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/18 18:21:03 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/19 10:59:44 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,18 @@ char	*take_next_word(char *str)
 	word[word_len] = '\0';
 	ft_strcpy(word, str, word_len);
 	return (word);
+}
+
+t_bool	char_is_alpha(char c)
+{
+	return (
+		(c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
+	);
+}
+
+t_bool	char_is_digit(char c)
+{
+	return (
+		c >= '0' && c <= '9'
+	);
 }

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:13:18 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/18 18:23:44 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/19 12:20:43 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,14 @@
 size_t	ft_strlcpy(char **dst, const char *src, size_t dstsize);
 size_t	ft_strlen(const char *str);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
-void	ft_strcpy(char *buf, char *src, int src_len);
+char	*ft_strcpy(char *buf, char *src, int src_len);
 char	*ft_strjoin(char *pre, char *post, t_bool free_pre, t_bool free_post);
 char	*ft_itoa(int nbr);
 int		ft_atoi(const char *str);
+t_bool	ft_is_alpha(char c);
 t_bool	ft_isspace(char c);
+t_bool	char_is_alpha(char c);
+t_bool	char_is_digit(char c);
 char	*take_substr(char *str, char *substr);
 /**
  * @brief this function takes the next word
@@ -59,7 +62,6 @@ void	ft_free(void *ptr);
 
 // * shell utils
 
-void 	ft_add_history(char *command);
 t_bool	asked_for_termination(char	*command);
 void	close_pipe(int pipe_[]);
 

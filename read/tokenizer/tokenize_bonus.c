@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenize.c                                         :+:      :+:    :+:   */
+/*   tokenize_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 18:48:51 by earendil          #+#    #+#             */
-/*   Updated: 2022/06/16 17:28:09 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/19 11:25:22 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "read.h"
+#include "tokenizer.h"
 
-#include "./read_utils/read_utils.h"
-
-/* // ! to DECOMMENT !!!!!!!!!!!!!!!!!!!!!!!!!!
+// ! to DECOMMENT !!!!!!!!!!!!!!!!!!!!!!!!!!
 int	scan_name(char **str, t_op_code	*possible_names);
-/*
 
-/* // ! to DECOMMENT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+// ! to DECOMMENT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 static void	*lexer(void *arg, t_op_code op_code)
 {
 	static char		*__input_string = NULL;
@@ -56,7 +54,7 @@ t_token	*get_cur_token(void)
 }
 */
 
-/*         // ! TO DECOMMENT !!!!!!!!!!!!!!!!!
+// ! TO DECOMMENT !!!!!!!!!!!!!!!!!
 void	scan_next_token(void)
 {
 	char	*cur_str;
@@ -82,30 +80,29 @@ void	scan_next_token(void)
 	if (new_offset == -1)
 		lexer(NULL, e_CLEAN);
 }
-*/
 
-// void	scan_next_token(void)
-// {
-// 	char	*cur_str;
-// 	int		new_offset;
+void	scan_next_token(void)
+{
+	char	*cur_str;
+	int		new_offset;
 
-// 	new_offset = -1;
-// 	cur_str = (char *)lexer(NULL, e_RETURN_CUR_STR);
-// 	if (cur_str[0] == '-')
-// 		new_offset = scan(&cur_str, e_ARG);
-// 	else if (cur_str[0] == '&&' || cur_str[0] == '||'
-// 		|| cur_str[0] == '='
-// 		|| cur_str[0] == '|'
-// 		|| cur_str[0] == '>' || cur_str[0] == '<' || cur_str[0] == '>>'
-// 		|| cur_str[0] == '<<')
-// 		new_offset = scan(&cur_str, e_OPERATOR);
-// 	else if (cur_str[0] == '"' || cur_str[0] == '\'')
-// 		new_offset = scan(&cur_str, e_STRING_LITERAL);
-// 	else
-// 		new_offset = scan(&cur_str, e_IDENTIFIER);
-// 	if (new_offset == -1)
-// 		lexer(NULL, e_CLEAN);
-// }
+	new_offset = -1;
+	cur_str = (char *)lexer(NULL, e_RETURN_CUR_STR);
+	if (cur_str[0] == '-')
+		new_offset = scan(&cur_str, e_ARG);
+	else if (cur_str[0] == '&&' || cur_str[0] == '||'
+		|| cur_str[0] == '='
+		|| cur_str[0] == '|'
+		|| cur_str[0] == '>' || cur_str[0] == '<' || cur_str[0] == '>>'
+		|| cur_str[0] == '<<')
+		new_offset = scan(&cur_str, e_OPERATOR);
+	else if (cur_str[0] == '"' || cur_str[0] == '\'')
+		new_offset = scan(&cur_str, e_STRING_LITERAL);
+	else
+		new_offset = scan(&cur_str, e_IDENTIFIER);
+	if (new_offset == -1)
+		lexer(NULL, e_CLEAN);
+}
 
 int	scan(char **str, t_token_id tok_id)
 {

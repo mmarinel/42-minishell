@@ -6,11 +6,11 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 19:00:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/18 19:38:03 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/19 12:49:27 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../prompt.h"
+#include "prompt_utils.h"
 
 t_bool	here_doc_line(char *command)
 {
@@ -57,4 +57,49 @@ char	*here_doc_take_delimiter(char *command)
 	while (ft_isspace(*start))
 		start++;
 	return (take_next_word(start));
+}
+
+
+/**
+ * @brief this function adds 'command' to the history of commands 
+ * iff it's not an empty string or already present.
+ * 
+ * @param command a quote balanced command string
+ * @return char** the address of the last stored entry in the history.
+ */
+char	**ft_add_history(char *command)
+{
+	static char	*last = NULL;
+	char		*stripped;
+
+	if (command)
+	{
+		stripped = command;
+		if (str_not_empty(stripped)
+			&& (!last || ft_strncmp(command, last, ft_strlen(last)))
+		)
+		{
+			add_history(command);
+			ft_free(last);
+			last = NULL;
+			last = ft_strcpy(last, command, ft_strlen(command));
+		}
+		// free(stripped);
+	}
+		// quote = take_starting_quote(command);
+	// 	if (quote == '\'' || quote == '"')
+	// 	{
+	// 		quote_position = 0;
+	// 		while (command[quote_position] != quote)
+	// 			quote_position++;
+	// 		stripped = string_strip(command, quote);
+	// 		// free(stripped);
+	// 	}
+	// 	else
+	// 		ft_strcpy(stripped, command, ft_strlen(command));
+	// 	if (str_not_empty(stripped))
+	// 			add_history(command);
+	// 	free(stripped);
+	// }
+	return (&last);
 }

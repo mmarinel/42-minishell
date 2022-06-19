@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 16:43:31 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/19 08:02:56 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/19 12:30:53 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "../read.h"
 #include "prompt_utils/prompt_utils.h"
 
+// ! non empty means NO CHAR present except '\0'
+// ! (i.e.: a string full of spaces is not considered empty!)
 /**
  * @brief This function tries to read a line until a non empty-quote balanced 
  * one is entered or ctr + D is hit.
