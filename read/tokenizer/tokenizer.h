@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:53 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/19 13:13:09 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/19 15:27:18 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@
 # include "../read_utils/read_utils.h"
 # include "tok_utils/tok_utils.h"
 
-
 // * user defines TYPES
 
+# ifndef TOK_TYPES
+#  define TOK_TYPES
 typedef enum e_op_code
 {
 	e_RETURN_TOK,
@@ -61,4 +62,5 @@ typedef struct s_var_content
 	char	*val;
 }	t_var_content;
 
+# endif
 #endif
