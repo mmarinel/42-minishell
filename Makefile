@@ -6,7 +6,7 @@
 #    By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/10 12:28:57 by mmarinel          #+#    #+#              #
-#    Updated: 2022/06/19 17:24:50 by mmarinel         ###   ########.fr        #
+#    Updated: 2022/06/19 18:06:59 by mmarinel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,20 +45,22 @@ re_bonus_say: fclean_say bonus_say
 
 ####################### NORMINETTE #########################
 NORM_ERRS = 
-ifeq ($(shell test $(shell norminette -R CheckForbiddenSourceHeader | grep Error: | wc -l) -gt 0; echo $$?), 0)
-		final_msg = "My disappointment is immeasurable and my day is ruined"
+ifndef final_msg
+	ifeq ($(shell test $(shell norminette -R CheckForbiddenSourceHeader | grep Error: | wc -l) -gt 0; echo $$?), 0)
+			final_msg = "My disappointment is immeasurable and my day is ruined"
+			final_msg_voice = Karen
+			norm_fail = $(shell norminette -R CheckForbiddenSourceHeader | grep Error: | wc -l)
+			ifeq (test $(shell norminette -R CheckForbiddenSourceHeader | grep Error: | wc -l) -gt 1; echo $$?, 0)
+				norm_fail += " Norm Errors found!"
+			else
+				norm_fail += " Norm Error found!"
+			endif
+	else
+		final_msg = "Good Job, GG, you are a piece of shit"
 		final_msg_voice = Karen
-		norm_fail = $(shell norminette -R CheckForbiddenSourceHeader | grep Error: | wc -l)
-		ifeq (test $(shell norminette -R CheckForbiddenSourceHeader | grep Error: | wc -l) -gt 1; echo $$?, 0)
-			norm_fail += " Norm Errors found!"
-		else
-			norm_fail += " Norm Error found!"
-		endif
-else
-	final_msg = "Good Job, GG, you are a piece of shit"
-	final_msg_voice = Karen
-	norm_success = $(shell echo "No Norm Errors found!")
-endif 
+		norm_success = $(shell echo "No Norm Errors found!")
+	endif 
+endif
 
 
 ####################### CORE #######################################
@@ -82,15 +84,16 @@ endif
 n:
 	@printf "checking the norm...\n\n"
 	@echo "\033[0;33m"
-	@for LINE in $$(find . -name "*.[c,h]" -print); do \
+	@LINE_SET=$$(find . -name "*.[c,h]" -print); \
+	for LINE in $$LINE_SET; do \
 		if [$$(norminette -R CheckForbiddenSourceHeader $$LINE | grep Error! | wc -l) -ge 1 ]; then \
 			echo "\033[31mNorm Error in $$LINE !"; \
 			echo "\033[0;33m"; \
 			norminette $$LINE; \
 			echo "\n"; \
 		fi \
-	done;
-	@for LINE in $$(find . -name "*.[c,h]" -print); do \
+	done; \
+	for LINE in $$LINE_SET; do \
 		if [$$(cat $$LINE | grep '//' | wc -l) -ge 1 ]; then \
 			echo "\033[0;35mYour code has comments \033[0;38m(human check is always needed!)"; \
 			echo "\n"; \
