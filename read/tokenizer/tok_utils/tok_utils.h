@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 13:04:29 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/19 15:27:45 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/19 18:38:51 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,6 @@ void	*lexer_token_handling(void *arg, t_token **cur_token,
 			t_op_code op_code);
 
 char	*scan_var_name(char *cursor);
+char	*scan_var_value(char *cursor);
 
 #endif

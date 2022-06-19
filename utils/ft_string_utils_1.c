@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:54:58 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/19 12:42:05 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/19 18:21:41 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,17 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
-char	*ft_strcpy(char *buf, char *src, int src_len)
+char	*ft_strcpy(char *buf, char *src, int copy_len)
 {
 	int	i;
 
 	if (!buf)
 	{
-		buf = (char *) malloc((src_len + 1) * sizeof(char));
-		buf[src_len] = '\0';
+		buf = (char *) malloc((copy_len + 1) * sizeof(char));
+		buf[copy_len] = '\0';
 	}
 	i = 0;
-	while (i < src_len)
+	while (i < copy_len)
 	{
 		buf[i] = src[i];
 		i++;

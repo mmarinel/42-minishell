@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/19 15:20:20 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/19 18:37:55 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,51 @@
 
 char	*scan_var_name(char *cursor)
 {
+	char	*name;
+	char	*name_cursor;
+	size_t	name_len;
+
 	if (e_false == ft_is_alpha(*cursor) && *cursor != '_')
 		return (NULL);
-	cursor++;
-	while (*cursor
-		&& (char_is_alpha(*cursor)
-			|| char_is_digit(*cursor)
-			|| *cursor == '_')
+	name_cursor = cursor + 1;
+	while (*name_cursor
+		&& (char_is_alpha(*name_cursor)
+			|| char_is_digit(*name_cursor)
+			|| *name_cursor == '_')
 		)
-		cursor++;
-	return (cursor);
+		name_cursor++;
+	if (e_false == bash_control_character(*name_cursor)
+		&& *name_cursor != '=')
+		return (NULL);
+	name_len = ft_strlen(cursor) - ft_strlen(name_cursor);
+	name = (char *) malloc((name_len + 1) * sizeof(char));
+	name[name_len] = '\0';
+	ft_strcpy(name, cursor, name_len);
+	return (name);
+}
+
+char	*scan_var_value(char *cursor)
+{
+	char	*value;
+	char	*value_cursor;
+	size_t	value_len;
+
+	value_cursor = cursor;
+	if (*value_cursor != "=")
+		return (NULL);
+	while (*value_cursor)
+	{
+		if (e_true == bash_control_character(*value_cursor))
+			break ;
+		value_cursor++;
+	}
+	if (value_cursor == cursor)
+		return (NULL);
+	value_len = ft_strlen(cursor) - ft_strlen(value_cursor);
+	value = (char *) malloc((value_len + 1) * sizeof(char));
+	value[value_len] = '\0';
+	ft_strcpy(value, cursor, value_len);
+	return (value);
 }
 
 void	*lexer_input_handling(void *arg, char **input_string_ref,

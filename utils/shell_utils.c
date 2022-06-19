@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 09:27:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/19 12:19:38 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/19 18:16:37 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,13 @@ void	close_pipe(int pipe_[])
 {
 	close(pipe_[0]);
 	close(pipe_[1]);
+}
+
+t_bool	bash_control_character(char c)
+{
+	return (
+		c == '|' || c == '&' || c == '<' || c == '>' || c == '(' || c == ')'
+		|| c == '$' || c == '`' || c == '\\' || c == '"' || c == '\''
+		|| ft_isspace(c)
+	);
 }
