@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/19 19:54:05 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/19 22:32:41 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,18 @@ char	*scan_var_value(char *cursor, char **value)
 	if (*value_cursor != "=")
 		return (NULL);
 	value_cursor++;
-	while (*value_cursor)
+	if (*value_cursor == '"' || *value_cursor == '\'')
+		return (ft_substr(value_cursor + 1, *value_cursor));
+	value_len = 0;
+	while (value_cursor[value_len])
 	{
-		if (e_true == bash_control_character(*value_cursor))
-			break ;
-		value_cursor++;
+		if (e_true == bash_control_character(value_cursor[value_len]))
+				break ;
+		value_len++;
 	}
-	if (value_cursor == cursor + 1)
+	if (value_len == 0)
 		return (NULL);
-	value_len = ft_strlen(cursor) - ft_strlen(value_cursor);
+	// value_len = ft_strlen(cursor) - ft_strlen(value_cursor);
 	(*value) = (char *) malloc((value_len + 1) * sizeof(char));
 	(*value)[value_len] = '\0';
 	ft_strcpy((*value), cursor, value_len);

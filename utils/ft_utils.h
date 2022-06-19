@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:13:18 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/19 18:21:19 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/19 22:25:36 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ t_bool	ft_is_alpha(char c);
 t_bool	ft_isspace(char c);
 t_bool	char_is_alpha(char c);
 t_bool	char_is_digit(char c);
+//char	*ft_multi_substr(char *str, char *delimiters);
+char	*ft_substr(char *str, char delimiter);
 char	*take_substr(char *str, char *substr);
 /**
  * @brief this function takes the next word

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 20:36:08 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/19 21:13:03 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/19 21:53:30 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_token	*scan_var_set_cursor(char *str, char **cursor, t_token_id var_type)
 	token->token_id = e_NONE;
 	token->token_val = (t_var_content *) malloc(sizeof(t_var_content));
 	((t_var_content *)(token->token_val))->name = var_name;
+	take_starting_quote(str);
 	((t_var_content *)(token->token_val))->val
 		= string_strip(
 			string_strip(var_value, '"', e_true),
