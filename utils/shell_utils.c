@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 09:27:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/18 16:08:42 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/19 10:33:21 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	close_pipe(int pipe_[])
 	close(pipe_[1]);
 }
 
+// TODO :-> Avoid Adding Duplicate Lines !
 void ft_add_history(char *command)
 {
 	// char	quote;
@@ -44,7 +45,7 @@ void ft_add_history(char *command)
 		// stripped = string_strip(command, '"', e_false);
 		// stripped = string_strip(stripped, '\'', e_true);
 		stripped = command;
-		if (str_not_empty(stripped))
+		if (str_not_empty(stripped)) // && -1 == history_search_pos(command, -1, where_history())
 			add_history(command);
 		// free(stripped);
 	}
