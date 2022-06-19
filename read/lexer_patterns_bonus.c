@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_bonus.h                                      :+:      :+:    :+:   */
+/*   lexer_patterns.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/16 21:33:41 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/03/19 16:24:25 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/06/19 08:53:18 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_BONUS_H
-# define PIPEX_BONUS_H
+#include "read.h"
 
-# include "../children/px_children.h"
-# include "../utils/px_utils.h"
-# include "../px_errors.h"
-# include "../px_types.h"
-# include "../get_next_line/px_get_next_line_bonus.h"
+int	scan_arg(char **str)
+{
+}
 
-void	px_pipex_bonus(int pids, t_cmd *current,
-			char *const envp[], t_boolean append);
-void	px_lstclear(t_cmd **lst, void (*del)(void *));
+int	scan_name(char **str, t_op_code	*possible_names)
+{
+	int	new_offset;
 
-#endif
+	if (*possible_names == e_NONE)
+		return (-1);
+	new_offset = scan(&str, *possible_names);
+	if (new_offset == -1)
+		return (scan_name(str, possible_names + 1));
+	else
+		return (new_offset);
+}
