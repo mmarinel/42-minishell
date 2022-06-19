@@ -6,7 +6,7 @@
 #    By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/10 12:28:57 by mmarinel          #+#    #+#              #
-#    Updated: 2022/05/28 16:31:17 by mmarinel         ###   ########.fr        #
+#    Updated: 2022/06/19 08:36:28 by mmarinel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,22 +19,6 @@ CFLAGS = -I -Wall -Werror -Wextra -pthread -fsanitize=address -static-libsan -g
 MANDATORY_OBJS = $(shell find . -name "*.c" -print | grep -v bonus.c | sed 's/\.c/\.o/g')
 BONUS_OBJS = $(shell find . -name "*.c" -print | grep -v mand | sed 's/\.c/\.o/g')
 
-
-####################### NORMINETTE #########################
-$(shell
-	NORM_ERRS=$(norminette -R CheckForbiddenSourceHeader | grep Error: | wc -l);
-	ifeq (test $NORM_ERRS -gt 1; echo $$?, 0) 
-			norm_fail = $(shell echo $NORM_ERRS "Norm Errors found!")
-	else ifeq (test $NORM_ERRS -gt 0; echo $$?, 0)
-		norm_fail = $(shell echo $NORM_ERRS "Norm Error found!")
-		final_msg = "My disappointment is immeasurable and my day is ruined"
-		final_msg_voice = Karen
-	else
-		norm_success = $(shell echo "No Norm Errors found!")
-		final_msg = "Good Job, GG, you are a piece of shit"
-		final_msg_voice = Karen
-	endif
-)
 
 ####################### Unvoiced Makes #########################
 all:
@@ -57,6 +41,23 @@ fclean_say: fcl
 re_say: fclean_say say
 re_bonus_say: fclean_say bonus_say
 
+
+####################### NORMINETTE #########################
+$(shell
+	NORM_ERRS=$(norminette -R CheckForbiddenSourceHeader | grep Error: | wc -l);
+	ifeq (test $NORM_ERRS -gt 0; echo $$?, 0)
+		final_msg = "My disappointment is immeasurable and my day is ruined"
+		final_msg_voice = Karen
+		ifeq (test $NORM_ERRS -gt 1; echo $$?, 0) 
+			norm_fail = $(shell echo $NORM_ERRS "Norm Errors found!")
+		else ifeq (test $NORM_ERRS -gt 0; echo $$?, 0)
+			norm_fail = $(shell echo $NORM_ERRS "Norm Error found!")
+	else
+		final_msg = "Good Job, GG, you are a piece of shit"
+		final_msg_voice = Karen
+		norm_success = $(shell echo "No Norm Errors found!")
+	endif
+)
 
 
 ####################### CORE #######################################

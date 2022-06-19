@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:34:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/18 19:41:03 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/19 08:02:00 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@ static char		*get_decorated_cwd(char *cwd);
 // ! so a new line is actually EOF (\0)
 /**
  * @brief This function tries to read a line until a non empty-quote balanced 
- * one is entered or ctr + D is hit
+ * one is entered or ctr + D is hit.
+ * Here_Doc is managed too.
  * 
  * @param prompt the prompt to be displayed with the readline library function.
- * @param free_prompt true if prompt needs to be freed after use
+ * @param free_prompt true iff prompt needs to be freed after use
  * @return char* the next line read
+ * (except here_doc content which is put in a hidden file for later use)
  */
 char	*ft_readline(char *prompt, t_bool free_prompt)
 {
