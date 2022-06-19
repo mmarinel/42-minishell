@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/19 11:27:01 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/19 13:07:17 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,9 @@ t_token	*scan_shell_var(char *str)
 	size_t	scanned_len;
 	int		i;
 
-	cursor = str;
-	if (e_false == ft_is_alpha(*cursor) && *cursor != '_')
+	cursor = scan_var_name(str);
+	if (!cursor)
 		return (NULL);
-	cursor++;
-	while (*cursor
-		&& (char_is_alpha(*cursor)
-			|| char_is_digit(*cursor)
-			|| *cursor == '_')
-		)
-		cursor++;
 	scanned_len = ft_strlen(str) - ft_strlen(cursor);
 	scanned = (char *) malloc(sizeof(char) * scanned_len);
 	i = -1;

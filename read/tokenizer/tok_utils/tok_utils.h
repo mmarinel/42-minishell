@@ -1,13 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tok_utils_bonus.c                                  :+:      :+:    :+:   */
+/*   tok_utils.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/19 11:23:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/19 11:25:29 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/06/19 13:04:29 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/06/19 13:06:56 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenizer.h"
+#ifndef TOK_UTILS_H
+# define TOK_UTILS_H
+
+#include "../tokenizer.h"
+
+char	*scan_var_name(char *cursor);
+
+#endif
