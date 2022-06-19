@@ -6,13 +6,13 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 20:36:08 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/19 20:57:28 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/19 21:13:03 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tok_utils.h"
 
-t_token	*scan_var_set_cursor(char *str, char **cursor)
+t_token	*scan_var_set_cursor(char *str, char **cursor, t_token_id var_type)
 {
 	char	*var_name;
 	char	*var_value;
@@ -21,15 +21,21 @@ t_token	*scan_var_set_cursor(char *str, char **cursor)
 	var_name = NULL;
 	var_value = NULL;
 	(*cursor) = scan_var_name(str, &var_name);
-	if (!(*cursor))
+	if (!(*cursor)
+		|| (var_type == e_SHELL_VAR_NAME && *(*cursor) != "="))
+	{
+		ft_free(var_name);
 		return (NULL);
-	if (*(*cursor) == "=")
-		(*cursor) = scan_var_value((*cursor), &var_value);
+	}
+	(*cursor) = scan_var_value((*cursor), &var_value);
 	token = (t_token *) malloc(sizeof(t_token));
 	token->token_id = e_NONE;
 	token->token_val = (t_var_content *) malloc(sizeof(t_var_content));
 	((t_var_content *)(token->token_val))->name = var_name;
-	((t_var_content *)(token->token_val))->val = var_value;
+	((t_var_content *)(token->token_val))->val
+		= string_strip(
+			string_strip(var_value, '"', e_true),
+			'\'', e_true);
 	return (token);
 }
 
@@ -42,7 +48,7 @@ int	scan_var(char *str, t_token_id var_type)
 	if (!str || !(*str))
 		return (-1);
 	cursor = str;
-	token = scan_var_set_cursor(str, &cursor);
+	token = scan_var_set_cursor(str, &cursor, var_type);
 	if (!token)
 		return (-1);
 	token->token_id = var_type;
