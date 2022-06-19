@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 19:00:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/19 12:49:27 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/19 22:36:35 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,10 @@ char	*here_doc_take_delimiter(char *command)
 char	**ft_add_history(char *command)
 {
 	static char	*last = NULL;
-	char		*stripped;
 
 	if (command)
 	{
-		stripped = command;
-		if (str_not_empty(stripped)
+		if (str_not_empty(command)
 			&& (!last || ft_strncmp(command, last, ft_strlen(last)))
 		)
 		{
@@ -84,22 +82,6 @@ char	**ft_add_history(char *command)
 			last = NULL;
 			last = ft_strcpy(last, command, ft_strlen(command));
 		}
-		// free(stripped);
 	}
-		// quote = take_starting_quote(command);
-	// 	if (quote == '\'' || quote == '"')
-	// 	{
-	// 		quote_position = 0;
-	// 		while (command[quote_position] != quote)
-	// 			quote_position++;
-	// 		stripped = string_strip(command, quote);
-	// 		// free(stripped);
-	// 	}
-	// 	else
-	// 		ft_strcpy(stripped, command, ft_strlen(command));
-	// 	if (str_not_empty(stripped))
-	// 			add_history(command);
-	// 	free(stripped);
-	// }
 	return (&last);
 }
