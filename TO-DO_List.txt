@@ -1,0 +1,6 @@
+
+1. asked_for_termination :-> gestire comando exit come tutti gli altri comandi e darlo in pasto allo executor solo quando la stringa letta con readline e' sintatticamente corretta.
+
+2. gestir unclosed &, |, (  oltre alle unclosed quotes
+
+3.
