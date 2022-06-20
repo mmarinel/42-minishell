@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 09:27:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/20 12:22:56 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/20 13:45:53 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_bool	asked_for_termination(char	*command)
 	return (e_false);
 }
 
+// ! Questa cosa meglio spostarla nell'executor !!!!!!!!!
 // TODO :-> put error nel prompt quando is exit = false
 // TODO ma la stringa contiene exit
 static t_bool	is_exit(char *command)

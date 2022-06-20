@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:34:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/19 20:09:31 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/20 13:43:21 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static char		*get_decorated_cwd(char *cwd);
 
+//									perche gli altri non devono essere gestiti
+// TODO :-> fare line completion anche con {`, &, pipe, (, \} --> {&, pipe, (}
 // * alert 1
 // ! readline library function always takes terminating '\n' off,
 // ! so a new line is actually EOF (\0)
