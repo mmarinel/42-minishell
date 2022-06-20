@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 18:16:45 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/19 22:19:16 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/20 10:04:09 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,17 @@ char	*ft_substr(char *str, char delimiter)
 		return (NULL);
 	substr = ft_strcpy(substr, str, len_substr);
 	return (substr);
+}
+
+char	*str_strip_spaces(char *str)
+{
+	char	*stripped;
+
+	stripped =  string_strip(str, ' ', e_false);
+	stripped =  string_strip(stripped, '\t', e_true);
+	stripped =  string_strip(stripped, '\n', e_true);
+	stripped =  string_strip(stripped, '\v', e_true);
+	stripped =  string_strip(stripped, '\f', e_true);
+	stripped =  string_strip(stripped, '\r', e_true);
+	return (stripped);
 }

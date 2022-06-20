@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:13:18 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/19 22:25:36 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/20 10:06:08 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ char	*take_next_word(char *str);
  */
 t_bool	ft_quote_occurrence_balanced(char *str);
 char	take_starting_quote(char *str);
+char	*str_strip_spaces(char *str);
 char	*string_strip(char *str, char c, t_bool free_input);
 int		str_number_occurrences(char *str, char c);
 t_bool	str_not_empty(char *str);
