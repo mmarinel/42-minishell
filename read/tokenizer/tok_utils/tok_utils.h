@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 13:04:29 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/20 12:11:38 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/20 15:24:34 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef enum e_op_code
 typedef enum e_token_id
 {
 	e_ARG,
+	e_OPT,
 	e_EXPORT,
 	e_ENV_VAR_NAME,
 	e_SHELL_VAR_NAME,

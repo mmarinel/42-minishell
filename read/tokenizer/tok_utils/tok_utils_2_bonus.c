@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 20:36:08 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/20 11:59:24 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/20 14:43:08 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,10 @@ t_token	*scan_var_set_cursor(char *str, char **cursor, t_token_id var_type)
 	token->token_id = e_NONE;
 	token->token_val = (t_var_content *) malloc(sizeof(t_var_content));
 	((t_var_content *)(token->token_val))->name = var_name;
-	take_starting_quote(str);
-	((t_var_content *)(token->token_val))->val
-		= string_strip(
+	((t_var_content *)(token->token_val))->val = var_value;
+	/*	= string_strip(
 			string_strip(var_value, '"', e_true),
-			'\'', e_true);
+			'\'', e_true); */
 	return (token);
 }
 
@@ -82,6 +81,30 @@ int	scan_alternate_invariant_spaces_quotes(char *str)
 		if (str[idx] != '"' && str[idx] != '\''
 			&& e_false == ft_isspace(str[idx]))
 			break ;
+	}
+	return (idx);
+}
+
+int	scan_spaces(char *str)
+{
+	int	idx;
+
+	idx = 0;
+	while (e_true == ft_isspace(str[idx]))
+		idx++;
+	return (idx);
+}
+
+int	scan_invariant_quotes(char *str)
+{
+	int	idx;
+
+	idx = 0;
+	while (str[idx] == '"' || str[idx] == '\'')
+	{
+		if (str[idx + 1] != str[idx])
+			break ;
+		idx += 2;
 	}
 	return (idx);
 }
