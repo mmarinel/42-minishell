@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 13:04:29 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/19 21:05:31 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/20 12:11:38 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,9 @@ int		scan_var(char *str, t_token_id var_type);
 t_token	*scan_var_set_cursor(char *str, char **cursor, t_token_id var_type);
 char	*scan_var_name(char *cursor, char **name);
 char	*scan_var_value(char *cursor, char **value);
+
+int	scan_spaces(char *str);
+int	scan_invariant_quotes(char *str);
+int	scan_alternate_invariant_spaces_quotes(char *str);
 
 #endif

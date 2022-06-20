@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 18:48:51 by earendil          #+#    #+#             */
-/*   Updated: 2022/06/19 19:56:03 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/20 11:28:31 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	scan_next_token(void)
 				(t_op_code *){e_VAR_NAME, e_USR_PROGRAM, e_FILENAME, e_NONE});
 	if (new_offset == -1)
 		lexer(NULL, e_CLEAN);
+	else
+		lexer(new_offset, e_ADVANCE_STR);
 }
 
 void	scan_next_token(void)

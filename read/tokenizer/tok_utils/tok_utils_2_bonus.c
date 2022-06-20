@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tok_utils_bonus_2.c                                :+:      :+:    :+:   */
+/*   tok_utils_2_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 20:36:08 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/19 21:53:30 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/20 11:59:24 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,32 @@ int	scan_var(char *str, t_token_id var_type)
 	new_offset = ft_strlen(str) - ft_strlen(cursor); // + 1;
 	lexer(token, e_STORE_NXT_TOK);
 	return (new_offset);
+}
+
+int	scan_alternate_invariant_spaces_quotes(char *str)
+{
+	int	idx;
+
+	idx = 0;
+	while (str[idx])
+	{
+		// READING ALL INVARIANT QUOTES
+		while (str[idx] == '"' || str[idx] == '\'')
+		{
+			if (str[idx + 1] != str[idx])
+				break ;
+			idx += 2;
+		}
+		// READING ALL FINAL SPACES
+		while (str[idx])
+		{
+			if (e_false == ft_isspace(str[idx]))
+				break ;
+			idx++;
+		}
+		if (str[idx] != '"' && str[idx] != '\''
+			&& e_false == ft_isspace(str[idx]))
+			break ;
+	}
+	return (idx);
 }
