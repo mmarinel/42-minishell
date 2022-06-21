@@ -8,4 +8,5 @@
    Non c'entra nemmeno il fatto che prima faccio l'expander e poi l'executor (in cui appunto, non esistendo ancora la variabile che sto definendo ora, sostituisco tutte le sue 
    occorrenze con _empty_ e quando vado a fare l'esecutor aggiungo la variabile all'ambiente ma tutti gli argomenti che la referenziavano hanno gia avuto la sostituzione) non c'entra appunto perche con && me la stampa comunque!
 
+4. Aggiungere Funzione contains_unquoted_illegal_character(line) nel prompt (meglio nello entry point del parser) per dare errore di parsing quando incontri ;, \, etc.
 
