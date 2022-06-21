@@ -3,4 +3,9 @@
 
 2. gestir unclosed &, |, (  oltre alle unclosed quotes
 
-3.
+3. indagare il caso env vars. Quando faccio export var=55 && echo $var var viene displayata, quando lo faccio con '||' o '|' invece no.
+   
+   Non c'entra nemmeno il fatto che prima faccio l'expander e poi l'executor (in cui appunto, non esistendo ancora la variabile che sto definendo ora, sostituisco tutte le sue 
+   occorrenze con _empty_ e quando vado a fare l'esecutor aggiungo la variabile all'ambiente ma tutti gli argomenti che la referenziavano hanno gia avuto la sostituzione) non c'entra appunto perche con && me la stampa comunque!
+
+

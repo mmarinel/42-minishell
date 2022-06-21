@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 13:04:29 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/20 15:24:34 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/21 09:51:04 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef enum e_op_code
 
 typedef enum e_token_id
 {
+	e_IN_FILE,
+	e_OUT_FILE,
 	e_ARG,
 	e_OPT,
 	e_EXPORT,
@@ -60,6 +62,7 @@ typedef struct s_var_content
 	char	*name;
 	char	*val;
 }	t_var_content;
+
 # endif
 
 // * user defined functions

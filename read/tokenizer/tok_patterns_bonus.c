@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/20 15:33:24 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/21 10:15:44 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,59 @@ int	scan_option(char *str)
 	token->token_val = opt;
 	lexer(token, e_STORE_NXT_TOK);
 	return (len_opt);
+}
+
+int	scan_inout_file(char *str, t_token_id in_out_)
+{
+	t_token	*token;
+	size_t	len_file_name;
+
+	if (*str != '<')
+		return (-1);
+	// REMOVING SPACES
+	str += scan_spaces(str);
+	if (!(*str))
+		return (-1);
+	// TAKING FILE NAME
+	len_file_name = 0;
+	while (e_false == bash_control_character(str[len_file_name])
+		&& str[len_file_name])
+		len_file_name++;
+	if (len_file_name == 0)
+		return (-1);
+	// TOKEN RECOGNIZED !
+	token = (t_token *) malloc(sizeof(t_token));
+	token->token_id = in_out_;
+	token->token_val = ft_strcpy(NULL, str, len_file_name);
+	lexer(token, e_STORE_NXT_TOK);
+	return (len_file_name);
+}
+
+/**
+ * @brief ASF to recognize &&, ||, | only
+ * 
+ * @param str 
+ * @return int 
+ */
+int	scan_operator(char *str)
+{
+	t_token	*token;
+
+	if (!str)
+		return (-1);
+	str = scan_spaces(str);
+	if (*str = '|' || *str != '&')
+		return (-1);
+	if (*str == '&' && *(str + 1) != '&')
+		return (-1);
+	token = (t_token *) malloc(sizeof(t_token));
+	token->token_id = e_OPERATOR;
+	if (*str == '&')
+		token->token_val = "&&";
+	if (*str == '|' && *str != '|')
+		token->token_val = "|";
+	else
+		token->token_val = "||";
+	lexer(token, e_STORE_NXT_TOK);
+	return (ft_strlen((char *)token->token_val));
 }
