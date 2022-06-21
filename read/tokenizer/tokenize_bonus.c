@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 18:48:51 by earendil          #+#    #+#             */
-/*   Updated: 2022/06/20 11:28:31 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/21 13:26:54 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,22 @@ t_token	*get_cur_token(void)
 	return (lexer(NULL, e_RETURN_TOK));
 }
 
+
+void	tokenize(char	*str)
+{
+	size_t	offset;
+
+	offset = 0;
+	while (*str)
+	{
+		str += scan_in_out_file_toks(str);
+		str += scan_command(str); // TODO:-> contains str += scan_cmd_continuation(str); while loop scanning in_out files and then cmd arg until there are no more cmd_args
+								// TODO: scan_command checks variable assignments (i.e.: while loop scanning variable and then in_out file) then scans cmd name, then in_out file and then cmd args (uP)
+		str += scan_in_out_file_toks(str);
+		str += scan_operator(str);
+
+	}
+}
 
 // ! TO DECOMMENT !!!!!!!!!!!!!!!!!
 void	scan_next_token(void)

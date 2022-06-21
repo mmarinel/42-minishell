@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 13:04:29 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/21 11:58:50 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/21 12:42:28 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ typedef enum e_token_id
 
 typedef struct s_token
 {
-	t_token_id	token_id;
-	void		*token_val;
+	t_token_id		token_id;
+	void			*token_val;
+	struct s_token	*next;
 }	t_token;
 
 typedef struct s_var_content

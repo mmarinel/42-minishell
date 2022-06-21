@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/21 12:21:35 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/21 12:49:03 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,18 @@ int	scan_env_var(char *str)
 	return ((ft_strlen(str) - ft_strlen(cursor)) + scan_var(cursor + 6, e_ENV_VAR_NAME));
 }
 
-int	scan_inout_file(char *str, t_token_id in_out_)
+int	scan_inout_file(char *str)
 {
-	t_token	*token;
-	size_t	len_file_name;
-	char	*cursor;
+	t_token		*token;
+	t_token_id	in_out_;
+	size_t		len_file_name;
+	char		*cursor;
 
-	if (*str != '<')
+	if (*str == '<')
+		in_out_ = e_IN_FILE;
+	else if (*str == '>')
+		in_out_ = e_OUT_FILE;
+	else
 		return (-1);
 	// REMOVING SPACES
 	cursor = str;

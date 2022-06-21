@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:53 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/20 15:30:44 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/21 12:54:25 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,15 @@ typedef struct s_var_content
 
 # endif
 
-int	scan_shell_var(char *str);
+// * patterns
+
+int	scan_env_var(char *str);
+int	scan_inout_file(char *str);
+int	scan_operator(char *str);
+int	scan_cmd_name(char *str);
+int	scan_cmd_arg(char *str);
+int	scan_parenthesis(char *str);
+
+// int	scan_shell_var(char *str);
 
 #endif
