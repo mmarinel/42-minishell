@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:53 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/21 12:54:25 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/21 16:13:10 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,35 +33,30 @@ typedef enum e_op_code
 
 typedef enum e_token_id
 {
-	e_ARG,
-	e_OPT,
-	e_EXPORT,
-	e_ENV_VAR_NAME,
-	e_SHELL_VAR_NAME,
-	e_FILENAME,
-	e_USR_PROGRAM,
-	e_DOUBLE_QUOTE,
-	e_SINGLE_QUOTE,
-	e_PARENTHESIS,
+	e_CMD_NAME,
+	e_CMD_ARG,
+	e_IN_FILE,
+	e_OUT_FILE,
 	e_OPERATOR,
-	e_REDIRECT,
-	e_LOGICAL,
-	e_ASSIGN,
-	e_PIPE,
+	e_ENV_VAR_ASSIGN,
+	e_SHELL_VAR_NAME,
+	e_PARENTHESIS,
 	e_NONE
 }	t_token_id;
 
 typedef struct s_token
 {
-	t_token_id	token_id;
-	void		*token_val;
+	t_token_id		token_id;
+	void			*token_val;
+	struct s_token	*next;
 }	t_token;
 
-typedef struct s_var_content
+typedef struct s_var_ass_content
 {
-	char	*name;
-	char	*val;
-}	t_var_content;
+	char				*name;
+	char				*val;
+	t_var_ass_content	*next;
+}	t_var_ass_content;
 
 # endif
 

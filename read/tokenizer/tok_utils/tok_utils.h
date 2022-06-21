@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 13:04:29 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/21 12:42:28 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/21 16:09:37 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef enum e_token_id
 	e_IN_FILE,
 	e_OUT_FILE,
 	e_OPERATOR,
-	e_ENV_VAR_NAME,
+	e_ENV_VAR_ASSIGN,
 	e_SHELL_VAR_NAME,
 	e_PARENTHESIS,
 	e_NONE
@@ -49,11 +49,12 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-typedef struct s_var_content
+typedef struct s_var_ass_content
 {
-	char	*name;
-	char	*val;
-}	t_var_content;
+	char				*name;
+	char				*val;
+	t_var_ass_content	*next;
+}	t_var_ass_content;
 
 # endif
 

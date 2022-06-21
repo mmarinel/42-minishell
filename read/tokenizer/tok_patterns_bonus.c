@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/21 12:49:03 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/21 16:02:27 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	scan_env_var(char *str)
 	cursor += scan_invariant_quotes(cursor);
 	if (!cursor || ft_strncmp(cursor, "export", 6 * sizeof(char)))
 		return (-1);
-	return ((ft_strlen(str) - ft_strlen(cursor)) + scan_var(cursor + 6, e_ENV_VAR_NAME));
+	return ((ft_strlen(str) - ft_strlen(cursor)) + scan_var(cursor + 6, e_ENV_VAR_ASSIGN));
 }
 
 int	scan_inout_file(char *str)
