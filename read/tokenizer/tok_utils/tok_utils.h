@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 13:04:29 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/21 11:14:10 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/21 11:58:50 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,25 +31,14 @@ typedef enum e_op_code
 
 typedef enum e_token_id
 {
-	e_IN_FILE,
-	e_OUT_FILE,
 	e_CMD_NAME,
 	e_CMD_ARG,
-	e_ARG,
-	e_OPT,
-	e_EXPORT,
+	e_IN_FILE,
+	e_OUT_FILE,
+	e_OPERATOR,
 	e_ENV_VAR_NAME,
 	e_SHELL_VAR_NAME,
-	e_FILENAME,
-	e_USR_PROGRAM,
-	e_DOUBLE_QUOTE,
-	e_SINGLE_QUOTE,
 	e_PARENTHESIS,
-	e_OPERATOR,
-	e_REDIRECT,
-	e_LOGICAL,
-	e_ASSIGN,
-	e_PIPE,
 	e_NONE
 }	t_token_id;
 
