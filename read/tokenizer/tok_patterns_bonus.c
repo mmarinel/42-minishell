@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/21 10:15:44 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/21 11:14:16 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,4 +129,45 @@ int	scan_operator(char *str)
 		token->token_val = "||";
 	lexer(token, e_STORE_NXT_TOK);
 	return (ft_strlen((char *)token->token_val));
+}
+
+int	scan_cmd_name(char *str)
+{
+	t_token	*token;
+	int		len_cmd_name;
+
+	str += scan_spaces(str);
+	if (!(*str))
+		return (-1);
+	len_cmd_name = 0;
+	while (e_false == ft_isspace(str[len_cmd_name])
+		&& e_false == bash_control_character(str[len_cmd_name]))
+		len_cmd_name++;
+	if (len_cmd_name == 0)
+		return (-1);
+	token = (t_token *) malloc(sizeof(t_token));
+	token->token_id = e_CMD_NAME;
+	token->token_val = ft_strcpy(NULL, str, len_cmd_name);
+	lexer(token, e_STORE_NXT_TOK);
+	return (len_cmd_name);
+}
+
+int	scan_cmd_arg(char *str)
+{
+	t_token	*token;
+	int		len_cmd_name;
+
+	str += scan_spaces(str);
+	if (!(*str))
+		return (-1);
+	len_cmd_name = 0;
+	while (e_false == bash_control_character(str[len_cmd_name]))
+		len_cmd_name++;
+	if (len_cmd_name == 0)
+		return (-1);
+	token = (t_token *) malloc(sizeof(t_token));
+	token->token_id = e_CMD_ARG;
+	token->token_val = ft_strcpy(NULL, str, len_cmd_name);
+	lexer(token, e_STORE_NXT_TOK);
+	return (len_cmd_name);
 }
