@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 18:48:51 by earendil          #+#    #+#             */
-/*   Updated: 2022/06/22 09:47:32 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/22 10:24:31 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,104 +40,54 @@ void	*tokenizer(char *command_line, t_op_code op_code)
 			next_token = next_token->next;
 	}
 	if (op_code == e_GO_BACK)
-		next_token = next_token->prev;
+	{
+		if (!next_token)
+			next_token = tokens;
+		else
+			next_token = next_token->prev;
+	}
+	if (op_code == e_CLEAN)
+		free_tok_list(tokens);
 	return (next_token);
 }
 
-// ! to DECOMMENT !!!!!!!!!!!!!!!!!!!!!!!!!!
-int	scan_name(char **str, t_op_code	*possible_names);
-
-void	tokenizer_feed_input(char **input_str_ref)
+void	tokenizer_feed_input(char *command_line)
 {
-	if (input_str_ref == NULL)
+	if (command_line == NULL)
 		return ;
-	lexer(NULL, e_CLEAN);
-	lexer(input_str_ref, e_STORE_STR);
+	tokenizer(NULL, e_CLEAN);
+	tokenizer(command_line, e_READ_INPUT);
 }
 
-t_token	*get_cur_token(void)
+t_token	*next_token(void)
 {
-	return (lexer(NULL, e_RETURN_TOK));
+	return (tokenizer(NULL, e_NEXT_TOKEN));
 }
 
+void	tok_go_back(void)
+{
+	tokenizer(NULL, e_GO_BACK);
+}
 
 void	tokenize(char	*str)
 {
 	size_t	offset;
+	t_token	*tokens;
 
 	offset = 0;
 	while (*str)
 	{
+		str += scan_parenthesis(str);
 		str += scan_in_out_file_toks(str);
-		str += scan_command(str); // TODO:-> contains str += scan_cmd_continuation(str); while loop scanning in_out files and then cmd arg until there are no more cmd_args
-								// TODO: scan_command checks variable assignments (i.e.: while loop scanning variable and then in_out file) then scans cmd name, then in_out file and then cmd args (uP)
+		str += scan_var(str);
 		str += scan_in_out_file_toks(str);
+		str += scan_cmd_name(str);
+		str += scan_in_out_file_toks(str);
+		str += scan_cmd_arg(str);
+		str += scan_in_out_file_toks(str);
+		str += scan_parenthesis(str);
 		str += scan_operator(str);
-
 	}
-}
-
-// ! TO DECOMMENT !!!!!!!!!!!!!!!!!
-void	scan_next_token(void)
-{
-	char	*cur_str;
-	int		new_offset;
-
-	new_offset = -1;
-	cur_str = (char *)lexer(NULL, e_RETURN_CUR_STR);
-	if (cur_str[0] == '&' || cur_str[0] == '|'
-		|| cur_str[0] == '='
-		|| cur_str[0] == '>' || cur_str[0] == '<')
-		new_offset = scan(&cur_str, e_OPERATOR);
-	else if (cur_str[0] == '"')
-		new_offset = scan(&cur_str, e_DOUBLE_QUOTE);
-	else if (cur_str[0] == '\'')
-		new_offset = scan(&cur_str, e_SINGLE_QUOTE);
-	else if (cur_str[0] == '-')
-		new_offset = scan(&cur_str, e_ARG);
-	else if (cur_str[0] == e_EXPORT)
-		new_offset = scan(&cur_str, e_EXPORT);
-	else
-		new_offset = scan_name(&cur_str,
-				(t_op_code *){e_VAR_NAME, e_USR_PROGRAM, e_FILENAME, e_NONE});
-	if (new_offset == -1)
-		lexer(NULL, e_CLEAN);
-	else
-		lexer(new_offset, e_ADVANCE_STR);
-}
-
-void	scan_next_token(void)
-{
-	char	*cur_str;
-	int		new_offset;
-
-	new_offset = -1;
-	cur_str = (char *)lexer(NULL, e_RETURN_CUR_STR);
-	if (cur_str[0] == '-')
-		new_offset = scan(&cur_str, e_ARG);
-	else if (cur_str[0] == '&&' || cur_str[0] == '||'
-		|| cur_str[0] == '='
-		|| cur_str[0] == '|'
-		|| cur_str[0] == '>' || cur_str[0] == '<' || cur_str[0] == '>>'
-		|| cur_str[0] == '<<')
-		new_offset = scan(&cur_str, e_OPERATOR);
-	else if (cur_str[0] == '"' || cur_str[0] == '\'')
-		new_offset = scan(&cur_str, e_STRING_LITERAL);
-	else
-		new_offset = scan(&cur_str, e_IDENTIFIER);
-	if (new_offset == -1)
-		lexer(NULL, e_CLEAN);
-}
-
-int	scan(char **str, t_token_id tok_id)
-{
-	char	*cur;
-
-	while (*cur)
-	{
-		if (ft_isspace(*cur) == e_false
-			|| dels_member(*cur, (int []){'-',
-				'&&', '||', '=', '|', '>>', '>', '<', '<<', '"', '\''}))
-			;
-	}
+	tok_add_back(&tokens, NULL);
+	return (tokens);
 }

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/22 08:46:52 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/22 10:06:39 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,5 +139,6 @@ int	scan_parenthesis(char *str)
 		token->token_val = "(";
 	else
 		token->token_val = ")";
+	lexer(token, e_STORE_NEXT_TOK);
 	return ((ft_strlen(str) - ft_strlen(cursor)) + 1);
 }

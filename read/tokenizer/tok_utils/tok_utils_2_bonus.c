@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 20:36:08 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/22 09:43:33 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/22 10:14:48 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	scan_alternate_invariant_spaces_quotes(char *str)
  * @brief this function adds the given token to the end of the current list of tokens
  * 
  * @param tokens the address of the first element in the list or NULL if the list is not empty
- * @param token the next token to store
+ * @param token the next token to store or NULL to close the list
  */
 void	tok_add_back(t_token **tokens, t_token *token)
 {
@@ -58,12 +58,19 @@ void	tok_add_back(t_token **tokens, t_token *token)
 	}
 	else
 	{
-		tail->next = token;
-		tail->next->prev = tail;
-		tail = tail->next;
-		tail->next = NULL;
+		if (!token)
+		{
+			tail->next = *tokens;
+			(*tokens)->prev = tail;
+		}
+		else
+		{
+			tail->next = token;
+			tail->next->prev = tail;
+			tail = tail->next;
+			tail->next = NULL;
+		}
 	}
-	
 }
 // int	scan_env_var(char *str)
 // {
