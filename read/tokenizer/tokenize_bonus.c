@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 18:48:51 by earendil          #+#    #+#             */
-/*   Updated: 2022/06/22 10:32:07 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/22 10:50:04 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,27 +30,27 @@ static t_token	*tokenize(char	*str);
  */
 static void	*tokenizer(char *command_line, t_op_code op_code)
 {
-	static t_token	*tokens;
+	static t_token	*token_list;
 	static	t_token	*next_token = NULL;
 
 	if (op_code == e_READ_INPUT)
-		tokens = tokenize(command_line);
+		token_list = tokenize(command_line);
 	if (op_code == e_NEXT_TOKEN)
 	{
 		if (!next_token)
-			next_token = tokens;
+			next_token = token_list;
 		else
 			next_token = next_token->next;
 	}
 	if (op_code == e_GO_BACK)
 	{
 		if (!next_token)
-			next_token = tokens;
+			next_token = token_list;
 		else
 			next_token = next_token->prev;
 	}
 	if (op_code == e_CLEAN)
-		free_tok_list(tokens);
+		free_tok_list(token_list);
 	return (next_token);
 }
 
