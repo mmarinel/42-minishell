@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 08:39:29 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/22 11:05:30 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/22 12:51:40 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "tok_patterns_utils/tok_patterns_utils.h"
 
 int	scan_var(char *str, t_token **token_list);
+int	scan_export_keyword(char *cursor);
 int	scan_inout_file(char *str, t_token **token_list);
 /**
  * @brief ASF to recognize &&, ||, | only

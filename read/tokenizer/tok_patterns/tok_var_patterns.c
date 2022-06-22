@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tok_var_patterns_bonus.c                           :+:      :+:    :+:   */
+/*   tok_var_patterns.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 08:47:20 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/22 11:13:29 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/22 12:53:30 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	scan_var(char *str, t_token **token_list)
 	t_var_ass_content	*next_var;
 	t_token				*token;
 
-	new_offset = scan_spaces(str) + scan_invariant_quotes(str);
-	if (str[new_offset] == '\0'
-		|| ft_strncmp(str + new_offset, "export", 6 * sizeof(char)) != 0)
+	new_offset = scan_spaces(str);
+	new_offset += scan_invariant_quotes(str);
+	if (0 == scan_export_keyword(str + new_offset))
 		return (0);
 	new_offset += 6;
 	cursor = str + new_offset;
@@ -43,4 +43,12 @@ int	scan_var(char *str, t_token **token_list)
 	if (token)
 		tok_add_back(token_list, token);
 	return (new_offset);
+}
+
+int	scan_export_keyword(char *cursor)
+{
+	if (*cursor == '\0'
+		|| ft_strncmp(cursor, "export", 6 * sizeof(char)) != 0)
+		return (0);
+	return (6);
 }

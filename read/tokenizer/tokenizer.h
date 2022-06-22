@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:53 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/22 12:25:08 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/22 12:41:07 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,16 @@ typedef struct s_token
 {
 	t_token_id		token_id;
 	void			*token_val;
-	void			(*to_string)(t_token *token);
+	void			(*to_string)(struct s_token *token);
 	struct s_token	*next;
 	struct s_token	*prev;
 }	t_token;
 
 typedef struct s_var_ass_content
 {
-	char				*name;
-	char				*val;
-	t_var_ass_content	*next;
+	char						*name;
+	char						*val;
+	struct s_var_ass_content	*next;
 }	t_var_ass_content;
 
 # endif

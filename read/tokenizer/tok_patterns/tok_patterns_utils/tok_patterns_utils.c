@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tok_patterns_utils_bonus.c                         :+:      :+:    :+:   */
+/*   tok_patterns_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 08:56:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/22 09:07:46 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/22 12:46:19 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,13 @@ size_t	scan_var_value(char *cursor, char **value)
 	size_t	value_len;
 
 	value_cursor = 0;
-	if (cursor[value_cursor] != "=")
-		return (NULL);
+	if (cursor[value_cursor] != '=')
+		return (0);
 	value_cursor++;
 	if (cursor[value_cursor] == '"' || cursor[value_cursor] == '\'')
-		return (ft_substr(cursor + (value_cursor + 1), cursor[value_cursor]));
+		return (ft_strlen(cursor)
+			- ft_strlen(ft_substr(cursor + (value_cursor + 1), cursor[value_cursor]))
+		);
 	value_len = 0;
 	while (cursor[value_cursor + value_len])
 	{
@@ -101,7 +103,7 @@ size_t	scan_var_value(char *cursor, char **value)
 		value_len++;
 	}
 	if (value_len == 0)
-		return (NULL);
+		return (0);
 	// value_len = ft_strlen(cursor) - ft_strlen(value_cursor);
 	(*value) = (char *) malloc((value_len + 1) * sizeof(char));
 	(*value)[value_len] = '\0';

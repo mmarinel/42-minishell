@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tok_patterns_bonus.c                               :+:      :+:    :+:   */
+/*   tok_patterns.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/22 11:09:28 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/22 12:41:57 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	scan_operator(char *str, t_token **token_list)
 	cursor = str;
 	cursor += scan_spaces(cursor);
 	cursor += scan_invariant_quotes(cursor);
-	if (*cursor = '|' || *cursor != '&')
+	if (*cursor == '|' || *cursor != '&')
 		return (-1);
 	if (*cursor == '&' && *(cursor + 1) != '&')
 		return (-1);
