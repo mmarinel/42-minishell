@@ -6,35 +6,35 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 08:56:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/22 12:46:19 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/22 15:52:41 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tok_patterns_utils.h"
 
-int	scan_spaces(char *str)
-{
-	int	idx;
+// int	scan_spaces(char *str)
+// {
+// 	int	idx;
 
-	idx = 0;
-	while (e_true == ft_isspace(str[idx]))
-		idx++;
-	return (idx);
-}
+// 	idx = 0;
+// 	while (e_true == ft_isspace(str[idx]))
+// 		idx++;
+// 	return (idx);
+// }
 
-int	scan_invariant_quotes(char *str)
-{
-	int	idx;
+// int	scan_invariant_quotes(char *str)
+// {
+// 	int	idx;
 
-	idx = 0;
-	while (str[idx] == '"' || str[idx] == '\'')
-	{
-		if (str[idx + 1] != str[idx])
-			break ;
-		idx += 2;
-	}
-	return (idx);
-}
+// 	idx = 0;
+// 	while (str[idx] == '"' || str[idx] == '\'')
+// 	{
+// 		if (str[idx + 1] != str[idx])
+// 			break ;
+// 		idx += 2;
+// 	}
+// 	return (idx);
+// }
 
 /**
  * @brief <spaces><closed_quotes>name<space|control character|eof|=>
@@ -55,7 +55,7 @@ size_t	scan_var_name(char *cursor, char **name)
 	name_cursor += 6;
 	name_cursor += scan_spaces(cursor + name_cursor);
 	name_cursor += scan_invariant_quotes(cursor + name_cursor);
-	if (e_false == ft_is_alpha(cursor[name_cursor]) && cursor[name_cursor] != '_')
+	if (e_false == char_is_alpha(cursor[name_cursor]) && cursor[name_cursor] != '_')
 		return (0);
 	name_len = 0;
 	while (cursor[name_cursor + name_len]

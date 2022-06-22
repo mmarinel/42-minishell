@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tok_utils_bonus.c                                  :+:      :+:    :+:   */
+/*   tok_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/22 12:26:04 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/22 15:52:09 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,33 +15,33 @@
 static void	free_tok_list_rec(t_token *token);
 static void	tok_to_string(t_token *token);
 
-int	scan_alternate_invariant_spaces_quotes(char *str)
-{
-	int	idx;
+// int	scan_alternate_invariant_spaces_quotes(char *str)
+// {
+// 	int	idx;
 
-	idx = 0;
-	while (str[idx])
-	{
-		// READING ALL INVARIANT QUOTES
-		while (str[idx] == '"' || str[idx] == '\'')
-		{
-			if (str[idx + 1] != str[idx])
-				break ;
-			idx += 2;
-		}
-		// READING ALL FINAL SPACES
-		while (str[idx])
-		{
-			if (e_false == ft_isspace(str[idx]))
-				break ;
-			idx++;
-		}
-		if (str[idx] != '"' && str[idx] != '\''
-			&& e_false == ft_isspace(str[idx]))
-			break ;
-	}
-	return (idx);
-}
+// 	idx = 0;
+// 	while (str[idx])
+// 	{
+// 		// READING ALL INVARIANT QUOTES
+// 		while (str[idx] == '"' || str[idx] == '\'')
+// 		{
+// 			if (str[idx + 1] != str[idx])
+// 				break ;
+// 			idx += 2;
+// 		}
+// 		// READING ALL FINAL SPACES
+// 		while (str[idx])
+// 		{
+// 			if (e_false == ft_isspace(str[idx]))
+// 				break ;
+// 			idx++;
+// 		}
+// 		if (str[idx] != '"' && str[idx] != '\''
+// 			&& e_false == ft_isspace(str[idx]))
+// 			break ;
+// 	}
+// 	return (idx);
+// }
 
 /**
  * @brief this function adds the given token to the end of the current list of tokens

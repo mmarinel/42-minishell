@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenize_bonus.c                                   :+:      :+:    :+:   */
+/*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 18:48:51 by earendil          #+#    #+#             */
-/*   Updated: 2022/06/22 10:59:14 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/22 15:48:35 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	*tokenizer(char *command_line, t_op_code op_code)
 			next_token = next_token->prev;
 	}
 	if (op_code == e_CLEAN)
-		free_tok_list(token_list);
+		free_tok_list(&token_list);
 	return (next_token);
 }
 
@@ -80,16 +80,16 @@ static t_token	*tokenize(char	*str)
 	offset = 0;
 	while (*str)
 	{
-		str += scan_parenthesis(str, token_list);
-		str += scan_in_out_file_toks(str, token_list);
-		str += scan_var(str, token_list);
-		str += scan_in_out_file_toks(str, token_list);
-		str += scan_cmd_name(str, token_list);
-		str += scan_in_out_file_toks(str, token_list);
-		str += scan_cmd_arg(str, token_list);
-		str += scan_in_out_file_toks(str, token_list);
-		str += scan_parenthesis(str, token_list);
-		str += scan_operator(str, token_list);
+		str += scan_parenthesis(str, &token_list);
+		str += scan_inout_file(str, &token_list);
+		str += scan_var(str, &token_list);
+		str += scan_inout_file(str, &token_list);
+		str += scan_cmd_name(str, &token_list);
+		str += scan_inout_file(str, &token_list);
+		str += scan_cmd_arg(str, &token_list);
+		str += scan_inout_file(str, &token_list);
+		str += scan_parenthesis(str, &token_list);
+		str += scan_operator(str, &token_list);
 	}
 	tok_add_back(&token_list, NULL);
 	return (token_list);
