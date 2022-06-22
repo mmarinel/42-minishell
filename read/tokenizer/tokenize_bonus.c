@@ -6,11 +6,43 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 18:48:51 by earendil          #+#    #+#             */
-/*   Updated: 2022/06/21 13:26:54 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/22 09:47:32 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
+
+/**
+ * 
+ * tokenizer object
+ * ```
+ * if command_line is not NULL and op_code is e_READ_INPUT:
+ * 	->	input string is tokenized and its list of tokens stored
+ * 		inside the function.
+ * 
+ * otherwise:
+ * 		if op_code is e_NEXT_TOKEN: next token is returned
+ * 		if op_code is e_GO_BACK: we go back in the list of tokens.
+ * ```
+ */
+void	*tokenizer(char *command_line, t_op_code op_code)
+{
+	static t_token	*tokens;
+	static	t_token	*next_token = NULL;
+
+	if (op_code == e_READ_INPUT)
+		tokens = tokenize(command_line);
+	if (op_code == e_NEXT_TOKEN)
+	{
+		if (!next_token)
+			next_token = tokens;
+		else
+			next_token = next_token->next;
+	}
+	if (op_code == e_GO_BACK)
+		next_token = next_token->prev;
+	return (next_token);
+}
 
 // ! to DECOMMENT !!!!!!!!!!!!!!!!!!!!!!!!!!
 int	scan_name(char **str, t_op_code	*possible_names);
