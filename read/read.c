@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 16:51:54 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/19 20:16:13 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/22 12:27:49 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,15 @@ char	*shell_read( char *const envp[])
 			e_true
 			);
 	printf("line read: %s\n", command);
+	tokenizer_feed_input(command);
+	t_token	*token;
+	while (e_true)
+	{
+		token =  next_token();
+		if (!token)
+			break ;
+		token->to_string(token);
+	}
 	return (command);
 	if (envp)
 		;

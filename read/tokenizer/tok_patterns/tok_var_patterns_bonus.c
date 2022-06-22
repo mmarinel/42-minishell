@@ -6,13 +6,13 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 08:47:20 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/22 08:57:20 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/22 11:13:29 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tok_patterns.h"
 
-int	scan_var(char *str)
+int	scan_var(char *str, t_token **token_list)
 {
 	int					new_offset;
 	char				*cursor;
@@ -41,6 +41,6 @@ int	scan_var(char *str)
 	}
 	new_offset = ft_strlen(str) - ft_strlen(cursor); // + 1;
 	if (token)
-		lexer(token, e_STORE_NXT_TOK);
+		tok_add_back(token_list, token);
 	return (new_offset);
 }

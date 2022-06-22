@@ -6,13 +6,14 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/22 10:48:11 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/22 12:26:04 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tok_utils.h"
 
 static void	free_tok_list_rec(t_token *token);
+static void	tok_to_string(t_token *token);
 
 int	scan_alternate_invariant_spaces_quotes(char *str)
 {
@@ -48,29 +49,28 @@ int	scan_alternate_invariant_spaces_quotes(char *str)
  * @param tokens the address of the first element in the list or NULL if the list is not empty
  * @param token the next token to store or NULL to close the list
  */
-void	tok_add_back(t_token **tokens, t_token *token)
+void	tok_add_back(t_token **token_list, t_token *token)
 {
 	static	t_token	*tail;
 
-	if (tokens)
+	if (token_list)
 	{
-		*tokens = token;
-		tail = *tokens;
+		*token_list = token;
+		tail = *token_list;
 		tail->prev = NULL;
+		token->to_string =  tok_to_string;
 	}
 	else
 	{
 		if (!token)
-		{
-			tail->next = *tokens;
-			(*tokens)->prev = tail;
-		}
+			(*token_list)->prev = tail;
 		else
 		{
 			tail->next = token;
 			tail->next->prev = tail;
 			tail = tail->next;
 			tail->next = NULL;
+			token->to_string = tok_to_string;
 		}
 	}
 }
@@ -86,4 +86,27 @@ static void	free_tok_list_rec(t_token *token)
 	if (token->next)
 		free_tok_list_rec(token->next);
 	free(token);
+}
+
+static void	tok_to_string(t_token *token)
+{
+	char	*id;
+
+	if (token->token_id == e_NONE)
+		id = "NONE";
+	if (token->token_id == e_CMD_NAME)
+		id = "CMD_NAME";
+	if (token->token_id == e_CMD_ARG)
+		id = "CMD_ARG";
+	if (token->token_id == e_IN_FILE)
+		id = "IN_FILE";
+	if (token->token_id == e_OUT_FILE)
+		id = "OUT_FILE";
+	if (token->token_id == e_OPERATOR)
+		id = "OPERATOR";
+	if (token->token_id == e_ENV_VAR_ASSIGN)
+		id = "ENV_VAR_ASSIGNATION";
+	if (token->token_id == e_PARENTHESIS)
+		id = "PARENTHESIS";
+	printf("%s ", id);
 }

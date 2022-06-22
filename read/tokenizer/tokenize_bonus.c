@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 18:48:51 by earendil          #+#    #+#             */
-/*   Updated: 2022/06/22 10:50:04 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/22 10:59:14 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,22 +75,22 @@ void	tok_go_back(void)
 static t_token	*tokenize(char	*str)
 {
 	size_t	offset;
-	t_token	*tokens;
+	t_token	*token_list;
 
 	offset = 0;
 	while (*str)
 	{
-		str += scan_parenthesis(str);
-		str += scan_in_out_file_toks(str);
-		str += scan_var(str);
-		str += scan_in_out_file_toks(str);
-		str += scan_cmd_name(str);
-		str += scan_in_out_file_toks(str);
-		str += scan_cmd_arg(str);
-		str += scan_in_out_file_toks(str);
-		str += scan_parenthesis(str);
-		str += scan_operator(str);
+		str += scan_parenthesis(str, token_list);
+		str += scan_in_out_file_toks(str, token_list);
+		str += scan_var(str, token_list);
+		str += scan_in_out_file_toks(str, token_list);
+		str += scan_cmd_name(str, token_list);
+		str += scan_in_out_file_toks(str, token_list);
+		str += scan_cmd_arg(str, token_list);
+		str += scan_in_out_file_toks(str, token_list);
+		str += scan_parenthesis(str, token_list);
+		str += scan_operator(str, token_list);
 	}
-	tok_add_back(&tokens, NULL);
-	return (tokens);
+	tok_add_back(&token_list, NULL);
+	return (token_list);
 }

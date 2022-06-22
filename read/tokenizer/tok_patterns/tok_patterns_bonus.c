@@ -6,13 +6,13 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/22 10:06:39 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/22 11:09:28 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tok_patterns.h"
 
-int	scan_inout_file(char *str)
+int	scan_inout_file(char *str, t_token **token_list)
 {
 	t_token		*token;
 	t_token_id	in_out_;
@@ -42,7 +42,7 @@ int	scan_inout_file(char *str)
 	token = (t_token *) malloc(sizeof(t_token));
 	token->token_id = in_out_;
 	token->token_val = ft_strcpy(NULL, cursor, len_file_name);
-	lexer(token, e_STORE_NXT_TOK);
+	tok_add_back(token_list, token);
 	return ((ft_strlen(str) - ft_strlen(cursor)) + len_file_name);
 }
 
@@ -52,7 +52,7 @@ int	scan_inout_file(char *str)
  * @param str 
  * @return int 
  */
-int	scan_operator(char *str)
+int	scan_operator(char *str, t_token **token_list)
 {
 	t_token	*token;
 	char	*cursor;
@@ -74,11 +74,11 @@ int	scan_operator(char *str)
 		token->token_val = "|";
 	else
 		token->token_val = "||";
-	lexer(token, e_STORE_NXT_TOK);
+	tok_add_back(token_list, token);
 	return ((ft_strlen(str) - ft_strlen(cursor)) + ft_strlen((char *)token->token_val));
 }
 
-int	scan_cmd_name(char *str)
+int	scan_cmd_name(char *str, t_token **token_list)
 {
 	t_token	*token;
 	int		len_cmd_name;
@@ -98,11 +98,11 @@ int	scan_cmd_name(char *str)
 	token = (t_token *) malloc(sizeof(t_token));
 	token->token_id = e_CMD_NAME;
 	token->token_val = ft_strcpy(NULL, cursor, len_cmd_name);
-	lexer(token, e_STORE_NXT_TOK);
+	tok_add_back(token_list, token);
 	return ((ft_strlen(str) - ft_strlen(cursor)) + len_cmd_name);
 }
 
-int	scan_cmd_arg(char *str)
+int	scan_cmd_arg(char *str, t_token **token_list)
 {
 	t_token	*token;
 	int		len_cmd_arg;
@@ -121,11 +121,11 @@ int	scan_cmd_arg(char *str)
 	token = (t_token *) malloc(sizeof(t_token));
 	token->token_id = e_CMD_ARG;
 	token->token_val = ft_strcpy(NULL, cursor, len_cmd_arg);
-	lexer(token, e_STORE_NXT_TOK);
+	tok_add_back(token_list, token);
 	return ((ft_strlen(str) - ft_strlen(cursor)) + len_cmd_arg);
 }
 
-int	scan_parenthesis(char *str)
+int	scan_parenthesis(char *str, t_token **token_list)
 {
 	t_token	*token;
 	char	*cursor;
@@ -139,6 +139,6 @@ int	scan_parenthesis(char *str)
 		token->token_val = "(";
 	else
 		token->token_val = ")";
-	lexer(token, e_STORE_NEXT_TOK);
+	tok_add_back(token_list, token);
 	return ((ft_strlen(str) - ft_strlen(cursor)) + 1);
 }
