@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 20:36:08 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/22 10:14:48 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/22 10:33:01 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,3 @@ void	tok_add_back(t_token **tokens, t_token *token)
 		}
 	}
 }
-// int	scan_env_var(char *str)
-// {
-// 	char	*cursor;
-
-// 	if (!str)
-// 		return (-1);
-// 	cursor = str;
-// 	cursor += scan_spaces(cursor);
-// 	cursor += scan_invariant_quotes(cursor);
-// 	if (!cursor || ft_strncmp(cursor, "export", 6 * sizeof(char)))
-// 		return (-1);
-// 	return ((ft_strlen(str) - ft_strlen(cursor)) + scan_var(cursor + 6, e_ENV_VAR_ASSIGN));
-// }

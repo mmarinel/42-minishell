@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:53 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/22 09:40:11 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/22 10:32:21 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,10 @@ typedef struct s_var_ass_content
 
 # endif
 
-// * patterns
+// * user defined exposed function
 
-int	scan_env_var(char *str);
-int	scan_inout_file(char *str);
-int	scan_operator(char *str);
-int	scan_cmd_name(char *str);
-int	scan_cmd_arg(char *str);
-int	scan_parenthesis(char *str);
-
-// int	scan_shell_var(char *str);
+void	tokenizer_feed_input(char *command_line);
+t_token	*next_token(void);
+void	tok_go_back(void);
 
 #endif

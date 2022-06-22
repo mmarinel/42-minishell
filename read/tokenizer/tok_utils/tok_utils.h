@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 13:04:29 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/22 10:09:26 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/22 10:35:02 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,6 @@ typedef struct s_var_ass_content
 void	tok_add_back(t_token **tokens, t_token *token);
 
 void	*lexer(void *arg, t_op_code op_code);
-// void	*lexer_input_handling(void *arg, char **input_string_ref,
-// 			int *offset, t_op_code op_code);
-// void	*lexer_token_handling(void *arg, t_token **cur_token,
-// 			t_op_code op_code);
 
 int		scan_var(char *str, t_token_id var_type);
 t_token	*scan_var_set_cursor(char *str, char **cursor, t_token_id var_type);
