@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 18:48:51 by earendil          #+#    #+#             */
-/*   Updated: 2022/06/22 15:48:35 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/22 21:03:54 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,22 @@ static void	*tokenizer(char *command_line, t_op_code op_code)
 {
 	static t_token	*token_list;
 	static	t_token	*next_token = NULL;
+	t_token			*token;
 
 	if (op_code == e_READ_INPUT)
+	{
 		token_list = tokenize(command_line);
+		next_token = token_list;
+	}
 	if (op_code == e_NEXT_TOKEN)
 	{
-		if (!next_token)
-			next_token = token_list;
-		else
+		token = next_token;
+		if (next_token)
 			next_token = next_token->next;
+		// if (!next_token)
+		// 	next_token = token_list;
+		// else
+		// 	next_token = next_token->next;
 	}
 	if (op_code == e_GO_BACK)
 	{
@@ -51,7 +58,7 @@ static void	*tokenizer(char *command_line, t_op_code op_code)
 	}
 	if (op_code == e_CLEAN)
 		free_tok_list(&token_list);
-	return (next_token);
+	return (token);
 }
 
 void	tokenizer_feed_input(char *command_line)
@@ -74,23 +81,27 @@ void	tok_go_back(void)
 
 static t_token	*tokenize(char	*str)
 {
-	size_t	offset;
+	char	*cursor;
 	t_token	*token_list;
 
-	offset = 0;
-	while (*str)
+	token_list = NULL;
+	cursor = str;
+	while (*cursor)
 	{
-		str += scan_parenthesis(str, &token_list);
-		str += scan_inout_file(str, &token_list);
-		str += scan_var(str, &token_list);
-		str += scan_inout_file(str, &token_list);
-		str += scan_cmd_name(str, &token_list);
-		str += scan_inout_file(str, &token_list);
-		str += scan_cmd_arg(str, &token_list);
-		str += scan_inout_file(str, &token_list);
-		str += scan_parenthesis(str, &token_list);
-		str += scan_operator(str, &token_list);
+		cursor += scan_parenthesis(cursor, &token_list);
+		cursor += scan_inout_file(cursor, &token_list);
+		cursor += scan_var(cursor, &token_list);
+		cursor += scan_inout_file(cursor, &token_list);
+		cursor += scan_cmd_name(cursor, &token_list);
+		cursor += scan_inout_file(cursor, &token_list);
+		cursor += scan_cmd_arg(cursor, &token_list);
+		cursor += scan_inout_file(cursor, &token_list);
+		cursor += scan_parenthesis(cursor, &token_list);
+		cursor += scan_operator(cursor, &token_list);
+		if (cursor == str)
+			break ;
+		str = cursor;
 	}
-	tok_add_back(&token_list, NULL);
+	// tok_add_back(&token_list, NULL);
 	return (token_list);
 }
