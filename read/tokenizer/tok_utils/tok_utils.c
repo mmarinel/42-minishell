@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/22 21:01:52 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/23 09:35:29 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ static void	tok_to_string(t_token *token)
 		id = "OUT_FILE";
 	if (token->token_id == e_OPERATOR)
 		id = "OPERATOR";
-	if (token->token_id == e_ENV_VAR_ASSIGN)
+	if (token->token_id == e_ENV_VAR_DECL)
 		id = "ENV_VAR_ASSIGNATION";
 	if (token->token_id == e_PARENTHESIS)
 		id = "PARENTHESIS";

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 08:56:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/22 15:52:41 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/23 09:25:33 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,19 @@
 // 	return (idx);
 // }
 
+int	scan_export_keyword(char *str, size_t offset)
+{
+	int	new_offset;
+
+	new_offset = offset;
+	new_offset += scan_spaces(str + offset);
+	new_offset += scan_invariant_quotes(str + offset);
+	if (str[new_offset] != '\0'
+		&& ft_strncmp(str + new_offset, "export", 6 * sizeof(char)) == 0)
+		return (new_offset + 6);
+	return (offset);
+}
+
 /**
  * @brief <spaces><closed_quotes>name<space|control character|eof|=>
  * 
@@ -48,7 +61,8 @@ size_t	scan_var_name(char *cursor, char **name)
 	size_t	name_cursor;
 	size_t	name_len;
 
-	name_cursor = scan_spaces(cursor) + scan_invariant_quotes(cursor);
+	name_cursor = scan_spaces(cursor);
+	name_cursor += scan_invariant_quotes(cursor + name_cursor);
 	if (cursor[name_cursor] == '\0'
 		|| ft_strncmp(cursor + name_cursor, "export", 6 * sizeof(char)) != 0)
 		return (0);
@@ -111,27 +125,23 @@ size_t	scan_var_value(char *cursor, char **value)
 	return (value_cursor);
 }
 
-t_var_ass_content	*scan_var_set_cursor(char *cursor, char **cursor_ref, int assignment_cardinal)
+size_t	scan_var(char *str, size_t offset, t_var_ass_content **next_var)
 {
-	t_var_ass_content	*var;
 	char				*var_name;
 	char				*var_value;
-	size_t				new_offset;
+	size_t				pre_offset;
 
-	if (!cursor || !(*cursor))
-		return (NULL);
-	new_offset = 0;
-	new_offset += scan_export_keyword(cursor);
-	if (!new_offset && assignment_cardinal == 1)
-		return (NULL);
-	new_offset += scan_var_name(cursor, &var_name);
-	if (!new_offset)
-		return (NULL);
+	if (!str[offset])
+		return (offset);
+	var_name = NULL;
 	var_value = NULL;
-	new_offset += scan_var_value(cursor + new_offset, &var_value);
-	var = (t_var_ass_content *) malloc(sizeof(t_var_ass_content));
-	var->name = var_name;
-	var->val = var_value;
-	*cursor_ref = *cursor_ref + new_offset;
-	return (var);
+	pre_offset = scan_export_keyword(str, offset);
+	pre_offset += scan_var_name(str + pre_offset, &var_name);
+	if (!var_name)
+		return (offset);
+	pre_offset += scan_var_value(str + pre_offset, &var_value);
+	*next_var = (t_var_ass_content *) malloc(sizeof(t_var_ass_content));
+	(*next_var)->name = var_name;
+	(*next_var)->val = var_value;
+	return (pre_offset + offset);
 }

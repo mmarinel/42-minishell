@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 14:50:02 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/22 14:51:18 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/23 09:23:46 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef enum e_token_id
 	e_IN_FILE,
 	e_OUT_FILE,
 	e_OPERATOR,
-	e_ENV_VAR_ASSIGN,
+	e_ENV_VAR_DECL,
 	e_SHELL_VAR_NAME,
 	e_PARENTHESIS,
 	e_NONE

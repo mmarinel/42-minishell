@@ -6,49 +6,38 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 08:47:20 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/22 12:53:30 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/23 09:25:00 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tok_patterns.h"
 
-int	scan_var(char *str, t_token **token_list)
+size_t	scan_env_declaration(char *str, size_t offset, t_token **token_list)
 {
-	int					new_offset;
-	char				*cursor;
-	t_var_ass_content	*next_var;
+	size_t				new_offset;
 	t_token				*token;
+	t_var_ass_content	*next_var;
 
-	new_offset = scan_spaces(str);
-	new_offset += scan_invariant_quotes(str);
-	if (0 == scan_export_keyword(str + new_offset))
-		return (0);
-	new_offset += 6;
-	cursor = str + new_offset;
+	new_offset = scan_export_keyword(str, offset);
+	if (new_offset == offset)
+		return (offset);
+	// printf("cursor is:%s\n", str + new_offset);
 	token = NULL;
 	while (e_true)
 	{
-		next_var = scan_var_set_cursor(cursor, &cursor, token == NULL);
+		next_var = NULL;
+		new_offset = scan_var(str, new_offset, &next_var);
 		if (!next_var)
 			break ;
 		if (!token)
 		{
 			token = (t_token *) malloc(sizeof(t_token));
-			token->token_id =  e_ENV_VAR_ASSIGN;
+			token->token_id =  e_ENV_VAR_DECL;
 		}
-		next_var->next = token->token_val;
+		next_var->next = (t_var_ass_content *)token->token_val;
 		token->token_val =  next_var;
 	}
-	new_offset = ft_strlen(str) - ft_strlen(cursor); // + 1;
 	if (token)
 		tok_add_back(token_list, token);
 	return (new_offset);
-}
-
-int	scan_export_keyword(char *cursor)
-{
-	if (*cursor == '\0'
-		|| ft_strncmp(cursor, "export", 6 * sizeof(char)) != 0)
-		return (0);
-	return (6);
 }

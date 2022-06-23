@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 16:51:54 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/22 21:04:24 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/23 08:05:44 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	*shell_read( char *const envp[])
 			break ;
 		token->to_string(token);
 	}
+	printf("\n");
 	return (command);
 	if (envp)
 		;

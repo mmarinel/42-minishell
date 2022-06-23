@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 18:48:51 by earendil          #+#    #+#             */
-/*   Updated: 2022/06/22 21:03:54 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/23 09:31:06 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,26 +81,28 @@ void	tok_go_back(void)
 
 static t_token	*tokenize(char	*str)
 {
-	char	*cursor;
+	size_t	offset;
 	t_token	*token_list;
+	char	*cursor;
 
 	token_list = NULL;
 	cursor = str;
-	while (*cursor)
+	offset = 0;
+	while (str[offset])
 	{
-		cursor += scan_parenthesis(cursor, &token_list);
-		cursor += scan_inout_file(cursor, &token_list);
-		cursor += scan_var(cursor, &token_list);
-		cursor += scan_inout_file(cursor, &token_list);
-		cursor += scan_cmd_name(cursor, &token_list);
-		cursor += scan_inout_file(cursor, &token_list);
-		cursor += scan_cmd_arg(cursor, &token_list);
-		cursor += scan_inout_file(cursor, &token_list);
-		cursor += scan_parenthesis(cursor, &token_list);
-		cursor += scan_operator(cursor, &token_list);
-		if (cursor == str)
+		offset = scan_parenthesis(str, offset, &token_list);
+		offset = scan_inout_file(str, offset, &token_list);
+		offset = scan_env_declaration(str, offset, &token_list);
+		offset = scan_inout_file(str, offset, &token_list);
+		offset = scan_cmd_name(str, offset, &token_list);
+		offset = scan_inout_file(str, offset, &token_list);
+		offset = scan_cmd_arg(str, offset, &token_list);
+		offset = scan_inout_file(str, offset, &token_list);
+		offset = scan_parenthesis(str, offset, &token_list);
+		offset = scan_operator(str, offset, &token_list);
+		if (cursor == str + offset)
 			break ;
-		str = cursor;
+		cursor = str + offset;
 	}
 	// tok_add_back(&token_list, NULL);
 	return (token_list);

@@ -6,143 +6,141 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/22 20:47:29 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/23 09:36:42 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tok_patterns.h"
 
-int	scan_inout_file(char *str, t_token **token_list)
+size_t	scan_inout_file(char *command_line, size_t offset, t_token **token_list)
 {
 	t_token		*token;
-	t_token_id	in_out_;
+	t_token_id	_in_out_;
 	size_t		len_file_name;
-	char		*cursor;
+	size_t		pre_offset;
 
-	if (*str == '<')
-		in_out_ = e_IN_FILE;
-	else if (*str == '>')
-		in_out_ = e_OUT_FILE;
+	if (command_line[offset] == '<')
+		_in_out_ = e_IN_FILE;
+	else if (command_line[offset] == '>')
+		_in_out_ = e_OUT_FILE;
 	else
-		return (0);
+		return (offset);
 	// REMOVING SPACES
-	cursor = str + 1;
-	cursor += scan_spaces(cursor);
-	cursor += scan_invariant_quotes(cursor);
-	if (!(*cursor))
-		return (0);
+	pre_offset = offset + 1;
+	pre_offset += scan_spaces(command_line + pre_offset);
+	pre_offset += scan_invariant_quotes(command_line + pre_offset);
+	if (!command_line[pre_offset])
+		return (offset);
 	// TAKING FILE NAME
 	len_file_name = 0;
-	while (e_false == bash_control_character(cursor[len_file_name])
-		&& cursor[len_file_name])
+	while (e_false == bash_control_character(command_line[pre_offset + len_file_name])
+		&& command_line[pre_offset + len_file_name])
 		len_file_name++;
 	if (len_file_name == 0)
-		return (0);
+		return (offset);
 	// TOKEN RECOGNIZED !
 	token = (t_token *) malloc(sizeof(t_token));
-	token->token_id = in_out_;
-	token->token_val = ft_strcpy(NULL, cursor, len_file_name);
+	token->token_id = _in_out_;
+	token->token_val = ft_strcpy(NULL, command_line + pre_offset, len_file_name);
 	tok_add_back(token_list, token);
-	// printf("new_offset: %lu\n", (ft_strlen(str) - ft_strlen(cursor)) + len_file_name);
+	// printf("new_offset: %lu\n", (ft_strlen(command_line) - ft_strlen(cursor)) + len_file_name);
 	// exit(0);
-	return ((ft_strlen(str) - ft_strlen(cursor)) + len_file_name);
+	return (pre_offset + len_file_name);
 }
 
 /**
  * @brief ASF to recognize &&, ||, | only
  * 
- * @param str 
+ * @param command_line 
  * @return int 
  */
-int	scan_operator(char *str, t_token **token_list)
+size_t	scan_operator(char *command_line, size_t offset, t_token **token_list)
 {
 	t_token	*token;
-	char	*cursor;
+	size_t	pre_offset;
 
-	if (!str)
-		return (0);
-	cursor = str;
-	cursor += scan_spaces(cursor);
-	cursor += scan_invariant_quotes(cursor);
-	if (*cursor == '|' || *cursor != '&')
-		return (0);
-	if (*cursor == '&' && *(cursor + 1) != '&')
-		return (0);
+	if (!command_line)
+		return (offset);
+	pre_offset = offset;
+	pre_offset += scan_spaces(command_line + offset);
+	pre_offset += scan_invariant_quotes(command_line + pre_offset);
+	if ((command_line[pre_offset] == '|' || command_line[pre_offset] != '&')
+		|| (command_line[pre_offset] == '&' && command_line[pre_offset + 1] != '&'))
+		return (offset);
 	token = (t_token *) malloc(sizeof(t_token));
 	token->token_id = e_OPERATOR;
-	if (*cursor == '&')
+	if (command_line[pre_offset] == '&')
 		token->token_val = "&&";
-	if (*cursor == '|' && *cursor != '|')
+	if (command_line[pre_offset] == '|' && command_line[pre_offset + 1] != '|')
 		token->token_val = "|";
 	else
 		token->token_val = "||";
 	tok_add_back(token_list, token);
-	return ((ft_strlen(str) - ft_strlen(cursor)) + ft_strlen((char *)token->token_val));
+	return (pre_offset + ft_strlen((char *)token->token_val));
 }
 
-int	scan_cmd_name(char *str, t_token **token_list)
+size_t	scan_cmd_name(char *command_line, size_t offset, t_token **token_list)
 {
 	t_token	*token;
 	int		len_cmd_name;
-	char	*cursor;
+	size_t	pre_offset;
 
-	cursor =  str;
-	cursor += scan_spaces(cursor);
-	cursor += scan_invariant_quotes(cursor);
-	if (!(*cursor))
-		return (0);
+	pre_offset = offset;
+	pre_offset += scan_spaces(command_line + pre_offset);
+	pre_offset += scan_invariant_quotes(command_line + pre_offset);
+	if (!command_line[pre_offset])
+		return (offset);
 	len_cmd_name = 0;
-	while (e_false == ft_isspace(cursor[len_cmd_name])
-		&& e_false == bash_control_character(cursor[len_cmd_name])
-		&& cursor[len_cmd_name])
+	while (e_false == bash_control_character(command_line[pre_offset + len_cmd_name])
+		&& command_line[pre_offset + len_cmd_name])
 		len_cmd_name++;
 	if (len_cmd_name == 0)
-		return (0);
+		return (offset);
 	token = (t_token *) malloc(sizeof(t_token));
 	token->token_id = e_CMD_NAME;
-	token->token_val = ft_strcpy(NULL, cursor, len_cmd_name);
+	token->token_val = ft_strcpy(NULL, command_line + pre_offset, len_cmd_name);
 	tok_add_back(token_list, token);
-	return ((ft_strlen(str) - ft_strlen(cursor)) + len_cmd_name);
+	return (pre_offset + len_cmd_name);
 }
 
-int	scan_cmd_arg(char *str, t_token **token_list)
+size_t	scan_cmd_arg(char *command_line, size_t offset, t_token **token_list)
 {
 	t_token	*token;
 	int		len_cmd_arg;
-	char	*cursor;
+	size_t	pre_offset;
 
-	cursor = str;
-	cursor += scan_spaces(cursor);
-	cursor += scan_invariant_quotes(cursor);
-	if (!(*cursor))
-		return (0);
+	pre_offset = offset;
+	pre_offset += scan_spaces(command_line + pre_offset);
+	pre_offset += scan_invariant_quotes(command_line + pre_offset);
+	if (!command_line[pre_offset])
+		return (offset);
 	len_cmd_arg = 0;
-	while (e_false == bash_control_character(cursor[len_cmd_arg])
-		&& cursor[len_cmd_arg])
+	while (e_false == bash_control_character(command_line[pre_offset + len_cmd_arg])
+		&& command_line[pre_offset + len_cmd_arg])
 		len_cmd_arg++;
 	if (len_cmd_arg == 0)
-		return (0);
+		return (offset);
 	token = (t_token *) malloc(sizeof(t_token));
 	token->token_id = e_CMD_ARG;
-	token->token_val = ft_strcpy(NULL, cursor, len_cmd_arg);
+	token->token_val = ft_strcpy(NULL, command_line + pre_offset, len_cmd_arg);
 	tok_add_back(token_list, token);
-	return ((ft_strlen(str) - ft_strlen(cursor)) + len_cmd_arg);
+	return (pre_offset + len_cmd_arg);
 }
 
-int	scan_parenthesis(char *str, t_token **token_list)
+size_t	scan_parenthesis(char *command_line, size_t offset, t_token **token_list)
 {
 	t_token	*token;
-	char	*cursor;
+	size_t	pre_offset;
 
-	cursor = str;
-	cursor += scan_spaces(cursor);
-	if (*cursor != '(' && *cursor != ')')
-		return (0);
+	pre_offset = offset;
+	pre_offset += scan_spaces(command_line + pre_offset);
+	if (command_line[pre_offset] != '(' && command_line[pre_offset] != ')')
+		return (offset);
 	token = (t_token *) malloc(sizeof(t_token));
-	if (*cursor == '(')
+	if (command_line[pre_offset] == '(')
 		token->token_val = "(";
 	else
 		token->token_val = ")";
 	tok_add_back(token_list, token);
-	return ((ft_strlen(str) - ft_strlen(cursor)) + 1);
+	return (pre_offset + 1);
 }
