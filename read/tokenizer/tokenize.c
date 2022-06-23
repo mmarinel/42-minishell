@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 18:48:51 by earendil          #+#    #+#             */
-/*   Updated: 2022/06/23 10:47:13 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/23 12:42:46 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ static t_token	*tokenize(char	*str)
 	{
 		offset = scan_parenthesis(str, offset, &token_list);
 		offset = scan_inout_file(str, offset, &token_list);
+		printf("cur offset: %zu\n", offset);
 		offset = scan_env_declaration(str, offset, &token_list);
 		offset = scan_inout_file(str, offset, &token_list);
 		offset = scan_cmd_name(str, offset, &token_list);
@@ -104,6 +105,8 @@ static t_token	*tokenize(char	*str)
 			break ;
 		cursor = str + offset;
 	}
+	if (offset < ft_strlen(str))
+		printf("Synatx Error: token not recognized near %.10s...\n", str + offset);
 	// tok_add_back(&token_list, NULL);
 	return (token_list);
 }

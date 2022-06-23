@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/23 10:42:22 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/23 12:47:45 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,19 @@ size_t	scan_inout_file(char *command_line, size_t offset, t_token **token_list)
 	size_t		len_file_name;
 	size_t		pre_offset;
 
-	if (command_line[offset] == '<')
+	pre_offset = offset;
+	pre_offset = scan_spaces(command_line, pre_offset);
+	pre_offset = scan_invariant_quotes(command_line, pre_offset);
+	if (command_line[pre_offset] == '<')
 		_in_out_ = e_IN_FILE;
-	else if (command_line[offset] == '>')
+	else if (command_line[pre_offset] == '>')
 		_in_out_ = e_OUT_FILE;
 	else
 		return (offset);
-	// REMOVING SPACES
-	pre_offset = offset + 1;
+	pre_offset++;
 	pre_offset = scan_spaces(command_line, pre_offset);
 	pre_offset = scan_invariant_quotes(command_line, pre_offset);
+	// REMOVING SPACES
 	if (!command_line[pre_offset])
 		return (offset);
 	// TAKING FILE NAME
@@ -85,6 +88,7 @@ size_t	scan_cmd_name(char *command_line, size_t offset, t_token **token_list)
 	int		len_cmd_name;
 	size_t	pre_offset;
 
+	// printf("str is %s\n", command_line + offset);
 	pre_offset = offset;
 	pre_offset = scan_spaces(command_line, pre_offset);
 	pre_offset = scan_invariant_quotes(command_line, pre_offset);

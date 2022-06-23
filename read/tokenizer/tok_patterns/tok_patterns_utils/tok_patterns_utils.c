@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 08:56:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/23 10:54:34 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/23 12:32:27 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ int	scan_export_keyword(char *str, size_t offset)
 	int	new_offset;
 
 	new_offset = offset;
-	new_offset = scan_spaces(str,  offset);
-	new_offset = scan_invariant_quotes(str, offset);
+	new_offset = scan_spaces(str, new_offset);
+	new_offset = scan_invariant_quotes(str, new_offset);
 	if (str[new_offset] != '\0'
-		&& ft_strncmp(str + new_offset, "export", 6 * sizeof(char)) == 0)
+		&& ft_strncmp(str + new_offset, "export", 6) == 0)
 		return (new_offset + 6);
 	return (offset);
 }
@@ -58,12 +58,9 @@ int	scan_export_keyword(char *str, size_t offset)
  */
 size_t	scan_var_name(char *str, size_t offset, char **name)
 {
-	size_t	pre_offset;
+ 	size_t	pre_offset;
 	size_t	name_len;
 
-	pre_offset = scan_spaces(str, offset);
-	pre_offset = scan_invariant_quotes(str, pre_offset);
-	pre_offset = scan_export_keyword(str, pre_offset);
 	pre_offset = scan_spaces(str, offset);
 	pre_offset = scan_invariant_quotes(str, pre_offset);
 	if (e_false == char_is_alpha(str[pre_offset]) && str[pre_offset] != '_')
@@ -123,21 +120,22 @@ size_t	scan_var(char *str, size_t offset, t_var_ass_content **next_var)
 {
 	char				*var_name;
 	char				*var_value;
-	size_t				pre_offset;
+	size_t				new_offset;
 
 	if (!str[offset])
 		return (offset);
 	var_name = NULL;
 	var_value = NULL;
-	pre_offset = scan_export_keyword(str, offset);
-	pre_offset = scan_var_name(str, pre_offset, &var_name);
+	// new_offset = scan_export_keyword(str, offset);
+	// new_offset = scan_inout_file(str, offset, NULL); // ! considerare le redirection subito dopo export?
+	new_offset = scan_var_name(str, offset, &var_name);
 	if (!var_name)
 		return (offset);
-	pre_offset = scan_var_value(str, pre_offset, &var_value);
+	new_offset = scan_var_value(str, new_offset, &var_value);
 	*next_var = (t_var_ass_content *) malloc(sizeof(t_var_ass_content));
 	(*next_var)->name = var_name;
 	(*next_var)->val = var_value;
 	// printf("name is:%sJ\nvalue is:%sJ\n", var_name, var_value);
 	// exit(0);
-	return (pre_offset);
+	return (new_offset);
 }
