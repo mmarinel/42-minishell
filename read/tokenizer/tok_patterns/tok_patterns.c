@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/23 12:47:45 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/23 14:33:47 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ size_t	scan_operator(char *command_line, size_t offset, t_token **token_list)
 	pre_offset = offset;
 	pre_offset = scan_spaces(command_line, offset);
 	pre_offset = scan_invariant_quotes(command_line, pre_offset);
-	if ((command_line[pre_offset] == '|' || command_line[pre_offset] != '&')
+	if ((command_line[pre_offset] != '|' && command_line[pre_offset] != '&')
 		|| (command_line[pre_offset] == '&' && command_line[pre_offset + 1] != '&'))
 		return (offset);
 	token = (t_token *) malloc(sizeof(t_token));
