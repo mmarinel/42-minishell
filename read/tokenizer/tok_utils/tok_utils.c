@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/23 17:22:19 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/23 19:11:21 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,17 +115,36 @@ static void	tok_to_string(t_token *token)
 	if (token->token_id == e_NONE)
 		id = "NONE";
 	if (token->token_id == e_CMD_NAME)
+	{
 		id = BOLDGREEN "CMD_NAME" RESET;
+		printf("var_name: %s\n", (char *)token->token_val);
+	}
 	if (token->token_id == e_CMD_ARG)
+	{
 		id = BOLDYELLOW "CMD_ARG" RESET;
+		printf("var_arg: %s\n", (char *)token->token_val);
+	}
 	if (token->token_id == e_IN_FILE)
+	{
 		id = BOLDBLUE "IN_FILE" RESET;
+		printf("file: %s\n", (char *)token->token_val);
+	}
 	if (token->token_id == e_OUT_FILE)
 		id = BOLDBLUE "OUT_FILE" RESET;
 	if (token->token_id == e_OPERATOR)
 		id = BOLDRED "OPERATOR" RESET;
 	if (token->token_id == e_ENV_VAR_DECL)
+	{
 		id = BOLDMAGENTA "ENV_VAR_ASSIGNATION" RESET;
+		t_var_ass_content	*var_cont;
+
+		var_cont = (t_var_ass_content *)token->token_val;
+		while (var_cont)
+		{
+			printf("var name: %s\tvar val: %s\n", var_cont->name, var_cont->val);
+			var_cont = var_cont->next;
+		}
+	}
 	if (token->token_id == e_PARENTHESIS)
 		id = BOLDCYAN "PARENTHESIS" RESET;
 	printf("%s ", id);
