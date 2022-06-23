@@ -6,11 +6,11 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:45:17 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/18 09:36:58 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/23 16:16:10 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_utils.h"
+#include "../ft_utils.h"
 
 static int	ft_atoi_rec(const char *str, int *exponent);
 
@@ -60,9 +60,10 @@ char	*ft_itoa(int nbr)
 {
 	char	digit[2];
 
-	if	(nbr == INT_MIN)
+	if (nbr == INT_MIN)
 		return (ft_strjoin(
-			ft_itoa(INT_MIN / 10), ft_itoa((INT_MAX % 10) + 1), e_true, e_true));
+				ft_itoa(INT_MIN / 10),
+				ft_itoa((INT_MAX % 10) + 1), e_true, e_true));
 	if (nbr < 0)
 		return (ft_strjoin("-", ft_itoa(-nbr), e_false, e_true));
 	digit[0] = (nbr % 10) + 48;
@@ -92,67 +93,3 @@ static int	ft_atoi_rec(const char *str, int *exponent)
 	*exponent = *exponent + 1;
 	return (res);
 }
-
-// static t_bool	dels_member(char c, int delimiters[])
-// {
-// 	int	i;
-
-// 	i = -1;
-// 	while (delimiters[++i] != -1)
-// 		if (c == (char)delimiters[i])
-// 			return (e_true);
-// 	return (e_false);
-// }
-
-// void	ft_lst_multi_split(char *s, int substr_len, t_list **cur, int delimiters[])
-// {
-// 	char	*substr;
-
-// 	if (!(*s))
-// 		return ;
-// 	if (dels_member(*s, delimiters))
-// 	{
-// 		if (substr_len == 0)
-// 			ft_lst_multi_split(s + 1, substr_len + 1, cur, delimiters);
-// 		else
-// 		{
-// 			substr = (char *) malloc((substr_len + 1) * sizeof(char));
-// 			ft_strcpy(substr, s, substr_len);
-// 			substr[substr_len] = '\0';
-// 			substr_len = 0;
-// 			*cur = (t_list *) malloc(sizeof(t_list));
-// 			(*cur)->content = substr;
-// 			(*cur)->next = NULL;
-// 			ft_lst_multi_split(s + 1, 0, &((*cur)->next), delimiters);
-// 		}
-// 	}
-// 	else
-// 		ft_lst_multi_split(s + 1, substr_len + 1, cur, delimiters);
-// }
-
-// t_list	*ft_lst_multi_split(char *s, int delimiters[])
-// {
-// 	t_list	*ret;
-// 	char	*substr;
-// 	int		substr_len;
-
-// 	if (!s)
-// 		return (NULL);
-// 	ret = NULL;
-// 	substr_len = 0;
-// 	while (*s)
-// 	{
-// 		if (dels_member(*s, delimiters))
-// 		{
-// 			if (substr_len > 0)
-// 			{
-// 				substr = (char *) malloc((substr_len + 1) * sizeof(char));
-// 				ft_strcpy(substr, s, substr_len);
-// 				substr[substr_len] = '\0';
-// 				substr_len = 0;
-// 			}
-// 		}
-// 		else if
-// 			substr_len++;
-// 	}
-// }

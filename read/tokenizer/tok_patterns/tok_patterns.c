@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/23 15:32:41 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/23 17:18:46 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,35 +19,24 @@ size_t	scan_inout_file(char *command_line, size_t offset, t_token **token_list)
 	size_t		len_file_name;
 	size_t		pre_offset;
 
-	pre_offset = offset;
-	pre_offset = scan_spaces(command_line, pre_offset);
-	pre_offset = scan_invariant_quotes(command_line, pre_offset);
+	pre_offset = scan_invariants(command_line, offset);
 	if (command_line[pre_offset] == '<')
 		_in_out_ = e_IN_FILE;
 	else if (command_line[pre_offset] == '>')
 		_in_out_ = e_OUT_FILE;
 	else
 		return (offset);
-	pre_offset++;
-	pre_offset = scan_spaces(command_line, pre_offset);
-	pre_offset = scan_invariant_quotes(command_line, pre_offset);
-	// REMOVING SPACES
+	pre_offset = scan_invariants(command_line, pre_offset + 1);
 	if (!command_line[pre_offset])
 		return (offset);
-	// TAKING FILE NAME
-	len_file_name = 0;
-	while (e_false == bash_control_character(command_line[pre_offset + len_file_name])
-		&& command_line[pre_offset + len_file_name])
-		len_file_name++;
+	len_file_name = mini_next_word_len(command_line, pre_offset);
 	if (len_file_name == 0)
 		return (offset);
-	// TOKEN RECOGNIZED !
 	token = (t_token *) malloc(sizeof(t_token));
 	token->token_id = _in_out_;
-	token->token_val = ft_strcpy(NULL, command_line + pre_offset, len_file_name);
+	token->token_val
+		= ft_strcpy(NULL, command_line + pre_offset, len_file_name);
 	tok_add_back(token_list, token);
-	// printf("new_offset: %lu\n", (ft_strlen(command_line) - ft_strlen(cursor)) + len_file_name);
-	// exit(0);
 	return (pre_offset + len_file_name);
 }
 
@@ -64,11 +53,11 @@ size_t	scan_operator(char *command_line, size_t offset, t_token **token_list)
 
 	if (!command_line[offset])
 		return (offset);
-	pre_offset = offset;
-	pre_offset = scan_spaces(command_line, offset);
-	pre_offset = scan_invariant_quotes(command_line, pre_offset);
-	if ((command_line[pre_offset] != '|' && command_line[pre_offset] != '&')
-		|| (command_line[pre_offset] == '&' && command_line[pre_offset + 1] != '&'))
+	pre_offset = scan_invariants(command_line, offset);
+	if ((command_line[pre_offset] != '|'
+			&& command_line[pre_offset] != '&')
+		|| (command_line[pre_offset] == '&'
+			&& command_line[pre_offset + 1] != '&'))
 		return (offset);
 	token = (t_token *) malloc(sizeof(t_token));
 	token->token_id = e_OPERATOR;
@@ -88,16 +77,10 @@ size_t	scan_cmd_name(char *command_line, size_t offset, t_token **token_list)
 	int		len_cmd_name;
 	size_t	pre_offset;
 
-	// printf("str is %s\n", command_line + offset);
-	pre_offset = offset;
-	pre_offset = scan_spaces(command_line, pre_offset);
-	pre_offset = scan_invariant_quotes(command_line, pre_offset);
+	pre_offset = scan_invariants(command_line, offset);
 	if (!command_line[pre_offset])
 		return (offset);
-	len_cmd_name = 0;
-	while (e_false == bash_control_character(command_line[pre_offset + len_cmd_name])
-		&& command_line[pre_offset + len_cmd_name])
-		len_cmd_name++;
+	len_cmd_name = mini_next_word_len(command_line, pre_offset);
 	if (len_cmd_name == 0)
 		return (offset);
 	token = (t_token *) malloc(sizeof(t_token));
@@ -113,9 +96,7 @@ size_t	scan_cmd_arg(char *command_line, size_t offset, t_token **token_list)
 	int		len_cmd_arg;
 	size_t	pre_offset;
 
-	pre_offset = offset;
-	pre_offset = scan_spaces(command_line, pre_offset);
-	pre_offset = scan_invariant_quotes(command_line, pre_offset);
+	pre_offset = scan_invariants(command_line, offset);
 	if (!command_line[pre_offset])
 		return (offset);
 	len_cmd_arg = 0;
@@ -132,7 +113,8 @@ size_t	scan_cmd_arg(char *command_line, size_t offset, t_token **token_list)
 	return (pre_offset + len_cmd_arg);
 }
 
-size_t	scan_parenthesis(char *command_line, size_t offset, t_token **token_list)
+size_t	scan_parenthesis(char *command_line, size_t offset,
+			t_token **token_list)
 {
 	t_token	*token;
 	size_t	pre_offset;

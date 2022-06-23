@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/23 15:25:23 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/23 17:22:19 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,31 @@ static void	tok_to_string(t_token *token);
 // 	return (idx);
 // }
 
+size_t	mini_next_word_len(char *command_line, size_t offset)
+{
+	size_t	len_word;
+
+	len_word = 0;
+	while (e_false == bash_control_character
+		(
+			command_line[offset + len_word]
+		)
+		&& command_line[offset + len_word]
+	)
+		len_word++;
+	return (len_word);
+}
+
 /**
- * @brief this function adds the given token to the end of the current list of tokens (circular list only on prev pointers)
+ * @brief this function adds the given token to the end of the current
+ * list of tokens (circular list only on prev pointers)
  * 
  * @param token_list the address of the first element in the list
  * @param token the next token to store or NULL to close the list
  */
 void	tok_add_back(t_token **token_list, t_token *token)
 {
-	static	t_token	*tail = NULL;
+	static t_token	*tail = NULL;
 
 	if (!token && *token_list)
 		(*token_list)->prev = tail;

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 14:14:58 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/18 18:56:30 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/23 17:24:59 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,13 @@ typedef struct s_fd_buffer {
 
 # ifndef T_BOOL_H
 #  define T_BOOL_H
+
 typedef enum e_bool
 {
 	e_true = 1,
 	e_false = 0
 }	t_bool;
+
 # endif
 
 // * main EXPOSED function

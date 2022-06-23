@@ -6,11 +6,11 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:01:21 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/22 20:25:23 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/23 16:13:58 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_utils.h"
+#include "../ft_utils.h"
 
 t_bool	ft_isspace(char c)
 {

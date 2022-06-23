@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   math_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/13 14:42:56 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/18 09:27:32 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/06/17 16:19:20 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/06/23 16:34:40 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_utils.h"
+#include "../ft_utils.h"
 
-void	*ft_malloc(size_t size)
+unsigned int	ft_pow(unsigned int m, unsigned int e)
 {
-	void	*ptr;
-
-	ptr = malloc(size);
-	if (!ptr)
-		exit(EXIT_FAILURE);
-	return (ptr);
-}
-
-void	ft_free(void *ptr)
-{
-	if (ptr)
-		free(ptr);
+	if (e == 0)
+		return (1);
+	return (m * ft_pow(m, e - 1));
 }
 
 /**

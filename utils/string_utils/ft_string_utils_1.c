@@ -6,11 +6,11 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:54:58 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/19 18:21:41 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/23 16:15:31 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_utils.h"
+#include "../ft_utils.h"
 
 size_t	ft_strlcpy(char **dst, const char *src, size_t dstsize)
 {

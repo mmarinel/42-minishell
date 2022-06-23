@@ -6,14 +6,16 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 16:41:18 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/17 16:44:17 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/23 17:26:11 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
-static char		*append_continuation(char *command, int line_channel[], int line_size_channel[]);
-static void		line_completion_prompt(int line_channel[], int line_size_channel[]);
+static char		*append_continuation(char *command,
+					int line_channel[], int line_size_channel[]);
+static void		line_completion_prompt(int line_channel[],
+					int line_size_channel[]);
 static char		*final_line(char *command, int cont_prompt_return,
 					int line_size_channel[], int line_channel[]);
 
@@ -38,7 +40,8 @@ char	*prompt_complete_line(char *command)
 			waitpid(cont_prompt_pid, &cont_prompt_return, 0);
 			if (cont_prompt_return != EXIT_SUCCESS)
 				break ;
-			command = append_continuation(command, line_channel, line_size_channel);
+			command = append_continuation(command,
+					line_channel, line_size_channel);
 		}
 	}
 	return (
@@ -47,7 +50,8 @@ char	*prompt_complete_line(char *command)
 	);
 }
 
-static char	*append_continuation(char *command, int line_channel[], int line_size_channel[])
+static char	*append_continuation(char *command,
+		int line_channel[], int line_size_channel[])
 {
 	char	*continuation;
 	int		cont_len;
@@ -67,7 +71,7 @@ static void	line_completion_prompt(int line_channel[], int line_size_channel[])
 	int		cont_len;
 
 	signal(SIGINT, line_completion_prompt_sig_handler);
-	while(e_true)
+	while (e_true)
 	{
 		continuation = readline(">");
 		if (!continuation)

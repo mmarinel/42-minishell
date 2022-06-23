@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:13:18 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/23 15:32:11 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/23 17:24:00 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,21 @@
 
 // * string utils
 
-size_t	ft_strlcpy(char **dst, const char *src, size_t dstsize);
-size_t	ft_strlen(const char *str);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-char	*ft_strcpy(char *buf, char *src, int copy_len);
-char	*ft_strjoin(char *pre, char *post, t_bool free_pre, t_bool free_post);
-char	*ft_itoa(int nbr);
-int		ft_atoi(const char *str);
-t_bool	ft_is_alpha(char c);
-t_bool	ft_isspace(char c);
-t_bool	char_is_alpha(char c);
-t_bool	char_is_digit(char c);
-//char	*ft_multi_substr(char *str, char *delimiters);
-char	*ft_substr(char *str, char delimiter);
-char	*take_substr(char *str, char *substr);
+size_t			ft_strlcpy(char **dst, const char *src, size_t dstsize);
+size_t			ft_strlen(const char *str);
+int				ft_strncmp(const char *s1, const char *s2, size_t n);
+char			*ft_strcpy(char *buf, char *src, int copy_len);
+char			*ft_strjoin(char *pre, char *post,
+					t_bool free_pre, t_bool free_post);
+char			*ft_itoa(int nbr);
+int				ft_atoi(const char *str);
+t_bool			ft_is_alpha(char c);
+t_bool			ft_isspace(char c);
+t_bool			char_is_alpha(char c);
+t_bool			char_is_digit(char c);
+//char			*ft_multi_substr(char *str, char *delimiters);
+char			*ft_substr(char *str, char delimiter);
+char			*take_substr(char *str, char *substr);
 /**
  * @brief this function takes the next word
  * (i.e.: anything except isspace characters)
@@ -39,7 +40,7 @@ char	*take_substr(char *str, char *substr);
  * @param str 
  * @return char* 
  */
-char	*take_next_word(char *str);
+char			*take_next_word(char *str);
 /**
  * @brief this function checks wether the number of occurrences
  * of the quote at the beginning of the input string is balanced
@@ -47,12 +48,12 @@ char	*take_next_word(char *str);
  * @param str 
  * @return t_bool 
  */
-t_bool	ft_quote_occurrence_balanced(char *str);
-char	take_starting_quote(char *str);
-char	*str_strip_spaces(char *str);
-char	*string_strip(char *str, char c, t_bool free_input);
-int		str_number_occurrences(char *str, char c);
-t_bool	str_not_empty(char *str);
+t_bool			ft_quote_occurrence_balanced(char *str);
+char			take_starting_quote(char *str);
+char			*str_strip_spaces(char *str);
+char			*string_strip(char *str, char c, t_bool free_input);
+int				str_number_occurrences(char *str, char c);
+t_bool			str_not_empty(char *str);
 
 // * math utils
 
@@ -60,16 +61,16 @@ unsigned int	ft_pow(unsigned int m, unsigned int e);
 
 // * memory utils
 
-void	*ft_malloc(size_t size);
-void	ft_free(void *ptr);
+void			*ft_malloc(size_t size);
+void			ft_free(void *ptr);
 
 // * shell utils
 
-t_bool	bash_control_character(char c);
-t_bool	mini_cmd_separator(char c);
-t_bool	redirect_char(char c);
-t_bool	asked_for_termination(char	*command);
-void	close_pipe(int pipe_[]);
+t_bool			bash_control_character(char c);
+t_bool			mini_cmd_separator(char c);
+t_bool			redirect_char(char c);
+t_bool			asked_for_termination(char	*command);
+void			close_pipe(int pipe_[]);
 
 // * misc utils
 
@@ -84,7 +85,7 @@ void	close_pipe(int pipe_[]);
  * fall "above" (>=) right_edge
  * @return int the mapped point
  */
-int		range_spill(int point, int right_edge,
-			int left_spill_val, int right_spill_val);
+int				range_spill(int point, int right_edge,
+					int left_spill_val, int right_spill_val);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 19:00:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/19 22:36:35 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/23 17:25:13 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ char	*here_doc_take_delimiter(char *command)
 		start++;
 	return (take_next_word(start));
 }
-
 
 /**
  * @brief this function adds 'command' to the history of commands 
