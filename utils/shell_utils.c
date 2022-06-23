@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 09:27:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/22 20:27:59 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/23 10:29:46 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static t_bool	is_exit(char *command)
 	if (!command || !(*command))
 		return (e_false);
 	//	READING INITIAL SPACES
-	command += scan_spaces(command);
+	command += scan_spaces(command, 0);
 	// RECORDING INITIAL QUOTE
 	quote = *command;
 	if (quote == '"' || quote == '\'')
@@ -56,8 +56,8 @@ static t_bool	is_exit(char *command)
 			return (e_false);
 		command++;
 	}
-	command += scan_invariant_quotes(command);
-	command += scan_spaces(command);
+	command += scan_invariant_quotes(command, 0);
+	command += scan_spaces(command, 0);
 	if (*command
 		&& (e_false == bash_control_character(*command)
 			|| *command == '"' || *command == '\''
@@ -116,21 +116,21 @@ int	scan_alternate_invariant_spaces_quotes(char *str)
 	return (idx);
 }
 
-int	scan_spaces(char *str)
+int	scan_spaces(char *str, size_t offset)
 {
 	int	idx;
 
-	idx = 0;
+	idx = offset;
 	while (e_true == ft_isspace(str[idx]))
 		idx++;
 	return (idx);
 }
 
-int	scan_invariant_quotes(char *str)
+int	scan_invariant_quotes(char *str, size_t offset)
 {
 	int	idx;
 
-	idx = 0;
+	idx = offset;
 	while (str[idx] == '"' || str[idx] == '\'')
 	{
 		if (str[idx + 1] != str[idx])

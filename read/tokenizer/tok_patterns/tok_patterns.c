@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/23 09:36:42 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/23 10:42:22 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ size_t	scan_inout_file(char *command_line, size_t offset, t_token **token_list)
 		return (offset);
 	// REMOVING SPACES
 	pre_offset = offset + 1;
-	pre_offset += scan_spaces(command_line + pre_offset);
-	pre_offset += scan_invariant_quotes(command_line + pre_offset);
+	pre_offset = scan_spaces(command_line, pre_offset);
+	pre_offset = scan_invariant_quotes(command_line, pre_offset);
 	if (!command_line[pre_offset])
 		return (offset);
 	// TAKING FILE NAME
@@ -59,11 +59,11 @@ size_t	scan_operator(char *command_line, size_t offset, t_token **token_list)
 	t_token	*token;
 	size_t	pre_offset;
 
-	if (!command_line)
+	if (!command_line[offset])
 		return (offset);
 	pre_offset = offset;
-	pre_offset += scan_spaces(command_line + offset);
-	pre_offset += scan_invariant_quotes(command_line + pre_offset);
+	pre_offset = scan_spaces(command_line, offset);
+	pre_offset = scan_invariant_quotes(command_line, pre_offset);
 	if ((command_line[pre_offset] == '|' || command_line[pre_offset] != '&')
 		|| (command_line[pre_offset] == '&' && command_line[pre_offset + 1] != '&'))
 		return (offset);
@@ -86,8 +86,8 @@ size_t	scan_cmd_name(char *command_line, size_t offset, t_token **token_list)
 	size_t	pre_offset;
 
 	pre_offset = offset;
-	pre_offset += scan_spaces(command_line + pre_offset);
-	pre_offset += scan_invariant_quotes(command_line + pre_offset);
+	pre_offset = scan_spaces(command_line, pre_offset);
+	pre_offset = scan_invariant_quotes(command_line, pre_offset);
 	if (!command_line[pre_offset])
 		return (offset);
 	len_cmd_name = 0;
@@ -110,8 +110,8 @@ size_t	scan_cmd_arg(char *command_line, size_t offset, t_token **token_list)
 	size_t	pre_offset;
 
 	pre_offset = offset;
-	pre_offset += scan_spaces(command_line + pre_offset);
-	pre_offset += scan_invariant_quotes(command_line + pre_offset);
+	pre_offset = scan_spaces(command_line, pre_offset);
+	pre_offset = scan_invariant_quotes(command_line, pre_offset);
 	if (!command_line[pre_offset])
 		return (offset);
 	len_cmd_arg = 0;
@@ -133,7 +133,7 @@ size_t	scan_parenthesis(char *command_line, size_t offset, t_token **token_list)
 	size_t	pre_offset;
 
 	pre_offset = offset;
-	pre_offset += scan_spaces(command_line + pre_offset);
+	pre_offset = scan_spaces(command_line, pre_offset);
 	if (command_line[pre_offset] != '(' && command_line[pre_offset] != ')')
 		return (offset);
 	token = (t_token *) malloc(sizeof(t_token));
