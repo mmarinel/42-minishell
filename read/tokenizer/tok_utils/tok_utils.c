@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/23 09:35:29 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/23 15:25:23 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,20 +99,18 @@ static void	tok_to_string(t_token *token)
 	if (token->token_id == e_NONE)
 		id = "NONE";
 	if (token->token_id == e_CMD_NAME)
-		id = "CMD_NAME";
+		id = BOLDGREEN "CMD_NAME" RESET;
 	if (token->token_id == e_CMD_ARG)
-		id = "CMD_ARG";
+		id = BOLDYELLOW "CMD_ARG" RESET;
 	if (token->token_id == e_IN_FILE)
-		id = "IN_FILE";
+		id = BOLDBLUE "IN_FILE" RESET;
 	if (token->token_id == e_OUT_FILE)
-		id = "OUT_FILE";
-	if (token->token_id == e_OUT_FILE)
-		id = "OUT_FILE";
+		id = BOLDBLUE "OUT_FILE" RESET;
 	if (token->token_id == e_OPERATOR)
-		id = "OPERATOR";
+		id = BOLDRED "OPERATOR" RESET;
 	if (token->token_id == e_ENV_VAR_DECL)
-		id = "ENV_VAR_ASSIGNATION";
+		id = BOLDMAGENTA "ENV_VAR_ASSIGNATION" RESET;
 	if (token->token_id == e_PARENTHESIS)
-		id = "PARENTHESIS";
+		id = BOLDCYAN "PARENTHESIS" RESET;
 	printf("%s ", id);
 }

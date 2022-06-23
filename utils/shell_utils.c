@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 09:27:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/23 10:29:46 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/23 15:31:24 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,16 @@ t_bool	bash_control_character(char c)
 		|| c == '$' || c == '`' || c == '\\' || c == '"' || c == '\''
 		|| ft_isspace(c)
 	);
+}
+
+t_bool	mini_cmd_separator(char c)
+{
+	return (c == '|' || c == '&');
+}
+
+t_bool	redirect_char(char c)
+{
+	return (c == '>' || c == '<');
 }
 
 // ! REMOVE FROM HERE (it's in token utils)

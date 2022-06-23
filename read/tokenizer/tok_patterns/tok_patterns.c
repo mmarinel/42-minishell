@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/23 14:33:47 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/23 15:32:41 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,8 @@ size_t	scan_cmd_arg(char *command_line, size_t offset, t_token **token_list)
 	if (!command_line[pre_offset])
 		return (offset);
 	len_cmd_arg = 0;
-	while (e_false == bash_control_character(command_line[pre_offset + len_cmd_arg])
+	while (e_false == mini_cmd_separator(command_line[pre_offset + len_cmd_arg])
+		&& e_false == redirect_char(command_line[pre_offset + len_cmd_arg])
 		&& command_line[pre_offset + len_cmd_arg])
 		len_cmd_arg++;
 	if (len_cmd_arg == 0)
