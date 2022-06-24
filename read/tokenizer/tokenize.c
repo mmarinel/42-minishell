@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 18:48:51 by earendil          #+#    #+#             */
-/*   Updated: 2022/06/24 13:13:02 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/24 15:16:49 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,21 +90,12 @@ static t_token	*tokenize(char	*str)
 	offset = 0;
 	while (str[offset])
 	{
-		offset = scan_parenthesis(str, offset, &token_list);
-		offset = scan_inout_file(str, offset, &token_list);
-		// printf("cur offset: %zu\n", offset);
-		offset = scan_invariants(str, offset);
+		offset = scan_prologue(str, offset, &token_list);
 		if (0 == ft_strncmp(str + offset, "export", 6))
 			offset = scan_env_declaration(str, offset, &token_list);
 		else
-		{
-			offset = scan_cmd_name(str, offset, &token_list);
-			offset = scan_inout_file(str, offset, &token_list);
-			offset = scan_cmd_arg(str, offset, &token_list);
-			offset = scan_inout_file(str, offset, &token_list);
-		}
-		offset = scan_parenthesis(str, offset, &token_list);
-		offset = scan_operator(str, offset, &token_list);
+			offset = scan_simple_command(str, offset, &token_list);
+		offset = scan_epilogue(str, offset, &token_list);
 		if (cursor == str + offset)
 			break ;
 		cursor = str + offset;

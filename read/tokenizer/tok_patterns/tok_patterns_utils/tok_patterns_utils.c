@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 08:56:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/24 13:00:31 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/24 15:00:42 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ size_t	scan_next_cmd_arg(char *command_line, size_t offset,
 	size_t	len_cmd_arg;
 	char	*next_arg;
 
-	new_offset = scan_invariants(command_line, offset);
+	new_offset = scan_invariants(command_line, offset); // * questo lo mettiamo nel chiamante!
 	if (e_true == bash_control_character(command_line[new_offset])
 		&& e_false == ft_isspace(command_line[new_offset])
 		&& e_false == redirect_char(command_line[new_offset]))

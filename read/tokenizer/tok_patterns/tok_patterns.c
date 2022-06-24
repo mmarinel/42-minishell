@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/24 13:10:09 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/24 15:07:37 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ size_t	scan_cmd_arg(char *command_line, size_t offset, t_token **token_list)
 	args = NULL;
 	while (command_line[new_offset])
 	{
+		new_offset = scan_invariants(command_line, new_offset); //
 		pre_offset = new_offset;
 		new_offset = scan_next_cmd_arg(command_line, new_offset,
 				&args, token_list);
