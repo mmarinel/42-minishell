@@ -3,3 +3,4 @@ minishell
 *.o
 *.txt
 !.gitignore
+!comando_test.txt

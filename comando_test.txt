@@ -1,0 +1,1 @@
+< filetto export < filetto var=1 var2=2 && echo greppo | grep pippo > outfiletto && comando -opzione > file argomento < filetto argomento2|| grep ciao
