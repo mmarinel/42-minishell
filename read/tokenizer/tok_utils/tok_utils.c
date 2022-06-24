@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/23 19:11:21 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/24 09:03:29 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ size_t	mini_next_word_len(char *command_line, size_t offset)
 {
 	size_t	len_word;
 
+	offset = scan_invariants(command_line, offset);
 	len_word = 0;
 	while (e_false == bash_control_character
 		(
@@ -117,35 +118,51 @@ static void	tok_to_string(t_token *token)
 	if (token->token_id == e_CMD_NAME)
 	{
 		id = BOLDGREEN "CMD_NAME" RESET;
-		printf("var_name: %s\n", (char *)token->token_val);
+		printf("%s ", id);
+		printf("var_name: %s; len %zu\n", (char *)token->token_val, ft_strlen((char *)token->token_val));
 	}
 	if (token->token_id == e_CMD_ARG)
 	{
 		id = BOLDYELLOW "CMD_ARG" RESET;
-		printf("var_arg: %s\n", (char *)token->token_val);
+		printf("%s ", id);
+		printf("var_arg: %s; len %zu\n", (char *)token->token_val, ft_strlen((char *)token->token_val));
 	}
 	if (token->token_id == e_IN_FILE)
 	{
 		id = BOLDBLUE "IN_FILE" RESET;
-		printf("file: %s\n", (char *)token->token_val);
+		printf("%s ", id);
+		printf("in file: %s; len %zu\n", (char *)token->token_val, ft_strlen((char *)token->token_val));
 	}
 	if (token->token_id == e_OUT_FILE)
+	{
 		id = BOLDBLUE "OUT_FILE" RESET;
+		printf("%s ", id);
+		printf("out file: %s; len %zu\n", (char *)token->token_val, ft_strlen((char *)token->token_val));
+	}
 	if (token->token_id == e_OPERATOR)
+	{
 		id = BOLDRED "OPERATOR" RESET;
+		printf("%s ", id);
+		printf("operator: %s; len %zu\n", (char *)token->token_val, ft_strlen((char *)token->token_val));
+	}
 	if (token->token_id == e_ENV_VAR_DECL)
 	{
 		id = BOLDMAGENTA "ENV_VAR_ASSIGNATION" RESET;
+		printf("%s ", id);
 		t_var_ass_content	*var_cont;
 
 		var_cont = (t_var_ass_content *)token->token_val;
 		while (var_cont)
 		{
-			printf("var name: %s\tvar val: %s\n", var_cont->name, var_cont->val);
+			printf("var name: %s\tvar val: %s\tlen_name: %zu; len_val: %zu\n", var_cont->name, var_cont->val, ft_strlen(var_cont->name), ft_strlen(var_cont->val));
 			var_cont = var_cont->next;
 		}
 	}
 	if (token->token_id == e_PARENTHESIS)
+	{
 		id = BOLDCYAN "PARENTHESIS" RESET;
-	printf("%s ", id);
+		printf("%s ", id);
+		printf("parenthesis: %s; len %zu\n", (char *)token->token_val, ft_strlen((char *)token->token_val));
+	}
+	// printf("%s ", id);
 }
