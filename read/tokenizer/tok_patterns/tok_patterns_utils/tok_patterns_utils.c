@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 08:56:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/24 09:51:42 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/24 13:00:31 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,7 @@ int	scan_export_keyword(char *str, size_t offset)
 {
 	int	new_offset;
 
-	new_offset = offset;
-	new_offset = scan_spaces(str, new_offset);
-	new_offset = scan_invariant_quotes(str, new_offset);
+	new_offset = scan_invariants(str, offset);
 	if (str[new_offset] != '\0'
 		&& ft_strncmp(str + new_offset, "export", 6) == 0)
 		return (new_offset + 6);
@@ -76,7 +74,8 @@ size_t	scan_var_name(char *str, size_t offset, char **name)
 		name_len++;
 	if (str[pre_offset + name_len] != '\0'
 		&& e_false == bash_control_character(str[pre_offset + name_len])
-		&& str[pre_offset + name_len] != '=')
+		&& str[pre_offset + name_len] != '='
+		&& str[pre_offset + name_len] != '+')
 		return (offset);
 	*name = (char *) malloc((name_len + 1) * sizeof(char));
 	(*name)[name_len] = '\0';
@@ -92,12 +91,15 @@ size_t	scan_var_name(char *str, size_t offset, char **name)
  * @param value 
  * @return char* 
  */
-size_t	scan_var_value(char *str, size_t offset, char **value)
+size_t	scan_var_value(char *str, size_t offset, char **value,
+	t_bool *concat_mode)
 {
 	size_t	value_len;
 
-	if (str[offset] != '=')
+	if ((str[offset] != '+' && str[offset] != '=')
+		|| (str[offset] == '+' && str[offset + 1] != '='))
 		return (offset);
+	offset = scan_var_mode(str, offset, concat_mode);
 	if (str[offset + 1] == '"' || str[offset + 1] == '\'')
 	{
 		*value = ft_substr(str + (offset + 2), str[offset + 1]);
@@ -107,7 +109,7 @@ size_t	scan_var_value(char *str, size_t offset, char **value)
 	while (str[offset + 1 + value_len])
 	{
 		if (e_true == bash_control_character(str[offset + 1 + value_len]))
-				break ;
+			break ;
 		value_len++;
 	}
 	if (value_len == 0)
@@ -122,20 +124,23 @@ size_t	scan_var(char *str, size_t offset, t_var_ass_content **next_var)
 {
 	char				*var_name;
 	char				*var_value;
+	t_bool				concat_mode;
 	size_t				new_offset;
 
 	if (!str[offset])
 		return (offset);
+	concat_mode = e_false;
 	var_name = NULL;
 	var_value = NULL;
 	// new_offset = scan_inout_file(str, offset, NULL); // ! considerare le redirection subito dopo export?
 	new_offset = scan_var_name(str, offset, &var_name);
 	if (!var_name)
 		return (offset);
-	new_offset = scan_var_value(str, new_offset, &var_value);
+	new_offset = scan_var_value(str, new_offset, &var_value, &concat_mode);
 	*next_var = (t_var_ass_content *) malloc(sizeof(t_var_ass_content));
 	(*next_var)->name = var_name;
 	(*next_var)->val = var_value;
+	(*next_var)->concat_mode = concat_mode;
 	return (new_offset);
 }
 

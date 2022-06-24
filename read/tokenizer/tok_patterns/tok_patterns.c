@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/24 09:56:13 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/24 13:10:09 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ size_t	scan_inout_file(char *command_line, size_t offset, t_token **token_list)
 	size_t		len_file_name;
 	size_t		pre_offset;
 
-	pre_offset = scan_invariants(command_line, offset);
+	pre_offset = scan_invariants(command_line, offset); // ! ONLY scan_spaces!
 	if (command_line[pre_offset] == '<')
 		_in_out_ = e_IN_FILE;
 	else if (command_line[pre_offset] == '>')

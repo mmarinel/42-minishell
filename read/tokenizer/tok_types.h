@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 14:50:02 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/23 09:23:46 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/24 11:00:08 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_var_ass_content
 {
 	char						*name;
 	char						*val;
+	t_bool						concat_mode;
 	struct s_var_ass_content	*next;
 }	t_var_ass_content;
 
