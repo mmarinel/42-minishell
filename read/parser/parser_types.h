@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:48:27 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/25 11:40:25 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/25 12:07:12 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef enum e_operator
 	e_PIPE,
 	e_OR,
 	e_AND,
-	e_PARENTH
+	e_PAREN
 }	t_operator;
 
 typedef struct s_operator_node
