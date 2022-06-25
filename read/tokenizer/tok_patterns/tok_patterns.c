@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/25 10:03:29 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/25 16:17:46 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ size_t	scan_parenthesis(char *command_line, size_t offset,
 	if (command_line[pre_offset] != '(' && command_line[pre_offset] != ')')
 		return (offset);
 	token = (t_token *) malloc(sizeof(t_token));
+	token->token_id = e_PARENTHESIS;
 	if (command_line[pre_offset] == '(')
 		token->token_val = "(";
 	else
