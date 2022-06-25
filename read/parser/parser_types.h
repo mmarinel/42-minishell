@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:48:27 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/25 12:07:12 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/25 18:15:34 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,12 @@ typedef struct s_tree_node
 	struct s_tree_node	*left;
 	struct s_tree_node	*right;
 }	t_tree_node;
+
+typedef struct s_groupings
+{
+	size_t	quotes;
+	size_t	double_qquotes;
+	size_t	parenthesis;
+}	t_groupings;
 
 #endif

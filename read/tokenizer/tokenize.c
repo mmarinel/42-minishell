@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 18:48:51 by earendil          #+#    #+#             */
-/*   Updated: 2022/06/25 10:02:06 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/25 19:27:01 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,9 @@ static void	*tokenizer(char *command_line, t_op_code op_code)
 		// else
 		// 	next_token = next_token->next;
 	}
-	if (op_code == e_GO_BACK)
+	if (op_code == e_CUR_TOKEN)
 	{
-		if (!next_token)
-			next_token = token_list;
-		else
-			next_token = next_token->prev;
+		return (next_token);
 	}
 	if (op_code == e_CLEAN)
 		free_tok_list(&token_list);
@@ -74,9 +71,9 @@ t_token	*next_token(void)
 	return (tokenizer(NULL, e_NEXT_TOKEN));
 }
 
-void	tok_go_back(void)
+t_token	*cur_token(void)
 {
-	tokenizer(NULL, e_GO_BACK);
+	return (tokenizer(NULL, e_CUR_TOKEN));
 }
 
 static t_token	*tokenize(char	*str)

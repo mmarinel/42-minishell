@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 14:50:02 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/25 08:15:57 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/25 19:11:28 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ typedef enum e_op_code
 {
 	e_READ_INPUT,
 	e_NEXT_TOKEN,
-	e_GO_BACK,
+	e_CUR_TOKEN,
 	e_CLEAN
 }	t_op_code;
 
@@ -41,7 +41,6 @@ typedef struct s_token
 	void			*token_val;
 	void			(*to_string)(struct s_token *token);
 	struct s_token	*next;
-	struct s_token	*prev;
 }	t_token;
 
 typedef struct s_var_ass_content

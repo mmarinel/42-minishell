@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/25 08:36:31 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/25 19:12:14 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,26 +54,18 @@ void	tok_add_back(t_token **token_list, t_token *token)
 {
 	static t_token	*tail = NULL;
 
-	if (!token && *token_list)
-		(*token_list)->prev = tail;
+	if (!(*token_list))
+	{
+		*token_list = token;
+		tail = *token_list;
+	}
 	else
 	{
-		if (!(*token_list))
-		{
-			*token_list = token;
-			tail = *token_list;
-			tail->prev = NULL;
-			tail->next = NULL;
-		}
-		else
-		{
-			tail->next = token;
-			tail->next->prev = tail;
-			tail = tail->next;
-			tail->next = NULL;
-		}
-		token->to_string = tok_to_string;
+		tail->next = token;
+		tail = tail->next;
 	}
+	tail->next = NULL;
+	token->to_string = tok_to_string;
 }
 
 void	free_tok_list(t_token **token_list)

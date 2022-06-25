@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:53 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/22 14:52:34 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/25 19:27:16 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 // * user defined exposed function
 
 void	tokenizer_feed_input(char *command_line);
+t_token	*cur_token(void);
 t_token	*next_token(void);
 void	tok_go_back(void);
 
