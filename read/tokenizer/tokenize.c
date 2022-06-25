@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 18:48:51 by earendil          #+#    #+#             */
-/*   Updated: 2022/06/25 09:04:14 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/25 10:02:06 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,10 @@ static t_token	*tokenize(char	*str)
 	while (str[offset])
 	{
 		offset = scan_prologue(str, offset, &token_list);
-		if (0 == ft_strncmp(str + offset, "export", 6)
-			|| 0 == ft_strncmp(str + offset, "unset", 5))
+		if (str[offset]
+			&&
+			(0 == ft_strncmp(str + offset, "export", 6)
+				|| 0 == ft_strncmp(str + offset, "unset", 5)))
 			offset = scan_env_declaration(str, offset, &token_list);
 		else
 			offset = scan_simple_command(str, offset, &token_list);
