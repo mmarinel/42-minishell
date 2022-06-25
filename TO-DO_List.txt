@@ -10,6 +10,6 @@
 
 4. Aggiungere Funzione contains_unquoted_illegal_character(line) nel prompt (meglio nello entry point del parser) per dare errore di parsing quando incontri ;, \, etc.
 
-5. token per unset!
+5. token per unset! <fatto>
 
 6. gestione displat ^C con termios! (Alberto) <fatto>
