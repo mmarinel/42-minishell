@@ -6,42 +6,39 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/22 18:45:33 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/25 07:50:35 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char		*shell_read( char *const envp[]);
+static void	set_signals(void);
 static void	print_signature(void);
 
 /**
- * @brief handler for all
+ * @brief this function sets signals handlers
+ * and disable echoing of special character ctr+c (^C)
  * 
- * @param signum 
  */
-void	sig_handler(int signum)
+static void	set_signals(void)
 {
-	if (signum == SIGUSR1)
-		exit(EXIT_FAILURE);
-	if (signum == SIGINT)
-	{
-		printf("\n");
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-	}
+	struct termios	tty_attrs;
+
+	tcgetattr(STDIN_FILENO, &tty_attrs);
+	tty_attrs.c_lflag &= ECHO;
+	tcsetattr(STDIN_FILENO, TCSANOW, &tty_attrs);
+	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 int	main(int argc, char const *argv[], char *const envp[])
 {
-	char	*command;
+	char			*command;
 
 	if (argc != 1)
 		return (EXIT_SUCCESS);
 	// g_shell_env = (t_shell_env *) malloc(sizeof(t_shell_env));
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, SIG_IGN);
+	set_signals();
 	print_signature();
 	while (e_true)
 	{

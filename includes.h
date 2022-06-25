@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:40:19 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/18 19:41:48 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/25 07:53:37 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 
 // signal handling ...
 # include <signal.h>
+# include <termios.h>
 
 // errors
 # include <errno.h>
@@ -56,6 +57,7 @@
 
 // user dfined headers
 # include "types.h"
+# include "signals/signals.h"
 # include "get_next_line/get_next_line.h"
 # include "read/read.h"
 # include "exit/exit.h"
@@ -63,9 +65,5 @@
 # include "utils/ft_utils.h"
 
 extern void	rl_replace_line(const char *text, int clear_undo);
-
-// TODO > move to signals module !
-void		sig_handler(int signum);
-void		line_completion_prompt_sig_handler(int signum);
 
 #endif
