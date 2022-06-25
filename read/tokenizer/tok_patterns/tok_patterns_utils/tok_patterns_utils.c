@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 08:56:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/24 15:00:42 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/25 09:17:00 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,6 @@
 // 	}
 // 	return (idx);
 // }
-
-int	scan_export_keyword(char *str, size_t offset)
-{
-	int	new_offset;
-
-	new_offset = scan_invariants(str, offset);
-	if (str[new_offset] != '\0'
-		&& ft_strncmp(str + new_offset, "export", 6) == 0)
-		return (new_offset + 6);
-	return (offset);
-}
 
 /**
  * @brief <spaces><closed_quotes>name<space|control character|eof|=>
@@ -120,7 +109,8 @@ size_t	scan_var_value(char *str, size_t offset, char **value,
 	return (offset + 1 + value_len);
 }
 
-size_t	scan_var(char *str, size_t offset, t_var_ass_content **next_var)
+size_t	scan_var(char *str, size_t offset,
+			t_token_id tok_type, t_var_ass_content **next_var)
 {
 	char				*var_name;
 	char				*var_value;
@@ -136,7 +126,8 @@ size_t	scan_var(char *str, size_t offset, t_var_ass_content **next_var)
 	new_offset = scan_var_name(str, offset, &var_name);
 	if (!var_name)
 		return (offset);
-	new_offset = scan_var_value(str, new_offset, &var_value, &concat_mode);
+	if (tok_type == e_ENV_VAR_DECL)
+		new_offset = scan_var_value(str, new_offset, &var_value, &concat_mode);
 	*next_var = (t_var_ass_content *) malloc(sizeof(t_var_ass_content));
 	(*next_var)->name = var_name;
 	(*next_var)->val = var_value;

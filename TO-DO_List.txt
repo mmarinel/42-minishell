@@ -12,4 +12,4 @@
 
 5. token per unset!
 
-6. gestione displat ^C con termios! (Alberto)
+6. gestione displat ^C con termios! (Alberto) <fatto>

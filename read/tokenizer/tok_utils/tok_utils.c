@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/24 14:34:18 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/25 08:36:31 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,22 @@ static void	tok_to_string(t_token *token)
 	}
 	if (token->token_id == e_ENV_VAR_DECL)
 	{
-		id = BOLDMAGENTA "ENV_VAR_ASSIGNATION" RESET;
+		id = BOLDMAGENTA "ENV_VAR_DECL" RESET;
+		printf("%s ", id);
+		t_var_ass_content	*var_cont;
+
+		var_cont = (t_var_ass_content *)token->token_val;
+		printf("\n");
+		while (var_cont)
+		{
+			printf("var name: %s\tvar val: %s\tconcat_mode: %d\n", var_cont->name, var_cont->val, (int)(var_cont->concat_mode));
+			printf("len_name: %zu; len_val: %zu\n", ft_strlen(var_cont->name), ft_strlen(var_cont->val));
+			var_cont = var_cont->next;
+		}
+	}
+	if (token->token_id == e_ENV_VAR_UNSET)
+	{
+		id = BOLDMAGENTA "ENV_VAR_UNSET" RESET;
 		printf("%s ", id);
 		t_var_ass_content	*var_cont;
 

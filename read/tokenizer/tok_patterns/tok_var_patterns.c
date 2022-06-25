@@ -6,16 +6,22 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 08:47:20 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/24 13:14:04 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/25 09:32:10 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tok_patterns.h"
 
+static size_t	scan_env_revert(t_token *token, size_t offset);
+
 static void	add_new_binding(t_token **token_ref,
 				t_var_ass_content *next_binding);
 
 static void	env_decl_add_token(t_token *scanned_token, t_token **token_list);
+
+static size_t	scan_initial_keyword_set_token(char *str, size_t offset, t_token **token);
+
+// * End of declarations *//
 
 size_t	scan_env_declaration(char *str, size_t offset, t_token **token_list)
 {
@@ -23,18 +29,21 @@ size_t	scan_env_declaration(char *str, size_t offset, t_token **token_list)
 	t_token				*token;
 	t_var_ass_content	*next_var;
 
-	new_offset = scan_export_keyword(str, offset);
+	new_offset = scan_initial_keyword_set_token(str, offset, &token);
 	if (new_offset == offset)
 		return (offset);
 	new_offset = scan_invariants(str, new_offset);
-	token = NULL;
 	while (e_true)
 	{
 		next_var = NULL;
 		new_offset = scan_inout_file(str, new_offset, token_list);
-		new_offset = scan_var(str, new_offset, &next_var);
+		new_offset = scan_var(str, new_offset, token->token_id, &next_var);
 		if (!next_var)
 			break ;
+		else if (token->token_id == e_ENV_VAR_UNSET
+			&& str[new_offset]
+			&& e_false == bash_control_character(str[new_offset]))
+			return (scan_env_revert(token, offset));
 		else
 			add_new_binding(&token, next_var);
 	}
@@ -42,7 +51,52 @@ size_t	scan_env_declaration(char *str, size_t offset, t_token **token_list)
 	return (new_offset);
 }
 
+static size_t	scan_env_revert(t_token *token, size_t offset)
+{
+	t_var_ass_content	*cur;
+	t_var_ass_content	*prev;
 
+	cur = (t_var_ass_content *) token->token_val;
+	while (cur)
+	{
+		prev = cur;
+		cur =  cur->next;
+		free(prev);
+	}
+	free(token);
+	return (offset);
+}
+
+static size_t	scan_initial_keyword_set_token(char *str, size_t offset, t_token **token)
+{
+	size_t	new_offset;
+
+	new_offset = scan_invariants(str, offset);
+	if (str[new_offset] == '\0'
+		||
+		(ft_strncmp(str + new_offset, "export", 6) != 0
+			&& ft_strncmp(str + new_offset, "unset", 5) != 0))
+		return (offset);
+	else
+	{
+		(*token) = (t_token *) malloc(sizeof(t_token));
+		(*token)->token_val = NULL;
+		(*token)->to_string = NULL;
+		(*token)->next = NULL;
+		(*token)->prev = NULL;
+		if (ft_strncmp(str + new_offset, "export", 6) == 0)
+		{
+			(*token)->token_id =  e_ENV_VAR_DECL;
+			return (new_offset + 6);
+		}
+		if (ft_strncmp(str + new_offset, "unset", 5) == 0)
+		{
+			(*token)->token_id =  e_ENV_VAR_UNSET;
+			return (new_offset + 5);
+		}
+	}
+	return (0);
+}
 	// if (str[new_offset] != '\0'
 	// 	&& e_false == mini_cmd_separator(str[new_offset]))
 	// {
@@ -56,30 +110,11 @@ size_t	scan_env_declaration(char *str, size_t offset, t_token **token_list)
 static void	add_new_binding(t_token **token_ref,
 		t_var_ass_content *next_binding)
 {
-	if (!(*token_ref))
-	{
-		(*token_ref) = (t_token *) malloc(sizeof(t_token));
-		(*token_ref)->token_id = e_ENV_VAR_DECL;
-		(*token_ref)->token_val = NULL;
-	}
 	next_binding->next = (t_var_ass_content *)(*token_ref)->token_val;
 	(*token_ref)->token_val = next_binding;
 }
 
 static void	env_decl_add_token(t_token *scanned_token, t_token **token_list)
 {
-	t_token	*export_keyword_only;
-
-	if (!scanned_token)
-	{
-		export_keyword_only = (t_token *) malloc(sizeof(t_token));
-		export_keyword_only->token_id = e_ENV_VAR_DECL;
-		export_keyword_only->token_val = NULL;
-		export_keyword_only->to_string = NULL;
-		export_keyword_only->next = NULL;
-		export_keyword_only->prev = NULL;
-		tok_add_back(token_list, export_keyword_only);
-	}
-	else
-		tok_add_back(token_list, scanned_token);
+	tok_add_back(token_list, scanned_token);
 }
