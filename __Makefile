@@ -1,24 +1,30 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
+#    __Makefile                                         :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/10 12:28:57 by mmarinel          #+#    #+#              #
-#    Updated: 2022/06/26 13:23:56 by mmarinel         ###   ########.fr        #
+#    Updated: 2022/06/26 20:04:04 by mmarinel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+###################### FLAGS FOLDERS ALIASES ####################################
+OBJS_DIR = .objs
+HOME = /Users/mmarinel
+
+CC = @gcc
+CFLAGS = -I -Wall -Werror -Wextra -fsanitize=address -static-libsan -g
+READLINE_FLAGS = -L/usr/include -lreadline -L$(HOME)/.brew/opt/readline/lib -I $(HOME)/.brew/opt/readline/include
+
 SAY = say
 NORMINETTE = norminette -R CheckForbiddenSourceHeader
-CC = @gcc
-HOME = /Users/mmarinel
-CFLAGS = -I -Wall -Werror -Wextra -fsanitize=address -static-libsan -g
-READLINE_FLAGS = -L/usr/include -lreadline -L/Users/mmarinel/.brew/opt/readline/lib -I /Users/mmarinel/.brew/opt/readline/include
 
-MANDATORY_OBJS = $(shell find . -name "*.c" -print | grep -v bonus.c | sed 's/\.c/\.o/g')
-BONUS_OBJS = $(shell find . -name "*.c" -print | grep -v mand | sed 's/\.c/\.o/g')
+############### OBJECTS ##############
+INCLUDES = $(shell find . -name "*.h" -print)
+MANDATORY_OBJS = $(shell find . -name "*.c" -print | grep -v bonus.c | sed 's/\.c/\.o/g' | sed 's/\.\///') # last cmd removes ./ at the beginning of each file
+BONUS_OBJS = $(shell find . -name "*.c" -print | grep -v mand | sed 's/\.c/\.o/g' | sed 's/\.\///') # last cmd removes ./ at the beginning of each file
 
 
 ####################### Unvoiced Makes #########################
@@ -67,7 +73,13 @@ endif
 do_bonus: $(NAME)
 do_mandatory: $(NAME)
 
-$(NAME): $(OBJS)
+## sources rules (with .h dependency)
+$(shell echo $(OBJS_DIR))/%.o: %.c $(wildcard $(<D)/*.h) # <D = folder part of first pre-requisite
+	@mkdir -p '$(@D)'
+	$(CC) -c $(CFLAGS) $< -o $@
+
+## main rule
+$(NAME): $(OBJS) $(INCLUDES)
 	$(CC) $(CFLAGS) $(READLINE_FLAGS) $(OBJS) -o $(NAME)
 ifeq ($(SAY),"say -o /dev/null")
 	@$(MAKE) norm
@@ -81,6 +93,7 @@ endif
 	@$(SAY) -v "Karen" -r 20 "minishell, Compiled"
 	@$(SAY) -v "$(final_msg_voice)" -r 60 "$(final_msg)"
 
+# norm
 n:
 	@printf "checking the norm...\n\n"
 	@echo "\033[0;33m"
@@ -108,14 +121,14 @@ n:
 
 cl:
 	@printf "removing Object files...\n"
-	@/bin/rm -f $(MANDATORY_OBJS) $(BONUS_OBJS)
+	@/bin/rm -f $(OBJS_DIR)/**/*.o
 	@printf "\033[0;35mObject files removed!\n"
 	@echo "\033[0;37m"
 	@$(SAY) -v "Karen" -r 20 "minishell, Object files, Destroyed"
 
 fcl: cl
 	@printf "removing program executable...\n"
-	@/bin/rm -f philo; /bin/rm -f philo_bonus
+	@/bin/rm -f ./minishell; /bin/rm -f ./minishell_bonus
 	@printf "\033[0;35mExecutable removed!\n"
 	@echo "\033[0;37m"
 	@$(SAY) -v "Karen" -r 20 "minishell, Destroyed"
@@ -128,11 +141,11 @@ re_bonus: fclean bonus
 	@printf "\033[0;36mMaking Mandatory part\n"
 		@echo "\033[0;37m"
 	@$(SAY) -v "Karen" -r 20 "Making, Mandatory part"
-	@$(MAKE) do_mandatory OBJS="$(MANDATORY_OBJS)" NAME="minishell"
+	@$(MAKE) do_mandatory OBJS="$(addprefix $(OBJS_DIR)/, $(MANDATORY_OBJS))" NAME="minishell"
 
 .ADD_BONUS:
 	@printf "\033[1;36mMaking Bonus part\n"
 	@echo "\033[0;37m"
 	@$(SAY) -v "Karen" -r 20 "Making, Bonus part"
-	@$(MAKE) do_bonus OBJS="$(BONUS_OBJS)" NAME="minishell"
+	@$(MAKE) do_bonus OBJS="$(addprefix $(OBJS_DIR)/, $(BONUS_OBJS))" NAME="minishell"
 

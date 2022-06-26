@@ -6,10 +6,11 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:26:21 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/26 14:10:38 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/26 16:28:24 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
 #include "parser.h"
 
 t_tree_node	*parse(void)
@@ -75,3 +76,4 @@ static t_tree_node	*parse_cmd_list(t_tree_node *current,
 		return (current);
 	}
 }
+*/

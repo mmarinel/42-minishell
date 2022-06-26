@@ -6,19 +6,21 @@
 #    By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/10 12:28:57 by mmarinel          #+#    #+#              #
-#    Updated: 2022/06/22 17:52:05 by mmarinel         ###   ########.fr        #
+#    Updated: 2022/06/26 20:05:55 by mmarinel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #SAY = say
 #NORMINETTE = norminette -R CheckForbiddenSourceHeader
 CC = @gcc
-#HOME = /Users/mmarinel
+HOME = /Users/mmarinel
 CFLAGS = -I -Wall -Werror -Wextra -fsanitize=address -static-libsan -g
-READLINE_FLAGS = -L/usr/include -lreadline -L/Users/mmarinel/.brew/opt/readline/lib -I /Users/mmarinel/.brew/opt/readline/include
+READLINE_FLAGS = -L/usr/include -lreadline -L$(HOME)/.brew/opt/readline/lib -I $(HOME)/.brew/opt/readline/include
+OBJS_DIR = ".objs"
 
-MANDATORY_OBJS = $(shell find . -name "*.c" -print | grep -v bonus.c | sed 's/\.c/\.o/g')
-BONUS_OBJS = $(shell find . -name "*.c" -print | grep -v mand | sed 's/\.c/\.o/g')
+INCLUDES = $(shell find . -name "*.h" -print)
+MANDATORY_OBJS = $(shell find . -name "*.c" -print | grep -v bonus.c | sed 's/\.c/\.o/g' | sed 's/\.\///') # last cmd removes ./ at the beginning of each file
+BONUS_OBJS = $(shell find . -name "*.c" -print | grep -v mand | sed 's/\.c/\.o/g' | sed 's/\.\///') # last cmd removes ./ at the beginning of each file
 
 
 ####################### Unvoiced Makes #########################
@@ -67,18 +69,22 @@ re_bonus_say: fclean_say bonus_say
 do_bonus: $(NAME)
 do_mandatory: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(INCLUDES)
 	$(CC) $(CFLAGS) $(READLINE_FLAGS) $(OBJS) -o $(NAME)
+
+$(shell echo $(OBJS_DIR))/%.o: %.c $(wildcard $(<D)/*.h)
+	@mkdir -p '$(@D)'
+	$(CC) -c $(CFLAGS) $< -o $@
 
 cl:
 	@printf "removing Object files...\n"
-	@/bin/rm -f $(MANDATORY_OBJS) $(BONUS_OBJS)
+	@/bin/rm -f $(OBJS_DIR)/**/*.o
 	@printf "\033[0;35mObject files removed!\n"
 	@echo "\033[0;37m"
 
 fcl: cl
 	@printf "removing program executable...\n"
-	@/bin/rm -f ./minishell
+	@/bin/rm -f ./minishell; /bin/rm -f ./minishell_bonus
 	@printf "\033[0;35mExecutable removed!\n"
 	@echo "\033[0;37m"
 
@@ -89,10 +95,9 @@ re_bonus: fclean bonus
 .ADD_MANDATORY:
 	@printf "\033[0;36mMaking Mandatory part\n"
 	@echo "\033[0;37m"
-	@$(MAKE) do_mandatory OBJS="$(MANDATORY_OBJS)" NAME="minishell"
+	@$(MAKE) do_mandatory OBJS="$(addprefix $(OBJS_DIR)/, $(MANDATORY_OBJS))" NAME="minishell"
 
 .ADD_BONUS:
 	@printf "\033[1;36mMaking Bonus part\n"
 	@echo "\033[0;37m"
-	@$(MAKE) do_bonus OBJS="$(BONUS_OBJS)" NAME="minishell"
-
+	@$(MAKE) do_bonus OBJS="$(addprefix $(OBJS_DIR)/, $(BONUS_OBJS))" NAME="minishell"
