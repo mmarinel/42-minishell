@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 16:29:04 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/25 10:10:22 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/26 12:58:23 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,9 @@ void	close_pipe(int pipe_[])
 {
 	close(pipe_[0]);
 	close(pipe_[1]);
+}
+
+void	set_error(t_outcome *outcome)
+{
+	*outcome = ERROR;
 }

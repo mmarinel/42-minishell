@@ -6,76 +6,72 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:26:21 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/25 19:46:25 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/26 14:10:38 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-static t_tree_node	*parse_cm_list(void);
-
 t_tree_node	*parse(void)
 {
-	return (parse_cm_list());
-}
+	static t_parser_status	parser_status = (t_parser_status){SUCCESS, (t_groupings){0,0,0}};
+	t_tree_node				*tree;
 
-static t_tree_node	*parse_body(void)
-{
-	static t_groupings	unclosed = (t_groupings){0,0,0};
-
-}
-
-t_tree_node	*parse_cm_list(void)
-{
-	t_tree_node			*sub_tree;
-
-	sub_tree =  NULL;
-	parse_cm_list_rec(sub_tree);
-	return (sub_tree);
-	// root->left = parse_cmd();
-	// if (cur_token()->token_id == e_OPERATOR)
-}
-
-static t_tree_node	*parse_cm_list_rec(t_tree_node *tree)
-{
-	t_tree_node	*operator_node;
-
-	if (!tree)
-		tree = parse_body();
-	operator_node = scan_operator();
-	tree = new_tree_node(tree, parse_cm_list_rec(tree));
-}
-
-/*
-	root->right = parse_body();
-	while (e_true)
+	tree = parse_cmd_list(parse_atomic_exp(&parser_status), &parser_status);
+	if (parser_status.status == ERROR)
 	{
-		cur_token = next_token();
-		if (!cur_token)
-			break ;
-		if (cur_token->token_id == e_PARENTHESIS)
-		{
-			if (*((char *)cur_token->token_id) == ')')
-			{
-				if (unclosed.parenthesis)
-				{
-					unclosed.parenthesis--;
-					return (sub_tree);
-				}
-				else
-				{
-					free_tree(sub_tree);
-					return (NULL);
-				}
-			}
-			else
-			{
-				unclosed.parenthesis++;
-				sub_tree = new_tree_node(parse_cm_list());
-			}
-		}
-		sub_tree = (t_tree_node *) malloc(sizeof(t_tree_node));
-		// while loop scan infile
+		free_tree(tree);
+		tree = NULL;
+	}
+	return (tree);
+}
+
+static t_tree_node	*parse_atomic_exp(t_parser_status *parser_status)
+{
+	t_token	*token;
+
+	if (parser_status->status == ERROR)
+		return (NULL);
+	token = next_token();
+	if (token->token_id == e_PARENTHESIS && *((char *)token->token_val) == '(')
+	{
+		parser_status->open.parenthesis += 1;
+		return (parse_cmd_list(parse_atomic_exp(parser_status), parser_status));
+	}
+	else if (token->token_id == e_CMD_NAME)
+	{
+		return (tree_node(parse_simple_command(token, parser_status)));
+	}
+	else
+	{
+		set_error(&(parser_status->status));
+		return (NULL);
 	}
 }
-*/
+
+static t_tree_node	*parse_cmd_list(t_tree_node *current,
+	t_parser_status *parser_status)
+{
+	t_token	*token;
+
+	if (parser_status->status == ERROR)
+		return (current);
+	token = next_token();
+	if (token->token_id == e_PARENTHESIS && *((char *)token->token_val) == ')')
+	{
+		if (parser_status->open.parenthesis == 0)
+			set_error(&(parser_status->status));
+		else
+			parser_status->open.parenthesis -= 1;
+		return (current);
+	}
+	else if (token->token_id == e_OPERATOR)
+	{
+		return (parse_cmd_list(tree_node(current, token, parse_atomic_exp(parser_status)), parser_status));
+	}
+	else
+	{
+		set_error(&(parser_status->status));
+		return (current);
+	}
+}

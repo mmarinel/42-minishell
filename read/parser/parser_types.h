@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:48:27 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/25 18:15:34 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/26 13:43:33 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,11 @@ typedef struct s_groupings
 	size_t	double_qquotes;
 	size_t	parenthesis;
 }	t_groupings;
+
+typedef struct parser_status
+{
+	t_outcome	status;
+	t_groupings	open;
+}	t_parser_status;
 
 #endif

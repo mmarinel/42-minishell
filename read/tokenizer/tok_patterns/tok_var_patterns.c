@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 08:47:20 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/25 09:32:10 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/26 12:58:58 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static size_t	scan_initial_keyword_set_token(char *str, size_t offset, t_token *
 		(*token)->token_val = NULL;
 		(*token)->to_string = NULL;
 		(*token)->next = NULL;
-		(*token)->prev = NULL;
+		// (*token)->prev = NULL;
 		if (ft_strncmp(str + new_offset, "export", 6) == 0)
 		{
 			(*token)->token_id =  e_ENV_VAR_DECL;

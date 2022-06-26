@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:13:18 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/24 14:28:58 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/26 12:43:59 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void			ft_free(void *ptr);
 
 // * shell utils
 
+void			set_error(t_outcome *outcome);
 t_bool			bash_control_character(char c);
 t_bool			mini_cmd_separator(char c);
 t_bool			redirect_char(char c);

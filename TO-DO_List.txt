@@ -13,3 +13,5 @@
 5. token per unset! <fatto>
 
 6. gestione displat ^C con termios! (Alberto) <fatto>
+
+7. Makefile: ottimizzazione + directory objects + dipendenze .h

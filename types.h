@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 15:19:19 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/18 18:55:58 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/26 12:41:53 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,11 @@ typedef enum e_bool
 	e_false = 0
 }	t_bool;
 #endif
+
+typedef enum e_outcome
+{
+	ERROR,
+	SUCCESS
+}	t_outcome;
 
 #endif
