@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/27 09:21:45 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/27 15:47:25 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,3 +159,8 @@ static void	tok_to_string(t_token *token)
 	}
 	// printf("%s ", id);
 }
+
+// void	tok_list_arrange(t_token **token_list)
+// {
+// 	t_token	*cur_tok;
+// }

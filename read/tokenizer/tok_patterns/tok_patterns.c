@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/25 16:17:46 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/27 15:50:20 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,11 @@ size_t	scan_cmd_name(char *command_line, size_t offset, t_token **token_list)
 	token = (t_token *) malloc(sizeof(t_token));
 	token->token_id = e_CMD_NAME;
 	token->token_val = ft_strcpy(NULL, command_line + pre_offset, len_cmd_name);
+	pre_offset = scan_redirs(command_line, pre_offset + len_cmd_name, token_list);
+	pre_offset = scan_cmd_arg(command_line, pre_offset, token_list);
 	tok_add_back(token_list, token);
-	return (pre_offset + len_cmd_name);
+	return (pre_offset);
+	//return (pre_offset + len_cmd_name);
 }
 
 size_t	scan_cmd_arg(char *command_line, size_t offset, t_token **token_list)

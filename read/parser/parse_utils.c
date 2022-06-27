@@ -6,10 +6,11 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 08:22:23 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/27 09:31:11 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/27 15:44:54 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
 #include "parser.h"
 
 t_tree_node	*new_tree_node(t_tree_node *left, t_node_content *content, t_tree_node *right)
@@ -67,6 +68,13 @@ t_node_content	*parse_env_decl(t_token *token)
 	token->token_val = NULL;
 }
 
-t_node_content	*parse_simple_cmd(t_token *token)
+t_node_content	*parse_simple_command(t_token *token)
 {
+	t_token	*cmd_arg;
+	t_token	*infile;
+	t_token	*outfile;
+
+	infile = parse_redir();
+	
 }
+*/

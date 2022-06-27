@@ -6,22 +6,21 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 11:07:42 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/24 11:35:27 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/27 15:47:03 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tok_patterns_utils.h"
 
-size_t	scan_var_mode(char *command_line, size_t offset, t_bool *concat_mode)
+size_t	scan_redirs(char *command_line, size_t offset, t_token **token_list)
 {
-	if (command_line[offset] == '+')
+	size_t	new_offset;
+
+	new_offset = scan_inout_file(command_line, offset, token_list);
+	while (new_offset > offset)
 	{
-		*concat_mode = e_true;
-		return (offset + 1);
+		offset = new_offset;
+		new_offset =  scan_inout_file(command_line, new_offset, token_list);
 	}
-	else
-	{
-		*concat_mode = e_false;
-		return (offset);
-	}
+	return (new_offset);
 }

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 08:56:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/27 09:24:37 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/27 15:26:05 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,20 @@ size_t	scan_var_value(char *str, size_t offset, char **value,
 	(*value)[value_len] = '\0';
 	ft_strcpy((*value), str + offset + 1, value_len);
 	return (offset + 1 + value_len);
+}
+
+size_t	scan_var_mode(char *command_line, size_t offset, t_bool *concat_mode)
+{
+	if (command_line[offset] == '+')
+	{
+		*concat_mode = e_true;
+		return (offset + 1);
+	}
+	else
+	{
+		*concat_mode = e_false;
+		return (offset);
+	}
 }
 
 size_t	scan_var(char *str, size_t offset,

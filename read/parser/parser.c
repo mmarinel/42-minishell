@@ -6,12 +6,12 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:26:21 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/27 08:57:16 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/27 15:44:35 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
+/*
 t_tree_node	*parse(void)
 {
 	static t_parser_status	parser_status = (t_parser_status){SUCCESS, (t_groupings){0,0,0}};
@@ -33,6 +33,11 @@ static t_tree_node	*parse_atomic_exp(t_parser_status *parser_status)
 	if (parser_status->status == ERROR)
 		return (NULL);
 	token = next_token();
+	if (token->token_id == e_OPERATOR)
+	{
+		set_error(&(parser_status->status));
+		return (NULL);
+	}
 	if (token->token_id == e_PARENTHESIS && *((char *)token->token_val) == '(')
 	{
 		parser_status->open.parenthesis += 1;
@@ -46,11 +51,12 @@ static t_tree_node	*parse_atomic_exp(t_parser_status *parser_status)
 	{
 		return (new_tree_node(NULL, parse_env_decl(token), NULL));
 	}
-	else
-	{
-		set_error(&(parser_status->status));
-		return (NULL);
-	}
+	return (NULL);
+	// else
+	// {
+	// 	set_error(&(parser_status->status));
+	// 	return (NULL);
+	// }
 }
 
 static t_tree_node	*parse_cmd_list(t_tree_node *current,
@@ -79,3 +85,4 @@ static t_tree_node	*parse_cmd_list(t_tree_node *current,
 		return (current);
 	}
 }
+*/

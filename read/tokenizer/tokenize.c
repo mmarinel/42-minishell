@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 18:48:51 by earendil          #+#    #+#             */
-/*   Updated: 2022/06/25 19:27:01 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/27 10:23:20 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static t_token	*tokenize(char	*str);
 static void	*tokenizer(char *command_line, t_op_code op_code)
 {
 	static t_token	*token_list;
-	static	t_token	*next_token = NULL;
+	static t_token	*next_token = NULL;
 	t_token			*token;
 
 	if (op_code == e_READ_INPUT)

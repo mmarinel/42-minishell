@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 08:47:20 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/27 09:23:19 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/27 16:06:23 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ size_t	scan_env_declaration(char *str, size_t offset, t_token **token_list)
 	while (e_true)
 	{
 		next_var = NULL;
-		new_offset = scan_inout_file(str, new_offset, token_list);
+		new_offset = scan_redirs(str, new_offset, token_list); //scan_inout_file(str, new_offset, token_list);
 		new_offset = scan_var(str, new_offset, token->token_id, &next_var);
 		if (!next_var)
 			break ;
