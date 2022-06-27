@@ -6,11 +6,10 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:26:21 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/26 16:28:24 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/27 08:57:16 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
 #include "parser.h"
 
 t_tree_node	*parse(void)
@@ -41,7 +40,11 @@ static t_tree_node	*parse_atomic_exp(t_parser_status *parser_status)
 	}
 	else if (token->token_id == e_CMD_NAME)
 	{
-		return (tree_node(parse_simple_command(token, parser_status)));
+		return (new_tree_node(NULL, parse_simple_command(token), NULL));
+	}
+	else if (token->token_id == e_ENV_VAR_DECL || token->token_id == e_ENV_VAR_UNSET)
+	{
+		return (new_tree_node(NULL, parse_env_decl(token), NULL));
 	}
 	else
 	{
@@ -68,7 +71,7 @@ static t_tree_node	*parse_cmd_list(t_tree_node *current,
 	}
 	else if (token->token_id == e_OPERATOR)
 	{
-		return (parse_cmd_list(tree_node(current, token, parse_atomic_exp(parser_status)), parser_status));
+		return (parse_cmd_list(new_tree_node(current, parse_operator(token), parse_atomic_exp(parser_status)), parser_status));
 	}
 	else
 	{
@@ -76,4 +79,3 @@ static t_tree_node	*parse_cmd_list(t_tree_node *current,
 		return (current);
 	}
 }
-*/

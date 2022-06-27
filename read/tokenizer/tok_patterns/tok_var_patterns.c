@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 08:47:20 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/26 12:58:58 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/27 09:23:19 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static size_t	scan_env_revert(t_token *token, size_t offset);
 
 static void	add_new_binding(t_token **token_ref,
-				t_var_ass_content *next_binding);
+				t_bindings *next_binding);
 
 static void	env_decl_add_token(t_token *scanned_token, t_token **token_list);
 
@@ -27,7 +27,7 @@ size_t	scan_env_declaration(char *str, size_t offset, t_token **token_list)
 {
 	size_t				new_offset;
 	t_token				*token;
-	t_var_ass_content	*next_var;
+	t_bindings			*next_var;
 
 	new_offset = scan_initial_keyword_set_token(str, offset, &token);
 	if (new_offset == offset)
@@ -53,10 +53,10 @@ size_t	scan_env_declaration(char *str, size_t offset, t_token **token_list)
 
 static size_t	scan_env_revert(t_token *token, size_t offset)
 {
-	t_var_ass_content	*cur;
-	t_var_ass_content	*prev;
+	t_bindings	*cur;
+	t_bindings	*prev;
 
-	cur = (t_var_ass_content *) token->token_val;
+	cur = (t_bindings *) token->token_val;
 	while (cur)
 	{
 		prev = cur;
@@ -108,9 +108,9 @@ static size_t	scan_initial_keyword_set_token(char *str, size_t offset, t_token *
 	// return (new_offset);
 
 static void	add_new_binding(t_token **token_ref,
-		t_var_ass_content *next_binding)
+		t_bindings *next_binding)
 {
-	next_binding->next = (t_var_ass_content *)(*token_ref)->token_val;
+	next_binding->next = (t_bindings *)(*token_ref)->token_val;
 	(*token_ref)->token_val = next_binding;
 }
 

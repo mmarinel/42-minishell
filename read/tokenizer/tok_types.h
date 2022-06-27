@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 14:50:02 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/25 19:11:28 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/27 09:19:15 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-typedef struct s_var_ass_content
+typedef struct s_bindings
 {
-	char						*name;
-	char						*val;
-	t_bool						concat_mode;
-	struct s_var_ass_content	*next;
-}	t_var_ass_content;
+	t_bool				concat_mode;
+	char				*var_name;
+	char				*var_val;
+	struct s_bindings	*next;
+}	t_bindings;
 
 #endif

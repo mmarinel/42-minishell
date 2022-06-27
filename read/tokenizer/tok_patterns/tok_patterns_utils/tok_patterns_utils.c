@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 08:56:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/25 09:17:00 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/27 09:24:37 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ size_t	scan_var_value(char *str, size_t offset, char **value,
 }
 
 size_t	scan_var(char *str, size_t offset,
-			t_token_id tok_type, t_var_ass_content **next_var)
+			t_token_id tok_type, t_bindings **next_var)
 {
 	char				*var_name;
 	char				*var_value;
@@ -128,9 +128,9 @@ size_t	scan_var(char *str, size_t offset,
 		return (offset);
 	if (tok_type == e_ENV_VAR_DECL)
 		new_offset = scan_var_value(str, new_offset, &var_value, &concat_mode);
-	*next_var = (t_var_ass_content *) malloc(sizeof(t_var_ass_content));
-	(*next_var)->name = var_name;
-	(*next_var)->val = var_value;
+	*next_var = (t_bindings *) malloc(sizeof(t_bindings));
+	(*next_var)->var_name = var_name;
+	(*next_var)->var_val = var_value;
 	(*next_var)->concat_mode = concat_mode;
 	return (new_offset);
 }

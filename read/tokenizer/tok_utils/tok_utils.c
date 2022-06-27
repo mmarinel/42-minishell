@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/25 19:12:14 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/27 09:21:45 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,14 +125,14 @@ static void	tok_to_string(t_token *token)
 	{
 		id = BOLDMAGENTA "ENV_VAR_DECL" RESET;
 		printf("%s ", id);
-		t_var_ass_content	*var_cont;
+		t_bindings	*var_cont;
 
-		var_cont = (t_var_ass_content *)token->token_val;
+		var_cont = (t_bindings *)token->token_val;
 		printf("\n");
 		while (var_cont)
 		{
-			printf("var name: %s\tvar val: %s\tconcat_mode: %d\n", var_cont->name, var_cont->val, (int)(var_cont->concat_mode));
-			printf("len_name: %zu; len_val: %zu\n", ft_strlen(var_cont->name), ft_strlen(var_cont->val));
+			printf("var name: %s\tvar val: %s\tconcat_mode: %d\n", var_cont->var_name, var_cont->var_val, (int)(var_cont->concat_mode));
+			printf("len_name: %zu; len_val: %zu\n", ft_strlen(var_cont->var_name), ft_strlen(var_cont->var_val));
 			var_cont = var_cont->next;
 		}
 	}
@@ -140,14 +140,14 @@ static void	tok_to_string(t_token *token)
 	{
 		id = BOLDMAGENTA "ENV_VAR_UNSET" RESET;
 		printf("%s ", id);
-		t_var_ass_content	*var_cont;
+		t_bindings	*var_cont;
 
-		var_cont = (t_var_ass_content *)token->token_val;
+		var_cont = (t_bindings *)token->token_val;
 		printf("\n");
 		while (var_cont)
 		{
-			printf("var name: %s\tvar val: %s\tconcat_mode: %d\n", var_cont->name, var_cont->val, (int)(var_cont->concat_mode));
-			printf("len_name: %zu; len_val: %zu\n", ft_strlen(var_cont->name), ft_strlen(var_cont->val));
+			printf("var name: %s\tvar val: %s\tconcat_mode: %d\n", var_cont->var_name, var_cont->var_val, (int)(var_cont->concat_mode));
+			printf("len_name: %zu; len_val: %zu\n", ft_strlen(var_cont->var_name), ft_strlen(var_cont->var_val));
 			var_cont = var_cont->next;
 		}
 	}

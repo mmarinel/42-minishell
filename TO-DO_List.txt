@@ -14,4 +14,7 @@
 
 6. gestione displat ^C con termios! (Alberto) <fatto>
 
-7. Makefile: ottimizzazione + directory objects + dipendenze .h
+7. Makefile: ottimizzazione + directory objects + dipendenze .h <fatto>
+
+8. Makefile: mettere dipendenze anche sui .h che i miei .h includono. Se refattorizzo bene, includo solo i .h del mio modulo tranne al piu l'unico .h che il modulo prima di me espone all'esterno (quello con la sola dichiarazione dell'unica funzione che espongo all'esterno)
+
