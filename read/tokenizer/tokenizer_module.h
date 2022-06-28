@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer.h                                        :+:      :+:    :+:   */
+/*   tokenizer_module.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/19 11:23:53 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/28 15:20:17 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/06/28 15:18:06 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/06/28 15:20:01 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKENIZER_H
-# define TOKENIZER_H
+#ifndef TOKENIZER_MODULE_H
+# define TOKENIZER_MODULE_H
 
-# include <stdlib.h>
-# include "../../colors.h"
 # include "tok_types.h"
-
-// * user defined exposed function
 
 void	tokenizer_feed_input(char *command_line);
 t_token	*cur_token(void);

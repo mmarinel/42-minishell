@@ -6,12 +6,14 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 14:50:02 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/27 09:19:15 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/28 15:21:11 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOK_TYPES_H
 # define TOK_TYPES_H
+
+#include "../../types.h"
 
 typedef enum e_op_code
 {
