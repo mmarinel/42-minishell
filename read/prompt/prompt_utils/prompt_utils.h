@@ -6,14 +6,27 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 19:04:09 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/23 17:25:17 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/28 16:28:48 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PROMPT_UTILS_H
 # define PROMPT_UTILS_H
 
-# include "../../read.h"
+
+// * standard libraries
+# include <unistd.h>
+# include <fcntl.h>
+# include <stdlib.h>
+
+// * user defined 
+# include "../../../types.h"
+# include "../../../colors.h"
+# include "../../../utils/ft_utils.h"
+
+
+// * includes end //
+
 
 char	**ft_add_history(char *command);
 

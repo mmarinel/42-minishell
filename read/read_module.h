@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read.h                                             :+:      :+:    :+:   */
+/*   read_module.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/14 08:34:22 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/28 16:38:40 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/06/28 16:37:33 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/06/28 16:38:46 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef READ_H
-# define READ_H
+#ifndef READ_MODULE_H
+# define READ_MODULE_H
 
-# include <stdio.h>
-# include "../utils/ft_utils.h"
-# include "../types.h"
+// * user defined EXPOSED FUNCTIONS
 
-// * SUBMODULES //
-# include "prompt/prompt_module.h"
-# include "tokenizer/tokenizer_module.h"
-# include "parser/parser_module.h"
-# include "read_utils/read_utils.h"
+char	*shell_read( char *const envp[]);
 
 #endif
