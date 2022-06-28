@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 08:22:23 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/28 13:00:15 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/28 14:49:13 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,20 @@ void	free_tree(t_tree_node *root)
 	ft_free(root->content->outfile);
 	free(root->content);
 	free(root);
+}
+
+void	tree_to_string(t_tree_node *root)
+{
+	if (!root)
+		return ;
+	printf("(");
+	to_string(root->left);
+	if (root->content->content_type == OPERATOR)
+		printf("OPERATOR ");
+	if (root->content->content_type == SIMPL_CMD)
+		printf("SIMPLE_CMD ");
+	if (root->content->content_type == ENV_STATEMENT)
+		printf("ENV_STATEMENT ");
+	to_string(root->right);
+	printf(")");
 }

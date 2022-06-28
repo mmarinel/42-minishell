@@ -6,14 +6,15 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 12:56:38 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/28 13:06:32 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/28 14:52:19 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSE_UTILS_H
 # define PARSE_UTILS_H
 
-# include "../../../includes.h"
+# include <stdlib.h>
+# include "../../../types.h"
 # include "../parser_types.h"
 # include "../../tokenizer/tok_types.h"
 
@@ -30,5 +31,5 @@ void			parse_redir(t_node_content *node_content,
 t_tree_node	*new_tree_node(t_tree_node *left,
 				t_node_content *content, t_tree_node *right);
 void		free_tree(t_tree_node *root);
-
+void		tree_to_string(t_tree_node *root);
 #endif

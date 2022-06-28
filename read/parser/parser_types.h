@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:48:27 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/27 09:27:16 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/28 14:39:46 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef	struct s_node_content
 typedef struct s_tree_node
 {
 	t_node_content		*content;
+	void				(*to_string)(struct s_tree_node *node);
 	struct s_tree_node	*left;
 	struct s_tree_node	*right;
 }	t_tree_node;
