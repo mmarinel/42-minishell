@@ -6,14 +6,17 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 18:48:51 by earendil          #+#    #+#             */
-/*   Updated: 2022/06/27 10:23:20 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/28 10:11:53 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 
 static void	*tokenizer(char *command_line, t_op_code op_code);
-static t_token	*tokenize(char	*str);
+static t_token	*tokenize(char	*command_line);
+
+//* end of declarations //
+
 
 /**
  * 
@@ -76,35 +79,28 @@ t_token	*cur_token(void)
 	return (tokenizer(NULL, e_CUR_TOKEN));
 }
 
-static t_token	*tokenize(char	*str)
+static t_token	*tokenize(char	*command_line)
 {
-	size_t	offset;
 	t_token	*token_list;
+	size_t	offset;
 	char	*cursor;
 
 	token_list = NULL;
-	cursor = str;
+	cursor = command_line;
 	offset = 0;
-	while (str[offset])
+	while (command_line[offset])
 	{
-		offset = scan_prologue(str, offset, &token_list);
-		if (str[offset]
-			&&
-			(0 == ft_strncmp(str + offset, "export", 6)
-				|| 0 == ft_strncmp(str + offset, "unset", 5)))
-			offset = scan_env_declaration(str, offset, &token_list);
-		else
-			offset = scan_simple_command(str, offset, &token_list);
-		offset = scan_epilogue(str, offset, &token_list);
-		if (cursor == str + offset)
+		offset = scan_prologue(command_line, offset, &token_list);
+		offset = scan_body(command_line, offset, &token_list);
+		offset = scan_epilogue(command_line, offset, &token_list);
+		if (cursor == command_line + offset)
 			break ;
-		cursor = str + offset;
+		cursor = command_line + offset;
 	}
-	if (offset < ft_strlen(str))
+	if (offset < ft_strlen(command_line))
 	{
-		printf("Syntax Error: token not recognized near %.10s...\n", str + offset);
+		printf(RED "Syntax Error: token not recognized near " RESET GREEN "➡️ " RESET RED "%.10s...\n" RESET, command_line + offset);
 		free_tok_list(&token_list);
 	}
-	// tok_add_back(&token_list, NULL);
 	return (token_list);
 }

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 13:04:29 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/24 15:15:12 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/28 09:25:46 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 size_t	scan_simple_command(char *command_line, size_t offset,
 			t_token **token_list);
 size_t	scan_prologue(char *command_line, size_t offset,
+			t_token **token_list);
+size_t	scan_body(char *command_line, size_t offset,
 			t_token **token_list);
 size_t	scan_epilogue(char *command_line, size_t offset,
 			t_token **token_list);

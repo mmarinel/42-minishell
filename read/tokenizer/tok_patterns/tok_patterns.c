@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/27 15:50:20 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/28 10:32:37 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ size_t	scan_inout_file(char *command_line, size_t offset, t_token **token_list)
 	pre_offset = scan_invariants(command_line, pre_offset + 1);
 	if (!command_line[pre_offset])
 		return (offset);
-	len_file_name = mini_next_word_len(command_line, pre_offset);
+	len_file_name = bash_next_word_len(command_line, pre_offset);
 	if (len_file_name == 0)
 		return (offset);
 	token = (t_token *) malloc(sizeof(t_token));
@@ -38,6 +38,55 @@ size_t	scan_inout_file(char *command_line, size_t offset, t_token **token_list)
 		= ft_strcpy(NULL, command_line + pre_offset, len_file_name);
 	tok_add_back(token_list, token);
 	return (pre_offset + len_file_name);
+}
+
+size_t	scan_simple_command(char *command_line, size_t offset,
+			t_token **token_list)
+{
+	t_token	*token;
+	int		len_cmd_name;
+
+//	pre_offset = scan_invariants(command_line, offset);
+	if (!command_line[offset])
+		return (offset);
+	len_cmd_name = bash_next_word_len(command_line, offset);
+	if (len_cmd_name == 0)
+		return (offset);
+	token = (t_token *) malloc(sizeof(t_token));
+	token->token_id = e_CMD_NAME;
+	token->token_val = ft_strcpy(NULL, command_line + offset, len_cmd_name);
+	offset += len_cmd_name;
+	offset = scan_redirs(command_line, offset, token_list);
+	offset = scan_cmd_arg(command_line, offset, token_list);
+	tok_add_back(token_list, token);
+	return (offset);
+}
+
+size_t	scan_env_declaration(char *str, size_t offset, t_token **token_list)
+{
+	size_t				new_offset;
+	t_token				*token;
+	t_bindings			*next_var;
+
+	new_offset = scan_initial_keyword_set_token(str, offset, &token);
+	if (new_offset == offset)
+		return (offset);
+	new_offset = scan_invariants(str, new_offset);
+	while (e_true)
+	{
+		next_var = NULL;
+		new_offset = scan_redirs(str, new_offset, token_list); //scan_inout_file(str, new_offset, token_list);
+		new_offset = scan_var(str, new_offset, token->token_id, &next_var);
+		if (!next_var)
+			break ;
+		else if (str[new_offset]
+			&& e_false == bash_control_character(str[new_offset]))
+			return (scan_env_revert(token, offset));
+		else
+			add_new_binding(&token, next_var);
+	}
+	env_decl_add_token(token, token_list);
+	return (new_offset);
 }
 
 /**
@@ -72,58 +121,7 @@ size_t	scan_operator(char *command_line, size_t offset, t_token **token_list)
 	return (pre_offset + ft_strlen((char *)token->token_val));
 }
 
-size_t	scan_cmd_name(char *command_line, size_t offset, t_token **token_list)
-{
-	t_token	*token;
-	int		len_cmd_name;
-	size_t	pre_offset;
-
-	pre_offset = scan_invariants(command_line, offset);
-	if (!command_line[pre_offset])
-		return (offset);
-	len_cmd_name = mini_next_word_len(command_line, pre_offset);
-	if (len_cmd_name == 0)
-		return (offset);
-	token = (t_token *) malloc(sizeof(t_token));
-	token->token_id = e_CMD_NAME;
-	token->token_val = ft_strcpy(NULL, command_line + pre_offset, len_cmd_name);
-	pre_offset = scan_redirs(command_line, pre_offset + len_cmd_name, token_list);
-	pre_offset = scan_cmd_arg(command_line, pre_offset, token_list);
-	tok_add_back(token_list, token);
-	return (pre_offset);
-	//return (pre_offset + len_cmd_name);
-}
-
-size_t	scan_cmd_arg(char *command_line, size_t offset, t_token **token_list)
-{
-	t_token	*token;
-	char	*args;
-	size_t	pre_offset;
-	size_t	new_offset;
-
-	new_offset = scan_invariants(command_line, offset);
-	if (!command_line[new_offset])
-		return (offset);
-	args = NULL;
-	while (command_line[new_offset])
-	{
-		new_offset = scan_invariants(command_line, new_offset); //
-		pre_offset = new_offset;
-		new_offset = scan_next_cmd_arg(command_line, new_offset,
-				&args, token_list);
-		if (pre_offset == new_offset)
-			break ;
-	}
-	if (args == NULL)
-		return (offset);
-	token = (t_token *) malloc(sizeof(t_token));
-	token->token_id = e_CMD_ARG;
-	token->token_val = args;
-	tok_add_back(token_list, token);
-	return (new_offset);
-}
-
-size_t	scan_parenthesis(char *command_line, size_t offset,
+size_t	scan_single_par(char *command_line, size_t offset,
 			t_token **token_list)
 {
 	t_token	*token;

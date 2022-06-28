@@ -1,1 +1,7 @@
 < filetto export < filetto var=1 var2=2 && echo greppo | grep pippo > outfiletto && comando -opzione > file argomento < filetto argomento2|| grep ciao
+
+<dile >file echo <dile >file ciao <dile >file arg >dile <file | (<dile >file export >dile <file ciao=1 <dile >file var+=1 >dile <file && echo ciao >f <d
+
+<dile >file echo <dile >file ciao <dile >file arg >dile <file | (<dile >file export >dile <file ciao=1 <dile >file var-=1 >dile <file && echo ciao >f <d)
+
+<dile >file echo <dile >file ciao <dile >file arg >dile <file | (<dile >file unset >dile <file ciao=1 <dile >file var+=1 >dile <file && echo ciao >f <d))

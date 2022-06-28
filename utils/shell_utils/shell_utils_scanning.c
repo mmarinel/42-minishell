@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 16:19:03 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/24 14:28:26 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/28 08:15:04 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ size_t	scan_invariants(char *str, size_t offset)
 	return (new_offset);
 }
 
-size_t	mini_next_word_len(char *command_line, size_t offset)
+size_t	bash_next_word_len(char *command_line, size_t offset)
 {
 	size_t	len_word;
 

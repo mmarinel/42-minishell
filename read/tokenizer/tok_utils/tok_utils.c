@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/27 15:47:25 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/28 09:12:22 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,33 +15,8 @@
 static void	free_tok_list_rec(t_token *token);
 static void	tok_to_string(t_token *token);
 
-// int	scan_alternate_invariant_spaces_quotes(char *str)
-// {
-// 	int	idx;
+// * end of declarations //
 
-// 	idx = 0;
-// 	while (str[idx])
-// 	{
-// 		// READING ALL INVARIANT QUOTES
-// 		while (str[idx] == '"' || str[idx] == '\'')
-// 		{
-// 			if (str[idx + 1] != str[idx])
-// 				break ;
-// 			idx += 2;
-// 		}
-// 		// READING ALL FINAL SPACES
-// 		while (str[idx])
-// 		{
-// 			if (e_false == ft_isspace(str[idx]))
-// 				break ;
-// 			idx++;
-// 		}
-// 		if (str[idx] != '"' && str[idx] != '\''
-// 			&& e_false == ft_isspace(str[idx]))
-// 			break ;
-// 	}
-// 	return (idx);
-// }
 
 /**
  * @brief this function adds the given token to the end of the current
@@ -159,8 +134,3 @@ static void	tok_to_string(t_token *token)
 	}
 	// printf("%s ", id);
 }
-
-// void	tok_list_arrange(t_token **token_list)
-// {
-// 	t_token	*cur_tok;
-// }
