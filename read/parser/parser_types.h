@@ -6,12 +6,14 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:48:27 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/28 14:39:46 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/28 15:03:56 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_TYPES_H
 # define PARSER_TYPES_H
+
+# include "../tokenizer/tok_types.h"
 
 # define SIMPL_CMD 0
 # define ENV_STATEMENT 1

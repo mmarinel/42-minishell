@@ -6,15 +6,16 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 08:52:26 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/28 09:10:59 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/28 15:00:12 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOK_PATTERNS_UTILS_H
 # define TOK_PATTERNS_UTILS_H
 
-# include "../tok_patterns.h"
+# include <unistd.h>
 # include "../../tok_types.h"
+# include "../../../types.h"
 
 // * env vars patterns //
 size_t				scan_var(char *str, size_t offset,

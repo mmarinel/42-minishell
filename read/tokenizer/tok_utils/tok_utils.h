@@ -6,15 +6,16 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 13:04:29 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/28 09:25:46 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/28 15:00:49 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOK_UTILS_H
 # define TOK_UTILS_H
 
-# include "../tokenizer.h"
+# include <unistd.h>
 # include "../tok_types.h"
+# include "../../types.h"
 
 // * user defined functions
 
