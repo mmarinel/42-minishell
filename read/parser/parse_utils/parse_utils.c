@@ -6,11 +6,15 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 08:22:23 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/28 17:19:11 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/28 19:22:32 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse_utils.h"
+
+static void	print_simple_command(t_tree_node *node);
+static void	print_env_statement(t_tree_node *node);
+static void print_operator(t_tree_node *node);
 
 t_tree_node	*new_tree_node(t_tree_node *left, t_node_content *content, t_tree_node *right)
 {
@@ -43,17 +47,49 @@ void	tree_to_string(t_tree_node *root)
 		return ;
 	}
 	if (root->content->content_type == SIMPL_CMD)
-		printf("SIMPLE_CMD ");
+		print_simple_command(root);//printf("SIMPLE_CMD ");
 	else if (root->content->content_type == ENV_STATEMENT)
-		printf("ENV_STATEMENT ");
+		print_env_statement(root);//printf("ENV_STATEMENT ");
 	else
 	{
 		printf("(");
 		tree_to_string(root->left);
-		printf("OPERATOR ");
+		print_operator(root);//printf("OPERATOR ");
 		tree_to_string(root->right);
 		printf(")");
 	}
+}
+
+static void print_operator(t_tree_node *node)
+{
+	if (node->content->operator_node.operator == e_PIPE)
+		printf(" | ");
+	if (node->content->operator_node.operator == e_OR)
+		printf(" || ");
+	if (node->content->operator_node.operator == e_AND)
+		printf(" && ");
+}
+
+static void	print_simple_command(t_tree_node *node)
+{
+	printf(GREEN "[cmd_name: %s, cmd_arg: %s, infile: %s, outfile: %s]" RESET, node->content->simple_cmd.cmd_name, node->content->simple_cmd.cmd_args, node->content->infile, node->content->outfile);
+}
+
+static void	print_env_statement(t_tree_node *node)
+{
+	// t_bindings	*binding;
+
+	if (node->content->env_decl.set)
+		printf(GREEN "[EXPORT : infile: %s, outfile: %s " RESET, node->content->infile, node->content->outfile);
+	else
+		printf(GREEN "[UNSET : infile: %s, outfile: %s " RESET, node->content->infile, node->content->outfile);
+	// binding = node->content->env_decl.bindings;
+	// while (binding)
+	// {
+	// 	printf("\tconcat: %d, var_name: %s, var_val: %s\t", binding->concat_mode, binding->var_name, binding->var_val);
+	// 	binding = binding->next;
+	// }
+	// printf("]");
 }
 
 	// printf("(");
