@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 08:22:23 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/28 15:07:04 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/28 17:19:11 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,31 @@ void	free_tree(t_tree_node *root)
 void	tree_to_string(t_tree_node *root)
 {
 	if (!root)
+	{
+		// printf("HERE\n");
 		return ;
-	printf("(");
-	tree_to_string(root->left);
-	if (root->content->content_type == OPERATOR)
-		printf("OPERATOR ");
+	}
 	if (root->content->content_type == SIMPL_CMD)
 		printf("SIMPLE_CMD ");
-	if (root->content->content_type == ENV_STATEMENT)
+	else if (root->content->content_type == ENV_STATEMENT)
 		printf("ENV_STATEMENT ");
-	tree_to_string(root->right);
-	printf(")");
+	else
+	{
+		printf("(");
+		tree_to_string(root->left);
+		printf("OPERATOR ");
+		tree_to_string(root->right);
+		printf(")");
+	}
 }
+
+	// printf("(");
+	// tree_to_string(root->left);
+	// if (root->content->content_type == OPERATOR)
+	// 	printf("OPERATOR ");
+	// if (root->content->content_type == SIMPL_CMD)
+	// 	printf("SIMPLE_CMD ");
+	// if (root->content->content_type == ENV_STATEMENT)
+	// 	printf("ENV_STATEMENT ");
+	// tree_to_string(root->right);
+	// printf(")");

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:48:27 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/28 15:03:56 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/28 17:00:25 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define SIMPL_CMD 0
 # define ENV_STATEMENT 1
 # define OPERATOR 2
+# define REDIR 3
 
 typedef enum e_operator
 {

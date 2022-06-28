@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:26:21 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/28 14:52:58 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/28 17:12:23 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,13 @@ t_tree_node	*parse(void)
 	tree = parse_cmd_list(parse_atomic_exp(&parser_status), &parser_status);
 	if (parser_status.status == ERROR)
 	{
+		// printf("HERE");
+		fflush(stdout);
 		free_tree(tree);
 		tree = NULL;
 	}
 	tree_to_string(tree);
+	printf ("\n");
 	return (tree);
 }
 
@@ -42,6 +45,8 @@ static t_tree_node	*parse_atomic_exp(t_parser_status *parser_status)
 	if (parser_status->status == ERROR)
 		return (NULL);
 	token = next_token();
+	if (!token)
+		return (NULL);
 	if (
 		token->token_id == e_OPERATOR
 		||
@@ -54,7 +59,7 @@ static t_tree_node	*parse_atomic_exp(t_parser_status *parser_status)
 		set_error(&(parser_status->status));
 		return (NULL);
 	}
-	if (token->token_id == e_PARENTHESIS && *((char *)token->token_val) != '(')
+	if (token->token_id == e_PARENTHESIS && *((char *)token->token_val) == '(')
 	{
 		parser_status->open.parenthesis += 1;
 		return (parse_cmd_list(parse_atomic_exp(parser_status), parser_status));
@@ -71,6 +76,8 @@ static t_tree_node	*parse_cmd_list(t_tree_node *current,
 	if (parser_status->status == ERROR)
 		return (current);
 	token = next_token();
+	if (!token)
+		return (current);
 	if (token->token_id == e_PARENTHESIS && *((char *)token->token_val) == ')')
 	{
 		if (parser_status->open.parenthesis == 0)
@@ -101,6 +108,11 @@ static t_tree_node	*parse_statement(t_token *token)
 	{
 		parse_redir(node_content, token->token_val, token->token_id);
 		token = next_token();
+		if (!token)
+		{
+			node_content->content_type = REDIR;
+			return (new_tree_node(NULL, node_content, NULL));
+		}
 	}
 	if (token->token_id == e_CMD_NAME || token->token_id == e_CMD_ARG)
 		return (new_tree_node(NULL, parse_simple_command(token, node_content), NULL));
