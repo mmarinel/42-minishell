@@ -6,12 +6,11 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 08:22:23 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/27 15:44:54 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/28 13:00:15 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-#include "parser.h"
+#include "parse_utils.h"
 
 t_tree_node	*new_tree_node(t_tree_node *left, t_node_content *content, t_tree_node *right)
 {
@@ -34,47 +33,3 @@ void	free_tree(t_tree_node *root)
 	free(root->content);
 	free(root);
 }
-
-t_node_content	*parse_operator(t_token *token)
-{
-	t_node_content	*new;
-
-	new = (t_node_content *) malloc(sizeof(t_node_content));
-	new->content_type = OPERATOR;
-	new->infile = NULL;
-	new->outfile = NULL;
-	if (*((char *)token->token_val) == '|')
-	{
-		if (*((char *)token->token_val + 1) == '|')
-			new->operator_node.operator = e_OR;
-		else
-			new->operator_node.operator = e_PIPE;
-	}
-	else
-		new->operator_node.operator = e_AND;
-	return (new);
-}
-
-t_node_content	*parse_env_decl(t_token *token)
-{
-	t_node_content	*new;
-
-	new = (t_node_content *) malloc(sizeof(t_node_content));
-	new->content_type = ENV_STATEMENT;
-	new->infile = NULL;
-	new->outfile = NULL;
-	new->env_decl.set = (token->token_id == e_ENV_VAR_DECL);
-	new->env_decl.bindings = (t_bindings *)token->token_val;
-	token->token_val = NULL;
-}
-
-t_node_content	*parse_simple_command(t_token *token)
-{
-	t_token	*cmd_arg;
-	t_token	*infile;
-	t_token	*outfile;
-
-	infile = parse_redir();
-	
-}
-*/

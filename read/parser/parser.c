@@ -6,12 +6,20 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:26:21 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/27 15:44:35 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/28 13:08:32 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-/*
+
+static t_tree_node	*parse_atomic_exp(t_parser_status *parser_status);
+static t_tree_node	*parse_cmd_list(t_tree_node *current,
+						t_parser_status *parser_status);
+static t_tree_node	*parse_statement(t_token *token);
+
+// * end of declarations //
+
+
 t_tree_node	*parse(void)
 {
 	static t_parser_status	parser_status = (t_parser_status){SUCCESS, (t_groupings){0,0,0}};
@@ -28,35 +36,30 @@ t_tree_node	*parse(void)
 
 static t_tree_node	*parse_atomic_exp(t_parser_status *parser_status)
 {
-	t_token	*token;
+	t_token			*token;
 
 	if (parser_status->status == ERROR)
 		return (NULL);
 	token = next_token();
-	if (token->token_id == e_OPERATOR)
+	if (
+		token->token_id == e_OPERATOR
+		||
+		(
+			token->token_id == e_PARENTHESIS
+			&& *((char *)token->token_val) != '('
+		)
+	)
 	{
 		set_error(&(parser_status->status));
 		return (NULL);
 	}
-	if (token->token_id == e_PARENTHESIS && *((char *)token->token_val) == '(')
+	if (token->token_id == e_PARENTHESIS && *((char *)token->token_val) != '(')
 	{
 		parser_status->open.parenthesis += 1;
 		return (parse_cmd_list(parse_atomic_exp(parser_status), parser_status));
 	}
-	else if (token->token_id == e_CMD_NAME)
-	{
-		return (new_tree_node(NULL, parse_simple_command(token), NULL));
-	}
-	else if (token->token_id == e_ENV_VAR_DECL || token->token_id == e_ENV_VAR_UNSET)
-	{
-		return (new_tree_node(NULL, parse_env_decl(token), NULL));
-	}
-	return (NULL);
-	// else
-	// {
-	// 	set_error(&(parser_status->status));
-	// 	return (NULL);
-	// }
+	else
+		return (parse_statement(token));
 }
 
 static t_tree_node	*parse_cmd_list(t_tree_node *current,
@@ -85,4 +88,25 @@ static t_tree_node	*parse_cmd_list(t_tree_node *current,
 		return (current);
 	}
 }
-*/
+
+static t_tree_node	*parse_statement(t_token *token)
+{
+	t_node_content	*node_content;
+
+	node_content =  (t_node_content *) malloc(sizeof(t_node_content));
+	node_content->infile = NULL;
+	node_content->outfile = NULL;
+	while (token->token_id == e_IN_FILE || token->token_id == e_OUT_FILE)
+	{
+		parse_redir(node_content, token->token_val, token->token_id);
+		token = next_token();
+	}
+	if (token->token_id == e_CMD_NAME || token->token_id == e_CMD_ARG)
+		return (new_tree_node(NULL, parse_simple_command(token, node_content), NULL));
+	else if (token->token_id == e_ENV_VAR_DECL || token->token_id == e_ENV_VAR_UNSET)
+		return (new_tree_node(NULL, parse_env_statement(token, node_content), NULL));
+	ft_free(node_content->infile);
+	ft_free(node_content->outfile);
+	free(node_content);
+	return (NULL);
+}

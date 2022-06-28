@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 16:29:04 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/26 12:58:23 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/28 11:36:35 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ static t_bool	is_exit(char *command)
 	if (quote == '"' || quote == '\'')
 		command++;
 	// CHECKING PRESENCE OF exit STRING
-	if (!(*command) || ft_strncmp(command, "exit", 4) != 0)
+	if (!(*command) 
+		|| ft_strncmp(command, "exit", 4) != 0
+		|| ft_strlen(command) < 4)
 		return (e_false);
 	command += 4;
 	// CHECKING IF INITIAL QUOTE WAS CLOSED
