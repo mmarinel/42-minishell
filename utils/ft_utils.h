@@ -6,14 +6,27 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:13:18 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/29 08:37:10 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/29 11:01:09 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_UTILS_H
 # define FT_UTILS_H
 
-# include "../includes.h"
+# include "../types.h"
+
+// useful macros
+# include <limits.h>
+// # include <linux/limits.h>
+
+// read, write, file handling ...
+# include <unistd.h>
+# include <fcntl.h>
+
+// std libs
+# include <stdlib.h>
+# include <stdio.h>
+
 
 // * string utils
 

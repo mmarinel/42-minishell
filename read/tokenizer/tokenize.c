@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 18:48:51 by earendil          #+#    #+#             */
-/*   Updated: 2022/06/28 10:11:53 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/29 09:46:01 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ static t_token	*tokenize(char	*command_line)
 	}
 	if (offset < ft_strlen(command_line))
 	{
-		printf(RED "Syntax Error: token not recognized near " RESET GREEN "➡️ " RESET RED "%.10s...\n" RESET, command_line + offset);
+		printf(RED "Syntax Error: token not recognized near " RESET GREEN "➡️ " RESET RED "%.10s..." RESET, command_line + offset);
 		free_tok_list(&token_list);
 	}
 	return (token_list);
