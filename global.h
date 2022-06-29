@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   global.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/13 14:45:22 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/29 15:29:02 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/06/29 15:27:24 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/06/29 15:31:00 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "types.h"
 
-# include "includes.h"
-# include "global.h"
+typedef struct g_env
+{
+	int	last_executed_cmd_status;
+}	t_env;
 
-#endif
+t_env	g_env;

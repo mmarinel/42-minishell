@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/26 14:13:22 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/29 15:32:00 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	main(int argc, char const *argv[], char *const envp[])
 	if (argc != 1)
 		return (EXIT_SUCCESS);
 	// g_shell_env = (t_shell_env *) malloc(sizeof(t_shell_env));
+	g_env.last_executed_cmd_status = EXIT_SUCCESS;
 	set_signals();
 	print_signature();
 	while (e_true)

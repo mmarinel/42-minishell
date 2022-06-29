@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute.c                                          :+:      :+:    :+:   */
+/*   executor_types.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/29 10:46:16 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/29 12:03:41 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/06/29 15:05:27 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/06/29 15:06:35 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "execute.h"
+#ifndef EXECUTOR_TYPES_H
+# define EXECUTOR_TYPES_H
 
-void	execute(t_tree_node *parse_tree, char *const envp[])
+# include <sys/wait.h>
+
+typedef struct e_branch
 {
-	if (parse_tree == NULL)
-		return ;
-	if (envp)
-		;
-}
+	pid_t	branch;
+	int		exit_status;
+}	t_branch;
+
+#endif
