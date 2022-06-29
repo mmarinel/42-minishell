@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/28 09:12:22 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/29 08:43:29 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,4 +133,20 @@ static void	tok_to_string(t_token *token)
 		printf("parenthesis: %s; len %zu\n", (char *)token->token_val, ft_strlen((char *)token->token_val));
 	}
 	// printf("%s ", id);
+}
+
+size_t	bash_next_word_len(char *command_line, size_t offset)
+{
+	size_t	len_word;
+
+	offset = scan_invariants(command_line, offset);
+	len_word = 0;
+	while (e_false == bash_control_character
+		(
+			command_line[offset + len_word]
+		)
+		&& command_line[offset + len_word]
+	)
+		len_word++;
+	return (len_word);
 }

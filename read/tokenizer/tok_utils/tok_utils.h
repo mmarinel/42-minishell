@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 13:04:29 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/28 15:00:49 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/29 09:17:32 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 # define TOK_UTILS_H
 
 # include <unistd.h>
+# include "../../../colors.h"
+# include "../../../utils/ft_utils.h"
 # include "../tok_types.h"
-# include "../../types.h"
+# include "../../../types.h"
 
 // * user defined functions
 
@@ -39,5 +41,10 @@ size_t	scan_epilogue(char *command_line, size_t offset,
 void	tok_add_back(t_token **token_list, t_token *token);
 void	free_tok_list(t_token **token_list);
 int		scan_alternate_invariant_spaces_quotes(char *str);
+size_t	bash_next_word_len(char *command_line, size_t offset);
+
+size_t	scan_spaces(char *str, size_t offset);
+size_t	scan_invariant_quotes(char *str, size_t offset);
+size_t	scan_invariants(char *str, size_t offset);
 
 #endif

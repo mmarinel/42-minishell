@@ -6,11 +6,11 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 11:07:42 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/28 08:53:57 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/29 09:09:34 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tok_patterns_utils.h"
+#include "tok_patterns.h"
 
 size_t	scan_redirs(char *command_line, size_t offset, t_token **token_list)
 {

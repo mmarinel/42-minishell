@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:13:18 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/28 09:39:04 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/29 08:37:10 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,10 @@ void			ft_free(void *ptr);
 
 // * shell utils
 
-void			set_error(t_outcome *outcome);
+void			set_error(t_status *status);
 t_bool			bash_control_character(char c);
 t_bool			bash_cmd_separator(char c);
 t_bool			redirect_char(char c);
-size_t			bash_next_word_len(char *command_line, size_t offset);
 t_bool			asked_for_termination(char	*command);
 void			close_pipe(int pipe_[]);
 

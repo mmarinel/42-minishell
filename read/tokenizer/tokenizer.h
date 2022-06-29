@@ -6,18 +6,28 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:53 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/28 15:20:17 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/29 09:32:32 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENIZER_H
 # define TOKENIZER_H
 
+// * standard libraries //
 # include <stdlib.h>
-# include "../../colors.h"
+
+// * types //
 # include "tok_types.h"
 
-// * user defined exposed function
+// * user defined helper functions
+# include "../../utils/ft_utils.h"
+
+// * SUBMODULES //
+# include "tok_patterns/tok_patterns.h"
+# include "tok_utils/tok_utils.h"
+
+
+// * start of declarations //
 
 void	tokenizer_feed_input(char *command_line);
 t_token	*cur_token(void);

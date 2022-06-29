@@ -6,16 +6,24 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 08:52:26 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/28 15:00:12 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/29 09:33:59 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOK_PATTERNS_UTILS_H
 # define TOK_PATTERNS_UTILS_H
 
+// * standard libraries
 # include <unistd.h>
+
+// * types //
 # include "../../tok_types.h"
-# include "../../../types.h"
+# include "../../../../types.h"
+
+// * user defined helper functions //
+# include "../../tok_utils/tok_utils.h"
+
+// * start of declarations //
 
 // * env vars patterns //
 size_t				scan_var(char *str, size_t offset,
@@ -42,10 +50,5 @@ size_t				scan_redirs(char *command_line, size_t offset,
 
 size_t				scan_next_cmd_arg(char *command_line, size_t offset,
 						char **cur_arg_string, t_token **token_list);
-						
-// * to put inside tok_scan_loops
-size_t				scan_spaces(char *str, size_t offset);
-size_t				scan_invariant_quotes(char *str, size_t offset);
-size_t				scan_invariants(char *str, size_t offset);
 
 #endif

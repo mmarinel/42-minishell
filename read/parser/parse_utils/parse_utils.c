@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 08:22:23 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/28 19:22:32 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/29 09:25:32 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ void	tree_to_string(t_tree_node *root)
 		return ;
 	}
 	if (root->content->content_type == SIMPL_CMD)
-		print_simple_command(root);//printf("SIMPLE_CMD ");
+		printf("SIMPLE_CMD "); //print_simple_command(root);
 	else if (root->content->content_type == ENV_STATEMENT)
-		print_env_statement(root);//printf("ENV_STATEMENT ");
+		printf("ENV_STATEMENT "); //print_env_statement(root);
 	else
 	{
 		printf("(");
 		tree_to_string(root->left);
-		print_operator(root);//printf("OPERATOR ");
+		printf("OPERATOR "); //print_operator(root);
 		tree_to_string(root->right);
 		printf(")");
 	}

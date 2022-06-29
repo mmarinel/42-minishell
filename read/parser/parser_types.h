@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:48:27 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/28 17:00:25 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/29 08:23:13 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ typedef struct s_groupings
 
 typedef struct parser_status
 {
-	t_outcome	status;
+	t_status	status;
 	t_groupings	open;
 }	t_parser_status;
 

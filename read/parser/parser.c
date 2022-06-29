@@ -6,11 +6,13 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:26:21 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/28 17:12:23 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/29 09:24:31 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+static void			parser_initialize(t_parser_status *parser_status);
 
 static t_tree_node	*parse_atomic_exp(t_parser_status *parser_status);
 static t_tree_node	*parse_cmd_list(t_tree_node *current,
@@ -22,15 +24,17 @@ static t_tree_node	*parse_statement(t_token *token);
 
 t_tree_node	*parse(void)
 {
-	static t_parser_status	parser_status = (t_parser_status){SUCCESS, (t_groupings){0,0,0}};
+	static t_parser_status	parser_status = (t_parser_status){OK, (t_groupings){0,0,0}};
 	t_tree_node				*tree;
 
 	tree = parse_cmd_list(parse_atomic_exp(&parser_status), &parser_status);
 	if (parser_status.status == ERROR)
 	{
-		// printf("HERE");
+		// printf("HERE")
+		parser_initialize(&parser_status);
 		fflush(stdout);
 		free_tree(tree);
+		printf("parser: Parse error\n");
 		tree = NULL;
 	}
 	tree_to_string(tree);
@@ -122,4 +126,12 @@ static t_tree_node	*parse_statement(t_token *token)
 	ft_free(node_content->outfile);
 	free(node_content);
 	return (NULL);
+}
+
+static void	parser_initialize(t_parser_status *parser_status)
+{
+	parser_status->status = OK;
+	parser_status->open.double_qquotes = 0;
+	parser_status->open.quotes = 0;
+	parser_status->open.parenthesis = 0;
 }
