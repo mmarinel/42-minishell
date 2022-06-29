@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 10:46:16 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/29 15:45:43 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/29 19:15:27 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	execute(t_tree_node *parse_tree, char *const envp[])
 {
 	pid_t	executor;
+
 	if (parse_tree == NULL)
 		return ;
 	executor = fork();

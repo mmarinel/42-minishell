@@ -18,3 +18,9 @@
 
 8. Makefile: mettere dipendenze anche sui .h che i miei .h includono. Se refattorizzo bene, includo solo i .h del mio modulo tranne al piu l'unico .h che il modulo prima di me espone all'esterno (quello con la sola dichiarazione dell'unica funzione che espongo all'esterno)
 
+9. ENV_VAR: aggiungere nuovo enumeratore e_ENV_ASSIGN per espressioni del tipo (VAR=43 quando ho gia esportato la variabile)
+
+10. implementare env & export con 2 liste. (ricordarsi $_ in env).
+
+11. spostare free_bindings in shell_utils globale
+

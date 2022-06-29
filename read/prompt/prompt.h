@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 16:43:31 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/28 16:32:17 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/29 18:54:35 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 
 // * SUBMODULES //
 # include "prompt_utils/prompt_utils.h"
+# include "../../signals/signals.h"
 
 // * readline //
 # include <readline/readline.h>
