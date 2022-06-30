@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:13:18 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/30 12:21:31 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/30 13:53:03 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,9 @@ void		copy_env(t_bindings **head, char **envp, t_bool in_order);
 void		free_env(t_bindings *head);
 t_bindings	*get_new_binding(char *var_name, char *var_val, t_bool concat_mode);
 t_bindings	*over_write_binding(t_bindings *head, t_bindings *binding);
+void		binding_add_front(t_bindings **head, t_bindings *new_binding);
+void		binding_add_back(t_bindings **head, t_bindings *new_binding);
+void		binding_add_in_order(t_bindings **head, t_bindings *new_binding);
 
 // * misc utils
 

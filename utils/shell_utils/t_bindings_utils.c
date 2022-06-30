@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 09:18:17 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/30 12:42:44 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/30 14:05:55 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,33 +17,12 @@ void	add_new_binding(t_bindings **head, t_bindings *new_binding,
 {
 	t_bindings	*cursor;
 
-	if (!(*head)
-		|| in_order == e_false
-		|| ft_strcmp(new_binding->var_name, (*head)->var_name) < 0)
-	{
-		new_binding->next = *head;
-		if (*head)
-			(*head)->prev = new_binding;
-		*head = new_binding;
-	}
+	if (!(*head))
+		binding_add_front(head, new_binding);
+	else if (in_order == e_false)
+		binding_add_back(head, new_binding);
 	else
-	{
-		cursor = *head;
-		while (ft_strcmp(new_binding->var_name, cursor->var_name) > 0)
-		{
-			if (!(cursor->next))
-			{
-				cursor->next = new_binding;
-				new_binding->prev = cursor;
-				return ;
-			}
-			cursor = cursor->next;
-		}
-		new_binding->next = cursor;
-		new_binding->prev = cursor->prev;
-		cursor->prev->next =  new_binding;
-		cursor->prev = new_binding;
-	}
+		binding_add_in_order(head, new_binding);
 }
 
 void	copy_env(t_bindings **head, char **envp, t_bool in_order)
@@ -65,6 +44,8 @@ void	copy_env(t_bindings **head, char **envp, t_bool in_order)
 			in_order);
 		envp++;
 	}
+	// if (in_order == e_false)
+	// 	add_new_binding(head, get_new_binding("_", "/usr/bin/env", e_false), e_false);
 }
 
 void	free_env(t_bindings *head)

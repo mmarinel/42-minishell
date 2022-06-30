@@ -6,13 +6,13 @@
 // /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 // /*                                                +#+#+#+#+#+   +#+           */
 // /*   Created: 2022/06/29 10:46:16 by mmarinel          #+#    #+#             */
-// /*   Updated: 2022/06/30 10:51:52 by mmarinel         ###   ########.fr       */
+// /*   Updated: 2022/06/30 13:42:21 by mmarinel         ###   ########.fr       */
 // /*                                                                            */
 // /* ************************************************************************** */
 
 // # include "executor.h"
 
-// void	execute(t_tree_node *parse_tree, char *const envp[])
+// void	execute(t_tree_node *parse_tree)
 // {
 // 	pid_t	executor;
 
@@ -20,11 +20,11 @@
 // 		return ;
 // 	executor = fork();
 // 	if (!executor)
-// 		execute_rec(parse_tree, STDIN_FILENO, STDOUT_FILENO, envp);
+// 		execute_rec(parse_tree, STDIN_FILENO, STDOUT_FILENO);
 // 	waitpid(executor, &(g_env.last_executed_cmd_status), 0);
 // }
 
-// void	execute_rec(t_tree_node *root, int in, int out, char *const envp[])
+// void	execute_rec(t_tree_node *root, int in, int out)
 // {
 // 	t_branch	left_hand_side;
 // 	t_branch	right_hand_side;
@@ -33,7 +33,7 @@
 // 	if (root->content->content_type == SIMPL_CMD
 // 		|| root->content->content_type == ENV_STATEMENT
 // 		|| root->content->content_type == REDIR)
-// 		execute_statement(root, in, out, envp);
+// 		execute_statement(root, in, out, g_env.export);
 // 	else
 // 	{
 // 		if (root->content->operator_node.operator == e_PIPE)
@@ -41,23 +41,23 @@
 // 			pipe(new_in_out[2]);
 // 			left_hand_side.branch = fork();
 // 			if (!left_hand_side.branch)
-// 				return (execute_rec(root->left, in, new_in_out[1], envp));
+// 				return (execute_rec(root->left, in, new_in_out[1]));
 // 			right_hand_side.branch = fork();
 // 			if (!right_hand_side.branch)
-// 				return (execute_rec(root->right, new_in_out[0], out, envp));
+// 				return (execute_rec(root->right, new_in_out[0], out));
 // 			return ;
 // 		}
 // 		if (root->content->operator_node.operator == e_OR)
 // 		{
 // 			left_hand_side.branch = fork();
 // 			if (!left_hand_side.branch)
-// 				return (execute_rec(root->left, in, out, envp));
+// 				return (execute_rec(root->left, in, out));
 // 			waitpid(left_hand_side.branch, &(left_hand_side.exit_status), 0);
 // 			if (left_hand_side.exit_status == EXIT_SUCCESS)
 // 				return ;
 // 			right_hand_side.branch = fork();
 // 			if (!right_hand_side.branch)
-// 				return (execute_rec(root->right, in, out, envp));
+// 				return (execute_rec(root->right, in, out));
 // 			waitpid(right_hand_side.branch, &(right_hand_side.exit_status), 0);
 // 			return ;
 // 		}
@@ -65,13 +65,13 @@
 // 		{
 // 			left_hand_side.branch = fork();
 // 			if (!left_hand_side.branch)
-// 				return (execute_rec(root->left, in, out, envp));
+// 				return (execute_rec(root->left, in, out));
 // 			waitpid(left_hand_side.branch, &(left_hand_side.exit_status), 0);
 // 			if (left_hand_side.exit_status != EXIT_SUCCESS)
 // 				return ;
 // 			right_hand_side.branch = fork();
 // 			if (!right_hand_side.branch)
-// 				return (execute_rec(root->right, in, out, envp));
+// 				return (execute_rec(root->right, in, out));
 // 			waitpid(right_hand_side.branch, &(right_hand_side.exit_status), 0);
 // 			return ;
 // 		}
