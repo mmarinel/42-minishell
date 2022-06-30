@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 09:18:17 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/30 10:26:52 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/30 12:27:21 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,33 @@ void	add_new_binding(t_bindings **head, t_bindings *new_binding,
 		|| ft_strcmp(new_binding->var_name, (*head)->var_name) < 0)
 	{
 		new_binding->next = *head;
+		if (*head)
+			(*head)->prev = new_binding;
 		*head = new_binding;
 	}
-	cursor = *head;
-	while (ft_strcmp(new_binding->var_name, cursor->var_name) > 0)
-		cursor = cursor->next;
-	new_binding->next = cursor;
-	new_binding->prev = cursor->prev;
-	cursor->prev->next =  new_binding;
-	cursor->prev = new_binding;
+	else
+	{
+		cursor = *head;
+		while (ft_strcmp(new_binding->var_name, cursor->var_name) > 0)
+		{
+			if (!(cursor->next))
+			{
+				cursor->next = new_binding;
+				new_binding->prev = cursor;
+				return ;
+			}
+			cursor = cursor->next;
+		}
+		new_binding->next = cursor;
+		new_binding->prev = cursor->prev;
+		cursor->prev->next =  new_binding;
+		cursor->prev = new_binding;
+		printf("HERE");
+		exit(0);
+	}
 }
 
-void	copy_env(t_bindings **head, char *const envp[], t_bool in_order)
+void	copy_env(t_bindings **head, char **envp, t_bool in_order)
 {
 	char	**split;
 	char	*var_name;
@@ -42,10 +57,12 @@ void	copy_env(t_bindings **head, char *const envp[], t_bool in_order)
 	while (*envp)
 	{
 		split = ft_split(*envp, '=');
-		var_name = split[0];
+		var_name = split[0]; // ! mettere ft_strcpy() e poi freeare lo split !
 		var_val = split[1];
+		printf("var_name: %s\n", var_name);
+		printf("var_val: %s\n", var_val);
 		add_new_binding(head,
-			new_binding(var_name, var_val, e_false),
+			get_new_binding(var_name, var_val, e_false),
 			in_order);
 		envp++;
 	}
@@ -60,7 +77,7 @@ void	free_env(t_bindings *head)
 	free(head->var_val);
 }
 
-t_bindings	*new_binding(char *var_name, char *var_val, t_bool concat_mode)
+t_bindings	*get_new_binding(char *var_name, char *var_val, t_bool concat_mode)
 {
 	t_bindings	*new_binding;
 
@@ -70,6 +87,7 @@ t_bindings	*new_binding(char *var_name, char *var_val, t_bool concat_mode)
 	new_binding->concat_mode = concat_mode;
 	new_binding->prev = NULL;
 	new_binding->next = NULL;
+	return (new_binding);
 }
 
 /**

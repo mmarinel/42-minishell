@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 08:52:26 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/29 09:33:59 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/30 10:57:49 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ size_t				scan_var_mode(char *command_line, size_t offset,
 size_t				scan_initial_keyword_set_token(char *str, size_t offset,
 						t_token **token);
 size_t				scan_env_revert(t_token *token, size_t offset);
-void				add_new_binding(t_token **token_ref,
+void				env_tok_add_new_binding(t_token **token_ref,
 						t_bindings *next_binding);
 void				env_decl_add_token(t_token *scanned_token,
 						t_token **token_list);

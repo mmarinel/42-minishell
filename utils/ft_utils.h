@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:13:18 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/30 10:24:51 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/30 12:21:31 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,14 @@ t_bool			bash_cmd_separator(char c);
 t_bool			redirect_char(char c);
 t_bool			asked_for_termination(char	*command);
 void			close_pipe(int pipe_[]);
+
+	// * t_bindings
+void		add_new_binding(t_bindings **head, t_bindings *new_binding,
+				t_bool in_order);
+void		copy_env(t_bindings **head, char **envp, t_bool in_order);
+void		free_env(t_bindings *head);
+t_bindings	*get_new_binding(char *var_name, char *var_val, t_bool concat_mode);
+t_bindings	*over_write_binding(t_bindings *head, t_bindings *binding);
 
 // * misc utils
 

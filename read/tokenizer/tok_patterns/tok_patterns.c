@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/30 09:25:34 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/30 10:57:53 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ size_t	scan_env_declaration(char *str, size_t offset, t_token **token_list)
 			&& e_false == bash_control_character(str[new_offset]))
 			return (scan_env_revert(token, offset));
 		else
-			add_new_binding(&token, next_var);
+			env_tok_add_new_binding(&token, next_var);
 	}
 	env_decl_add_token(token, token_list);
 	return (new_offset);

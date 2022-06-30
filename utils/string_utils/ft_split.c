@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 20:53:13 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/29 12:02:49 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/30 11:48:53 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	**ft_split(char const *string, char delimiter)
 	words = ft_count_words((char *) string, delimiter);
 	split = (char **) ft_malloc((words + 1) * sizeof(char *));
 	split[words] = NULL;
-	printf("words: %zu\n", words);
+	// printf("words: %zu\n", words);
 	allocate_words((char *)string, delimiter, split);
 	ft_get_split((char *) string, delimiter, split);
 	return (split);
@@ -78,8 +78,7 @@ static	void allocate_words(char *str, char delimiter, char **split)
 			word_len++;
 		if (*str == '\0')
 			break ;
-		else
-			str++;
+		str++;
 	}
 }
 
