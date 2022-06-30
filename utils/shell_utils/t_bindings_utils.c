@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 09:18:17 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/30 14:05:55 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/30 14:13:26 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ void	copy_env(t_bindings **head, char **envp, t_bool in_order)
 			in_order);
 		envp++;
 	}
-	// if (in_order == e_false)
-	// 	add_new_binding(head, get_new_binding("_", "/usr/bin/env", e_false), e_false);
 }
 
 void	free_env(t_bindings *head)
