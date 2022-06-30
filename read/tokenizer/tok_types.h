@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 14:50:02 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/29 18:07:25 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/30 09:12:22 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ typedef struct s_token
 }	t_token;
 
 // TODO tolgliere perche gia incluso types.h
-typedef struct s_bindings
-{
-	t_bool				concat_mode;
-	char				*var_name;
-	char				*var_val;
-	struct s_bindings	*next;
-}	t_bindings;
+// typedef struct s_bindings
+// {
+// 	t_bool				concat_mode;
+// 	char				*var_name;
+// 	char				*var_val;
+// 	struct s_bindings	*next;
+// }	t_bindings;
 
 #endif

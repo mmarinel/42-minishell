@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 12:56:38 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/28 15:05:25 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/30 09:12:06 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include "../../../utils/ft_utils.h"
 # include "../../../types.h"
+# include "../../../colors.h"
 # include "../parser_types.h"
 # include "../../tokenizer/tok_types.h"
 

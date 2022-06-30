@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 08:39:29 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/29 09:29:54 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/30 09:20:08 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 // * user defined helper functions //
 # include "tok_patterns_utils/tok_patterns_utils.h"
 # include "../tok_utils/tok_utils.h"
-
+# include "../../../utils/ft_utils.h"
 
 // * start of declarations //
 

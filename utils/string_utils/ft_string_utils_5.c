@@ -1,41 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   types.h                                            :+:      :+:    :+:   */
+/*   ft_string_utils_5.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/13 15:19:19 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/30 09:45:15 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/06/30 09:30:11 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/06/30 10:24:04 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TYPES_H
-# define TYPES_H
+#include "ft_utils.h"
 
-#ifndef T_BOOL_H
-# define T_BOOL_H
-typedef enum e_bool
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	e_true = 1,
-	e_false = 0
-}	t_bool;
-#endif
+	size_t	i;
 
-typedef enum e_status
+	i = 0;
+	while (e_true)
+	{
+		if (s1[i] == '\0' || s2[i] == '\0'
+			|| s1[i] != s2[i])
+			break ;
+		i++;
+	}
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
+
+void	ft_str_replace(char **str, char *new)
 {
-	ERROR,
-	OK
-}	t_status;
-
-
-typedef struct s_bindings
-{
-	t_bool				concat_mode;
-	char				*var_name;
-	char				*var_val;
-	struct s_bindings	*next;
-	struct s_bindings	*prev;
-}	t_bindings;
-
-#endif
+	// ! risky!!
+	ft_free(*str);
+	*str = ft_strcpy(NULL, new, ft_strlen(new));
+}
