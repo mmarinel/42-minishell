@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 09:18:17 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/30 12:27:21 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/30 12:42:44 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ void	add_new_binding(t_bindings **head, t_bindings *new_binding,
 		new_binding->prev = cursor->prev;
 		cursor->prev->next =  new_binding;
 		cursor->prev = new_binding;
-		printf("HERE");
-		exit(0);
 	}
 }
 
@@ -57,10 +55,11 @@ void	copy_env(t_bindings **head, char **envp, t_bool in_order)
 	while (*envp)
 	{
 		split = ft_split(*envp, '=');
-		var_name = split[0]; // ! mettere ft_strcpy() e poi freeare lo split !
-		var_val = split[1];
-		printf("var_name: %s\n", var_name);
-		printf("var_val: %s\n", var_val);
+		var_name = ft_strcpy(NULL, split[0], ft_strlen(split[0]));
+		var_val = ft_strcpy(NULL, split[1], ft_strlen(split[1]));
+		free(split[0]);
+		free(split[1]);
+		free(split);
 		add_new_binding(head,
 			get_new_binding(var_name, var_val, e_false),
 			in_order);

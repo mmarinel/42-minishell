@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/30 11:03:16 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/06/30 12:47:03 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,14 @@ int	main(int argc, char const *argv[], char *const envp[])
 	g_env.export = NULL;
 	copy_env(&(g_env.env), (char **)envp, e_false);
 	copy_env(&(g_env.export), (char **)envp, e_true);
+	t_bindings	*bindings;
+	bindings = g_env.export;
+	while (bindings)
+	{
+		printf("%s=%s\n", bindings->var_name, bindings->var_val);
+		bindings =  bindings->next;
+	}
+	exit(0);
 	set_signals();
 	print_signature();
 	while (e_true)
