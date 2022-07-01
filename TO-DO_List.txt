@@ -30,5 +30,5 @@
 
 14. evitare la mallocata su node_content in parse_statement at parser.
 
-15. valutare se fare un ciclo di here_doc (here_doc1, here_doc2, etc. ...) 
+15. valutare se fare un ciclo di here_doc (here_doc1, here_doc2, etc. ...) >>Aggiungere variabile stato nello ASF che riconosce le redirections in modo da tenere conto di quanti here_doc ho incotnrato<<
 
