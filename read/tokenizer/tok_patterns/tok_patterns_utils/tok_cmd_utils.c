@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 09:06:47 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/28 09:39:26 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 19:05:13 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ size_t	scan_cmd_arg(char *command_line, size_t offset, t_token **token_list)
 	size_t	pre_offset;
 	size_t	new_offset;
 
+	printf(YELLOW "inside scan_cmd_arg\n" RESET);
 	new_offset = scan_invariants(command_line, offset);
 	if (!command_line[new_offset])
 		return (offset);
@@ -48,13 +49,17 @@ size_t	scan_next_cmd_arg(char *command_line, size_t offset,
 	size_t	len_cmd_arg;
 	char	*next_arg;
 
+	printf(YELLOW "inside scan_next00_cmd_arg\n" RESET);
 	new_offset = scan_invariants(command_line, offset); // * questo lo mettiamo nel chiamante!
 	if (e_true == bash_control_character(command_line[new_offset])
 		&& e_false == ft_isspace(command_line[new_offset])
 		&& e_false == redirect_char(command_line[new_offset]))
 		return (offset);
 	else if (e_true == redirect_char(command_line[new_offset]))
+	{
+		printf(RED "HERE\n" RESET);
 		new_offset = scan_inout_file(command_line, new_offset, token_list);
+	}
 	else
 	{
 		len_cmd_arg = bash_next_word_len(command_line, new_offset);

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:36:45 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/28 09:25:16 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 18:48:54 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ size_t	scan_prologue(char *command_line, size_t offset,
 
 size_t	scan_body(char *command_line, size_t offset, t_token **token_list)
 {
+	printf(YELLOW "inside scan_body\n" RESET);
 	offset = scan_invariants(command_line, offset);
 	if (ft_strncmp(command_line + offset, "export", 6) == 0
 		|| ft_strncmp(command_line + offset, "unset", 5) == 0)

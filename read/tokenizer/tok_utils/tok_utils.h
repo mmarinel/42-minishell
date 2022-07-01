@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 13:04:29 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 16:06:52 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 18:54:24 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define TOK_UTILS_H
 
 # include <unistd.h>
+# include "../tok_patterns/tok_patterns.h"
 # include "../../../colors.h"
 # include "../../../utils/ft_utils.h"
 # include "../tok_types.h"

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:26:21 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 17:34:20 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 18:29:40 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,15 @@ static t_tree_node	*parse_cmd_list(t_tree_node *current,
 static t_tree_node	*parse_statement(t_token *token);
 
 // * end of declarations //
+t_token	*atomic_exp_parsing_init(t_parser_status *parser_status);
+t_token	*take_next_token(t_parser_status *parser_status);
+t_token	*cmd_list_parsing_init(t_parser_status *parser_status);
 
 
 t_tree_node	*parse(void)
 {
 	static t_parser_status	parser_status = (t_parser_status){
-		OK, (t_groupings){0,0,0}, NULL
+		OK, (t_groupings){0,0,0}, NULL, 0
 		};
 	t_tree_node				*tree;
 
@@ -35,7 +38,8 @@ t_tree_node	*parse(void)
 		if (parser_status.last_read_token)
 			printf("parser: parse error near"
 				RED " %s " RESET " token at pos %d\n",
-				tok_to_string(parser_status.last_read_token));
+				tok_to_string(parser_status.last_read_token),
+				parser_status.last_read_tok_pos);
 		free_tree(&tree);
 		tokenizer_free();
 		parser_initialize(&parser_status);
@@ -94,7 +98,10 @@ t_token	*take_next_token(t_parser_status *parser_status)
 
 	new_token = next_token();
 	if (new_token)
+	{
 		parser_status->last_read_token = new_token;
+		parser_status->last_read_tok_pos += 1;
+	}
 	return (new_token);
 }
 
@@ -115,6 +122,7 @@ t_token	*cmd_list_parsing_init(t_parser_status *parser_status)
 			parser_status->open.parenthesis -= 1;
 		return (NULL);
 	}
+	return (token);
 }
 
 static t_tree_node	*parse_cmd_list(t_tree_node *current,
@@ -122,20 +130,22 @@ static t_tree_node	*parse_cmd_list(t_tree_node *current,
 {
 	t_token		*token;
 	t_tree_node	*new_subtree;
+	t_bool		launch_subshell;
 
 	token = cmd_list_parsing_init(parser_status);
 	if (!token)
 		return (current);
 	else if (token->token_id == e_OPERATOR)
 	{
+		if (*((char *)token->token_val) == '|' && *(((char *)token->token_val) + 1) != '|')
+			launch_subshell = e_true;
+		else
+			launch_subshell = e_false;
 		new_subtree = parse_cmd_list(
 				new_tree_node(current, parse_operator(token), e_false,
 					parse_atomic_exp(parser_status)),
 				parser_status);
-		if (*((char *)token->token_val) == '|' && *((char *)token->token_val + 1) != '|')
-			new_subtree->launch_subshell = e_true;
-		else
-			new_subtree->launch_subshell = e_false;
+		new_subtree->launch_subshell = launch_subshell;
 		return (new_subtree);
 	}
 	else

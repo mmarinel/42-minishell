@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:48:27 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 15:45:51 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 17:53:57 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,12 @@ typedef struct s_env_decl_node
 	t_bindings	*bindings;
 }	t_env_decl_node;
 
+typedef struct s_redirection
+{
+	char	*file_name;
+	t_bool	append_mode;
+}	t_redirection;
+
 typedef	struct s_node_content
 {
 	t_redirection			in_redir;
@@ -61,12 +67,6 @@ typedef	struct s_node_content
 	t_env_decl_node			env_decl;
 	t_operator_node			operator_node;
 }	t_node_content;
-
-typedef struct s_redirection
-{
-	char	*file_name;
-	t_bool	append_mode;
-}	t_redirection;
 
 typedef struct s_tree_node
 {
@@ -89,6 +89,7 @@ typedef struct parser_status
 	t_status	status;
 	t_groupings	open;
 	t_token		*last_read_token;
+	int			last_read_tok_pos;
 }	t_parser_status;
 
 #endif

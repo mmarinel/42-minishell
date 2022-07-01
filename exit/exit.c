@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 17:07:46 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 14:36:15 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 17:50:34 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	exit_shell(int exit_status, t_bool go_on_newline)
 	exit(exit_status);
 }
 
-void	exit_command_subshell(int exit_status, t_tree_node *parse_tree)
-{
-	// TODO
-}
+// void	exit_command_subshell(int exit_status, t_tree_node *parse_tree)
+// {
+// 	// TODO
+// }

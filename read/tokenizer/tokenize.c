@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 18:48:51 by earendil          #+#    #+#             */
-/*   Updated: 2022/07/01 17:08:22 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 18:26:49 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ static void	*tokenizer(char *command_line, t_op_code op_code)
 		token = cur_token;
 		if (cur_token)
 			cur_token = cur_token->next;
-		else
-			tokenizer(NULL, e_CLEAN);
 	}
 	if (op_code == e_CLEAN)
 	{

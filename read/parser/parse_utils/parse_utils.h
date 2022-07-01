@@ -6,17 +6,23 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 12:56:38 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 17:01:55 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 17:53:13 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSE_UTILS_H
 # define PARSE_UTILS_H
 
+// * standard libraries
 # include <stdlib.h>
 # include "../../../utils/ft_utils.h"
-# include "../../../types.h"
+
+// * user defined modules
 # include "../../../colors.h"
+# include "../../tokenizer/tokenizer_module.h"
+
+// * user defined types
+# include "../../../types.h"
 # include "../parser_types.h"
 # include "../../tokenizer/tok_types.h"
 

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 16:27:22 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 19:12:38 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	tok_add_back(t_token **token_list, t_token *token)
 {
 	static t_token	*tail = NULL;
 
+	// if (token->token_id != e_OUT_FILE_APPEND)
+		printf("added token: %s\n", tok_to_string(token));
 	if (!(*token_list))
 	{
 		*token_list = token;
@@ -40,7 +42,7 @@ void	tok_add_back(t_token **token_list, t_token *token)
 		tail = tail->next;
 	}
 	tail->next = NULL;
-	token->to_string = tok_to_string;
+	// token->to_string = tok_to_string;
 }
 
 void	free_tok_list(t_token **token_list)
@@ -81,6 +83,7 @@ char *tok_to_string(t_token *token)
 		return ("ENV_VAR_UNSET");
 	if (token->token_id == e_PARENTHESIS)
 		return ("PARENTHESIS");
+	return (NULL);
 }
 
 static void	print_token(t_token *token)
