@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 09:39:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 12:22:20 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 12:31:33 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,13 +113,19 @@ void	execute_simple_cmd(t_tree_node *root, int in, int out)
 	{
 		if (out != STDOUT_FILENO)
 			close(out);
-		out = open(root->content->out_redir.file_name, O_CREAT | O_TRUNC | O_WRONLY, 0777); // ! gestire caso APPEND !!!!!!!!!!!!!!!!!!!!!!!!!!!
+		if (root->content->out_redir.append_mode == e_true)
+			out = open(root->content->out_redir.file_name, O_CREAT | O_APPEND | O_WRONLY, 0777);
+		else
+			out = open(root->content->out_redir.file_name, O_CREAT | O_TRUNC | O_WRONLY, 0777);
 	}
 	if (out != STDOUT_FILENO)
 	{
 		dup2(out, STDOUT_FILENO);
 		close(out);
 	}
+	// * redir END
+
+	
 	cmd_simple_name = get_cmd_simple_name(root->content->simple_cmd.cmd_name);
 	cmd_full_path = get_cmd_full_path(root->content->simple_cmd.cmd_name);
 	if (!cmd_full_path)
@@ -130,7 +136,7 @@ void	execute_simple_cmd(t_tree_node *root, int in, int out)
 	{
 		ft_free(cmd_full_path);
 		ft_splitclear(args);
-		px_error_handler(0, NULL, e_false); // ! EXIT_FAILURE
+		exit(EXIT_FAILURE);
 	}
 }
 
