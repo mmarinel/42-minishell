@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 08:22:23 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 09:11:08 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 12:21:07 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	free_tree(t_tree_node *root)
 		return ;
 	free_tree(root->left);
 	free_tree(root->right);
-	ft_free(root->content->infile);
-	ft_free(root->content->outfile);
+	ft_free(root->content->in_redir.file_name);
+	ft_free(root->content->out_redir.file_name);
 	free(root->content);
 	free(root);
 }
@@ -74,7 +74,7 @@ static void print_operator(t_tree_node *node)
 
 static void	print_simple_command(t_tree_node *node)
 {
-	printf(GREEN "[cmd_name: %s, cmd_arg: %s, infile: %s, outfile: %s]" RESET, node->content->simple_cmd.cmd_name, node->content->simple_cmd.cmd_args, node->content->infile, node->content->outfile);
+	printf(GREEN "[cmd_name: %s, cmd_arg: %s, infile: %s, outfile: %s]" RESET, node->content->simple_cmd.cmd_name, node->content->simple_cmd.cmd_args, node->content->in_redir.file_name, node->content->out_redir.file_name);
 }
 
 static void	print_env_statement(t_tree_node *node)
@@ -82,9 +82,9 @@ static void	print_env_statement(t_tree_node *node)
 	// t_bindings	*binding;
 
 	if (node->content->env_decl.set)
-		printf(GREEN "[EXPORT : infile: %s, outfile: %s " RESET, node->content->infile, node->content->outfile);
+		printf(GREEN "[EXPORT : infile: %s, outfile: %s " RESET, node->content->in_redir.file_name, node->content->out_redir.file_name);
 	else
-		printf(GREEN "[UNSET : infile: %s, outfile: %s " RESET, node->content->infile, node->content->outfile);
+		printf(GREEN "[UNSET : infile: %s, outfile: %s " RESET, node->content->in_redir.file_name, node->content->out_redir.file_name);
 	// binding = node->content->env_decl.bindings;
 	// while (binding)
 	// {

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 12:55:41 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 12:06:22 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 12:19:42 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ t_node_content	*parse_operator(t_token *token)
 
 	new = (t_node_content *) malloc(sizeof(t_node_content));
 	new->content_type = OPERATOR;
-	new->infile = NULL;
-	new->outfile = NULL;
+	new->in_redir.file_name = NULL;
+	new->out_redir.file_name = NULL;
 	if (*((char *)token->token_val) == '|')
 	{
 		if (*((char *)token->token_val + 1) == '|')

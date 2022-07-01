@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 09:39:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 11:37:03 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 12:22:20 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,11 @@ void	execute_simple_cmd(t_tree_node *root, int in, int out)
 	char	**args;
 
 	// * in
-	if (root->content->infile)
+	if (root->content->in_redir.file_name)
 	{
 		if (in != STDIN_FILENO)
 			close(in);
-		in = open(root->content->infile, O_RDONLY);
+		in = open(root->content->in_redir.file_name, O_RDONLY);
 	}
 	if (in != STDIN_FILENO)
 	{
@@ -109,11 +109,11 @@ void	execute_simple_cmd(t_tree_node *root, int in, int out)
 		close(in);
 	}
 	// * out
-	if (root->content->outfile)
+	if (root->content->out_redir.file_name)
 	{
 		if (out != STDOUT_FILENO)
 			close(out);
-		out = open(root->content->outfile, O_CREAT | O_TRUNC | O_WRONLY, 0777); // ! gestire caso APPEND !!!!!!!!!!!!!!!!!!!!!!!!!!!
+		out = open(root->content->out_redir.file_name, O_CREAT | O_TRUNC | O_WRONLY, 0777); // ! gestire caso APPEND !!!!!!!!!!!!!!!!!!!!!!!!!!!
 	}
 	if (out != STDOUT_FILENO)
 	{
