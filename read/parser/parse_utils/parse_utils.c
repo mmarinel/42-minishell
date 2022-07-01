@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 08:22:23 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/29 09:25:32 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 09:11:08 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,15 @@ static void	print_simple_command(t_tree_node *node);
 static void	print_env_statement(t_tree_node *node);
 static void print_operator(t_tree_node *node);
 
-t_tree_node	*new_tree_node(t_tree_node *left, t_node_content *content, t_tree_node *right)
+t_tree_node	*new_tree_node(t_tree_node *left, t_node_content *content,
+				t_bool launch_subshell, t_tree_node *right)
 {
 	t_tree_node	*new_node;
 
 	new_node = (t_tree_node *) malloc(sizeof(t_tree_node));
-	new_node->content = content;
 	new_node->left = left;
+	new_node->content = content;
+	new_node->launch_subshell = launch_subshell;
 	new_node->right = right;
 	return (new_node);
 }

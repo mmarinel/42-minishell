@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:26:21 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/29 09:24:31 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 09:34:51 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_tree_node	*parse(void)
 	{
 		// printf("HERE")
 		parser_initialize(&parser_status);
-		fflush(stdout);
+		// fflush(stdout);
 		free_tree(tree);
 		printf("parser: Parse error\n");
 		tree = NULL;
@@ -45,6 +45,7 @@ t_tree_node	*parse(void)
 static t_tree_node	*parse_atomic_exp(t_parser_status *parser_status)
 {
 	t_token			*token;
+	t_tree_node		*parenthesised;
 
 	if (parser_status->status == ERROR)
 		return (NULL);
@@ -66,7 +67,9 @@ static t_tree_node	*parse_atomic_exp(t_parser_status *parser_status)
 	if (token->token_id == e_PARENTHESIS && *((char *)token->token_val) == '(')
 	{
 		parser_status->open.parenthesis += 1;
-		return (parse_cmd_list(parse_atomic_exp(parser_status), parser_status));
+		parenthesised = parse_cmd_list(parse_atomic_exp(parser_status), parser_status);
+		parenthesised->launch_subshell = e_true;
+		return (parenthesised);
 	}
 	else
 		return (parse_statement(token));
@@ -75,7 +78,8 @@ static t_tree_node	*parse_atomic_exp(t_parser_status *parser_status)
 static t_tree_node	*parse_cmd_list(t_tree_node *current,
 	t_parser_status *parser_status)
 {
-	t_token	*token;
+	t_token		*token;
+	t_tree_node	*new_subtree;
 
 	if (parser_status->status == ERROR)
 		return (current);
@@ -92,7 +96,12 @@ static t_tree_node	*parse_cmd_list(t_tree_node *current,
 	}
 	else if (token->token_id == e_OPERATOR)
 	{
-		return (parse_cmd_list(new_tree_node(current, parse_operator(token), parse_atomic_exp(parser_status)), parser_status));
+		new_subtree = parse_cmd_list(new_tree_node(current, parse_operator(token), e_false, parse_atomic_exp(parser_status)), parser_status);
+		if (*((char *)token->token_val) == '|' && *((char *)token->token_val + 1) != '|')
+			new_subtree->launch_subshell = e_true;
+		else
+			new_subtree->launch_subshell = e_false;
+		return (new_subtree);
 	}
 	else
 	{
@@ -115,13 +124,13 @@ static t_tree_node	*parse_statement(t_token *token)
 		if (!token)
 		{
 			node_content->content_type = REDIR;
-			return (new_tree_node(NULL, node_content, NULL));
+			return (new_tree_node(NULL, node_content, e_false, NULL));
 		}
 	}
 	if (token->token_id == e_CMD_NAME || token->token_id == e_CMD_ARG)
-		return (new_tree_node(NULL, parse_simple_command(token, node_content), NULL));
+		return (new_tree_node(NULL, parse_simple_command(token, node_content), e_false, NULL));
 	else if (token->token_id == e_ENV_VAR_DECL || token->token_id == e_ENV_VAR_UNSET)
-		return (new_tree_node(NULL, parse_env_statement(token, node_content), NULL));
+		return (new_tree_node(NULL, parse_env_statement(token, node_content), e_false, NULL));
 	ft_free(node_content->infile);
 	ft_free(node_content->outfile);
 	free(node_content);

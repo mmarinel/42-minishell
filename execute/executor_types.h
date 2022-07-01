@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 15:05:27 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/29 15:06:35 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 10:12:02 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 typedef struct e_branch
 {
-	pid_t	branch;
+	pid_t	pid;
 	int		exit_status;
 }	t_branch;
 
