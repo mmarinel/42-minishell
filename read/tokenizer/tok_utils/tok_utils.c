@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 16:04:37 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 16:27:22 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	free_tok_list_rec(t_token *token)
 	free(token);
 }
 
-static char *tok_to_string(t_token *token)
+char *tok_to_string(t_token *token)
 {
 	if (token->token_id == e_CMD_NAME)
 		return ("CMD_NAME");
