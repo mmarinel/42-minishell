@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 09:39:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 12:31:33 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 13:10:46 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,36 @@ void	execute_simple_statement(t_tree_node *root, int in, int out)
 			execute_env_statement(root, in, out);
 		if (root->content->content_type == REDIR)
 			execute_redir_only_statement(root, in, out);
+	}
+}
+
+void	executor_handle_redirs(t_redirection redir, int cur_in_out,
+			int	std_in_out, t_bool redirect_input)
+{
+	if (redir.file_name)
+	{
+		if (cur_in_out != std_in_out)
+		{
+			close(cur_in_out);
+		}
+		{
+			if (redirect_input == e_true)
+				cur_in_out = open(redir.file_name, O_RDONLY);
+			else
+			{
+				if (redir.append_mode == e_true)
+					cur_in_out = open(redir.file_name,
+								O_CREAT | O_APPEND | O_WRONLY, 0777);
+				else
+					cur_in_out = open(redir.file_name,
+								O_CREAT | O_TRUNC | O_WRONLY, 0777);
+			}
+		}
+	}
+	if (cur_in_out != std_in_out)
+	{
+		dup2(cur_in_out, std_in_out);
+		close(cur_in_out);
 	}
 }
 
