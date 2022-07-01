@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:26:21 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 09:34:51 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 12:08:27 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,10 @@ static t_tree_node	*parse_statement(t_token *token)
 	t_node_content	*node_content;
 
 	node_content =  (t_node_content *) malloc(sizeof(t_node_content));
-	node_content->infile = NULL;
-	node_content->outfile = NULL;
-	while (token->token_id == e_IN_FILE || token->token_id == e_OUT_FILE)
+	node_content->in_redir.file_name = NULL;
+	node_content->out_redir.file_name = NULL;
+	while (token->token_id == e_IN_FILE_TRUNC || token->token_id == e_HERE_DOC
+		|| token->token_id == e_OUT_FILE_TRUNC || token->token_id == e_OUT_FILE_APPEND)
 	{
 		parse_redir(node_content, token->token_val, token->token_id);
 		token = next_token();
@@ -131,8 +132,8 @@ static t_tree_node	*parse_statement(t_token *token)
 		return (new_tree_node(NULL, parse_simple_command(token, node_content), e_false, NULL));
 	else if (token->token_id == e_ENV_VAR_DECL || token->token_id == e_ENV_VAR_UNSET)
 		return (new_tree_node(NULL, parse_env_statement(token, node_content), e_false, NULL));
-	ft_free(node_content->infile);
-	ft_free(node_content->outfile);
+	ft_free(node_content->in_redir.file_name);
+	ft_free(node_content->out_redir.file_name);
 	free(node_content);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:48:27 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 09:10:36 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 12:03:29 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,19 @@ typedef struct s_env_decl_node
 
 typedef	struct s_node_content
 {
-	char					*infile;
-	char					*outfile;
+	t_redirection			in_redir;
+	t_redirection			out_redir;
 	short					content_type;
 	t_simple_command_node	simple_cmd;
 	t_env_decl_node			env_decl;
 	t_operator_node			operator_node;
 }	t_node_content;
+
+typedef struct s_redirection
+{
+	char	*file_name;
+	t_bool	append_mode;
+}	t_redirection;
 
 typedef struct s_tree_node
 {

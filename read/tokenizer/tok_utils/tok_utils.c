@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/29 08:43:29 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 11:57:01 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,27 @@ static void	tok_to_string(t_token *token)
 		printf("%s ", id);
 		printf("var_arg: %s; len %zu\n", (char *)token->token_val, ft_strlen((char *)token->token_val));
 	}
-	if (token->token_id == e_IN_FILE)
+	if (token->token_id == e_IN_FILE_TRUNC)
 	{
-		id = BOLDBLUE "IN_FILE" RESET;
+		id = BOLDBLUE "IN_FILE_TRUNC" RESET;
 		printf("%s ", id);
 		printf("in file: %s; len %zu\n", (char *)token->token_val, ft_strlen((char *)token->token_val));
 	}
-	if (token->token_id == e_OUT_FILE)
+	if (token->token_id == e_HERE_DOC)
 	{
-		id = BOLDBLUE "OUT_FILE" RESET;
+		id = BOLDBLUE "HERE_DOC" RESET;
+		printf("%s ", id);
+		printf("in file: %s; len %zu\n", (char *)token->token_val, ft_strlen((char *)token->token_val));
+	}
+	if (token->token_id == e_OUT_FILE_APPEND)
+	{
+		id = BOLDBLUE "OUT_FILE_APPEND" RESET;
+		printf("%s ", id);
+		printf("out file: %s; len %zu\n", (char *)token->token_val, ft_strlen((char *)token->token_val));
+	}
+	if (token->token_id == e_OUT_FILE_TRUNC)
+	{
+		id = BOLDBLUE "OUT_FILE_TRUNC" RESET;
 		printf("%s ", id);
 		printf("out file: %s; len %zu\n", (char *)token->token_val, ft_strlen((char *)token->token_val));
 	}
