@@ -6,12 +6,13 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/30 10:57:53 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 11:53:50 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tok_patterns.h"
 
+// ! in case of here_doc, len_file_name is len of delimiter
 size_t	scan_inout_file(char *command_line, size_t offset, t_token **token_list)
 {
 	t_token		*token;
@@ -20,13 +21,18 @@ size_t	scan_inout_file(char *command_line, size_t offset, t_token **token_list)
 	size_t		pre_offset;
 
 	pre_offset = scan_invariants(command_line, offset); // ! ONLY scan_spaces!
-	if (command_line[pre_offset] == '<')
-		_in_out_ = e_IN_FILE;
+	if (command_line[pre_offset] == '<' && command_line[pre_offset + 1] == '<')
+		_in_out_ = e_HERE_DOC;
+	else if (command_line[pre_offset] == '<')
+		_in_out_ = e_IN_FILE_TRUNC;
+	else if (command_line[pre_offset] == '>' && command_line[pre_offset + 1] == '>')
+		_in_out_ = e_OUT_FILE_APPEND;
 	else if (command_line[pre_offset] == '>')
-		_in_out_ = e_OUT_FILE;
+		_in_out_ = e_OUT_FILE_TRUNC;
 	else
 		return (offset);
-	pre_offset = scan_invariants(command_line, pre_offset + 1);
+	pre_offset = (e_HERE_DOC || e_OUT_FILE_APPEND) * 2 + (e_IN_FILE_TRUNC || e_OUT_FILE_TRUNC);
+	pre_offset = scan_invariants(command_line, pre_offset);
 	if (!command_line[pre_offset])
 		return (offset);
 	len_file_name = bash_next_word_len(command_line, pre_offset);
@@ -34,8 +40,11 @@ size_t	scan_inout_file(char *command_line, size_t offset, t_token **token_list)
 		return (offset);
 	token = (t_token *) malloc(sizeof(t_token));
 	token->token_id = _in_out_;
-	token->token_val
-		= ft_strcpy(NULL, command_line + pre_offset, len_file_name);
+	if (_in_out_ != e_HERE_DOC)
+		token->token_val
+			= ft_strcpy(NULL, command_line + pre_offset, len_file_name);
+	else
+		token->token_val = ft_strcpy(NULL, ".here_doc", 9);
 	tok_add_back(token_list, token);
 	return (pre_offset + len_file_name);
 }

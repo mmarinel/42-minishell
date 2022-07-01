@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 14:50:02 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/30 09:12:22 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 11:47:48 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ typedef enum e_token_id
 {
 	e_CMD_NAME,
 	e_CMD_ARG,
-	e_IN_FILE,
-	e_OUT_FILE,
+	e_IN_FILE_TRUNC,
+	e_HERE_DOC,
+	e_OUT_FILE_TRUNC,
+	e_OUT_FILE_APPEND,
 	e_OPERATOR,
 	e_ENV_VAR_DECL,
 	e_ENV_VAR_UNSET,
