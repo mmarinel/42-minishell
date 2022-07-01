@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:26:21 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 12:08:27 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 16:16:59 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,21 @@ static t_tree_node	*parse_statement(t_token *token);
 
 t_tree_node	*parse(void)
 {
-	static t_parser_status	parser_status = (t_parser_status){OK, (t_groupings){0,0,0}};
+	static t_parser_status	parser_status = (t_parser_status){
+		OK, (t_groupings){0,0,0}, NULL
+		};
 	t_tree_node				*tree;
 
 	tree = parse_cmd_list(parse_atomic_exp(&parser_status), &parser_status);
 	if (parser_status.status == ERROR)
 	{
-		// printf("HERE")
+		if (parser_status.last_read_token)
+			printf("parser: parse error near"
+				RED " %s " RESET " token at pos %d\n",
+				tok_to_string(parser_status.last_read_token));
+		free_tree(tree); // TODO esporre una funzionare di clean nel tokenizer per freeare la lista di token
+		tree = NULL; // TODO mettere DENTRO free_tree
 		parser_initialize(&parser_status);
-		// fflush(stdout);
-		free_tree(tree);
-		printf("parser: Parse error\n");
-		tree = NULL;
 	}
 	tree_to_string(tree);
 	printf ("\n");
@@ -49,7 +52,7 @@ static t_tree_node	*parse_atomic_exp(t_parser_status *parser_status)
 
 	if (parser_status->status == ERROR)
 		return (NULL);
-	token = next_token();
+	token = take_next_token(parser_status);//next_token();
 	if (!token)
 		return (NULL);
 	if (
@@ -73,6 +76,16 @@ static t_tree_node	*parse_atomic_exp(t_parser_status *parser_status)
 	}
 	else
 		return (parse_statement(token));
+}
+
+t_token	*take_next_token(t_parser_status *parser_status)
+{
+	t_token	*new_token;
+
+	new_token = next_token();
+	if (new_token)
+		parser_status->last_read_token = new_token;
+	return (new_token);
 }
 
 static t_tree_node	*parse_cmd_list(t_tree_node *current,
@@ -140,6 +153,7 @@ static t_tree_node	*parse_statement(t_token *token)
 
 static void	parser_initialize(t_parser_status *parser_status)
 {
+	parser_status->last_read_token = NULL;
 	parser_status->status = OK;
 	parser_status->open.double_qquotes = 0;
 	parser_status->open.quotes = 0;

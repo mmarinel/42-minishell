@@ -6,14 +6,14 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 11:57:01 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 16:04:37 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tok_utils.h"
 
 static void	free_tok_list_rec(t_token *token);
-static void	tok_to_string(t_token *token);
+static void	tok_print_token(t_token *token);
 
 // * end of declarations //
 
@@ -59,7 +59,31 @@ static void	free_tok_list_rec(t_token *token)
 	free(token);
 }
 
-static void	tok_to_string(t_token *token)
+static char *tok_to_string(t_token *token)
+{
+	if (token->token_id == e_CMD_NAME)
+		return ("CMD_NAME");
+	if (token->token_id == e_CMD_ARG)
+		return ("CMD_ARG");
+	if (token->token_id == e_IN_FILE_TRUNC)
+		return ("IN_FILE_TRUNC");
+	if (token->token_id == e_HERE_DOC)
+		return ("HERE_DOC");
+	if (token->token_id == e_OUT_FILE_TRUNC)
+		return ("OUT_FILE_TRUNC");
+	if (token->token_id == e_OUT_FILE_APPEND)
+		return ("OUT_FILE_APPEND");
+	if (token->token_id == e_OPERATOR)
+		return ("OPERATOR");
+	if (token->token_id == e_ENV_VAR_DECL)
+		return ("ENV_VAR_DECL");
+	if (token->token_id == e_ENV_VAR_UNSET)
+		return ("ENV_VAR_UNSET");
+	if (token->token_id == e_PARENTHESIS)
+		return ("PARENTHESIS");
+}
+
+static void	print_token(t_token *token)
 {
 	char	*id;
 

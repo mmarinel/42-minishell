@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:48:27 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 12:03:29 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 15:45:51 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct parser_status
 {
 	t_status	status;
 	t_groupings	open;
+	t_token		*last_read_token;
 }	t_parser_status;
 
 #endif

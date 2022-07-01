@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 18:48:51 by earendil          #+#    #+#             */
-/*   Updated: 2022/06/29 09:46:01 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 16:11:42 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,8 @@ static void	*tokenizer(char *command_line, t_op_code op_code)
 		token = next_token;
 		if (next_token)
 			next_token = next_token->next;
-		// if (!next_token)
-		// 	next_token = token_list;
-		// else
-		// 	next_token = next_token->next;
+		else
+			tokenizer(NULL, e_CLEAN);
 	}
 	if (op_code == e_CUR_TOKEN)
 	{
