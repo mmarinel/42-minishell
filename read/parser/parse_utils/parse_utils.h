@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 12:56:38 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 09:03:07 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 17:01:55 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ void			parse_redir(t_node_content *node_content,
 // * parse utils //
 t_tree_node	*new_tree_node(t_tree_node *left, t_node_content *content,
 				t_bool launch_subshell, t_tree_node *right);
-void		free_tree(t_tree_node *root);
+void		free_tree(t_tree_node **root_ref);
 void		tree_to_string(t_tree_node *root);
 #endif

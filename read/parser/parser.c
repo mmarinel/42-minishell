@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:26:21 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 16:16:59 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 17:34:20 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ t_tree_node	*parse(void)
 			printf("parser: parse error near"
 				RED " %s " RESET " token at pos %d\n",
 				tok_to_string(parser_status.last_read_token));
-		free_tree(tree); // TODO esporre una funzionare di clean nel tokenizer per freeare la lista di token
-		tree = NULL; // TODO mettere DENTRO free_tree
+		free_tree(&tree);
+		tokenizer_free();
 		parser_initialize(&parser_status);
 	}
 	tree_to_string(tree);
@@ -50,9 +50,27 @@ static t_tree_node	*parse_atomic_exp(t_parser_status *parser_status)
 	t_token			*token;
 	t_tree_node		*parenthesised;
 
+	token = atomic_exp_parsing_init(parser_status);
+	if (!token)
+		return (NULL);
+	if (token->token_id == e_PARENTHESIS && *((char *)token->token_val) == '(')
+	{
+		parser_status->open.parenthesis += 1;
+		parenthesised = parse_cmd_list(parse_atomic_exp(parser_status), parser_status);
+		parenthesised->launch_subshell = e_true;
+		return (parenthesised);
+	}
+	else
+		return (parse_statement(token));
+}
+
+t_token	*atomic_exp_parsing_init(t_parser_status *parser_status)
+{
+	t_token	*token;
+
 	if (parser_status->status == ERROR)
 		return (NULL);
-	token = take_next_token(parser_status);//next_token();
+	token = take_next_token(parser_status);
 	if (!token)
 		return (NULL);
 	if (
@@ -67,15 +85,7 @@ static t_tree_node	*parse_atomic_exp(t_parser_status *parser_status)
 		set_error(&(parser_status->status));
 		return (NULL);
 	}
-	if (token->token_id == e_PARENTHESIS && *((char *)token->token_val) == '(')
-	{
-		parser_status->open.parenthesis += 1;
-		parenthesised = parse_cmd_list(parse_atomic_exp(parser_status), parser_status);
-		parenthesised->launch_subshell = e_true;
-		return (parenthesised);
-	}
-	else
-		return (parse_statement(token));
+	return (token);
 }
 
 t_token	*take_next_token(t_parser_status *parser_status)
@@ -88,28 +98,40 @@ t_token	*take_next_token(t_parser_status *parser_status)
 	return (new_token);
 }
 
-static t_tree_node	*parse_cmd_list(t_tree_node *current,
-	t_parser_status *parser_status)
+t_token	*cmd_list_parsing_init(t_parser_status *parser_status)
 {
-	t_token		*token;
-	t_tree_node	*new_subtree;
+	t_token	*token;
 
 	if (parser_status->status == ERROR)
-		return (current);
-	token = next_token();
+		return (NULL);
+	token = take_next_token(parser_status);
 	if (!token)
-		return (current);
+		return (NULL);
 	if (token->token_id == e_PARENTHESIS && *((char *)token->token_val) == ')')
 	{
 		if (parser_status->open.parenthesis == 0)
 			set_error(&(parser_status->status));
 		else
 			parser_status->open.parenthesis -= 1;
-		return (current);
+		return (NULL);
 	}
+}
+
+static t_tree_node	*parse_cmd_list(t_tree_node *current,
+	t_parser_status *parser_status)
+{
+	t_token		*token;
+	t_tree_node	*new_subtree;
+
+	token = cmd_list_parsing_init(parser_status);
+	if (!token)
+		return (current);
 	else if (token->token_id == e_OPERATOR)
 	{
-		new_subtree = parse_cmd_list(new_tree_node(current, parse_operator(token), e_false, parse_atomic_exp(parser_status)), parser_status);
+		new_subtree = parse_cmd_list(
+				new_tree_node(current, parse_operator(token), e_false,
+					parse_atomic_exp(parser_status)),
+				parser_status);
 		if (*((char *)token->token_val) == '|' && *((char *)token->token_val + 1) != '|')
 			new_subtree->launch_subshell = e_true;
 		else
@@ -127,7 +149,7 @@ static t_tree_node	*parse_statement(t_token *token)
 {
 	t_node_content	*node_content;
 
-	node_content =  (t_node_content *) malloc(sizeof(t_node_content));
+	node_content = (t_node_content *) malloc(sizeof(t_node_content));
 	node_content->in_redir.file_name = NULL;
 	node_content->out_redir.file_name = NULL;
 	while (token->token_id == e_IN_FILE_TRUNC || token->token_id == e_HERE_DOC

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 08:22:23 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 12:21:07 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 17:11:54 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,20 @@ t_tree_node	*new_tree_node(t_tree_node *left, t_node_content *content,
 	return (new_node);
 }
 
-void	free_tree(t_tree_node *root)
+void	free_tree(t_tree_node **root_ref)
 {
+	t_tree_node	*root;
+
+	root = *root_ref;
 	if (!root)
 		return ;
-	free_tree(root->left);
-	free_tree(root->right);
+	free_tree(&(root->left));
+	free_tree(&(root->right));
 	ft_free(root->content->in_redir.file_name);
 	ft_free(root->content->out_redir.file_name);
 	free(root->content);
 	free(root);
+	*root_ref = NULL;
 }
 
 void	tree_to_string(t_tree_node *root)

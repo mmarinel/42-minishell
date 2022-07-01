@@ -28,5 +28,5 @@
 
 13. gestire modalita APPEND delle redirections
 
-14. 
+14. evitare la mallocata su node_content in parse_statement at parser.c 
 

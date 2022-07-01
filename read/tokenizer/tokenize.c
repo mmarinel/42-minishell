@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 18:48:51 by earendil          #+#    #+#             */
-/*   Updated: 2022/07/01 16:11:42 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 17:08:22 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,47 +34,28 @@ static t_token	*tokenize(char	*command_line);
 static void	*tokenizer(char *command_line, t_op_code op_code)
 {
 	static t_token	*token_list;
-	static t_token	*next_token = NULL;
+	static t_token	*cur_token = NULL;
 	t_token			*token;
 
 	if (op_code == e_READ_INPUT)
 	{
 		token_list = tokenize(command_line);
-		next_token = token_list;
+		cur_token = token_list;
 	}
 	if (op_code == e_NEXT_TOKEN)
 	{
-		token = next_token;
-		if (next_token)
-			next_token = next_token->next;
+		token = cur_token;
+		if (cur_token)
+			cur_token = cur_token->next;
 		else
 			tokenizer(NULL, e_CLEAN);
 	}
-	if (op_code == e_CUR_TOKEN)
-	{
-		return (next_token);
-	}
 	if (op_code == e_CLEAN)
+	{
 		free_tok_list(&token_list);
+		cur_token = NULL;
+	}
 	return (token);
-}
-
-void	tokenizer_feed_input(char *command_line)
-{
-	if (command_line == NULL)
-		return ;
-	tokenizer(NULL, e_CLEAN);
-	tokenizer(command_line, e_READ_INPUT);
-}
-
-t_token	*next_token(void)
-{
-	return (tokenizer(NULL, e_NEXT_TOKEN));
-}
-
-t_token	*cur_token(void)
-{
-	return (tokenizer(NULL, e_CUR_TOKEN));
 }
 
 static t_token	*tokenize(char	*command_line)
@@ -101,4 +82,22 @@ static t_token	*tokenize(char	*command_line)
 		free_tok_list(&token_list);
 	}
 	return (token_list);
+}
+
+void	tokenizer_feed_input(char *command_line)
+{
+	if (command_line == NULL)
+		return ;
+	tokenizer(NULL, e_CLEAN);
+	tokenizer(command_line, e_READ_INPUT);
+}
+
+t_token	*next_token(void)
+{
+	return (tokenizer(NULL, e_NEXT_TOKEN));
+}
+
+void	tokenizer_free(void)
+{
+	tokenizer(NULL, e_CLEAN);
 }

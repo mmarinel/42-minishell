@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 14:50:02 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 11:47:48 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 17:03:01 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ typedef enum e_op_code
 {
 	e_READ_INPUT,
 	e_NEXT_TOKEN,
-	e_CUR_TOKEN,
 	e_CLEAN
 }	t_op_code;
 
