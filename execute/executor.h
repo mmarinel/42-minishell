@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 10:45:53 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/29 15:31:45 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 11:21:16 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 // * standard libraries //
 # include <unistd.h>
+# include <fcntl.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <sys/wait.h>
