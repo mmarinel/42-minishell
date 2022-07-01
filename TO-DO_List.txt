@@ -24,3 +24,9 @@
 
 11. spostare free_bindings in shell_utils globale
 
+12. Gestire here_doc nel tokenizer
+
+13. gestire modalita APPEND delle redirections
+
+14. 
+
