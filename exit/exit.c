@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 17:07:46 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/27 08:15:49 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 14:36:15 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,9 @@ void	exit_shell(int exit_status, t_bool go_on_newline)
 	ft_free(*ft_add_history(NULL)); // ! potevo anche fare ft_clear history senza copiare la stringa nella funzione chiamata ft_add_history
 	printf("exit\n");
 	exit(exit_status);
+}
+
+void	exit_command_subshell(int exit_status, t_tree_node *parse_tree)
+{
+	// TODO
 }

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 10:45:53 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 11:21:16 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 14:28:18 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <sys/wait.h>
+
+// * user defined modules //
+# include "../exit/exit_module.h"
+# include "../colors.h"
+# include "../utils/ft_utils.h"
 
 // * user defined types //
 # include "executor_types.h"

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 10:13:40 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/29 10:18:16 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/01 14:26:08 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,7 @@
  * @param go_on_new_line iff true, a '\ n ' gets printed before exiting.
  */
 void	exit_shell(int exit_status, t_bool go_on_newline);
+
+void	exit_command_subshell(int exit_status, char *message);
 
 #endif
