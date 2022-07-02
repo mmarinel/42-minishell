@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 09:06:47 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/02 08:54:34 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/02 10:08:11 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ size_t	scan_next_cmd_arg(char *command_line, size_t offset,
 		return (offset);
 	else if (e_true == redirect_char(command_line[new_offset]))
 	{
-		printf(RED "HERE\n" RESET);
 		new_offset = scan_inout_file(command_line, new_offset, token_list);
 	}
 	else
