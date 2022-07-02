@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 15:18:06 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 17:06:47 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/02 08:51:29 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@ t_token	*next_token(void);
 void	tokenizer_free(void);
 
 char *tok_to_string(t_token *token);
+void	print_token(t_token *token);
 
 #endif

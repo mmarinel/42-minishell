@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 19:13:43 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/02 08:54:16 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ size_t	scan_inout_file(char *command_line, size_t offset, t_token **token_list)
 	size_t		len_file_name;
 	size_t		pre_offset;
 
-	printf(YELLOW "inside scan_in_out_file\n" RESET);
+	// printf(YELLOW "inside scan_in_out_file\n" RESET);
 	pre_offset = scan_invariants(command_line, offset); // ! ONLY scan_spaces!
 	if (command_line[pre_offset] == '<' && command_line[pre_offset + 1] == '<')
 		_in_out_ = e_HERE_DOC;
@@ -58,7 +58,7 @@ size_t	scan_simple_command(char *command_line, size_t offset,
 	int		len_cmd_name;
 
 //	pre_offset = scan_invariants(command_line, offset);
-	printf(YELLOW "inside scan_simple_command\n" RESET);
+	// printf(YELLOW "inside scan_simple_command\n" RESET);
 	if (!command_line[offset])
 		return (offset);
 	len_cmd_name = bash_next_word_len(command_line, offset);

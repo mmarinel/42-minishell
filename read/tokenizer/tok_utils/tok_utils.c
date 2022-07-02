@@ -6,14 +6,13 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 19:12:38 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/02 08:55:22 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tok_utils.h"
 
 static void	free_tok_list_rec(t_token *token);
-static void	tok_print_token(t_token *token);
 
 // * end of declarations //
 
@@ -30,7 +29,7 @@ void	tok_add_back(t_token **token_list, t_token *token)
 	static t_token	*tail = NULL;
 
 	// if (token->token_id != e_OUT_FILE_APPEND)
-		printf("added token: %s\n", tok_to_string(token));
+		// printf("added token: %s\n", tok_to_string(token));
 	if (!(*token_list))
 	{
 		*token_list = token;
@@ -86,7 +85,7 @@ char *tok_to_string(t_token *token)
 	return (NULL);
 }
 
-static void	print_token(t_token *token)
+void	print_token(t_token *token)
 {
 	char	*id;
 

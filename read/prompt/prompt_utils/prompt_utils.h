@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 19:04:09 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/28 16:28:48 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/02 09:25:34 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,17 @@
 # include "../../../utils/ft_utils.h"
 
 
+// * user defined module
+# include "../../../exit/exit.h"
+
 // * includes end //
 
 
 char	**ft_add_history(char *command);
 
 t_bool	here_doc_line(char *command);
-void	here_doc_read(char *delimiter);
+void	here_doc_read(char *command);
+// void	here_doc_read(char *delimiter);
 char	*here_doc_take_delimiter(char *command);
 
 #endif

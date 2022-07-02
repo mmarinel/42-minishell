@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 13:04:29 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 18:54:24 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/02 08:50:41 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ size_t	scan_invariant_quotes(char *str, size_t offset);
 size_t	scan_invariants(char *str, size_t offset);
 
 char *tok_to_string(t_token *token);
+void	print_token(t_token *token);
 
 #endif
