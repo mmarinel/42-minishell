@@ -6,13 +6,13 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 16:43:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/02 17:18:58 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/02 19:42:42 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_utils.h"
 
-t_bool	is_path(char *cmd)
+t_bool	is_path_name(char *cmd)
 {
 	return (take_substr(cmd, "/") != NULL);
 }
@@ -36,7 +36,7 @@ char	*ft_get_cmd_name(char *cmd)
 	return (name);
 }
 
-char	*ft_return_path(char *cmd)
+char	*ft_get_pathname(char *cmd)
 {
 	t_bindings	*cur_var;
 	char		**env_paths_split;
@@ -45,7 +45,7 @@ char	*ft_return_path(char *cmd)
 	env_paths_split = return_paths();
 	if (!env_paths_split)
 		return (NULL);
-	path = ft_return_path_step2(cmd, env_paths_split);
+	path = return_path_name(cmd, env_paths_split);
 	px_splitclear(env_paths_split);
 	return (path);
 }
@@ -64,4 +64,26 @@ static char	**return_paths(void)
 		cur_var = cur_var->next;
 	}
 	return (ft_split(cur_var->var_val, ':'));
+}
+
+static char	*return_path_name(char *cmd, char **pathlist)
+{
+	char	*cur_full_name_candidate;
+
+	if (is_path_name(cmd) == e_true
+		&& access(cmd, X_OK) == 0)
+			return (ft_strcpy(NULL, cmd, ft_strlen(cmd)));
+	while (e_true)
+	{
+		cur_full_name_candidate
+			= ft_strjoin(
+				ft_strjoin(*pathlist, "/", e_false, e_false),
+				cmd,
+				e_true, e_false);
+		if (access(cur_full_name_candidate, X_OK) == 0)
+			return (cur_full_name_candidate);
+		free(cur_full_name_candidate);
+		pathlist++;
+	}
+	return (NULL);
 }
