@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 12:55:41 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 12:19:42 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/02 11:33:42 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,31 +58,17 @@ t_node_content	*parse_env_statement(t_token *token, t_node_content *node_content
 
 void	parse_redir(t_node_content *node_content, char *file_name, t_token_id in_out)
 {
-	if (in_out == e_IN_FILE_TRUNC)
-	{
-		ft_free(node_content->in_redir.file_name);
-		node_content->in_redir.append_mode = e_false;
-		node_content->in_redir.file_name = ft_strcpy(NULL, file_name,
-								ft_strlen(file_name));
-	}
-	if (in_out == e_HERE_DOC)
-	{
-		ft_free(node_content->in_redir.file_name);
-		node_content->in_redir.append_mode = e_true;
-		node_content->in_redir.file_name = ft_strcpy(NULL, ".here_doc", 9);
-	}
-	if (in_out == e_OUT_FILE_TRUNC)
-	{
-		ft_free(node_content->out_redir.file_name);
-		node_content->out_redir.append_mode = e_false;
-		node_content->out_redir.file_name = ft_strcpy(NULL, file_name,
-								ft_strlen(file_name));
-	}
-	if (in_out == e_OUT_FILE_APPEND)
-	{
-		ft_free(node_content->out_redir.file_name);
-		node_content->out_redir.append_mode = e_true;
-		node_content->out_redir.file_name = ft_strcpy(NULL, file_name,
-								ft_strlen(file_name));
-	}
+	t_redirection	*direction;
+
+	if (in_out == e_HERE_DOC || in_out == e_IN_FILE_TRUNC)
+		direction = &(node_content->in_redir);
+	else
+		direction = &(node_content->out_redir);
+	ft_free(direction->file_name);
+	direction->file_name = ft_strcpy(NULL, file_name,
+							ft_strlen(file_name));
+	if (in_out == e_HERE_DOC || in_out == e_OUT_FILE_APPEND)
+		direction->append_mode = e_true;
+	else
+		direction->append_mode = e_false;
 }
