@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   parser_case.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/25 10:26:39 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/02 14:49:43 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/07/02 14:29:47 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/07/02 14:30:17 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include "parse_cases_init.h"
 
-// * standard libraries
-# include <stdlib.h>
-
-// * user defined modules
-# include "../tokenizer/tokenizer_module.h"
-# include "parse_utils/parse_utils.h"
-# include "parse_cases_init/parse_cases_init.h"
-
-// * user defined types
-# include "parser_types.h"
-# include "../../types.h"
-# include "../tokenizer/tok_types.h"
-
-#endif
+void	parser_initialize(t_parser_status *parser_status)
+{
+	parser_status->last_read_token = NULL;
+	parser_status->status = OK;
+	parser_status->open.double_qquotes = 0;
+	parser_status->open.quotes = 0;
+	parser_status->open.parenthesis = 0;
+}

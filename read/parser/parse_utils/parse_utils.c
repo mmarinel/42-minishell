@@ -6,15 +6,11 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 08:22:23 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 17:11:54 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/02 14:16:57 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse_utils.h"
-
-static void	print_simple_command(t_tree_node *node);
-static void	print_env_statement(t_tree_node *node);
-static void print_operator(t_tree_node *node);
 
 t_tree_node	*new_tree_node(t_tree_node *left, t_node_content *content,
 				t_bool launch_subshell, t_tree_node *right)
@@ -45,66 +41,15 @@ void	free_tree(t_tree_node **root_ref)
 	*root_ref = NULL;
 }
 
-void	tree_to_string(t_tree_node *root)
+t_token	*take_next_token(t_parser_status *parser_status)
 {
-	if (!root)
+	t_token	*new_token;
+
+	new_token = next_token();
+	if (new_token)
 	{
-		// printf("HERE\n");
-		return ;
+		parser_status->last_read_token = new_token;
+		parser_status->last_read_tok_pos += 1;
 	}
-	if (root->content->content_type == SIMPL_CMD)
-		printf("SIMPLE_CMD "); //print_simple_command(root);
-	else if (root->content->content_type == ENV_STATEMENT)
-		printf("ENV_STATEMENT "); //print_env_statement(root);
-	else
-	{
-		printf("(");
-		tree_to_string(root->left);
-		printf("OPERATOR "); //print_operator(root);
-		tree_to_string(root->right);
-		printf(")");
-	}
+	return (new_token);
 }
-
-static void print_operator(t_tree_node *node)
-{
-	if (node->content->operator_node.operator == e_PIPE)
-		printf(" | ");
-	if (node->content->operator_node.operator == e_OR)
-		printf(" || ");
-	if (node->content->operator_node.operator == e_AND)
-		printf(" && ");
-}
-
-static void	print_simple_command(t_tree_node *node)
-{
-	printf(GREEN "[cmd_name: %s, cmd_arg: %s, infile: %s, outfile: %s]" RESET, node->content->simple_cmd.cmd_name, node->content->simple_cmd.cmd_args, node->content->in_redir.file_name, node->content->out_redir.file_name);
-}
-
-static void	print_env_statement(t_tree_node *node)
-{
-	// t_bindings	*binding;
-
-	if (node->content->env_decl.set)
-		printf(GREEN "[EXPORT : infile: %s, outfile: %s " RESET, node->content->in_redir.file_name, node->content->out_redir.file_name);
-	else
-		printf(GREEN "[UNSET : infile: %s, outfile: %s " RESET, node->content->in_redir.file_name, node->content->out_redir.file_name);
-	// binding = node->content->env_decl.bindings;
-	// while (binding)
-	// {
-	// 	printf("\tconcat: %d, var_name: %s, var_val: %s\t", binding->concat_mode, binding->var_name, binding->var_val);
-	// 	binding = binding->next;
-	// }
-	// printf("]");
-}
-
-	// printf("(");
-	// tree_to_string(root->left);
-	// if (root->content->content_type == OPERATOR)
-	// 	printf("OPERATOR ");
-	// if (root->content->content_type == SIMPL_CMD)
-	// 	printf("SIMPLE_CMD ");
-	// if (root->content->content_type == ENV_STATEMENT)
-	// 	printf("ENV_STATEMENT ");
-	// tree_to_string(root->right);
-	// printf(")");
