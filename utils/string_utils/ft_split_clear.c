@@ -6,11 +6,11 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 16:59:11 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/02 17:03:45 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/02 19:50:58 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_utils.h"
+#include "../ft_utils.h"
 
 void	*ft_splitclear(char **split)
 {
