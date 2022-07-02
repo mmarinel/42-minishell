@@ -32,3 +32,5 @@
 
 15. valutare se fare un ciclo di here_doc (here_doc1, here_doc2, etc. ...) >>Aggiungere variabile stato nello ASF che riconosce le redirections in modo da tenere conto di quanti here_doc ho incotnrato<<
 
+16. togliere get_next_line nella gestione degli here_doc
+
