@@ -6,7 +6,7 @@
 // /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 // /*                                                +#+#+#+#+#+   +#+           */
 // /*   Created: 2022/07/03 10:01:18 by mmarinel          #+#    #+#             */
-// /*   Updated: 2022/07/03 10:03:23 by mmarinel         ###   ########.fr       */
+// /*   Updated: 2022/07/03 15:05:08 by mmarinel         ###   ########.fr       */
 // /*                                                                            */
 // /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 // 		}
 // 		else
 // 		{
-// 			remove_binding(&(g_env.export), cur_binding, e_true);
-// 			remove_binding(&(g_env.env), cur_binding, e_true);
+// 			remove_binding(&(g_env.export), cur_binding->var_name);
+// 			remove_binding(&(g_env.env), cur_binding->var_name);
 // 		}
 // 		cur_binding = cur_binding->next;
 // 	}

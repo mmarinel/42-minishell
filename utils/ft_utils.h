@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:13:18 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/02 17:04:26 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/03 15:46:55 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,12 @@ t_bool			asked_for_termination(char	*command);
 void			close_pipe(int pipe_[]);
 
 	// * t_bindings
+char		**bindings_list_to_array(t_bindings *head);
 void		add_new_binding(t_bindings **head, t_bindings *new_binding,
 				t_bool in_order);
+void		binding_remove(t_bindings **head, char *var_name);
+t_bool		binding_exist(t_bindings *head, t_bindings *binding);
+size_t		bindings_len(t_bindings *head);
 void		copy_env(t_bindings **head, char **envp, t_bool in_order);
 void		free_env(t_bindings *head);
 t_bindings	*get_new_binding(char *var_name, char *var_val, t_bool concat_mode);

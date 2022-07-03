@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:15:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/03 12:50:10 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/03 15:48:04 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	execute_simple_cmd(t_tree_node *root, int in, int out)
 			' ');
 	if (!cmd_full_path)
 		command_not_found_failure(root, cmd_full_path, cmd_simple_name, args);
-	if (-1 == execve(cmd_full_path, args, g_env.env))
+	if (-1 == execve(cmd_full_path, args, bindings_list_to_array(g_env.env)))
 		command_execution_failure(root, cmd_full_path, cmd_simple_name, args);
 }
 
