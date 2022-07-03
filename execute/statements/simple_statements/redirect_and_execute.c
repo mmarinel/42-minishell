@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:15:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/03 17:20:07 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/03 17:39:22 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	execute_simple_cmd(t_tree_node *root, int in, int out)
 	char	*cmd_full_path;
 	char	**args;
 
-	printf(YELLOW "execute_simple_cmd\n" RESET);
+	// printf(YELLOW "execute_simple_cmd\n" RESET);
 	args = NULL;
 	executor_handle_redirs(root->content->in_redir,
 		in, STDIN_FILENO, e_true);
@@ -39,7 +39,7 @@ void	execute_simple_cmd(t_tree_node *root, int in, int out)
 			' ');
 	if (!cmd_full_path)
 		command_not_found_failure(root, cmd_full_path, cmd_simple_name, args);
-	printf("cmd_full_path is: %s\n", cmd_full_path);
+	// printf("cmd_full_path is: %s\n", cmd_full_path);
 	// char	**envp;
 	// envp = bindings_list_to_array(g_env.env);
 	// while (*envp)

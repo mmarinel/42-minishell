@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 16:43:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/03 16:51:17 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/03 17:41:24 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*ft_get_pathname(char *cmd)
 	// }
 	// exit(0);
 	path = return_path_name(cmd, env_paths_split);
-	printf("pathname is: %s\n", path);
+	// printf("pathname is: %s\n", path);
 	ft_splitclear(env_paths_split);
 	return (path);
 }

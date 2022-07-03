@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 09:58:33 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/03 10:56:28 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/03 17:37:05 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,17 @@ void	execute_pipe_statement(t_tree_node *root, int in, int out)
 	left_hand_side.pid = fork();
 	if (!left_hand_side.pid)
 	{
+		// printf("left hand side\n");
 		pipe_execute_branch(root->left, new_in_out[0], in, new_in_out[1]);
 	}
 	right_hand_side.pid = fork();
 	if (!right_hand_side.pid)
 	{
+		// printf("right hand side\n");
 		pipe_execute_branch(root->right, new_in_out[1], new_in_out[0], out);
 	}
+	close(new_in_out[0]);
+	close(new_in_out[1]);
 	waitpid(left_hand_side.pid, NULL, 0);
 	waitpid(right_hand_side.pid, &(right_hand_side.exit_status), 0);
 	if (!WIFEXITED(right_hand_side.exit_status) || WEXITSTATUS(right_hand_side.exit_status))
