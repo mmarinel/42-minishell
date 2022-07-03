@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 16:43:28 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/02 16:50:58 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/03 08:54:46 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "../executor.h"
 
+t_bool	is_path_name(char *cmd);
 char	*ft_get_cmd_name(char *cmd);
+char	*ft_get_pathname(char *cmd);
 
 #endif

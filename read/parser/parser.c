@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:26:21 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/02 14:50:00 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/03 09:12:11 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,22 +68,19 @@ static t_tree_node	*parse_cmd_list(t_tree_node *current,
 {
 	t_token		*token;
 	t_tree_node	*new_subtree;
-	t_bool		launch_subshell;
+	// t_bool		launch_subshell;
 
 	token = cmd_list_parsing_init(parser_status);
 	if (!token)
 		return (current);
 	else if (token->token_id == e_OPERATOR)
 	{
-		if (*((char *)token->token_val) == '|' && *(((char *)token->token_val) + 1) != '|')
-			launch_subshell = e_true;
-		else
-			launch_subshell = e_false;
+		// launch_subshell = e_false;
 		new_subtree = parse_cmd_list(
 				new_tree_node(current, parse_operator(token), e_false,
 					parse_atomic_exp(parser_status)),
 				parser_status);
-		new_subtree->launch_subshell = launch_subshell;
+		new_subtree->launch_subshell = e_false; //launch_subshell;
 		return (new_subtree);
 	}
 	else
@@ -92,6 +89,11 @@ static t_tree_node	*parse_cmd_list(t_tree_node *current,
 		return (current);
 	}
 }
+
+		// if (*((char *)token->token_val) == '|' && *(((char *)token->token_val) + 1) != '|')
+		// 	launch_subshell = e_true;
+		// else
+		// 	launch_subshell = e_false;
 
 static t_tree_node	*parse_statement(t_token *token)
 {

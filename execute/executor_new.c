@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 09:39:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/02 19:52:46 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/03 09:13:02 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,39 @@ void	execute_in_shell(t_tree_node *root, int in, int out)
 		exit(EXIT_FAILURE);
 }
 
+t_bool	builtin(t_simple_command_node cmd)
+{
+	char	*simple_name;
+
+	simple_name = ft_get_cmd_name(cmd.cmd_name);
+	if (0 == ft_strcmp(simple_name, "echo"))
+		execute_echo(cmd);
+	if (0 == ft_strcmp(simple_name, "cd"))
+		execute_cd(cmd);
+	if (0 == ft_strcmp(simple_name, "pwd"))
+		execute_pwd(cmd);
+	if (0 == ft_strcmp(simple_name, "export"))
+		execute_export(cmd);
+	if (0 == ft_strcmp(simple_name, "unset"))
+		execute_unset(cmd);
+	if (0 == ft_strcmp(simple_name, "env"))
+		execute_env(cmd);
+	if (0 == ft_strcmp(simple_name, "exit"))
+		execute_exit(cmd);
+	free(simple_name);
+	if (g_env.last_executed_cmd_exit_status == EXIT_FAILURE)
+		exit(EXIT_FAILURE);
+	else
+		exit(EXIT_SUCCESS);
+}
+
 void	execute_simple_statement(t_tree_node *root, int in, int out)
 {
 	static int	parent_flag = 0;
 	t_branch	statement_execution;
 
-	if (builtin(root->content->simple_cmd.cmd_name))
-		return (execute_builtin(root, in, out));
+	if (builtin(root->content->simple_cmd))
+		execute_builtin(root, in, out);
 	parent_flag = (parent_flag + 1) % 2;
 	if (parent_flag)
 	{

@@ -20,17 +20,19 @@
 
 9. ENV_VAR: aggiungere nuovo enumeratore e_ENV_ASSIGN per espressioni del tipo (VAR=43 quando ho gia esportato la variabile)
 
-10. implementare env & export con 2 liste. (ricordarsi $_ in env).
+10. implementare env & export con 2 liste. (ricordarsi $_ in env). <fatto>
 
 11. spostare free_bindings in shell_utils globale
 
-12. Gestire here_doc nel tokenizer
+12. Gestire here_doc nel tokenizer <fatto>
 
-13. gestire modalita APPEND delle redirections
+13. gestire modalita APPEND delle redirections <fatto>
 
 14. evitare la mallocata su node_content in parse_statement at parser.
 
-15. valutare se fare un ciclo di here_doc (here_doc1, here_doc2, etc. ...) >>Aggiungere variabile stato nello ASF che riconosce le redirections in modo da tenere conto di quanti here_doc ho incotnrato<<
+15. valutare se fare un ciclo di here_doc (here_doc1, here_doc2, etc. ...) >>Aggiungere variabile stato nello ASF che riconosce le redirections in modo da tenere conto di quanti here_doc ho incotnrato<< <fatto>
 
 16. togliere get_next_line nella gestione degli here_doc
+
+17. non forkare la pipe ma solo i suoi left & righ hand sides. (Perche se no non funzione <comando> | exit)  <fatto>
 
