@@ -6,11 +6,17 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 09:39:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/03 11:57:39 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/03 12:45:40 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
+
+static void	execute_in_shell(t_tree_node *root, int in, int out);
+static void	execute_subshell(t_tree_node *root, int in, int out);
+
+// * end of declarations //
+
 
 void	execute(t_tree_node *parse_tree)
 {
@@ -27,7 +33,7 @@ void	execute_rec(t_tree_node *root, int in, int out)
 		execute_in_shell(root, in, out);
 }
 
-void	execute_subshell(t_tree_node *root, int in, int out)
+static void	execute_subshell(t_tree_node *root, int in, int out)
 {
 	int	subshell_pid;
 	int	subshell_exit_status;
@@ -50,7 +56,7 @@ void	execute_subshell(t_tree_node *root, int in, int out)
 		g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
 }
 
-void	execute_in_shell(t_tree_node *root, int in, int out)
+static void	execute_in_shell(t_tree_node *root, int in, int out)
 {
 	if (root->content->content_type == SIMPL_CMD
 		|| root->content->content_type == ENV_STATEMENT
@@ -60,7 +66,7 @@ void	execute_in_shell(t_tree_node *root, int in, int out)
 	{
 
 		if (root->content->operator_node.operator == e_PIPE)
-			exkecute_pipe_statement(root, in, out);
+			execute_pipe_statement(root, in, out);
 		else if (root->content->operator_node.operator == e_AND)
 			execute_and_statement(root, in, out);
 		else if (root->content->operator_node.operator == e_OR)

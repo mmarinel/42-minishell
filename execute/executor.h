@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 10:45:53 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/03 11:44:58 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/03 12:42:57 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,7 @@
 
 // * global variable module //
 # include "../global.h"
+
+void	execute_rec(t_tree_node *root, int in, int out);
 
 #endif

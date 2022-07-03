@@ -36,3 +36,4 @@
 
 17. non forkare la pipe ma solo i suoi left & righ hand sides. (Perche se no non funzione <comando> | exit)  <fatto>
 
+18. bindings: aggiungere funzioni remove_bindings && bindings_list_to_bindings_array

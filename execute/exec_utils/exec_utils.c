@@ -6,11 +6,16 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 16:43:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/03 09:25:27 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/03 12:42:17 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_utils.h"
+
+static char	**return_paths(void);
+static char	*return_path_name(char *cmd, char **pathlist);
+
+// * end of declarations //
 
 t_bool	is_path_name(char *cmd)
 {
@@ -46,7 +51,7 @@ char	*ft_get_pathname(char *cmd)
 	if (!env_paths_split)
 		return (NULL);
 	path = return_path_name(cmd, env_paths_split);
-	px_splitclear(env_paths_split);
+	ft_splitclear(env_paths_split);
 	return (path);
 }
 
