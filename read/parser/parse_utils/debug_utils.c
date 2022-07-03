@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 12:02:01 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/03 09:22:22 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/03 21:51:59 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,9 @@ void	tree_to_string(t_tree_node *root)
 	// 	printf("new subshell ");
 	if (root->launch_subshell == e_true)
 		printf(">nsb >");
-	if (root->content->content_type == SIMPL_CMD)
+	if (root->content->content_type == REDIR)
+		printf("REDIR_ONLY ");
+	else if (root->content->content_type == SIMPL_CMD)
 		printf("SIMPLE_CMD "); //print_simple_command(root);
 	else if (root->content->content_type == ENV_STATEMENT)
 		printf("ENV_STATEMENT "); //print_env_statement(root);

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:15:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/03 17:39:22 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/03 23:01:20 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,19 @@ void	execute_simple_cmd(t_tree_node *root, int in, int out)
 	char	*cmd_full_path;
 	char	**args;
 
-	// printf(YELLOW "execute_simple_cmd\n" RESET);
+	printf(YELLOW "execute_simple_cmd\n" RESET);
 	args = NULL;
+	if (in && out)
+		;
 	executor_handle_redirs(root->content->in_redir,
 		in, STDIN_FILENO, e_true);
 	executor_handle_redirs(root->content->out_redir,
 		out, STDOUT_FILENO, e_false);
 	cmd_simple_name = ft_get_cmd_name(root->content->simple_cmd.cmd_name);
 	cmd_full_path = ft_get_pathname(root->content->simple_cmd.cmd_name);
+	printf("simple name: %s\tlen: %zu\n", cmd_simple_name, ft_strlen(cmd_simple_name));
+	printf("full name: %s\tlen: %zu\n", cmd_full_path, ft_strlen(cmd_full_path));
+	printf("full name: %s\n", root->content->simple_cmd.cmd_args);
 	args = ft_split(
 			ft_strjoin(
 				ft_strjoin(cmd_simple_name, " ", e_true, e_false),
@@ -89,9 +94,11 @@ void	execute_redir_only_statement(t_tree_node *root, int in, int out)
 {
 	int	out_fd;
 
+	printf(YELLOW "execute_redir_only_statement\n" RESET);
 	out_fd = 0;
 	if (root->content->out_redir.file_name)
 	{
+		printf("file name is: %s\n", root->content->out_redir.file_name);
 		if (root->content->out_redir.append_mode == e_true)
 			out_fd = open(root->content->out_redir.file_name,
 						O_CREAT | O_APPEND | O_WRONLY, 0777);
@@ -106,6 +113,7 @@ void	execute_redir_only_statement(t_tree_node *root, int in, int out)
 		else
 			close(out_fd);
 	}
+	// printf(YELLOW "at the end of execute_redir_only\n" RESET);
 	exit(g_env.last_executed_cmd_exit_status);
 	if (in || out)
 		;

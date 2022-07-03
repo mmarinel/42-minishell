@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 16:43:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/03 17:41:24 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/03 22:17:56 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,21 @@ t_bool	is_path_name(char *cmd)
 char	*ft_get_cmd_name(char *cmd)
 {
 	char		*name;
-	int			offset;
+	int			slash_idx;
 	size_t		i;
 
 	name = NULL;
-	offset = -1;
+	slash_idx = -1;
 	i = 0;
 	while (cmd[i])
 	{
 		if (cmd[i] == '/')
-			offset = i;
+			slash_idx = i;
 		i++;
 	}
-	name = ft_strcpy(NULL, cmd + (offset + 1), ft_strlen(cmd) - offset);
+	name = ft_strcpy(NULL, cmd + (slash_idx + 1), ft_strlen(cmd) - (slash_idx + 1));
+	// if (name[ft_strlen(cmd) - (slash_idx + 1) - 1])
+	// 	exit(0);
 	return (name);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 12:55:41 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/02 11:33:42 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/03 22:23:13 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_node_content	*parse_simple_command(t_token *token, t_node_content *node_conten
 {
 
 	node_content->content_type = SIMPL_CMD;
+	node_content->simple_cmd.cmd_args = NULL;
 	if (token->token_id == e_CMD_ARG)
 	{
 		node_content->simple_cmd.cmd_args = ft_strcpy(NULL, token->token_val,

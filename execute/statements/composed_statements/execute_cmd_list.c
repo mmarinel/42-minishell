@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 09:58:33 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/03 17:37:05 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/03 22:59:57 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	execute_pipe_statement(t_tree_node *root, int in, int out)
 		g_env.last_executed_cmd_exit_status = EXIT_FAILURE;
 	else
 		g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
+	printf("end of pipe statement\n");
 }
 
 void	execute_and_statement(t_tree_node *root, int in, int out)
