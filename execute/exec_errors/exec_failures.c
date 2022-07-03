@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 09:56:21 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/03 09:57:09 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/03 11:24:23 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	command_not_found_failure(t_tree_node *parse_tree,
 	free(cmd_full_path);
 	free(cmd_simple_name);
 	ft_splitclear(cmd_args);
-	exit_command_subshell(EXIT_FAILURE, parse_tree);
+	exit(EXIT_SUCCESS);
+	// exit_command_subshell(EXIT_FAILURE, parse_tree);
 }
 
 void	command_execution_failure(t_tree_node *parse_tree,
@@ -31,5 +32,6 @@ void	command_execution_failure(t_tree_node *parse_tree,
 	free(cmd_full_path);
 	free(cmd_simple_name);
 	ft_splitclear(cmd_args);
-	exit_command_subshell(EXIT_FAILURE, parse_tree);
+	exit(EXIT_FAILURE);
+	// exit_command_subshell(EXIT_FAILURE, parse_tree);
 }

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 09:39:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/03 10:15:53 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/03 11:57:39 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	execute(t_tree_node *parse_tree)
 
 void	execute_rec(t_tree_node *root, int in, int out)
 {
+	signal(SIGUSR1, shell_executor_handler);
+	signal(SIGUSR2, shell_executor_handler);
 	if (root->launch_subshell == e_true)
 		execute_subshell(root, in, out);
 	else
@@ -54,17 +56,18 @@ void	execute_in_shell(t_tree_node *root, int in, int out)
 		|| root->content->content_type == ENV_STATEMENT
 		|| root->content->content_type == REDIR)
 		execute_simple_statement(root, in, out);
-	else if (root->content->content_type == OPERATOR
-			&& root->content->operator_node.operator == e_PIPE)
-		execute_pipe_statement(root, in, out);
-	else if (root->content->content_type == e_AND
-			&& root->content->operator_node.operator == e_AND)
-		execute_and_statement(root, in, out);
-	else if (root->content->content_type == e_OR
-			&& root->content->operator_node.operator == e_OR)
-		execute_or_statement(root, in, out);
-	else
-		exit(EXIT_FAILURE);
+	else if (root->content->content_type == OPERATOR)
+	{
+
+		if (root->content->operator_node.operator == e_PIPE)
+			exkecute_pipe_statement(root, in, out);
+		else if (root->content->operator_node.operator == e_AND)
+			execute_and_statement(root, in, out);
+		else if (root->content->operator_node.operator == e_OR)
+			execute_or_statement(root, in, out);
+		else
+			exit(EXIT_FAILURE);
+	}
 }
 
 	// // * in

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 07:51:39 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/25 07:52:50 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/03 11:47:55 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "../includes.h"
 
 void	sig_handler(int signum);
+void	shell_executor_handler(int signum);
 void	line_completion_prompt_sig_handler(int signum);
 
 #endif

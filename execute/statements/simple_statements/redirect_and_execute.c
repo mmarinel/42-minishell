@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:15:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/03 10:18:26 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/03 11:23:42 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,14 @@ void	execute_redir_only_statement(t_tree_node *root, int in, int out)
 			out_fd = open(root->content->out_redir.file_name,
 						O_CREAT | O_TRUNC | O_WRONLY, 0777);
 		if (out_fd == -1)
+		{
 			perror("minishell at execute_redir_only_statement: ");
+			g_env.last_executed_cmd_exit_status = EXIT_FAILURE;
+		}
 		else
 			close(out_fd);
 	}
+	exit(g_env.last_executed_cmd_exit_status);
 }
 
 static void	executor_handle_redirs(t_redirection redir, int cur_in_out,
