@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/30 14:12:07 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/03 16:40:20 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,13 @@ static void	set_signals(void)
 
 int	main(int argc, char const *argv[], char *const envp[])
 {
-	char			*command;
+	// char			*command;
+	t_tree_node		*parse_tree;
 
 	if (argc != 1)
 		return (EXIT_SUCCESS);
 	// g_shell_env = (t_shell_env *) malloc(sizeof(t_shell_env));
-	g_env.last_executed_cmd_status = EXIT_SUCCESS;
+	g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
 	g_env.env = NULL;
 	g_env.export = NULL;
 	copy_env(&(g_env.env), (char **)envp, e_false);
@@ -57,10 +58,11 @@ int	main(int argc, char const *argv[], char *const envp[])
 	print_signature();
 	while (e_true)
 	{
-		command = shell_read(envp);
+		parse_tree = shell_read();
+		execute(parse_tree);
 		// [result, fd] = shell_evaluate(command) ....return struct
 		// shell_print(fd, result) .....use write(fd, ...)
-		ft_free(command);
+		// ft_free(command);
 		// * unlink(".here_doc"); DEBUG: COMMENTED BECAUSE WE MAY NEED TO SEE WHAT'S INSIDE OF THE FILE
 	}
 	clear_history();

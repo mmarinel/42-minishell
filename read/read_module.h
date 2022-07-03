@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 16:37:33 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/02 08:51:18 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/03 16:29:49 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 // * user defined EXPOSED FUNCTIONS
 
-char	*shell_read( char *const envp[]);
+t_tree_node	*shell_read(void);
 
 #endif

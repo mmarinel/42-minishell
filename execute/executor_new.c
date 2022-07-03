@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 09:39:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/03 12:45:40 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/03 17:12:36 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,15 @@ static void	execute_subshell(t_tree_node *root, int in, int out);
 
 void	execute(t_tree_node *parse_tree)
 {
+	printf(YELLOW "execute\n" RESET);
 	execute_rec(parse_tree, STDIN_FILENO, STDOUT_FILENO);
 }
 
 void	execute_rec(t_tree_node *root, int in, int out)
 {
+	if (!root)
+		return ;
+	printf(YELLOW "execute_rec\n" RESET);
 	signal(SIGUSR1, shell_executor_handler);
 	signal(SIGUSR2, shell_executor_handler);
 	if (root->launch_subshell == e_true)
@@ -38,6 +42,7 @@ static void	execute_subshell(t_tree_node *root, int in, int out)
 	int	subshell_pid;
 	int	subshell_exit_status;
 
+	printf(YELLOW "execute_subshell\n" RESET);
 	root->launch_subshell = e_false;
 	subshell_pid = fork();
 	if (!subshell_pid)
@@ -49,15 +54,18 @@ static void	execute_subshell(t_tree_node *root, int in, int out)
 		else
 			exit(EXIT_SUCCESS);
 	}
+	printf(RED "waiting for subshell\n" RESET);
 	waitpid(subshell_pid, &subshell_exit_status, 0);
 	if (!WIFEXITED(subshell_exit_status) || WEXITSTATUS(subshell_exit_status))
 		g_env.last_executed_cmd_exit_status = EXIT_FAILURE;
 	else
 		g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
+	printf(CYAN "subshell exited\n" RESET);
 }
 
 static void	execute_in_shell(t_tree_node *root, int in, int out)
 {
+	printf(YELLOW "execute_in_shell\n" RESET);
 	if (root->content->content_type == SIMPL_CMD
 		|| root->content->content_type == ENV_STATEMENT
 		|| root->content->content_type == REDIR)

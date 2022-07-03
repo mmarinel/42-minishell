@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 16:43:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/03 12:42:17 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/03 16:51:17 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,14 @@ char	*ft_get_pathname(char *cmd)
 	env_paths_split = return_paths();
 	if (!env_paths_split)
 		return (NULL);
+	// while (*env_paths_split)
+	// {
+	// 	printf("cur_path: %s\n", *env_paths_split);
+	// 	env_paths_split++;
+	// }
+	// exit(0);
 	path = return_path_name(cmd, env_paths_split);
+	printf("pathname is: %s\n", path);
 	ft_splitclear(env_paths_split);
 	return (path);
 }
@@ -64,7 +71,8 @@ static char	**return_paths(void)
 	{
 		if (!cur_var)
 			return (NULL);
-		if (0 != ft_strcmp(cur_var->var_name, "PATH"))
+		// printf("val: %s\n", cur_var->var_val);
+		if (0 == ft_strcmp(cur_var->var_name, "PATH"))
 			break ;
 		cur_var = cur_var->next;
 	}
@@ -78,7 +86,7 @@ static char	*return_path_name(char *cmd, char **pathlist)
 	if (is_path_name(cmd) == e_true
 		&& access(cmd, X_OK) == 0)
 			return (ft_strcpy(NULL, cmd, ft_strlen(cmd)));
-	while (e_true)
+	while (*pathlist)
 	{
 		cur_full_name_candidate
 			= ft_strjoin(

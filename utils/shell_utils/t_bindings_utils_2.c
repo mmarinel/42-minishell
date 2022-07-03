@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 13:42:44 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/03 15:49:55 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/03 16:49:45 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ char	**bindings_list_to_array(t_bindings *head)
 	envp = (char **) malloc((env_len + 1) * sizeof(char *));
 	envp[env_len] = NULL;
 	cur = head;
+	j = 0;
 	while (cur)
 	{
 		envp[j] = ft_strjoin(
@@ -30,6 +31,7 @@ char	**bindings_list_to_array(t_bindings *head)
 				cur->var_val,
 				e_true, e_false);
 		j++;
+		cur = cur->next;
 	}
 	return (envp);
 }

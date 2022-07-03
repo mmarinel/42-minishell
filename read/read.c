@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 16:51:54 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/02 20:32:17 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/03 16:30:02 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "prompt/prompt.h"
 
 // TODO :-> put error where exit_shell is (put error will also use exit_shell)
-char	*shell_read( char *const envp[])
+t_tree_node	*shell_read(void)
 {
 	char	*command;
 
@@ -39,10 +39,11 @@ char	*shell_read( char *const envp[])
 	// 	printf("%s ", tok_to_string(token));
 	// }
 	// printf("\n");
-	parse();
-	return (command);
-	if (envp)
-		;
+
+	return (parse());
+	// return (command);
+	// if (envp)
+	// 	;
 }
 
 	// t_token	*token;
