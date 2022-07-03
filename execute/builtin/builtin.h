@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor_module.h                                  :+:      :+:    :+:   */
+/*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/03 10:21:57 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/03 10:22:40 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/07/03 10:01:29 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/07/03 10:02:53 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTOR_MODULE_H
-# define EXECUTOR_MODULE_H
+#ifndef BUILTIN_H
+# define BUILTIN_H
 
-#include "executor_types.h"
+# include "../executor.h"
 
-void	execute(t_tree_node *parse_tree);
+void	execute_env_statement(t_tree_node *root, int in, int out);
 
 #endif

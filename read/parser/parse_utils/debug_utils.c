@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 12:02:01 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/02 16:16:37 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/03 09:22:22 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	tree_to_string(t_tree_node *root)
 	}
 	// if (root->launch_subshell == e_true)
 	// 	printf("new subshell ");
+	if (root->launch_subshell == e_true)
+		printf(">nsb >");
 	if (root->content->content_type == SIMPL_CMD)
 		printf("SIMPLE_CMD "); //print_simple_command(root);
 	else if (root->content->content_type == ENV_STATEMENT)
@@ -71,10 +73,7 @@ void	tree_to_string(t_tree_node *root)
 	{
 		printf("(");
 		tree_to_string(root->left);
-		if (root->launch_subshell == e_true)
-			printf("OPERATOR(sb)");
-		else
-			printf("OPERATOR "); //print_operator(root);
+		printf("OPERATOR "); //print_operator(root);
 		tree_to_string(root->right);
 		printf(")");
 	}
