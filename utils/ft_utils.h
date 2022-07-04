@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:13:18 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/04 11:35:50 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/04 18:51:07 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void			ft_free(void *ptr);
 // * shell utils
 
 void			set_error(t_status *status);
+t_bool			ft_pending_pipe(char *command);
 t_bool			bash_control_character(char c);
 t_bool			ft_is_quote(char c);
 t_bool			bash_cmd_separator(char c);

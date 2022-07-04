@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:34:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/04 12:56:40 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/04 19:44:32 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,22 @@ char	*ft_readline(char *prompt, t_bool free_prompt)
 	char	*command;
 
 	command = readline(prompt);
-	if (asked_for_termination(command))
-		exit_shell(EXIT_SUCCESS, e_true);
-	else if (*command == '\0')
+	if (!command)
+		g_env.last_executed_cmd_exit_status = EXIT_FAILURE;
+	else
+		command = prompt_complete_line(command);
+	// if (asked_for_termination(command))
+	// 	exit_shell(EXIT_SUCCESS, e_true);
+	// else if (*command == '\0')
+	// {
+	// 	free(command);
+	// 	return (ft_readline(prompt, free_prompt));
+	// }
+	while (*command == '\0'
+			|| e_true == ft_pending_pipe(command))
 	{
-		free(command);
-		return (ft_readline(prompt, free_prompt));
+		command = (ft_strjoin(command, readline('>'),
+					e_true, e_true));
 	}
 	// else if (e_false == ft_quote_occurrence_balanced(command)
 	// 		|| e_true == minishell_illegal_chars(command))
@@ -61,6 +71,68 @@ char	*ft_readline(char *prompt, t_bool free_prompt)
 	ft_add_history(command);
 	if (free_prompt)
 		free(prompt);
+	return (command);
+}
+
+char	*complete_line(char *command)
+{
+	pid_t	line_cont_prompt;
+	int		line_channel[2];
+	int		line_size_channel[2];
+
+
+	pipe(line_channel);
+	pipe(line_size_channel);
+	line_cont_prompt = fork();
+	if (!line_cont_prompt)
+	{
+		close(line_channel[0]);
+		close(line_size_channel[0]);
+		line_continuation_prompt(command, line_channel, line_size_channel);
+		// TODO
+	}
+	else
+	{
+		close(line_channel[1]);
+		close(line_size_channel[1]);
+		// TODO
+	}
+}
+
+void	line_continuation_prompt(char *command,
+			int line_channel[2], int line_size_channel[2])
+{
+	t_bool	clean_exit;
+	int		command_len;
+
+	command = line_continuation_prompt_rec(command, &clean_exit);
+	command_len = ft_strlen(command);	
+	write(line_size_channel[1], &command_len, sizeof(command_len));
+	write(line_channel[1], command, command_len * sizeof(char));
+	free(command);
+	if (clean_exit)
+		exit(EXIT_SUCCESS);
+	else
+		exit(EXIT_FAILURE);
+}
+
+char	*line_continuation_prompt_rec(char *command, t_bool *clean_exit)
+{
+	char	*continuation;
+
+	continuation = readline(">");
+	if (!continuation)
+		*clean_exit = e_true;
+	else if (*command == '\0')
+		*clean_exit = e_false;
+	else
+	{
+		command = ft_strjoin(command, continuation, e_true, e_true);
+		if (e_true == ft_pending_pipe(command))
+			return (line_continuation_prompt_rec(command, clean_exit));
+		else
+			*clean_exit = e_true;
+	}
 	return (command);
 }
 
