@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 19:04:09 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/02 10:04:53 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/04 14:58:03 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdlib.h>
 
 // * user defined 
+# include "../../../global.h"
 # include "../../../types.h"
 # include "../../../colors.h"
 # include "../../../utils/ft_utils.h"

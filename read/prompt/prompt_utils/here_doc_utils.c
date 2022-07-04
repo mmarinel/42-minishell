@@ -6,15 +6,16 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 10:01:00 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/02 10:04:33 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/04 16:06:49 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt_utils.h"
 
-static void	here_doc_read_current(char *delimiter, char *handle_name);
+static void		here_doc_read_current(char *delimiter, char *handle_name);
 static size_t	here_docs_count(char *command);
-static char	**here_doc_take_delimiters(char *command);
+static char		**here_doc_take_delimiters(char *command);
+static void		here_doc_prompt(char *delimiter, char *handle_name);
 
 t_bool	here_doc_line(char *command)
 {
@@ -36,35 +37,74 @@ void	here_doc_read(char *command)
 		cur_file_name = ft_strjoin(".here_doc-", ft_itoa(i), e_false, e_true);
 		here_doc_read_current(here_doc_delims[i], cur_file_name);
 		free(cur_file_name);
-		i++;
+		if (g_env.last_executed_cmd_exit_status == EXIT_FAILURE)
+			break ;
+		else
+			i++;
 	}
+	ft_splitclear(here_doc_delims);
 }
 
 static void	here_doc_read_current(char *delimiter, char *handle_name)
 {
+	pid_t	hdoc_prompt_pid;
+	int		hdoc_prompt_exit_status;
+	// int		fd_here_document;
+
+	// printf("here_doc is %s\n", handle_name);
+	// fd_here_document = open(handle_name, O_CREAT | O_RDWR | O_APPEND, 0777);
+	// if (-1 == fd_here_document)
+	// 	exit_shell(EXIT_FAILURE, e_false);
+	hdoc_prompt_pid = fork();
+	if (!hdoc_prompt_pid)
+	{
+		here_doc_prompt(delimiter, handle_name);
+	}
+	// close(fd_here_document);
+	waitpid(hdoc_prompt_pid, &hdoc_prompt_exit_status, 0);
+	if (!WIFEXITED(hdoc_prompt_exit_status) || WEXITSTATUS(hdoc_prompt_exit_status))
+		g_env.last_executed_cmd_exit_status = EXIT_FAILURE;
+	else
+		g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
+}
+
+static void	here_doc_prompt(char *delimiter, char *handle_name)
+{
 	int		fd_here_document;
 	char	*next_line;
-	int		delimiter_len;
 
-	delimiter_len = ft_strlen(delimiter);
-	fd_here_document = open(handle_name, O_CREAT | O_RDWR | O_APPEND, 0777);
+	signal(SIGINT, SIG_IGN);
+	unlink(handle_name);
+	fd_here_document = open(handle_name, O_CREAT | O_RDWR | O_TRUNC, 0777);
 	if (-1 == fd_here_document)
-		exit_shell(EXIT_FAILURE, e_false);
+	{
+		perror("minishell at here_doc_prompt: ");
+		exit(EXIT_FAILURE);
+	}
 	while (e_true)
 	{
-		write(STDOUT_FILENO, "heredoc> ",
-			ft_strlen("heredoc> ") * sizeof(char));
-		next_line = get_next_line(STDIN_FILENO, 1);
-		if (!ft_strncmp(delimiter, next_line, delimiter_len))
-			break ;
+		next_line = readline("heredoc> ");
+		if (!next_line
+			|| 0 == ft_strcmp(next_line, delimiter))
+		{
+			close(fd_here_document);
+			ft_free(next_line);
+			exit(EXIT_SUCCESS);
+		}
+		else if (*next_line == '\0')
+		{
+			write(fd_here_document, "", 0);
+			close(fd_here_document);
+			free(next_line);
+			exit(EXIT_FAILURE);
+		}
 		else
 		{
+			next_line = ft_strjoin(next_line, "\n", e_true, e_false);
 			write(fd_here_document, next_line, ft_strlen(next_line));
 			free(next_line);
 		}
 	}
-	free(next_line);
-	close(fd_here_document);
 }
 
 static size_t	here_docs_count(char *command)

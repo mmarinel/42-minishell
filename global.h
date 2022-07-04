@@ -6,11 +6,14 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 15:27:24 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 08:59:12 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/04 15:05:47 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "types.h"
+
+#ifndef GLOBAL_H
+# define GLOBAL_H
 
 typedef struct g_env
 {
@@ -20,3 +23,5 @@ typedef struct g_env
 }	t_env;
 
 t_env	g_env;
+
+#endif

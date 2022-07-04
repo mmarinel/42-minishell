@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/03 16:40:20 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/04 15:53:51 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	set_signals(void);
 static void	print_signature(void);
+static void	unlink_here_docs(void);
 
 /**
  * @brief this function sets signals handlers
@@ -59,16 +60,40 @@ int	main(int argc, char const *argv[], char *const envp[])
 	while (e_true)
 	{
 		parse_tree = shell_read();
+		if (g_env.last_executed_cmd_exit_status == EXIT_FAILURE)
+			continue ;
 		execute(parse_tree);
 		// [result, fd] = shell_evaluate(command) ....return struct
 		// shell_print(fd, result) .....use write(fd, ...)
 		// ft_free(command);
-		// * unlink(".here_doc"); DEBUG: COMMENTED BECAUSE WE MAY NEED TO SEE WHAT'S INSIDE OF THE FILE
+		unlink_here_docs();// * DEBUG: COMMENTED BECAUSE WE MAY NEED TO SEE WHAT'S INSIDE OF THE FILE
 	}
 	clear_history();
 	return (EXIT_SUCCESS);
 	if (argv)
 	{}
+}
+
+static void	unlink_here_docs(void)
+{
+	char	*prefix;
+	size_t	progressive_nbr;
+	char	*next_here_doc;
+	t_bool	repeat;
+
+	prefix = ".here_doc-";
+	progressive_nbr = 0;
+	repeat = e_true;
+	while (repeat)
+	{
+		next_here_doc = ft_strjoin(prefix, ft_itoa(progressive_nbr),
+							e_false, e_true);
+		if (access(next_here_doc, R_OK | W_OK) == 0)
+			unlink(next_here_doc);
+		else
+			repeat = e_false;
+		free(next_here_doc);
+	}
 }
 
 static void	print_signature(void)
