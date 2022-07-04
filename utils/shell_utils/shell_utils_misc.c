@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 16:29:04 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/29 08:31:53 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/04 09:41:48 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,42 @@ void	close_pipe(int pipe_[])
 void	set_error(t_status *status)
 {
 	*status = ERROR;
+}
+
+/**
+ * @brief this function checks for unquoted illegal characters in the minishell
+ * project assuming command is a quote balanced string.
+ * 
+ * @param command 
+ * @return t_bool true iff \ (backslash) and ` (backtick)
+ * appear unquoted or in "" (double quotes)
+ * or ; appears unquoted
+ */
+t_bool	minishell_illegal_chars(char *command)
+{
+	size_t	idx;
+	t_bool	in_single_quote;
+	t_bool	in_double_quote;
+
+	in_double_quote = e_false;
+	in_single_quote = e_false;
+	idx = 0;
+	while (command[idx])
+	{
+		if (command[idx] == '"' && in_single_quote == e_false)
+			flip(&in_double_quote);
+		if (command[idx] == '\'' && in_double_quote == e_false)
+			flip(&in_single_quote);
+		{
+			if ((command[idx] == '\\' || command[idx] == '`')
+				&& e_false == in_single_quote)
+				return (e_true);
+			else if (command[idx] == ';'
+					&& in_double_quote == e_false
+					&& in_double_quote == e_false)
+				return (e_true);
+		}
+		idx++;
+	}
+	return (e_false);
 }

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:13:18 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/03 15:46:55 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/04 11:35:50 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ t_bool			str_not_empty(char *str);
 // * math utils
 
 unsigned int	ft_pow(unsigned int m, unsigned int e);
+void			flip(t_bool *value);
 
 // * memory utils
 
@@ -85,6 +86,7 @@ void			ft_free(void *ptr);
 
 void			set_error(t_status *status);
 t_bool			bash_control_character(char c);
+t_bool			ft_is_quote(char c);
 t_bool			bash_cmd_separator(char c);
 t_bool			redirect_char(char c);
 t_bool			asked_for_termination(char	*command);

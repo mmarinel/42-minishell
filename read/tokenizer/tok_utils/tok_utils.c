@@ -6,13 +6,15 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/02 08:55:22 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/04 11:46:33 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tok_utils.h"
 
 static void	free_tok_list_rec(t_token *token);
+
+size_t	bash_next_quoted_seq(char *command_line, size_t offset, char quote);
 
 // * end of declarations //
 
@@ -63,7 +65,7 @@ static void	free_tok_list_rec(t_token *token)
 char *tok_to_string(t_token *token)
 {
 	if (token->token_id == e_CMD_NAME)
-		return ("CMD_NAME");
+		return ("CMD_NAME");//(token->token_val);
 	if (token->token_id == e_CMD_ARG)
 		return ("CMD_ARG");
 	if (token->token_id == e_IN_FILE_TRUNC)
@@ -176,15 +178,40 @@ void	print_token(t_token *token)
 size_t	bash_next_word_len(char *command_line, size_t offset)
 {
 	size_t	len_word;
+	char	delimiter;
 
 	offset = scan_invariants(command_line, offset);
-	len_word = 0;
-	while (e_false == bash_control_character
-		(
-			command_line[offset + len_word]
-		)
-		&& command_line[offset + len_word]
-	)
-		len_word++;
-	return (len_word);
+	if (ft_is_quote(command_line[offset]))
+		return (bash_next_quoted_seq(command_line, offset + 1,
+					command_line[offset]));
+	else
+	{
+		len_word = 0;
+		while (command_line[offset + len_word])
+		{
+			if (e_true
+					== bash_control_character(command_line[offset + len_word])
+			)
+				break ;
+			len_word++;
+		}
+		// printf("len word is %zu\n", len_word);
+		return (len_word);
+	}
+}
+
+size_t	bash_next_quoted_seq(char *command_line, size_t offset, char quote)
+{
+	size_t	idx;
+
+	idx = offset;
+	while (command_line[idx])
+	{
+		if (command_line[idx] == quote)
+		{
+			return (1 + (idx - offset + 1));
+		}
+		idx++;
+	}
+	return (0);
 }

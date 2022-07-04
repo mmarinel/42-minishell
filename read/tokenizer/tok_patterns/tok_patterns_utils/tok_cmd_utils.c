@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 09:06:47 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/02 10:08:11 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/04 11:34:24 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ size_t	scan_next_cmd_arg(char *command_line, size_t offset,
 	// printf(YELLOW "inside scan_next00_cmd_arg\n" RESET);
 	new_offset = scan_invariants(command_line, offset); // * questo lo mettiamo nel chiamante!
 	if (e_true == bash_control_character(command_line[new_offset])
+		&& e_false == ft_is_quote(command_line[new_offset])
 		&& e_false == ft_isspace(command_line[new_offset])
 		&& e_false == redirect_char(command_line[new_offset]))
 		return (offset);
@@ -62,6 +63,8 @@ size_t	scan_next_cmd_arg(char *command_line, size_t offset,
 	else
 	{
 		len_cmd_arg = bash_next_word_len(command_line, new_offset);
+		// if (len_cmd_arg == 0)
+		// 	return (new_offset);
 		next_arg = ft_strjoin(
 				ft_strcpy(NULL, command_line + new_offset, len_cmd_arg),
 				" ",

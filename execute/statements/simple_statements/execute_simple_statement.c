@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 09:49:38 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/03 22:57:36 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/04 08:59:11 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,14 @@ static void	spawn_and_wait_command(t_tree_node *root, int in, int out)
 		execute_simple_statement(root, in, out);
 	else
 	{
-		printf(RED "waiting for command %d\n" RESET, root->content->content_type);
+		// printf(RED "waiting for command %d\n" RESET, root->content->content_type);
 		waitpid(statement_execution.pid, &statement_execution.exit_status, 0);
 		if (!WIFEXITED(statement_execution.exit_status)
 			|| WEXITSTATUS(statement_execution.exit_status))
 			g_env.last_executed_cmd_exit_status = EXIT_FAILURE;
 		else
 			g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
-		printf(CYAN "command exited %d\n" RESET, root->content->content_type);
+		// printf(CYAN "command exited %d\n" RESET, root->content->content_type);
 	}
 }
 

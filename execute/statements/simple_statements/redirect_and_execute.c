@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:15:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/03 23:01:20 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/04 11:43:29 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	execute_simple_cmd(t_tree_node *root, int in, int out)
 	char	*cmd_full_path;
 	char	**args;
 
-	printf(YELLOW "execute_simple_cmd\n" RESET);
+	// printf(YELLOW "execute_simple_cmd\n" RESET);
 	args = NULL;
 	if (in && out)
 		;
@@ -34,12 +34,12 @@ void	execute_simple_cmd(t_tree_node *root, int in, int out)
 		out, STDOUT_FILENO, e_false);
 	cmd_simple_name = ft_get_cmd_name(root->content->simple_cmd.cmd_name);
 	cmd_full_path = ft_get_pathname(root->content->simple_cmd.cmd_name);
-	printf("simple name: %s\tlen: %zu\n", cmd_simple_name, ft_strlen(cmd_simple_name));
-	printf("full name: %s\tlen: %zu\n", cmd_full_path, ft_strlen(cmd_full_path));
-	printf("full name: %s\n", root->content->simple_cmd.cmd_args);
+	// printf("simple name: %s\tlen: %zu\n", cmd_simple_name, ft_strlen(cmd_simple_name));
+	// printf("full name: %s\tlen: %zu\n", cmd_full_path, ft_strlen(cmd_full_path));
+	// printf("full name: %s\n", root->content->simple_cmd.cmd_args);
 	args = ft_split(
 			ft_strjoin(
-				ft_strjoin(cmd_simple_name, " ", e_true, e_false),
+				ft_strjoin(cmd_simple_name, " ", e_false, e_false),
 				root->content->simple_cmd.cmd_args, e_true, e_false),
 			' ');
 	if (!cmd_full_path)

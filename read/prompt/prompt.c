@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:34:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/02 10:06:19 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/04 09:54:24 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,16 @@ char	*ft_readline(char *prompt, t_bool free_prompt)
 		free(command);
 		return (ft_readline(prompt, free_prompt));
 	}
-	else if (e_false == ft_quote_occurrence_balanced(command))
-	{
-		command = prompt_complete_line(command);
-	}
+	// else if (e_false == ft_quote_occurrence_balanced(command)
+	// 		|| e_true == minishell_illegal_chars(command))
+	// {
+	// 	// TODO
+	// }
+	// else if (e_true == ft_pending_pipe(command))
+	// {
+	// 	command = prompt_complete_line(command);
+	// 	// TODO
+	// }
 	if (e_true == here_doc_line(command))
 	{
 		here_doc_read(command);

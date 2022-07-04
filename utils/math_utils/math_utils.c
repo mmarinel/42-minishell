@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 16:19:20 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/23 16:34:40 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/04 09:35:14 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,12 @@ int	range_spill(int point, int right_edge,
 		return (right_spill_val);
 	else
 		return (point);
+}
+
+void	flip(t_bool *value)
+{
+	if (e_true == *value)
+		*value = e_false;
+	else
+		*value = e_true;
 }
