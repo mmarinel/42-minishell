@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 10:01:00 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/04 16:06:49 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/04 17:18:36 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,25 @@ t_bool	here_doc_line(char *command)
 
 void	here_doc_read(char *command)
 {
-	char	*cur_file_name;
-	char	**here_doc_delims;
-	size_t	here_docs;
-	size_t	i;
+	char			*cur_file_name;
+	char			**here_doc_delims;
+	size_t			here_docs;
+	static size_t	i = 0;
 
 	here_docs = here_docs_count(command);
 	here_doc_delims =  here_doc_take_delimiters(command);
-	i = 0;
-	while (i < here_docs)
+	// i = 0;
+	while (here_docs--)
 	{
 		cur_file_name = ft_strjoin(".here_doc-", ft_itoa(i), e_false, e_true);
-		here_doc_read_current(here_doc_delims[i], cur_file_name);
+		here_doc_read_current(here_doc_delims[here_docs], cur_file_name);
 		free(cur_file_name);
 		if (g_env.last_executed_cmd_exit_status == EXIT_FAILURE)
 			break ;
 		else
 			i++;
 	}
+	// printf("last delim: %s\n", here_doc_delims[1]);
 	ft_splitclear(here_doc_delims);
 }
 
@@ -84,6 +85,7 @@ static void	here_doc_prompt(char *delimiter, char *handle_name)
 	while (e_true)
 	{
 		next_line = readline("heredoc> ");
+		// printf("delimiter is %s\n", delimiter);
 		if (!next_line
 			|| 0 == ft_strcmp(next_line, delimiter))
 		{

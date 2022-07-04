@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/04 15:53:51 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/04 16:37:49 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,13 @@ int	main(int argc, char const *argv[], char *const envp[])
 	while (e_true)
 	{
 		parse_tree = shell_read();
-		if (g_env.last_executed_cmd_exit_status == EXIT_FAILURE)
-			continue ;
-		execute(parse_tree);
+		if (g_env.last_executed_cmd_exit_status == EXIT_SUCCESS)
+			execute(parse_tree);
 		// [result, fd] = shell_evaluate(command) ....return struct
 		// shell_print(fd, result) .....use write(fd, ...)
 		// ft_free(command);
+		tokenizer_free();
+		free_tree(&parse_tree);
 		unlink_here_docs();// * DEBUG: COMMENTED BECAUSE WE MAY NEED TO SEE WHAT'S INSIDE OF THE FILE
 	}
 	clear_history();
