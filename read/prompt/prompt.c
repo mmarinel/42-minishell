@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:34:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 13:41:09 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/05 16:33:17 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 
 static char		*get_decorated_cwd(char *cwd);
 
-char	*complete_line(char *command);
-char	*return_complete_line(char *command, pid_t line_completion_prompt_pid,
-			int line_channel[], int line_size_channel[]);
-void	line_continuation_prompt(t_prompt_behav opcode,
-			int line_channel[2], int line_size_channel[2]);
-void	read_until_complete(char **continuation,
-			int line_channel[2], int line_size_channel[2]);
-char	*read_until_complete_rec(char **old);
+static char	*complete_line(char *command);
+static char	*return_complete_line(char *command,
+				pid_t line_completion_prompt_pid,
+				int line_channel[], int line_size_channel[]);
+
+// * end of static declarations //
 
 
 //									perche gli altri non devono essere gestiti
@@ -33,7 +31,7 @@ char	*read_until_complete_rec(char **old);
 // ! non empty means NO CHAR present except '\0'
 // ! (i.e.: a string full of spaces is not considered empty!)
 /**
- * @brief This function tries to read a line until a non empty-quote balanced 
+ * @brief This function tries to read a line until a non-empty/non-pending 
  * one is entered or ctr + D is hit.
  * Here_Doc is managed too.
  * 
@@ -72,7 +70,7 @@ char	*ft_readline(char *prompt, t_bool free_prompt)
 	return (command);
 }
 
-char	*complete_line(char *command)
+static char	*complete_line(char *command)
 {
 	pid_t	line_cont_prompt_pid;
 	int		line_channel[2];
@@ -98,8 +96,9 @@ char	*complete_line(char *command)
 	return (command);
 }
 
-char	*return_complete_line(char *command, pid_t line_completion_prompt_pid,
-			int line_channel[], int line_size_channel[])
+static char	*return_complete_line(char *command,
+				pid_t line_completion_prompt_pid,
+				int line_channel[], int line_size_channel[])
 {
 	char	*continuation;
 	size_t	continuation_len;
@@ -121,74 +120,6 @@ char	*return_complete_line(char *command, pid_t line_completion_prompt_pid,
 		return (NULL);
 	}
 	return (command);
-}
-
-void	line_continuation_prompt(t_prompt_behav opcode,
-			int line_channel[2], int line_size_channel[2])
-{
-	static char	*continuation = NULL;
-
-	if (opcode == KILL)
-	{
-		ft_free(continuation);
-		exit(EXIT_FAILURE);
-	}
-	else
-	{
-		signal(SIGINT, line_completion_prompt_sig_handler);
-		close(line_channel[0]);
-		close(line_size_channel[0]);
-		if (opcode == COMPLETE_LINE)
-		{
-			read_until_complete(&continuation,
-				line_channel, line_size_channel);
-			exit(EXIT_SUCCESS);
-		}
-	}
-}
-
-void	read_until_complete(char **continuation,
-			int line_channel[2], int line_size_channel[2])
-{
-	size_t	continuation_len;
-
-	read_until_complete_rec(continuation);
-	if (*continuation)
-	{
-		continuation_len = ft_strlen(*continuation);
-	}
-	else
-	{
-		continuation_len = 1;
-		*continuation = ft_strcpy(NULL, "", 0);
-	}
-	write(line_size_channel[1], &continuation_len, sizeof(continuation_len));
-	write(line_channel[1], *continuation, continuation_len * sizeof(char));
-	free(*continuation);
-	close_pipe(line_channel);
-	close_pipe(line_size_channel);
-}
-
-char	*read_until_complete_rec(char **old)
-{
-	char	*continuation;
-
-	continuation = readline("> ");
-	if (!continuation)
-		return (*old);
-	else if (*continuation == '\0')
-		return (read_until_complete_rec(old));
-	else
-	{
-		*old = ft_strjoin(*old, continuation, e_true, e_true);
-		{
-			if (e_true == ft_pending_pipe(*old)
-				|| e_true == ft_pending_logical_op(*old))
-				return (read_until_complete_rec(old));
-			else
-				return (*old);
-		}
-	}
 }
 
 /**

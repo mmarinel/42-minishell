@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 16:43:31 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 11:59:32 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/05 16:30:52 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include "../../utils/ft_utils.h"
 
 // * SUBMODULES //
+# include "line_continuation_prompt/line_continuation_prompt.h"
 # include "prompt_utils/prompt_utils.h"
 # include "../../signals/signals.h"
 

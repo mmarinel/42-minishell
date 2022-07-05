@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 16:29:25 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 12:03:52 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/05 16:38:41 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 // ! non empty means NO CHAR present except '\0'
 // ! (i.e.: a string full of spaces is not considered empty!)
 /**
- * @brief This function tries to read a line until a non empty-quote balanced 
+ * @brief This function tries to read a line until a non-empty/non-pending 
  * one is entered or ctr + D is hit.
  * Here_Doc is managed too.
  * 
@@ -30,7 +30,6 @@
  */
 char	*ft_readline(char *prompt, t_bool free_prompt);
 
-
 /**
  * @brief Get the current working directory (not with full path)
  * 
@@ -38,7 +37,9 @@ char	*ft_readline(char *prompt, t_bool free_prompt);
  */
 char	*get_current_working_directory(void);
 
-
+// * WE NEED TO EXPOSE this prototype so that the relative sig-handler
+// *in 'signals' module can access it asking to clean memory
+// *with appropriate opcode !
 void	line_continuation_prompt(t_prompt_behav opcode,
 			int line_channel[2], int line_size_channel[2]);
 
