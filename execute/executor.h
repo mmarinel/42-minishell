@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 10:45:53 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/03 12:42:57 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/05 20:35:47 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 
 // * user defined SUBmodules //
 # include "builtin/builtin.h"
+# include "expander/expander_module.h"
 # include "statements/exec_statements.h"
 # include "exec_errors/exec_errors.h"
 # include "exec_utils/exec_utils.h"

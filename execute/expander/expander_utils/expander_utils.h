@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander.h                                         :+:      :+:    :+:   */
+/*   expander_utils.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/05 16:53:32 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 20:36:22 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/07/05 17:27:57 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/07/05 20:34:50 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPANDER_H
-# define EXPANDER_H
+#ifndef EXPANDER_UTILS_H
+# define EXPANDER_UTILS_H
 
-# include "../executor.h"
-# include "expander_utils/expander_utils.h"
+# include "expander.h"
 
-char	*expander(char *args);
+size_t	skip_consecutive_quotes(char *string, size_t offset, char quote,
+			t_bool *flag);
+size_t	skip_past_last_quote(char *str, size_t offset,
+			char quote, int increment);
+// size_t	skip_past_last_single_quote(char *string, size_t offset);
 
 #endif
