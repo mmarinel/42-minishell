@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:34:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 13:00:18 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/05 13:41:09 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ char	*ft_readline(char *prompt, t_bool free_prompt)
 		free(command);
 		return (ft_readline(prompt, free_prompt));
 	}
-	else if (e_true == ft_pending_pipe(command))
+	else if (e_true == ft_pending_pipe(command)
+			|| e_true == ft_pending_logical_op(command))
 	{
 		command = complete_line(command);
 	}
@@ -181,7 +182,8 @@ char	*read_until_complete_rec(char **old)
 	{
 		*old = ft_strjoin(*old, continuation, e_true, e_true);
 		{
-			if (e_true == ft_pending_pipe(*old))
+			if (e_true == ft_pending_pipe(*old)
+				|| e_true == ft_pending_logical_op(*old))
 				return (read_until_complete_rec(old));
 			else
 				return (*old);
