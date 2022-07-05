@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 09:18:17 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/30 14:13:26 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/05 14:47:44 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,17 @@ void	copy_env(t_bindings **head, char **envp, t_bool in_order)
 	while (*envp)
 	{
 		split = ft_split(*envp, '=');
-		var_name = ft_strcpy(NULL, split[0], ft_strlen(split[0]));
-		var_val = ft_strcpy(NULL, split[1], ft_strlen(split[1]));
+		if (0 != ft_strcmp(split[0], "_") || e_false == in_order)
+		{
+			var_name = ft_strcpy(NULL, split[0], ft_strlen(split[0]));
+			var_val = ft_strcpy(NULL, split[1], ft_strlen(split[1]));
+			add_new_binding(head,
+				get_new_binding(var_name, var_val, e_false),
+				in_order);
+		}
 		free(split[0]);
 		free(split[1]);
 		free(split);
-		add_new_binding(head,
-			get_new_binding(var_name, var_val, e_false),
-			in_order);
 		envp++;
 	}
 }

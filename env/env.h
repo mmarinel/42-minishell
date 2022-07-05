@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/13 14:45:22 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 14:33:43 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/07/05 14:00:48 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/07/05 14:13:03 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef ENV_H
+# define ENV_H
 
-# include "includes.h"
-# include "global.h"
-# include "env/env_module.h"
-# include "read/read_module.h"
-# include "execute/executor_module.h"
+// * user defined types //
+# include "../types.h"
+# include "env_types.h"
+
+// * user defined modules //
+# include "../utils/ft_utils.h"
 
 #endif

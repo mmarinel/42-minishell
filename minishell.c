@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 09:48:17 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/05 14:35:29 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	main(int argc, char const *argv[], char *const envp[])
 	if (argc != 1)
 		return (EXIT_SUCCESS);
 	// g_shell_env = (t_shell_env *) malloc(sizeof(t_shell_env));
+	env_handler(ENV_INITIALIZE, (char **)envp);
+	env_handler(_PRINT_ENV_, NULL);
 	g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
 	g_env.env = NULL;
 	g_env.export = NULL;
