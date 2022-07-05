@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 16:29:25 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/28 16:32:22 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/05 12:03:52 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PROMPT_MODULE_H
 
 # include "../../types.h"
+# include "prompt_types.h"
 
 // ! non empty means NO CHAR present except '\0'
 // ! (i.e.: a string full of spaces is not considered empty!)
@@ -36,5 +37,9 @@ char	*ft_readline(char *prompt, t_bool free_prompt);
  * @return char* 
  */
 char	*get_current_working_directory(void);
+
+
+void	line_continuation_prompt(t_prompt_behav opcode,
+			int line_channel[2], int line_size_channel[2]);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:26:21 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/04 16:44:36 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/05 11:48:41 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_tree_node	*parse(void)
 	tree = parse_cmd_list(parse_atomic_exp(&parser_status), &parser_status);
 	if (parser_status.status == ERROR)
 	{
+		g_env.last_executed_cmd_exit_status = EXIT_FAILURE; // 258
 		if (parser_status.last_read_token)
 			printf("parser: parse error near"
 				RED " %s " RESET " token at pos %d\n",
@@ -81,6 +82,8 @@ static t_tree_node	*parse_cmd_list(t_tree_node *current,
 					parse_atomic_exp(parser_status)),
 				parser_status);
 		new_subtree->launch_subshell = e_false; //launch_subshell;
+		if (new_subtree->right == NULL)
+			set_error(&(parser_status->status));
 		return (new_subtree);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:26:39 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/02 14:49:43 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/05 09:39:17 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "parse_cases_init/parse_cases_init.h"
 
 // * user defined types
+# include "../../global.h"
 # include "parser_types.h"
 # include "../../types.h"
 # include "../tokenizer/tok_types.h"

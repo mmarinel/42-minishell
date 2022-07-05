@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:53 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 17:06:19 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/05 09:39:50 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 
 // * types //
+# include "../../global.h"
 # include "tok_types.h"
 
 // * user defined helper functions

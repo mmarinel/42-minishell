@@ -6,13 +6,23 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:34:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/04 19:44:32 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/05 13:00:18 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
 static char		*get_decorated_cwd(char *cwd);
+
+char	*complete_line(char *command);
+char	*return_complete_line(char *command, pid_t line_completion_prompt_pid,
+			int line_channel[], int line_size_channel[]);
+void	line_continuation_prompt(t_prompt_behav opcode,
+			int line_channel[2], int line_size_channel[2]);
+void	read_until_complete(char **continuation,
+			int line_channel[2], int line_size_channel[2]);
+char	*read_until_complete_rec(char **old);
+
 
 //									perche gli altri non devono essere gestiti
 // TODO :-> fare line completion anche con {`, &, pipe, (, \} --> {&, pipe, (}
@@ -38,32 +48,19 @@ char	*ft_readline(char *prompt, t_bool free_prompt)
 
 	command = readline(prompt);
 	if (!command)
-		g_env.last_executed_cmd_exit_status = EXIT_FAILURE;
-	else
-		command = prompt_complete_line(command);
-	// if (asked_for_termination(command))
-	// 	exit_shell(EXIT_SUCCESS, e_true);
-	// else if (*command == '\0')
-	// {
-	// 	free(command);
-	// 	return (ft_readline(prompt, free_prompt));
-	// }
-	while (*command == '\0'
-			|| e_true == ft_pending_pipe(command))
 	{
-		command = (ft_strjoin(command, readline('>'),
-					e_true, e_true));
+		printf("exit\n");
+		exit(EXIT_SUCCESS);
 	}
-	// else if (e_false == ft_quote_occurrence_balanced(command)
-	// 		|| e_true == minishell_illegal_chars(command))
-	// {
-	// 	// TODO
-	// }
-	// else if (e_true == ft_pending_pipe(command))
-	// {
-	// 	command = prompt_complete_line(command);
-	// 	// TODO
-	// }
+	else if (*command == '\0')
+	{
+		free(command);
+		return (ft_readline(prompt, free_prompt));
+	}
+	else if (e_true == ft_pending_pipe(command))
+	{
+		command = complete_line(command);
+	}
 	if (e_true == here_doc_line(command))
 	{
 		here_doc_read(command);
@@ -76,64 +73,120 @@ char	*ft_readline(char *prompt, t_bool free_prompt)
 
 char	*complete_line(char *command)
 {
-	pid_t	line_cont_prompt;
+	pid_t	line_cont_prompt_pid;
 	int		line_channel[2];
 	int		line_size_channel[2];
 
 
 	pipe(line_channel);
 	pipe(line_size_channel);
-	line_cont_prompt = fork();
-	if (!line_cont_prompt)
+	line_cont_prompt_pid = fork();
+	if (!line_cont_prompt_pid)
 	{
-		close(line_channel[0]);
-		close(line_size_channel[0]);
-		line_continuation_prompt(command, line_channel, line_size_channel);
-		// TODO
+		line_continuation_prompt(COMPLETE_LINE, line_channel, line_size_channel);
 	}
 	else
 	{
-		close(line_channel[1]);
-		close(line_size_channel[1]);
-		// TODO
+		signal(SIGINT, SIG_IGN);
+		command = return_complete_line(command, line_cont_prompt_pid,
+					line_channel, line_size_channel);
+		signal(SIGINT, sig_handler);
 	}
+	close_pipe(line_channel);
+	close_pipe(line_size_channel);
+	return (command);
 }
 
-void	line_continuation_prompt(char *command,
+char	*return_complete_line(char *command, pid_t line_completion_prompt_pid,
+			int line_channel[], int line_size_channel[])
+{
+	char	*continuation;
+	size_t	continuation_len;
+	int		line_completion_prompt_exit_status;
+
+	close(line_channel[1]);
+	close(line_size_channel[1]);
+	read(line_size_channel[0], &continuation_len, sizeof(continuation_len));
+	continuation = (char *) malloc((continuation_len + 1) * sizeof(char));
+	read(line_channel[0], continuation, continuation_len * sizeof(char));
+	continuation[continuation_len] = '\0';
+	command = ft_strjoin(command, continuation, e_true, e_true);
+	waitpid(line_completion_prompt_pid, &line_completion_prompt_exit_status, 0);
+	if (!WIFEXITED(line_completion_prompt_exit_status)
+		|| WEXITSTATUS(line_completion_prompt_exit_status))
+	{
+		g_env.last_executed_cmd_exit_status = EXIT_FAILURE;
+		free(command);
+		return (NULL);
+	}
+	return (command);
+}
+
+void	line_continuation_prompt(t_prompt_behav opcode,
 			int line_channel[2], int line_size_channel[2])
 {
-	t_bool	clean_exit;
-	int		command_len;
+	static char	*continuation = NULL;
 
-	command = line_continuation_prompt_rec(command, &clean_exit);
-	command_len = ft_strlen(command);	
-	write(line_size_channel[1], &command_len, sizeof(command_len));
-	write(line_channel[1], command, command_len * sizeof(char));
-	free(command);
-	if (clean_exit)
-		exit(EXIT_SUCCESS);
-	else
+	if (opcode == KILL)
+	{
+		ft_free(continuation);
 		exit(EXIT_FAILURE);
+	}
+	else
+	{
+		signal(SIGINT, line_completion_prompt_sig_handler);
+		close(line_channel[0]);
+		close(line_size_channel[0]);
+		if (opcode == COMPLETE_LINE)
+		{
+			read_until_complete(&continuation,
+				line_channel, line_size_channel);
+			exit(EXIT_SUCCESS);
+		}
+	}
 }
 
-char	*line_continuation_prompt_rec(char *command, t_bool *clean_exit)
+void	read_until_complete(char **continuation,
+			int line_channel[2], int line_size_channel[2])
+{
+	size_t	continuation_len;
+
+	read_until_complete_rec(continuation);
+	if (*continuation)
+	{
+		continuation_len = ft_strlen(*continuation);
+	}
+	else
+	{
+		continuation_len = 1;
+		*continuation = ft_strcpy(NULL, "", 0);
+	}
+	write(line_size_channel[1], &continuation_len, sizeof(continuation_len));
+	write(line_channel[1], *continuation, continuation_len * sizeof(char));
+	free(*continuation);
+	close_pipe(line_channel);
+	close_pipe(line_size_channel);
+}
+
+char	*read_until_complete_rec(char **old)
 {
 	char	*continuation;
 
-	continuation = readline(">");
+	continuation = readline("> ");
 	if (!continuation)
-		*clean_exit = e_true;
-	else if (*command == '\0')
-		*clean_exit = e_false;
+		return (*old);
+	else if (*continuation == '\0')
+		return (read_until_complete_rec(old));
 	else
 	{
-		command = ft_strjoin(command, continuation, e_true, e_true);
-		if (e_true == ft_pending_pipe(command))
-			return (line_continuation_prompt_rec(command, clean_exit));
-		else
-			*clean_exit = e_true;
+		*old = ft_strjoin(*old, continuation, e_true, e_true);
+		{
+			if (e_true == ft_pending_pipe(*old))
+				return (read_until_complete_rec(old));
+			else
+				return (*old);
+		}
 	}
-	return (command);
 }
 
 /**

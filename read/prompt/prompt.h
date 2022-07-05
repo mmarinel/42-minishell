@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 16:43:31 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/29 18:54:35 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/05 11:59:32 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-// * user defined 
+// * user defined types
+# include "prompt_types.h"
 # include "../../types.h"
+
+// * user defined 
 # include "../../colors.h"
 # include "../../utils/ft_utils.h"
 

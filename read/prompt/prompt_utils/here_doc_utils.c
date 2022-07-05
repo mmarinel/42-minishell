@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 10:01:00 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/04 17:18:36 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/05 11:49:16 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static void		here_doc_prompt(char *delimiter, char *handle_name);
 
 t_bool	here_doc_line(char *command)
 {
+	if (!command)
+		return (e_false);
 	return (here_docs_count(command) > 0);
 }
 

@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.h                                          :+:      :+:    :+:   */
+/*   prompt_types.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/25 07:51:39 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 12:03:25 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/07/05 11:57:55 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/07/05 11:58:54 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNALS_H
-# define SIGNALS_H
+#ifndef PROMPT_TYPES_H
+# define PROMPT_TYPES_H
 
-# include "../includes.h"
-# include "../read/prompt/prompt_module.h"
-
-void	sig_handler(int signum);
-void	shell_executor_handler(int signum);
-void	line_completion_prompt_sig_handler(int signum);
+typedef enum e_prompt_behav
+{
+	KILL,
+	COMPLETE_LINE
+}	t_prompt_behav;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:15:50 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/03 11:59:51 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/05 12:05:24 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	sig_handler(int signum)
 		exit(EXIT_FAILURE);
 	if (signum == SIGINT)
 	{
+		// printf ("in main prompt\n");
+		g_env.last_executed_cmd_exit_status = EXIT_FAILURE;
 		printf("\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
@@ -38,7 +40,9 @@ void	sig_handler(int signum)
 void	line_completion_prompt_sig_handler(int signum)
 {
 	if (signum == SIGINT)
-		exit(EXIT_FAILURE);
+	{
+		line_continuation_prompt(KILL, NULL, NULL);
+	}
 }
 
 /**

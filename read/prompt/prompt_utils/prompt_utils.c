@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 19:00:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/02 10:05:05 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/05 09:42:40 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /**
  * @brief this function adds 'command' to the history of commands 
- * iff it's not an empty string or already present.
+ * iff 'command' is not an empty string or already present.
  * 
  * @param command a quote balanced command string
  * @return char** the address of the last stored entry in the history.
@@ -26,7 +26,7 @@ char	**ft_add_history(char *command)
 	if (command)
 	{
 		if (str_not_empty(command)
-			&& (!last || ft_strncmp(command, last, ft_strlen(last)))
+			&& (!last || 0 != ft_strncmp(command, last, ft_strlen(last)))
 		)
 		{
 			add_history(command);
