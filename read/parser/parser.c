@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:26:21 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 13:47:06 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/05 16:47:19 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_tree_node	*parse(void)
 		g_env.last_executed_cmd_exit_status = EXIT_FAILURE; // 258
 		if (parser_status.last_read_token)
 			printf("parser: parse error near"
-				RED " %s " RESET "token at pos %d\n",
+				RED " %s " RESET "token at pos %d",
 				tok_to_string(parser_status.last_read_token),
 				parser_status.last_read_tok_pos);
 		free_tree(&tree);
