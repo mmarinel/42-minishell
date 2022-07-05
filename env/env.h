@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:00:48 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 14:13:03 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/05 14:56:42 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@
 
 // * user defined modules //
 # include "../utils/ft_utils.h"
+# include "env_utils/env_utils.h"
 
 #endif

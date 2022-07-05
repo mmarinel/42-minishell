@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:03:20 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 14:32:08 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/05 15:01:57 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ typedef enum e_env_hndl_opcode
 	BINDING_UPDATE,
 	BINDING_UNSET,
 	BINDING_GET_VALUE,
+	ENV_RETURN,
+	EXPORT_RETURN,
 	ENV_LIST_TO_ARRAY,
 	ENV_CLEAN,
 	ENV_INITIALIZE,

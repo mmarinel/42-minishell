@@ -6,31 +6,15 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 14:35:29 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/05 15:10:31 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	set_signals(void);
+static void	set_sig_handlers(void);
 static void	print_signature(void);
 static void	unlink_here_docs(void);
-
-/**
- * @brief this function sets signals handlers
- * and disable echoing of special character ctr+c (^C)
- * 
- */
-static void	set_signals(void)
-{
-	struct termios	tty_attrs;
-
-	tcgetattr(STDIN_FILENO, &tty_attrs);
-	tty_attrs.c_lflag &= ECHO;
-	tcsetattr(STDIN_FILENO, TCSANOW, &tty_attrs);
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, SIG_IGN);
-}
 
 int	main(int argc, char const *argv[], char *const envp[])
 {
@@ -41,14 +25,15 @@ int	main(int argc, char const *argv[], char *const envp[])
 		return (EXIT_SUCCESS);
 	// g_shell_env = (t_shell_env *) malloc(sizeof(t_shell_env));
 	env_handler(ENV_INITIALIZE, (char **)envp);
-	env_handler(_PRINT_ENV_, NULL);
+	env_handler(BINDING_UPDATE, get_new_binding("SHLVL", "2", e_false));
+	// env_handler(_PRINT_ENV_, NULL);
 	g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
-	g_env.env = NULL;
-	g_env.export = NULL;
-	copy_env(&(g_env.env), (char **)envp, e_false);
-	copy_env(&(g_env.export), (char **)envp, e_true);
-	over_write_binding(g_env.env, get_new_binding("SHLVL", "2", e_false));
-	over_write_binding(g_env.export, get_new_binding("SHLVL", "2", e_false));
+	// g_env.env = NULL;
+	// g_env.export = NULL;
+	// copy_env(&(g_env.env), (char **)envp, e_false);
+	// copy_env(&(g_env.export), (char **)envp, e_true);
+	// over_write_binding(g_env.env, get_new_binding("SHLVL", "2", e_false));
+	// over_write_binding(g_env.export, get_new_binding("SHLVL", "2", e_false));
 	// t_bindings	*bindings;
 	// bindings = g_env.export;
 	// while (bindings)
@@ -57,7 +42,7 @@ int	main(int argc, char const *argv[], char *const envp[])
 	// 	bindings =  bindings->next;
 	// }
 	// exit(0);
-	set_signals();
+	set_sig_handlers();
 	print_signature();
 	while (e_true)
 	{
@@ -75,6 +60,22 @@ int	main(int argc, char const *argv[], char *const envp[])
 	return (EXIT_SUCCESS);
 	if (argv)
 	{}
+}
+
+/**
+ * @brief this function sets signals handlers
+ * and disable echoing of special character ctr+c (^C)
+ * 
+ */
+static void	set_sig_handlers(void)
+{
+	struct termios	tty_attrs;
+
+	tcgetattr(STDIN_FILENO, &tty_attrs);
+	tty_attrs.c_lflag &= ECHO;
+	tcsetattr(STDIN_FILENO, TCSANOW, &tty_attrs);
+	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 static void	unlink_here_docs(void)

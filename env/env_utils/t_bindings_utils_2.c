@@ -6,11 +6,11 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 13:42:44 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/03 16:49:45 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/05 14:54:25 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_utils.h"
+#include "env_utils.h"
 
 char	**bindings_list_to_array(t_bindings *head)
 {

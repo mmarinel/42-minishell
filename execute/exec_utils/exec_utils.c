@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 16:43:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/03 22:17:56 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/05 15:03:15 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static char	**return_paths(void)
 {
 	t_bindings	*cur_var;
 
-	cur_var = g_env.env;
+	cur_var = (t_bindings *) env_handler(ENV_RETURN, NULL);//g_env.env;
 	while (e_true)
 	{
 		if (!cur_var)

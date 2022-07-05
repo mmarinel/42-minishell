@@ -6,11 +6,11 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 09:18:17 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 14:47:44 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/05 14:54:36 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_utils.h"
+#include "env_utils.h"
 
 void	add_new_binding(t_bindings **head, t_bindings *new_binding,
 			t_bool in_order)

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:00:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 14:48:46 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/05 15:02:37 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@ void	*env_handler(t_env_handl_opcode opcode, void *argument)
 		free_env(export);
 		env = NULL;
 		export = NULL;
+	}
+	if (opcode == ENV_RETURN)
+	{
+		return (env);
+	}
+	if (opcode == EXPORT_RETURN)
+	{
+		return (export);
 	}
 	if (opcode == ENV_LIST_TO_ARRAY)
 	{
