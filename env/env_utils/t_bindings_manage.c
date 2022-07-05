@@ -1,29 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_bindings_utils.c                                 :+:      :+:    :+:   */
+/*   t_bindings_manage.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 09:18:17 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 14:54:36 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/05 15:23:31 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env_utils.h"
-
-void	add_new_binding(t_bindings **head, t_bindings *new_binding,
-			t_bool in_order)
-{
-	t_bindings	*cursor;
-
-	if (!(*head))
-		binding_add_front(head, new_binding);
-	else if (in_order == e_false)
-		binding_add_back(head, new_binding);
-	else
-		binding_add_in_order(head, new_binding);
-}
 
 void	copy_env(t_bindings **head, char **envp, t_bool in_order)
 {
@@ -38,7 +25,7 @@ void	copy_env(t_bindings **head, char **envp, t_bool in_order)
 		{
 			var_name = ft_strcpy(NULL, split[0], ft_strlen(split[0]));
 			var_val = ft_strcpy(NULL, split[1], ft_strlen(split[1]));
-			add_new_binding(head,
+			binding_add_new(head,
 				get_new_binding(var_name, var_val, e_false),
 				in_order);
 		}
@@ -58,6 +45,30 @@ void	free_env(t_bindings *head)
 	free(head->var_val);
 }
 
+char	**bindings_list_to_array(t_bindings *head)
+{
+	char		**envp;
+	t_bindings	*cur;
+	size_t		env_len;
+	size_t		j;
+
+	env_len = bindings_len(head);
+	envp = (char **) malloc((env_len + 1) * sizeof(char *));
+	envp[env_len] = NULL;
+	cur = head;
+	j = 0;
+	while (cur)
+	{
+		envp[j] = ft_strjoin(
+				ft_strjoin(cur->var_name, "=", e_false, e_false),
+				cur->var_val,
+				e_true, e_false);
+		j++;
+		cur = cur->next;
+	}
+	return (envp);
+}
+
 t_bindings	*get_new_binding(char *var_name, char *var_val, t_bool concat_mode)
 {
 	t_bindings	*new_binding;
@@ -69,29 +80,4 @@ t_bindings	*get_new_binding(char *var_name, char *var_val, t_bool concat_mode)
 	new_binding->prev = NULL;
 	new_binding->next = NULL;
 	return (new_binding);
-}
-
-/**
- * @brief this function tries to modify the value of an existing environment variable
- * 
- * @return pointer to the over-written binding, or a NULL pointer if no such variable exist in the environment
- */
-t_bindings	*over_write_binding(t_bindings *head, t_bindings *binding)
-{
-	t_bindings	*cursor;
-
-	cursor = head;
-	while (cursor)
-	{
-		if (ft_strcmp(cursor->var_name, binding->var_name) == 0)
-		{
-			if (binding->concat_mode == e_true)
-				cursor->var_val = ft_strjoin(cursor->var_val, binding->var_val, e_true, e_false);
-			else
-				ft_str_replace(&(cursor->var_val), binding->var_val);
-			return (cursor);
-		}
-		cursor = cursor->next;
-	}
-	return (NULL);
 }
