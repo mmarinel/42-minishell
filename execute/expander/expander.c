@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 16:55:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/06 12:58:41 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/06 14:57:05 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,17 @@ t_bool	star_case(char *string, size_t *offset_ref,
 	*offset_ref = skip_consecutive_quotes(string, *offset_ref, '*');
 	if (string[*offset_ref] == '/')
 	{
-		*offset_ref = skip_consecutive_quotes(string, *offset_ref + 1, '*');
+		while (string[*offset_ref]
+				&& e_false == bash_control_character(string[*offset_ref]))
+				*offset_ref += 1;
+		// *offset_ref = skip_consecutive_quotes(string, *offset_ref + 1, '*');
 		return (e_false);
 	}
 	else
 	{
-		*offset_ref -= 1;
-		star_expansion_segment_set_boundaries(string, *offset_ref, start_ref, end_ref);
+		// *offset_ref -= 1;
+		star_expansion_segment_set_boundaries(string, *offset_ref - 1, start_ref, end_ref);
+		*offset_ref = *end_ref;
 		return (e_true);
 	}
 }
@@ -73,20 +77,22 @@ t_bool	dollar_case(char *string, size_t *offset_ref,
 {
 	*start_ref = *offset_ref;
 	*offset_ref += 1;
-	while (e_true)
+	if (string[*offset_ref] == '*')
+		*end_ref = *offset_ref;
+	else
 	{
-		if (string[*offset_ref] == '$'
-			|| string[*offset_ref] == '*')
+		while (e_true)
 		{
-			*end_ref = *offset_ref;
-			return (e_true);
+			if (string[*offset_ref] == '$'
+				|| string[*offset_ref] == '*')
+				break ;
+			if (string[*offset_ref] == '\0'
+				|| e_true == bash_control_character(string[*offset_ref]))
+				break ;
+			*offset_ref += 1;
 		}
-		if (string[*offset_ref] == '\0'
-			|| e_false == bash_control_character(string[*offset_ref]))
-			break ;
-		*offset_ref += 1;
+		*end_ref = *offset_ref - 1;
 	}
-	*end_ref = *offset_ref - 1;
 	return (e_true);
 }
 
