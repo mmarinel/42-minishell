@@ -6,12 +6,12 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 16:55:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/06 12:35:52 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/06 12:58:41 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
-
+// * PASSARE A star_expansion_segment_set_part la ref di special char pos !!!!!!!!
 char	*expander(char *args)
 {
 	size_t	expansion_start;
@@ -116,6 +116,7 @@ t_bool	is_expandable(char *string,
 		else
 			i++;
 	}
+	*end_ref = i;
 	return (e_false);
 }
 
