@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 16:55:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/06 17:41:17 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/06 18:55:42 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,96 @@ char	*expand(char *str, size_t start, size_t end)
 	char	*expression;
 	char	*expanded;
 
+	expanded = NULL;
 	expression = ft_strcpy(NULL, str + start, end - start + 1);
 	if (expression[0] == '$')
 		;// expanded = expand_dollar_exp(exp, end - start + 1);
 	if (expression[0] == '*')
-		expanded = expand_star_exp(expression, end - start + 1);
+		expanded = ft_strjoin(
+						ft_strjoin(
+							get_pre(str, start, end),
+							expand_star_exp(expression, end - start + 1),
+							e_true, e_true),
+						get_post(str, end),
+						e_true, e_true);
 	free(str);
 	free(expression);
 	return (expanded);
+}
+
+char	*star_exp_expansion(char *str, size_t start, size_t end)
+{
+	int		prefix_start;
+	size_t	next_star_pos;
+	char	**results;
+	size_t	i;
+
+	results = NULL;
+	prefix_start = -1;
+	next_star_pos = start;
+	i = start;
+	while (str[i])
+	{
+		if (str[i] == '*')
+		{
+			next_star_pos = i;
+			results = filter_cwd_entries(&results, str, prefix_start, next_star_pos);
+			prefix_start = -1;
+		}
+		else if (prefix_start == -1)
+			prefix_start = i;
+		i++;
+	}
+	results = clean_results(results);
+	return (split_merge(results));
+}
+
+char	**filter_cwd_entries(char *str,
+			int prefix_start, size_t next_star_pos)
+{
+	static char		**results = NULL;
+	static size_t	len_results = 0;
+	char			**filtered;
+	size_t			i;
+
+	if (!results)
+	{
+		results = ft_split(match_everything(), ' ');
+		len_results = split_len(results);
+		return (results); 
+	}
+	else
+	{
+		if (prefix_start == -1)
+			return (results);
+		i = 0;
+		while (i < len_results)
+		{
+			if (e_false == match_prefix(results[i], str, prefix_start, next_star_pos))
+			{
+				free(results[i]);
+				results[i] = NULL;
+			}
+			i++;
+		}
+		return (results);
+	}
+}
+
+char	*get_pre(char *str, size_t start, size_t end)
+{
+	char	*pre;
+
+	pre = ft_strcpy(NULL, str, start);
+	return (pre);
+}
+
+char	*get_post(char *str, size_t end)
+{
+	char	*post;
+
+	post = ft_strcpy(NULL, str + end + 1, ft_strlen(str) - (end + 1));
+	return (post);
 }
 
 char	*expand_star_exp(char *exp, size_t len_exp)
