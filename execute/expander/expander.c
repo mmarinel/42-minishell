@@ -6,12 +6,18 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 16:55:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/06 14:57:05 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/06 16:14:37 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
-// * PASSARE A star_expansion_segment_set_part la ref di special char pos !!!!!!!!
+
+static size_t	expander_quotes_handling(char *string, size_t offset,
+					t_bool *in_double_quotes_ref);
+
+// * end of static declarations //
+
+
 char	*expander(char *args)
 {
 	size_t	expansion_start;
@@ -30,70 +36,6 @@ char	*expander(char *args)
 			break ;
 	}
 	return (args);
-}
-
-// star_case(string, &i, start_ref, end_ref)
-
-static size_t	expander_quotes_handling(char *string, size_t offset,
-					t_bool *in_double_quotes_ref)
-{
-	if (string[offset] == '"')
-	{
-		offset = skip_consecutive_quotes(string, offset, '"');
-		flip(in_double_quotes_ref);
-	}
-	else if (string[offset] == '\'' && e_false == *in_double_quotes_ref)
-	{
-		offset = skip_consecutive_quotes(string, offset, '\'');
-		offset = skip_past_last_quote(string, offset, '\'', +1);
-	}
-	return (offset);
-}
-
-
-t_bool	star_case(char *string, size_t *offset_ref,
-			size_t *start_ref, size_t *end_ref)
-{
-	*offset_ref = skip_consecutive_quotes(string, *offset_ref, '*');
-	if (string[*offset_ref] == '/')
-	{
-		while (string[*offset_ref]
-				&& e_false == bash_control_character(string[*offset_ref]))
-				*offset_ref += 1;
-		// *offset_ref = skip_consecutive_quotes(string, *offset_ref + 1, '*');
-		return (e_false);
-	}
-	else
-	{
-		// *offset_ref -= 1;
-		star_expansion_segment_set_boundaries(string, *offset_ref - 1, start_ref, end_ref);
-		*offset_ref = *end_ref;
-		return (e_true);
-	}
-}
-
-t_bool	dollar_case(char *string, size_t *offset_ref,
-			size_t *start_ref, size_t *end_ref)
-{
-	*start_ref = *offset_ref;
-	*offset_ref += 1;
-	if (string[*offset_ref] == '*')
-		*end_ref = *offset_ref;
-	else
-	{
-		while (e_true)
-		{
-			if (string[*offset_ref] == '$'
-				|| string[*offset_ref] == '*')
-				break ;
-			if (string[*offset_ref] == '\0'
-				|| e_true == bash_control_character(string[*offset_ref]))
-				break ;
-			*offset_ref += 1;
-		}
-		*end_ref = *offset_ref - 1;
-	}
-	return (e_true);
 }
 
 t_bool	is_expandable(char *string,
@@ -126,34 +68,83 @@ t_bool	is_expandable(char *string,
 	return (e_false);
 }
 
-void	star_expansion_segment_set_boundaries(char *string, size_t special_char_pos,
-			size_t *start_ref, size_t *end_ref)
+
+static size_t	expander_quotes_handling(char *string, size_t offset,
+					t_bool *in_double_quotes_ref)
 {
-	*start_ref = star_expansion_segment_set_part(string, special_char_pos, -1);
-	*end_ref = star_expansion_segment_set_part(string, special_char_pos, +1);
+	if (string[offset] == '"')
+	{
+		offset = skip_consecutive_quotes(string, offset, '"');
+		flip(in_double_quotes_ref);
+	}
+	else if (string[offset] == '\'' && e_false == *in_double_quotes_ref)
+	{
+		offset = skip_consecutive_quotes(string, offset, '\'');
+		offset = skip_past_last_quote(string, offset, '\'', +1);
+	}
+	return (offset);
 }
 
-size_t	star_expansion_segment_set_part(char *string, size_t special_char_pos,
-		int increment)
+char	*expand(char *str, size_t start, size_t end)
 {
-	int	point;
+	char	*expression;
+	char	*expanded;
 
-	if (special_char_pos + increment < 0
-		|| string[special_char_pos + increment] == '\0')
-		return (special_char_pos);
-	point = special_char_pos + increment;
-	while (e_true)
+	expression = ft_strcpy(NULL, str + start, end - start + 1);
+	if (expression[0] == '$')
+		;// expanded = expand_dollar_exp(exp, end - start + 1);
+	if (expression[0] == '*')
+		expanded = expand_star_exp(expression, end - start + 1);
+	free(str);
+	free(expression);
+	return (expanded);
+}
+
+char	*expand_star_exp(char *exp, size_t len_exp)
+{
+	char	*expanded;
+	char	*pre;
+	char	*post;
+	size_t	star_pos;
+
+	star_pos = take_star_pos(exp);
+	pre = take_star_exp_prefix(exp, star_pos);
+	post = take_star_exp_suffix(exp, star_pos);
+	if (!pre && !post)
+		expanded = match_everything();
+	else if (!pre)
+		expanded = match_suffix(exp, post);
+	else if (!post)
+		expanded = match_prefix(exp, pre);
+	else
+		expanded = match_supstr(exp, pre, post);
+	free(pre);
+	free(post);
+	return (expanded);
+}
+
+char	*match_everything(void)
+{
+	char			*expansion;
+	DIR				*cwd;
+	struct dirent	*cwd_entry;
+
+	expansion = NULL;
+	cwd = opendir(".");
+	if (cwd)
 	{
-		if (string[point] == '"' || string[point] == '\'')
+		while (e_true)
 		{
-			point = skip_past_last_quote(string, point + increment,
-						string[point], increment);
+			cwd_entry = readdir(cwd);
+			if (cwd_entry == NULL)
+				break ;
+			expansion = ft_strjoin(
+				ft_strjoin(expansion, " ", e_true, e_false),
+				cwd_entry->d_name,
+				e_true, e_false
+			); // (pre, post, sep)
 		}
-		if (e_true == bash_control_character(string[point])) // || string[point] == '*')
-			return (point - increment);
-		if (point == 0 || string[point + increment] == '\0')
-			return (point);
-		point += increment;
+		closedir(cwd);
 	}
-	return (-1);
+	return (expansion);
 }

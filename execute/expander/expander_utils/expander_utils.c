@@ -6,13 +6,13 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 17:27:45 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/06 09:15:09 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/06 15:14:12 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander_utils.h"
 
-size_t	skip_consecutive_quotes(char *string, size_t offset, char quote)
+size_t	skip_consecutive_chars(char *string, size_t offset, char quote)
 {
 	while (string[offset] == quote)
 		offset++;
@@ -29,7 +29,7 @@ size_t	skip_consecutive_quotes(char *string, size_t offset, char quote)
 // 	return (offset);
 // }
 
-size_t	skip_past_last_quote(char *str, size_t offset,
+size_t	skip_past_last_char(char *str, size_t offset,
 			char quote, int increment)
 {
 	int	i;
