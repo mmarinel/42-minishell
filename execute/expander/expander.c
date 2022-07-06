@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 16:55:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/06 18:55:42 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/06 19:24:03 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,15 +94,17 @@ char	*expand(char *str, size_t start, size_t end)
 	expression = ft_strcpy(NULL, str + start, end - start + 1);
 	if (expression[0] == '$')
 		;// expanded = expand_dollar_exp(exp, end - start + 1);
-	if (expression[0] == '*')
-		expanded = ft_strjoin(
-						ft_strjoin(
-							get_pre(str, start, end),
-							expand_star_exp(expression, end - start + 1),
-							e_true, e_true),
-						get_post(str, end),
-						e_true, e_true);
-	free(str);
+	if (string_member(expression, '*'))
+		expanded = star_exp_expansion(str, start, end);
+	// if (expression[0] == '*')
+	// 	expanded = ft_strjoin(
+	// 					ft_strjoin(
+	// 						get_pre(str, start, end),
+	// 						expand_star_exp(expression, end - start + 1),
+	// 						e_true, e_true),
+	// 					get_post(str, end),
+	// 					e_true, e_true);
+	// free(str); // ! DEBUG COMMENT
 	free(expression);
 	return (expanded);
 }
@@ -123,7 +125,7 @@ char	*star_exp_expansion(char *str, size_t start, size_t end)
 		if (str[i] == '*')
 		{
 			next_star_pos = i;
-			results = filter_cwd_entries(&results, str, prefix_start, next_star_pos);
+			results = filter_cwd_entries(str, prefix_start, next_star_pos);
 			prefix_start = -1;
 		}
 		else if (prefix_start == -1)
@@ -131,7 +133,67 @@ char	*star_exp_expansion(char *str, size_t start, size_t end)
 		i++;
 	}
 	results = clean_results(results);
-	return (split_merge(results));
+	return (split_merge(results, " ", e_true));
+}
+
+char	**clear_results(char **results)
+{
+	char	**cleared;
+	size_t	count;
+	size_t	i;
+	size_t	j;
+
+	count = 0;
+	i = 0;
+	while (results[i])
+	{
+		if (*(results[i]))
+			count++;
+	}
+	cleared =  (char **) malloc(count * sizeof(char *));
+	i = 0;
+	j = 0;
+	while (results[i])
+	{
+		if (*(results[i]))
+		{
+			cleared[j] = ft_strcpy(NULL, results[i], ft_strlen(results[i]));
+			j++;
+		}
+		i++;
+	}
+	ft_splitclear(results);
+	return (cleared);
+}
+
+char	*split_merge(char	**split, const char *sep, t_bool free_split)
+{
+	char	*merge;
+	size_t	i;
+
+	merge = NULL;
+	i = 0;
+	while (split[i])
+	{
+		merge = ft_strjoin(
+			ft_strjoin(merge, sep, e_true, e_false),
+			split[i],
+			e_true, e_false
+		);
+	}
+	if (free_split)
+		ft_splitclear(split);
+	return (merge);
+}
+
+size_t	split_len(char **split)
+{
+	size_t	i;
+
+	i = 0;
+	while (split[i])
+		i++;
+	return (i);
 }
 
 char	**filter_cwd_entries(char *str,
@@ -155,10 +217,11 @@ char	**filter_cwd_entries(char *str,
 		i = 0;
 		while (i < len_results)
 		{
-			if (e_false == match_prefix(results[i], str, prefix_start, next_star_pos))
+			if (e_false == match_prefix(results[i], str,
+							prefix_start, next_star_pos))
 			{
 				free(results[i]);
-				results[i] = NULL;
+				results[i] = "";
 			}
 			i++;
 		}
@@ -166,143 +229,151 @@ char	**filter_cwd_entries(char *str,
 	}
 }
 
-char	*get_pre(char *str, size_t start, size_t end)
+t_bool	match_prefix(char *cwd_entry_name, char *str,
+			int prefix_start, size_t next_star_pos)
 {
-	char	*pre;
-
-	pre = ft_strcpy(NULL, str, start);
-	return (pre);
+	if (0 == ft_strncmp(cwd_entry_name, str + prefix_start,
+				next_star_pos - prefix_start + 1))
+		return (e_true);
 }
 
-char	*get_post(char *str, size_t end)
-{
-	char	*post;
+// char	*get_pre(char *str, size_t start, size_t end)
+// {
+// 	char	*pre;
 
-	post = ft_strcpy(NULL, str + end + 1, ft_strlen(str) - (end + 1));
-	return (post);
-}
+// 	pre = ft_strcpy(NULL, str, start);
+// 	return (pre);
+// }
 
-char	*expand_star_exp(char *exp, size_t len_exp)
-{
-	char	*expanded;
-	char	*pre;
-	char	*post;
-	size_t	star_pos;
+// char	*get_post(char *str, size_t end)
+// {
+// 	char	*post;
 
-	star_pos = take_star_pos(exp);
-	pre = take_star_exp_prefix(exp, star_pos);
-	post = take_star_exp_suffix(exp, star_pos);
-	if (!pre && !post)
-		expanded = match_everything();
-	else if (!pre)
-		expanded = match_suffix(post);
-	else if (!post)
-		expanded = match_prefix(pre);
-	else
-		expanded = match_superstr(pre, post);
-	free(pre);
-	free(post);
-	return (expanded);
-}
+// 	post = ft_strcpy(NULL, str + end + 1, ft_strlen(str) - (end + 1));
+// 	return (post);
+// }
 
-char	*match_superstr(char *prefix, char *suffix)
-{
-	char			*expansion;
-	DIR				*cwd;
-	struct dirent	*cwd_entry;
-	size_t			len_suffix;
+// char	*expand_star_exp(char *exp, size_t len_exp)
+// {
+// 	char	*expanded;
+// 	char	*pre;
+// 	char	*post;
+// 	size_t	star_pos;
 
-	len_suffix = ft_strlen(suffix);
-	expansion = NULL;
-	cwd = opendir(".");
-	if (cwd)
-	{
-		while (e_true)
-		{
-			cwd_entry = readdir(cwd);
-			if (cwd_entry == NULL)
-				break ;
-			if (0 == ft_strncmp(cwd_entry->d_name, prefix, ft_strlen(prefix))
-				&& 0 == ft_strcmp(normalize_cwd_entry_name_to_suffix_len(
-								cwd_entry->d_name, len_suffix), suffix))
-				expansion = ft_strjoin(
-					ft_strjoin(expansion, " ", e_true, e_false),
-					cwd_entry->d_name,
-					e_true, e_false
-				);
-		}
-		closedir(cwd);
-	}
-	return (expansion);
-}
+// 	star_pos = take_star_pos(exp);
+// 	pre = take_star_exp_prefix(exp, star_pos);
+// 	post = take_star_exp_suffix(exp, star_pos);
+// 	if (!pre && !post)
+// 		expanded = match_everything();
+// 	else if (!pre)
+// 		expanded = match_suffix(post);
+// 	else if (!post)
+// 		expanded = match_prefix(pre);
+// 	else
+// 		expanded = match_superstr(pre, post);
+// 	free(pre);
+// 	free(post);
+// 	return (expanded);
+// }
 
-char	*match_prefix(char *prefix)
-{
-	char			*expansion;
-	DIR				*cwd;
-	struct dirent	*cwd_entry;
+// char	*match_superstr(char *prefix, char *suffix)
+// {
+// 	char			*expansion;
+// 	DIR				*cwd;
+// 	struct dirent	*cwd_entry;
+// 	size_t			len_suffix;
 
-	expansion = NULL;
-	cwd = opendir(".");
-	if (cwd)
-	{
-		while (e_true)
-		{
-			cwd_entry = readdir(cwd);
-			if (cwd_entry == NULL)
-				break ;
-			if (0 == ft_strncmp(cwd_entry->d_name, prefix, ft_strlen(prefix)))
-				expansion = ft_strjoin(
-					ft_strjoin(expansion, " ", e_true, e_false),
-					cwd_entry->d_name,
-					e_true, e_false
-				);
-		}
-		closedir(cwd);
-	}
-	return (expansion);
-}
+// 	len_suffix = ft_strlen(suffix);
+// 	expansion = NULL;
+// 	cwd = opendir(".");
+// 	if (cwd)
+// 	{
+// 		while (e_true)
+// 		{
+// 			cwd_entry = readdir(cwd);
+// 			if (cwd_entry == NULL)
+// 				break ;
+// 			if (0 == ft_strncmp(cwd_entry->d_name, prefix, ft_strlen(prefix))
+// 				&& 0 == ft_strcmp(normalize_cwd_entry_name_to_suffix_len(
+// 								cwd_entry->d_name, len_suffix), suffix))
+// 				expansion = ft_strjoin(
+// 					ft_strjoin(expansion, " ", e_true, e_false),
+// 					cwd_entry->d_name,
+// 					e_true, e_false
+// 				);
+// 		}
+// 		closedir(cwd);
+// 	}
+// 	return (expansion);
+// }
 
-char	*match_suffix(char *suffix)
-{
-	char			*expansion;
-	DIR				*cwd;
-	struct dirent	*cwd_entry;
-	size_t			len_suffix;
+// char	*match_prefix(char *prefix)
+// {
+// 	char			*expansion;
+// 	DIR				*cwd;
+// 	struct dirent	*cwd_entry;
 
-	len_suffix = ft_strlen(suffix);
-	expansion = NULL;
-	cwd = opendir(".");
-	if (cwd)
-	{
-		while (e_true)
-		{
-			cwd_entry = readdir(cwd);
-			if (cwd_entry == NULL)
-				break ;
-			if (0 == ft_strcmp(normalize_cwd_entry_name_to_suffix_len(
-								cwd_entry->d_name, len_suffix), suffix))
-				expansion = ft_strjoin(
-					ft_strjoin(expansion, " ", e_true, e_false),
-					cwd_entry->d_name,
-					e_true, e_false
-				);
-		}
-		closedir(cwd);
-	}
-	return (expansion);
-}
+// 	expansion = NULL;
+// 	cwd = opendir(".");
+// 	if (cwd)
+// 	{
+// 		while (e_true)
+// 		{
+// 			cwd_entry = readdir(cwd);
+// 			if (cwd_entry == NULL)
+// 				break ;
+// 			if (0 == ft_strncmp(cwd_entry->d_name, prefix, ft_strlen(prefix)))
+// 				expansion = ft_strjoin(
+// 					ft_strjoin(expansion, " ", e_true, e_false),
+// 					cwd_entry->d_name,
+// 					e_true, e_false
+// 				);
+// 		}
+// 		closedir(cwd);
+// 	}
+// 	return (expansion);
+// }
 
-char	*normalize_cwd_entry_name_to_suffix_len(char *entry_name, size_t len_suffix)
-{
-	size_t	len_entry_name;
+// char	*match_suffix(char *suffix)
+// {
+// 	char			*expansion;
+// 	DIR				*cwd;
+// 	struct dirent	*cwd_entry;
+// 	size_t			len_suffix;
 
-	if (ft_strlen(entry_name) < len_suffix)
-		return (entry_name);
-	return (entry_name + len_entry_name - len_suffix);
-}
+// 	len_suffix = ft_strlen(suffix);
+// 	expansion = NULL;
+// 	cwd = opendir(".");
+// 	if (cwd)
+// 	{
+// 		while (e_true)
+// 		{
+// 			cwd_entry = readdir(cwd);
+// 			if (cwd_entry == NULL)
+// 				break ;
+// 			if (0 == ft_strcmp(normalize_cwd_entry_name_to_suffix_len(
+// 								cwd_entry->d_name, len_suffix), suffix))
+// 				expansion = ft_strjoin(
+// 					ft_strjoin(expansion, " ", e_true, e_false),
+// 					cwd_entry->d_name,
+// 					e_true, e_false
+// 				);
+// 		}
+// 		closedir(cwd);
+// 	}
+// 	return (expansion);
+// }
 
-char	*match_everything(void)
+// char	*normalize_cwd_entry_name_to_suffix_len(char *entry_name, size_t len_suffix)
+// {
+// 	size_t	len_entry_name;
+
+// 	if (ft_strlen(entry_name) < len_suffix)
+// 		return (entry_name);
+// 	return (entry_name + len_entry_name - len_suffix);
+// }
+
+char	*match_everything(void) // TODO rename to cwd_read
 {
 	char			*expansion;
 	DIR				*cwd;
