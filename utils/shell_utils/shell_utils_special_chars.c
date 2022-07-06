@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 09:27:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/04 11:35:24 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/06 09:31:23 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,14 @@ t_bool	redirect_char(char c)
 t_bool	ft_is_quote(char c)
 {
 	return (c == '"' || c == '\'');
+}
+
+t_bool	ft_is_alpha(char c)
+{
+	return (
+		(c >= 'a' && c <= 'z')
+		|| (c >= 'A' && c <= 'Z')
+	);
 }
 
 // ! REMOVE FROM HERE (it's in token utils)

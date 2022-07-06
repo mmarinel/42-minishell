@@ -6,17 +6,14 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 17:27:45 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 20:34:47 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/06 09:15:09 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander_utils.h"
 
-size_t	skip_consecutive_quotes(char *string, size_t offset, char quote,
-			t_bool *flag)
+size_t	skip_consecutive_quotes(char *string, size_t offset, char quote)
 {
-	if (flag)
-		*flag = e_true;
 	while (string[offset] == quote)
 		offset++;
 	return (offset);
