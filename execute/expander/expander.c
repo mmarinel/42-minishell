@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 16:55:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/06 16:14:37 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/06 17:41:17 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,14 +113,111 @@ char	*expand_star_exp(char *exp, size_t len_exp)
 	if (!pre && !post)
 		expanded = match_everything();
 	else if (!pre)
-		expanded = match_suffix(exp, post);
+		expanded = match_suffix(post);
 	else if (!post)
-		expanded = match_prefix(exp, pre);
+		expanded = match_prefix(pre);
 	else
-		expanded = match_supstr(exp, pre, post);
+		expanded = match_superstr(pre, post);
 	free(pre);
 	free(post);
 	return (expanded);
+}
+
+char	*match_superstr(char *prefix, char *suffix)
+{
+	char			*expansion;
+	DIR				*cwd;
+	struct dirent	*cwd_entry;
+	size_t			len_suffix;
+
+	len_suffix = ft_strlen(suffix);
+	expansion = NULL;
+	cwd = opendir(".");
+	if (cwd)
+	{
+		while (e_true)
+		{
+			cwd_entry = readdir(cwd);
+			if (cwd_entry == NULL)
+				break ;
+			if (0 == ft_strncmp(cwd_entry->d_name, prefix, ft_strlen(prefix))
+				&& 0 == ft_strcmp(normalize_cwd_entry_name_to_suffix_len(
+								cwd_entry->d_name, len_suffix), suffix))
+				expansion = ft_strjoin(
+					ft_strjoin(expansion, " ", e_true, e_false),
+					cwd_entry->d_name,
+					e_true, e_false
+				);
+		}
+		closedir(cwd);
+	}
+	return (expansion);
+}
+
+char	*match_prefix(char *prefix)
+{
+	char			*expansion;
+	DIR				*cwd;
+	struct dirent	*cwd_entry;
+
+	expansion = NULL;
+	cwd = opendir(".");
+	if (cwd)
+	{
+		while (e_true)
+		{
+			cwd_entry = readdir(cwd);
+			if (cwd_entry == NULL)
+				break ;
+			if (0 == ft_strncmp(cwd_entry->d_name, prefix, ft_strlen(prefix)))
+				expansion = ft_strjoin(
+					ft_strjoin(expansion, " ", e_true, e_false),
+					cwd_entry->d_name,
+					e_true, e_false
+				);
+		}
+		closedir(cwd);
+	}
+	return (expansion);
+}
+
+char	*match_suffix(char *suffix)
+{
+	char			*expansion;
+	DIR				*cwd;
+	struct dirent	*cwd_entry;
+	size_t			len_suffix;
+
+	len_suffix = ft_strlen(suffix);
+	expansion = NULL;
+	cwd = opendir(".");
+	if (cwd)
+	{
+		while (e_true)
+		{
+			cwd_entry = readdir(cwd);
+			if (cwd_entry == NULL)
+				break ;
+			if (0 == ft_strcmp(normalize_cwd_entry_name_to_suffix_len(
+								cwd_entry->d_name, len_suffix), suffix))
+				expansion = ft_strjoin(
+					ft_strjoin(expansion, " ", e_true, e_false),
+					cwd_entry->d_name,
+					e_true, e_false
+				);
+		}
+		closedir(cwd);
+	}
+	return (expansion);
+}
+
+char	*normalize_cwd_entry_name_to_suffix_len(char *entry_name, size_t len_suffix)
+{
+	size_t	len_entry_name;
+
+	if (ft_strlen(entry_name) < len_suffix)
+		return (entry_name);
+	return (entry_name + len_entry_name - len_suffix);
 }
 
 char	*match_everything(void)
