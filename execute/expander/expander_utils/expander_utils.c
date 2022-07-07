@@ -6,16 +6,17 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 17:27:45 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/06 15:14:12 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/07 09:35:19 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander_utils.h"
 
-size_t	skip_consecutive_chars(char *string, size_t offset, char quote)
+size_t	skip_consecutive_chars(char *string, size_t offset,
+			char to_skip, int direction)
 {
-	while (string[offset] == quote)
-		offset++;
+	while (string[offset] == to_skip)
+		offset += direction;
 	return (offset);
 }
 
@@ -30,7 +31,7 @@ size_t	skip_consecutive_chars(char *string, size_t offset, char quote)
 // }
 
 size_t	skip_past_last_char(char *str, size_t offset,
-			char quote, int increment)
+			char to_skip, int direction)
 {
 	int	i;
 
@@ -39,9 +40,9 @@ size_t	skip_past_last_char(char *str, size_t offset,
 	{
 		if (i == 0 || str[i] == '\0')
 			return (i);
-		if (str[i] == quote)
-			return (i + increment);
-		i += increment;
+		if (str[i] == to_skip)
+			return (i + direction);
+		i += direction;
 	}
 	return ((size_t)-1);
 }

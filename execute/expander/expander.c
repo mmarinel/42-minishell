@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 16:55:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/06 19:24:03 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/07 10:22:02 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,30 @@ char	*expander(char *args)
 {
 	size_t	expansion_start;
 	size_t	expansion_end;
-	size_t	cur_offset;
+	// size_t	cur_offset;
 
-	cur_offset = 0;
-	while (e_true == is_expandable(args + cur_offset,
-			&expansion_start,
-			&expansion_end)
-	)
+	while (e_true)
 	{
-		args = expand(args, expansion_start, expansion_end);
-		cur_offset = expansion_end + 1;
-		if (args[cur_offset] == '\0')
+		if (e_false == expand(&args))
 			break ;
 	}
+	// cur_offset = 0;
+	// while (e_true == is_expandable(args,// + cur_offset,
+	// 		&expansion_start,
+	// 		&expansion_end)
+	// )
+	// {
+	// 	args = expand(args, expansion_start, expansion_end);
+		// cur_offset = expansion_end + 1;
+		// if (args[cur_offset] == '\0')
+			// break ;
 	return (args);
 }
 
-t_bool	is_expandable(char *string,
-			size_t *start_ref,
-			size_t *end_ref)
+t_bool	expand(char **string)
 {
+	size_t	start_of_segment;
+	size_t	end_of_segment;
 	size_t	i;
 	t_bool	in_double_quotes;
 
@@ -55,61 +59,50 @@ t_bool	is_expandable(char *string,
 		if (string[i] == '*' || string[i] == '$')
 		{
 			if (string[i] == '*' && e_false == in_double_quotes)
-				if (star_case(string, &i, start_ref, end_ref))
+				if (star_case(string, &i, &start_of_segment, &end_of_segment))
 					return (e_true);
 			if (string[i] == '$')
-				if (dollar_case(string, &i, start_ref, end_ref))
+				if (dollar_case(string, &i, &start_of_segment, &end_of_segment))
 					return (e_true);
 		}
 		else
 			i++;
 	}
-	*end_ref = i;
+	// *end_ref = i;
 	return (e_false);
 }
 
+t_bool	star_case(char **string, size_t *offset_ref,
+			size_t *start_ref, size_t *end_ref)
+{
+	*start_ref = star_case_set_beginning(*string, offset_ref);
+	*end_ref = star_case_set_end(*string, offset_ref);
+	if ((*string)[*end_ref])
+		*offset_ref = *end_ref + 1;
+	else
+		*offset_ref = *end_ref;
+	return (star_exp_expansion(string, *start_ref, *end_ref));
+}
 
 static size_t	expander_quotes_handling(char *string, size_t offset,
 					t_bool *in_double_quotes_ref)
 {
 	if (string[offset] == '"')
 	{
-		offset = skip_consecutive_quotes(string, offset, '"');
+		offset = skip_consecutive_chars(string, offset, '"', +1);
 		flip(in_double_quotes_ref);
 	}
 	else if (string[offset] == '\'' && e_false == *in_double_quotes_ref)
 	{
-		offset = skip_consecutive_quotes(string, offset, '\'');
-		offset = skip_past_last_quote(string, offset, '\'', +1);
+		// offset = skip_consecutive_chars(string, offset, '\'', +1);
+		while (string[offset] == '\'')
+			offset = skip_past_last_char(string, offset + 1, '\'', +1);
+		// offset = skip_consecutive_chars(string, offset, '\'', +1);
 	}
 	return (offset);
 }
 
-char	*expand(char *str, size_t start, size_t end)
-{
-	char	*expression;
-	char	*expanded;
-
-	expanded = NULL;
-	expression = ft_strcpy(NULL, str + start, end - start + 1);
-	if (expression[0] == '$')
-		;// expanded = expand_dollar_exp(exp, end - start + 1);
-	if (string_member(expression, '*'))
-		expanded = star_exp_expansion(str, start, end);
-	// if (expression[0] == '*')
-	// 	expanded = ft_strjoin(
-	// 					ft_strjoin(
-	// 						get_pre(str, start, end),
-	// 						expand_star_exp(expression, end - start + 1),
-	// 						e_true, e_true),
-	// 					get_post(str, end),
-	// 					e_true, e_true);
-	// free(str); // ! DEBUG COMMENT
-	free(expression);
-	return (expanded);
-}
-
-char	*star_exp_expansion(char *str, size_t start, size_t end)
+t_bool	star_exp_expansion(char **str, size_t start, size_t end)
 {
 	int		prefix_start;
 	size_t	next_star_pos;
@@ -125,7 +118,7 @@ char	*star_exp_expansion(char *str, size_t start, size_t end)
 		if (str[i] == '*')
 		{
 			next_star_pos = i;
-			results = filter_cwd_entries(str, prefix_start, next_star_pos);
+			results = filter_cwd_entries(*str, prefix_start, next_star_pos);
 			prefix_start = -1;
 		}
 		else if (prefix_start == -1)
@@ -133,10 +126,19 @@ char	*star_exp_expansion(char *str, size_t start, size_t end)
 		i++;
 	}
 	results = clean_results(results);
-	return (split_merge(results, " ", e_true));
+	if (results[0] == NULL)
+	{
+		return (e_false);
+	}
+	else
+	{
+		free(*str);
+		*str = split_merge(results, " ", e_true);
+		return (e_true);
+	}
 }
 
-char	**clear_results(char **results)
+char	**clean_results(char **results)
 {
 	char	**cleared;
 	size_t	count;
@@ -147,15 +149,16 @@ char	**clear_results(char **results)
 	i = 0;
 	while (results[i])
 	{
-		if (*(results[i]))
+		if ('\0' != *(results[i]))
 			count++;
 	}
-	cleared =  (char **) malloc(count * sizeof(char *));
+	cleared =  (char **) malloc((count + 1) * sizeof(char *));
+	cleared[count] = NULL;
 	i = 0;
 	j = 0;
 	while (results[i])
 	{
-		if (*(results[i]))
+		if ('\0' != *(results[i]))
 		{
 			cleared[j] = ft_strcpy(NULL, results[i], ft_strlen(results[i]));
 			j++;
@@ -206,27 +209,49 @@ char	**filter_cwd_entries(char *str,
 
 	if (!results)
 	{
-		results = ft_split(match_everything(), ' ');
+		results = ft_split(cwd_read(), ' ');
 		len_results = split_len(results);
-		return (results); 
 	}
-	else
-	{
-		if (prefix_start == -1)
-			return (results);
-		i = 0;
-		while (i < len_results)
-		{
-			if (e_false == match_prefix(results[i], str,
-							prefix_start, next_star_pos))
-			{
-				free(results[i]);
-				results[i] = "";
-			}
-			i++;
-		}
+	if (prefix_start == -1)
 		return (results);
+	i = 0;
+	while (i < len_results)
+	{
+		if (e_false == match_prefix(results[i], str,
+						prefix_start, next_star_pos))
+		{
+			free(results[i]);
+			results[i] = "";
+		}
+		i++;
 	}
+	return (results);
+}
+
+char	*cwd_read(void)
+{
+	char			*expansion;
+	DIR				*cwd;
+	struct dirent	*cwd_entry;
+
+	expansion = NULL;
+	cwd = opendir(".");
+	if (cwd)
+	{
+		while (e_true)
+		{
+			cwd_entry = readdir(cwd);
+			if (cwd_entry == NULL)
+				break ;
+			expansion = ft_strjoin(
+				ft_strjoin(expansion, " ", e_true, e_false),
+				cwd_entry->d_name,
+				e_true, e_false
+			); // (pre, post, sep)
+		}
+		closedir(cwd);
+	}
+	return (expansion);
 }
 
 t_bool	match_prefix(char *cwd_entry_name, char *str,
@@ -236,6 +261,30 @@ t_bool	match_prefix(char *cwd_entry_name, char *str,
 				next_star_pos - prefix_start + 1))
 		return (e_true);
 }
+
+// char	*expand(char *str, size_t start, size_t end)
+// {
+// 	char	*expression;
+// 	char	*expanded;
+
+// 	expanded = NULL;
+// 	expression = ft_strcpy(NULL, str + start, end - start + 1);
+// 	if (expression[0] == '$')
+// 		;// expanded = expand_dollar_exp(exp, end - start + 1);
+// 	if (string_member(expression, '*'))
+// 		expanded = star_exp_expansion(str, start, end);
+// 	// if (expression[0] == '*')
+// 	// 	expanded = ft_strjoin(
+// 	// 					ft_strjoin(
+// 	// 						get_pre(str, start, end),
+// 	// 						expand_star_exp(expression, end - start + 1),
+// 	// 						e_true, e_true),
+// 	// 					get_post(str, end),
+// 	// 					e_true, e_true);
+// 	// free(str); // ! DEBUG COMMENT
+// 	free(expression);
+// 	return (expanded);
+// }
 
 // char	*get_pre(char *str, size_t start, size_t end)
 // {
@@ -372,29 +421,3 @@ t_bool	match_prefix(char *cwd_entry_name, char *str,
 // 		return (entry_name);
 // 	return (entry_name + len_entry_name - len_suffix);
 // }
-
-char	*match_everything(void) // TODO rename to cwd_read
-{
-	char			*expansion;
-	DIR				*cwd;
-	struct dirent	*cwd_entry;
-
-	expansion = NULL;
-	cwd = opendir(".");
-	if (cwd)
-	{
-		while (e_true)
-		{
-			cwd_entry = readdir(cwd);
-			if (cwd_entry == NULL)
-				break ;
-			expansion = ft_strjoin(
-				ft_strjoin(expansion, " ", e_true, e_false),
-				cwd_entry->d_name,
-				e_true, e_false
-			); // (pre, post, sep)
-		}
-		closedir(cwd);
-	}
-	return (expansion);
-}
