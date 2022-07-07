@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 15:10:21 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/07 10:22:27 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/07 11:16:30 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	star_expansion_segment_set_boundaries(char *string, size_t special_c
 size_t	star_case_set_beginning(char *string, size_t *offset_ref)
 {
 	size_t	offset;
-	char	quote;
+	// char	quote;
 
 	offset = *offset_ref;
 	while (e_true)
@@ -49,7 +49,7 @@ size_t	star_case_set_beginning(char *string, size_t *offset_ref)
 size_t	star_case_set_end(char *string, size_t *offset_ref)
 {
 	size_t	offset;
-	char	quote;
+	// char	quote;
 
 	offset = *offset_ref;
 	while (e_true)
