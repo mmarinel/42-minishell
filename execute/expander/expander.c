@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 16:55:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/07 15:39:06 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/07 16:58:53 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,51 +35,134 @@ char	*expand(char *args)
 
 char	*expand_star_case(char *args)
 {
-	char	*expanded_string;
-	t_bool	expanded_ok;
-
-	expanded_string = ft_strcpy(NULL, args, ft_strlen(*args));
-	expanded_string = expand_star_case_rec(
-		&expanded_string, args, &expanded_ok
-	);
-	if (e_false == expanded_ok)
-	{
-		free(expanded_string);
-		return (args);
-	}
-	free(args);
-	return (expanded_string);
-}
-
-char	*expand_star_case_rec(char **result, char *cur_string_part,
-			t_bool *expanded_ok)
-{
-	char	*expanded_segment;
 	char	*segment;
-	char	*new_part;
 	size_t	start_of_segment;
 	size_t	end_of_segment;
-	
-	if (cur_string_part == NULL)
-		*expanded_ok = e_true;
-	else if (segment_set_boundaries(cur_string_part,
-			&start_of_segment, &end_of_segment))
-	{
-		segment = set_segment(cur_string_part,
-					start_of_segment, end_of_segment);
-		expanded_segment = expand_segment(segment);
-		free(*result);
-		*result = ft_strjoin(get_prefix(cur_string_part, start_of_segment),
-					expanded_segment,
-					e_true, e_true);
-		return (expand_star_case_rec(
-			result, get_suffix(cur_string_part, end_of_segment), expanded_ok
-		));
-	}
-	else
-		*expanded_ok = e_false;
-	return (result);
+
+	if (!args)
+		return (NULL);
+	star_segment_set_boundaries(args, &start_of_segment, &end_of_segment);
+	segment = get_segment(args, start_of_segment, end_of_segment);
+	return (
+		ft_strjoin(
+			ft_strjoin(get_prefix(args, start_of_segment), expand_segment(segment),
+				e_true, e_true),
+			expand_star_case(get_suffix(args, end_of_segment)),
+			e_true, e_true
+		)
+	);
 }
+
+char	*expand_segment(char *segment)
+{
+	// TODO > for all dir entries match with asf, then clean split and return split merge
+}
+
+/**
+ * @brief implemenation of the ASF described by regular expression regex
+ * 
+ * @param name 
+ * @param segment 
+ * @return t_bool 
+ */
+t_bool	match(char *name, char *regex)
+{
+	char	*prefix;
+	char	*suffix;
+	size_t	len_suffix;
+	size_t	len_prefix;
+	size_t	len_name;
+
+	len_name = ft_strlen(name);
+	len_prefix = ft_strlen(prefix);
+	len_suffix = ft_strlen(suffix);
+	prefix = take_star_exp_prefix(regex);
+	suffix = take_star_exp_suffix(regex);
+	if (0 != ft_strncmp(prefix, name, len_prefix))
+		return (e_false);
+	if (len_name < len_suffix
+		|| 0 != ft_strncmp(suffix, name + (len_name - len_suffix), len_suffix))
+		return (e_false);
+	else
+	{
+		// TODO > ciclo: per ogni altro carattere, controlla che sia contenuto in name
+	}
+}
+
+
+char	*normalize_cwd_entry_name_to_suffix_len(char *entry_name, size_t len_suffix)
+{
+	size_t	len_entry_name;
+
+	if (ft_strlen(entry_name) < len_suffix)
+		return (entry_name);
+	return (entry_name + len_entry_name - len_suffix);
+}
+
+// char	*expand_star_case(char *args)
+// {
+// 	char	*expanded_string;
+// 	t_bool	expanded_ok;
+
+// 	expanded_string = ft_strcpy(NULL, args, ft_strlen(*args));
+// 	expanded_string = expand_star_case_rec(
+// 		&expanded_string, args, &expanded_ok
+// 	);
+// 	if (e_false == expanded_ok)
+// 	{
+// 		free(expanded_string);
+// 		return (args);
+// 	}
+// 	free(args);
+// 	return (expanded_string);
+// 	// expanded_string = ft_strcpy(NULL, args, ft_strlen(*args));
+// 	// expanded_string = expand_star_case_rec(
+// 	// 	&expanded_string, args, &expanded_ok
+// 	// );
+// 	// if (e_false == expanded_ok)
+// 	// {
+// 	// 	free(expanded_string);
+// 	// 	return (args);
+// 	// }
+// 	// free(args);
+// 	// return (expanded_string);
+// }
+
+// char	*expand_star_case_rec(char **result, char *cur_string_part,
+// 			t_bool *expanded_ok)
+// {
+// 	char	*expanded_segment;
+// 	char	*segment;
+// 	char	*new_part;
+// 	size_t	start_of_segment;
+// 	size_t	end_of_segment;
+	
+// 	if (cur_string_part == NULL)
+// 		*expanded_ok = e_true;
+// 	else if (segment_set_boundaries(cur_string_part,
+// 			&start_of_segment, &end_of_segment))
+// 	{
+// 		segment = set_segment(cur_string_part,
+// 					start_of_segment, end_of_segment);
+// 		*result = expand_segment(*result, segment); // * free(result) inside called function
+// 		return (expand_star_case_rec(
+// 			result, get_suffix(cur_string_part, end_of_segment), expanded_ok
+// 		));
+// 		// segment = set_segment(cur_string_part,
+// 		// 			start_of_segment, end_of_segment);
+// 		// expanded_segment = expand_segment(*result, segment);
+// 		// free(*result); 
+// 		// *result = ft_strjoin(get_prefix(cur_string_part, start_of_segment),
+// 		// 			expanded_segment,
+// 		// 			e_true, e_true);
+// 		// return (expand_star_case_rec(
+// 		// 	result, get_suffix(cur_string_part, end_of_segment), expanded_ok
+// 		// ));
+// 	}
+// 	else
+// 		*expanded_ok = e_false;
+// 	return (result);
+// }
 
 char	*get_prefix(char *str, size_t edge)
 {
@@ -103,30 +186,31 @@ char	*get_suffix(char *str, size_t edge)
 		return (ft_strcpy(NULL, str + edge, len_str - edge));
 }
 
-t_bool	expand_star_case(char **args_ref)
-{
-	size_t	start_of_segment;
-	size_t	end_of_segment;
-	char	*segment;
-	char	*expanded_segment;
+// t_bool	expand_star_case(char **args_ref)
+// {
+// 	size_t	start_of_segment;
+// 	size_t	end_of_segment;
+// 	char	*segment;
+// 	char	*expanded_segment;
 
-	if (segment_set_boundaries(*args_ref, &start_of_segment, &end_of_segment))
-	{
-		segment = set_segment(*args_ref,
-								start_of_segment, end_of_segment);
-		expanded_segment = expand_segment(segment);
-		*args_ref = ft_strjoin(
-			ft_strjoin(get_pre(args_ref, start_of_segment), expanded_segment, e_true, e_true),
-			expand_star_case(get_post(args_ref, end_of_segment)),
-			e_true, e_true
-		);
-		// *args_ref = join_expansion(*args_ref, expanded_segment,
-		// 				start_of_segment, end_of_segment);
-		return (e_true);
-	}
-	else
-		return (e_false);
-}
+// 	if (segment_set_boundaries(*args_ref, &start_of_segment, &end_of_segment))
+// 	{
+// 		segment = set_segment(*args_ref,
+// 								start_of_segment, end_of_segment);
+// 		expanded_segment = expand_segment(segment);
+// 		*args_ref = ft_strjoin(
+// 			ft_strjoin(get_pre(args_ref, start_of_segment), expanded_segment, e_true, e_true),
+// 			expand_star_case(get_post(args_ref, end_of_segment)),
+// 			e_true, e_true
+// 		);
+// 		// *args_ref = join_expansion(*args_ref, expanded_segment,
+// 		// 				start_of_segment, end_of_segment);
+// 		return (e_true);
+// 	}
+// 	else
+// 		return (e_false);
+// }
+
 
 // char	**split_into_segments
 /**
@@ -137,33 +221,64 @@ t_bool	expand_star_case(char **args_ref)
  * @param end 
  * @return t_bool 
  */
-t_bool	star_segment_set_boundaries(char *str, size_t *start, size_t *end)
+t_bool	star_segment_set_boundaries(char *str, size_t *start, size_t *end) // ! MAKE IT VOID !
 {
 	size_t	offset;
-	t_bool	star_found;
 
-	star_found = e_false;
+	if (!str || !(*str))
+		return (e_false);
 	*start = 0;
 	offset = 0;
 	while (str[offset])
 	{
-		if (str[offset] == '*')
-			star_found = e_true;
-		else if (e_true == bash_control_character(str[offset]))
-		{
-			if (star_found == e_false)
-				*start = offset + 1;
-			else
-			{
-				*end = offset - 1;
-				return (e_true);
-			}
-		}
+		while (str[offset] == '"' || str[offset] == '\'')
+			offset = skip_past_last_char(str, offset, str[offset], +1);
+		if (e_true == bash_control_character(str[offset]))
+			break ;
 		offset++;
 	}
 	*end = offset - 1;
-	return (star_found);
+	return (e_true);
 }
+
+// // char	**split_into_segments
+// /**
+//  * @brief this function sets the boundaries for the next segment in the string.
+//  * 
+//  * @param str 
+//  * @param start 
+//  * @param end 
+//  * @return t_bool 
+//  */
+// t_bool	star_segment_set_boundaries(char *str, size_t *start, size_t *end)
+// {
+// 	size_t	offset;
+// 	t_bool	star_found;
+
+// 	star_found = e_false;
+// 	*start = 0;
+// 	offset = 0;
+// 	while (str[offset])
+// 	{
+// 		// while (str[offset] == '"' || str[offset] == '\'')
+// 		// 	offset = skip_past_last_char(str, offset, str[offset], +1);
+// 		if (str[offset] == '*')
+// 			star_found = e_true;
+// 		else if (e_true == bash_control_character(str[offset]))
+// 		{
+// 			if (star_found == e_false)
+// 				*start = offset + 1;
+// 			else
+// 			{
+// 				*end = offset - 1;
+// 				return (e_true);
+// 			}
+// 		}
+// 		offset++;
+// 	}
+// 	*end = offset - 1;
+// 	return (star_found);
+// }
 
 char	*expander(char *args)
 {
