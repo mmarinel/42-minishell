@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 16:55:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/07 16:58:53 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/07 17:05:04 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ char	*expand_star_case(char *args)
 	return (
 		ft_strjoin(
 			ft_strjoin(get_prefix(args, start_of_segment), expand_segment(segment),
-				e_true, e_true),
-			expand_star_case(get_suffix(args, end_of_segment)),
-			e_true, e_true
+				e_false, e_true),
+			expand_star_case(get_suffix(args, end_of_segment)), // * do not allocate with get_prefix/suffix functions !!!!
+			e_false, e_true
 		)
 	);
 }
