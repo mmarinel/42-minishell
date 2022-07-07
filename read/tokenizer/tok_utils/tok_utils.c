@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/04 11:46:33 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/07 14:47:38 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,7 @@ size_t	bash_next_word_len(char *command_line, size_t offset)
 	}
 }
 
-size_t	bash_next_quoted_seq(char *command_line, size_t offset, char quote)
+size_t	bash_next_quoted_seq(char *command_line, size_t offset, char quote) //* next_quote_sequence_len
 {
 	size_t	idx;
 

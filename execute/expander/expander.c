@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 16:55:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/07 13:53:25 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/07 15:39:06 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,76 @@ char	*expand(char *args)
 	return (args);
 }
 
-// ! NOOOOOOO
+char	*expand_star_case(char *args)
+{
+	char	*expanded_string;
+	t_bool	expanded_ok;
+
+	expanded_string = ft_strcpy(NULL, args, ft_strlen(*args));
+	expanded_string = expand_star_case_rec(
+		&expanded_string, args, &expanded_ok
+	);
+	if (e_false == expanded_ok)
+	{
+		free(expanded_string);
+		return (args);
+	}
+	free(args);
+	return (expanded_string);
+}
+
+char	*expand_star_case_rec(char **result, char *cur_string_part,
+			t_bool *expanded_ok)
+{
+	char	*expanded_segment;
+	char	*segment;
+	char	*new_part;
+	size_t	start_of_segment;
+	size_t	end_of_segment;
+	
+	if (cur_string_part == NULL)
+		*expanded_ok = e_true;
+	else if (segment_set_boundaries(cur_string_part,
+			&start_of_segment, &end_of_segment))
+	{
+		segment = set_segment(cur_string_part,
+					start_of_segment, end_of_segment);
+		expanded_segment = expand_segment(segment);
+		free(*result);
+		*result = ft_strjoin(get_prefix(cur_string_part, start_of_segment),
+					expanded_segment,
+					e_true, e_true);
+		return (expand_star_case_rec(
+			result, get_suffix(cur_string_part, end_of_segment), expanded_ok
+		));
+	}
+	else
+		*expanded_ok = e_false;
+	return (result);
+}
+
+char	*get_prefix(char *str, size_t edge)
+{
+	size_t	len_str;
+
+	len_str = ft_strlen(str);
+	if (edge > len_str)
+		return (ft_strcpy(NULL, str, len_str));
+	else
+		return (ft_strcpy(NULL, str, edge + 1));
+}
+
+char	*get_suffix(char *str, size_t edge)
+{
+	size_t	len_str;
+
+	len_str = ft_strlen(str);
+	if (edge > len_str - 1)
+		return (NULL);
+	else
+		return (ft_strcpy(NULL, str + edge, len_str - edge));
+}
+
 t_bool	expand_star_case(char **args_ref)
 {
 	size_t	start_of_segment;
@@ -46,8 +115,13 @@ t_bool	expand_star_case(char **args_ref)
 		segment = set_segment(*args_ref,
 								start_of_segment, end_of_segment);
 		expanded_segment = expand_segment(segment);
-		*args_ref = join_expansion(*args_ref, expanded_segment,
-						start_of_segment, end_of_segment);
+		*args_ref = ft_strjoin(
+			ft_strjoin(get_pre(args_ref, start_of_segment), expanded_segment, e_true, e_true),
+			expand_star_case(get_post(args_ref, end_of_segment)),
+			e_true, e_true
+		);
+		// *args_ref = join_expansion(*args_ref, expanded_segment,
+		// 				start_of_segment, end_of_segment);
 		return (e_true);
 	}
 	else
@@ -63,7 +137,7 @@ t_bool	expand_star_case(char **args_ref)
  * @param end 
  * @return t_bool 
  */
-t_bool	segment_set_boundaries(char *str, size_t *start, size_t *end)
+t_bool	star_segment_set_boundaries(char *str, size_t *start, size_t *end)
 {
 	size_t	offset;
 	t_bool	star_found;
