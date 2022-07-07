@@ -37,3 +37,26 @@
 17. non forkare la pipe ma solo i suoi left & righ hand sides. (Perche se no non funzione <comando> | exit)  <fatto>
 
 18. bindings: aggiungere funzioni remove_bindings && bindings_list_to_bindings_array
+
+
+
+
+
+
+
+19. aggiungere informazione all interno del token se cmd_arg e in ' o " o niente
+
+20. Aumentare di 1 unita shell level in minishell.c
+
+
+
+
+
+
+
+
+
+
+
+
+
