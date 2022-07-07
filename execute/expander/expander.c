@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 16:55:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/07 12:45:14 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/07 13:53:25 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,79 @@ static size_t	expander_quotes_handling(char *string, size_t offset,
 
 // * end of static declarations //
 
+// * si probaably
+char	*expand(char *args)
+{
+	while (e_true)
+	{
+		if (e_false == expand_dollar_case(&args))
+			break ;
+	}
+	while (e_true)
+	{
+		if (e_false == expand_star_case(&args))
+			break ;
+	}
+	return (args);
+}
+
+// ! NOOOOOOO
+t_bool	expand_star_case(char **args_ref)
+{
+	size_t	start_of_segment;
+	size_t	end_of_segment;
+	char	*segment;
+	char	*expanded_segment;
+
+	if (segment_set_boundaries(*args_ref, &start_of_segment, &end_of_segment))
+	{
+		segment = set_segment(*args_ref,
+								start_of_segment, end_of_segment);
+		expanded_segment = expand_segment(segment);
+		*args_ref = join_expansion(*args_ref, expanded_segment,
+						start_of_segment, end_of_segment);
+		return (e_true);
+	}
+	else
+		return (e_false);
+}
+
+// char	**split_into_segments
+/**
+ * @brief this function sets the boundaries for the next segment in the string.
+ * 
+ * @param str 
+ * @param start 
+ * @param end 
+ * @return t_bool 
+ */
+t_bool	segment_set_boundaries(char *str, size_t *start, size_t *end)
+{
+	size_t	offset;
+	t_bool	star_found;
+
+	star_found = e_false;
+	*start = 0;
+	offset = 0;
+	while (str[offset])
+	{
+		if (str[offset] == '*')
+			star_found = e_true;
+		else if (e_true == bash_control_character(str[offset]))
+		{
+			if (star_found == e_false)
+				*start = offset + 1;
+			else
+			{
+				*end = offset - 1;
+				return (e_true);
+			}
+		}
+		offset++;
+	}
+	*end = offset - 1;
+	return (star_found);
+}
 
 char	*expander(char *args)
 {
