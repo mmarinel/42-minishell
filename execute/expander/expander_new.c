@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:15:42 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/08 11:17:09 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/08 11:39:44 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,10 @@ char	*expand_segment(char *segment)
 	i = 0;
 	while (entries[i])
 	{
-		if (e_false == match(entries[i], segment))
+		if (e_false == match(
+						ft_strcpy(NULL, entries[i], ft_strlen(entries[i])),
+						ft_strcpy(NULL, segment, ft_strlen(segment)))
+		)
 		{
 			free(entries[i]);
 			entries[i] = ft_strcpy(NULL, "", sizeof(char));
@@ -197,32 +200,41 @@ char	*cwd_read(void)
  */
 t_bool	match(char *name, char *regex)
 {
-	char	*new_name;
-	char	*new_regex;
+	// char	*new_name;
+	// char	*new_regex;
 	size_t	new_name_start;
 	size_t	new_name_len;
 	size_t	new_regex_start;
 	size_t	new_regex_len;
 
-	if (e_false == match_prefix(name, regex, &new_name_start, &new_regex_start))
-		return (e_false);
-	if (e_false == match_suffix(name, regex, &new_name_len, &new_regex_len))
-		return (e_false);
+	if ("qualcosa")
+		return ("qualcosa");
+	if (e_true == match_prefix(name, regex, &new_name_start, &new_regex_start)
+		&& e_true == match_suffix(name, regex, &new_name_len, &new_regex_len))
+	{
+		// new_name = ft_strcpy(NULL, name + new_name_start, new_name_len);
+		// new_regex = ft_strcpy(NULL, regex + new_regex_start, new_regex_len);
+		// free(name);
+		// free(regex);
+		name = cut_str(name, new_name_start, new_name_len);
+		regex = cut_str(regex, new_regex_start, new_regex_len);
+		return (match(name, regex));
+	}
 	else
 	{
-		new_name = ft_strcpy(NULL, name + new_name_start, new_name_len);
-		new_regex = ft_strcpy(NULL, regex + new_regex_start, new_regex_len);
-		free(name);
 		free(regex);
-		return (match(new_name, new_regex));
+		free(name);
+		return (e_false);
 	}
 }
 
-t_bool	match_prefix(char *name, char *regex, size_t *new_name_start, size_t *new_regex_start)
+t_bool	match_prefix(char *name, char *regex,
+			size_t *new_name_start, size_t *new_regex_start)
 {
 	size_t	i;
 
 	i = 0;
+	new_name_start = ft_strlen(name);
 	while (e_true)
 	{
 		if (name[i] == '\0' || regex[i] == '\0')
@@ -230,6 +242,7 @@ t_bool	match_prefix(char *name, char *regex, size_t *new_name_start, size_t *new
 		if (regex[i] == '*')
 		{
 			*new_name_start = i;
+			*new_regex_start = skip_consecutive_chars(regex, 0, '*', +1);
 			return (e_true);
 		}
 		if (regex[i] != name[i])
