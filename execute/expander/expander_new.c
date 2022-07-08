@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:15:42 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/08 12:44:17 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/08 13:14:46 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,13 +238,14 @@ t_bool	match(char *name, char *regex)
 		star_found = e_true;
 		regex += skip_consecutive_chars(regex, 0, '*', +1);
 	}
-	if (regex[0] == '\0')
+	if ((regex[0] == '\0' && star_found)
+		|| (regex[0] == '\0' && name[0] == '\0'))
 		return (e_true);
 	if (name[0] == '\0')
 		return (e_false);
 	return (backtrack_matching(name, regex, star_found));
 }
-	// if (star_found)
+
 	// {
 	// 	res = e_false;
 	// 	next_pos = j;
