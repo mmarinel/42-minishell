@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:15:42 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/08 11:39:44 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/08 12:44:17 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,6 +228,65 @@ t_bool	match(char *name, char *regex)
 	}
 }
 
+t_bool	match(char *name, char *regex)
+{
+	size_t	star_found;
+
+	star_found = e_false;
+	if (regex[0] == '*')
+	{
+		star_found = e_true;
+		regex += skip_consecutive_chars(regex, 0, '*', +1);
+	}
+	if (regex[0] == '\0')
+		return (e_true);
+	if (name[0] == '\0')
+		return (e_false);
+	return (backtrack_matching(name, regex, star_found));
+}
+	// if (star_found)
+	// {
+	// 	res = e_false;
+	// 	next_pos = j;
+	// 	while (name[next_pos])
+	// 	{
+	// 		if (name[next_pos] == regex[i])
+	// 			res = res || match(name + next_pos + 1, regex + i + 1);
+	// 	}
+	// 	return (res);
+	// }
+	// else
+	// {
+	// 	if (regex[i] != name[j])
+	// 		return (e_false);
+	// 	return (match(name + j + 1, regex + i + 1));
+	// }
+
+t_bool	backtrack_matching(char *name, char *regex, t_bool star_found)
+{
+	size_t	next_pos;
+
+	if (star_found)
+	{
+		next_pos = 0;
+		while (name[next_pos])
+		{
+			if (name[next_pos] == regex[0]
+				&& match(name + next_pos + 1, regex + 1))
+				return (e_true);
+			next_pos++;
+		}
+		return (e_false);
+	}
+	else
+	{
+		if (regex[0] != name[0])
+			return (e_false);
+		else
+			return (match(name + 1, regex + 1));
+	}
+}
+
 t_bool	match_prefix(char *name, char *regex,
 			size_t *new_name_start, size_t *new_regex_start)
 {
@@ -235,6 +294,7 @@ t_bool	match_prefix(char *name, char *regex,
 
 	i = 0;
 	new_name_start = ft_strlen(name);
+	new_regex_start = ft_strlen(regex);
 	while (e_true)
 	{
 		if (name[i] == '\0' || regex[i] == '\0')
