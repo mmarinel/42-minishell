@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:34:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 16:33:17 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/09 23:18:25 by earendil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,11 +106,6 @@ static char	*return_complete_line(char *command,
 
 	close(line_channel[1]);
 	close(line_size_channel[1]);
-	read(line_size_channel[0], &continuation_len, sizeof(continuation_len));
-	continuation = (char *) malloc((continuation_len + 1) * sizeof(char));
-	read(line_channel[0], continuation, continuation_len * sizeof(char));
-	continuation[continuation_len] = '\0';
-	command = ft_strjoin(command, continuation, e_true, e_true);
 	waitpid(line_completion_prompt_pid, &line_completion_prompt_exit_status, 0);
 	if (!WIFEXITED(line_completion_prompt_exit_status)
 		|| WEXITSTATUS(line_completion_prompt_exit_status))
@@ -119,6 +114,11 @@ static char	*return_complete_line(char *command,
 		free(command);
 		return (NULL);
 	}
+	read(line_size_channel[0], &continuation_len, sizeof(continuation_len));
+	continuation = (char *) malloc((continuation_len + 1) * sizeof(char));
+	read(line_channel[0], continuation, continuation_len * sizeof(char));
+	continuation[continuation_len] = '\0';
+	command = ft_strjoin(command, continuation, e_true, e_true);
 	return (command);
 }
 
