@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:13:18 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 14:52:37 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/09 18:49:00 by earendil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,15 @@
 
 // * string utils
 
+size_t			skip_past_last_char(char *str, size_t offset,
+					char to_skip, int direction);
+size_t			skip_consecutive_chars(char *string, size_t offset,
+					char to_skip, int direction);
 size_t			ft_strlcpy(char **dst, const char *src, size_t dstsize);
 void			ft_str_replace(char **str, char *new_);
 size_t			ft_strlen(const char *str);
+char			*split_merge(char	**split, char *const sep,
+					t_bool free_split);
 void			*ft_splitclear(char **split);
 char			**ft_split(char const *string, char delimiter);
 int				ft_strcmp(const char *s1, const char *s2);

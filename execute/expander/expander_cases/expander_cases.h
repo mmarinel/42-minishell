@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander_utils.h                                   :+:      :+:    :+:   */
+/*   cases.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/05 17:27:57 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/09 19:46:12 by earendil         ###   ########.fr       */
+/*   Created: 2022/07/09 19:43:48 by earendil          #+#    #+#             */
+/*   Updated: 2022/07/09 19:45:54 by earendil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPANDER_UTILS_H
-# define EXPANDER_UTILS_H
+#ifndef CASES_H
+# define CASES_H
 
 # include "../expander.h"
 
-// * standard libraries //
-# include <dirent.h>
+// * cases //
+char	*expand_star_case(char *args);
+char	*expand_dollar_case(char *args);
 
-char	*cwd_read(void);
-char	**clean_results(char **results);
-void	expansion_split(t_special_char special_char,
-				char *args,
-				char **next_segment_ref,
-				char **post_ref);
 
 #endif

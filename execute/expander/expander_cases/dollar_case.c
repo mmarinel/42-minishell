@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_clear.c                                   :+:      :+:    :+:   */
+/*   dollar_case.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/02 16:59:11 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/02 19:50:58 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/07/09 19:49:32 by earendil          #+#    #+#             */
+/*   Updated: 2022/07/09 19:50:23 by earendil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_utils.h"
+#include "expander_cases.h"
 
-void	*ft_splitclear(char **split)
+char	*expand_dollar_case(char *args)
 {
-	char	**backup;
-
-	if (!split)
-		return (NULL);
-	backup = split;
-	while (*split)
-		ft_free(*split++);
-	ft_free(backup);
-	return (NULL);
+	return (args);
 }

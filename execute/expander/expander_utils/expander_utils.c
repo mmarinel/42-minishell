@@ -3,46 +3,69 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 17:27:45 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/07 09:35:19 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/09 18:49:25 by earendil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander_utils.h"
 
-size_t	skip_consecutive_chars(char *string, size_t offset,
-			char to_skip, int direction)
+char	*cwd_read(void)
 {
-	while (string[offset] == to_skip)
-		offset += direction;
-	return (offset);
+	char			*expansion;
+	DIR				*cwd;
+	struct dirent	*cwd_entry;
+
+	expansion = NULL;
+	cwd = opendir(".");
+	if (cwd)
+	{
+		while (e_true)
+		{
+			cwd_entry = readdir(cwd);
+			if (cwd_entry == NULL)
+				break ;
+			expansion = ft_strjoin(
+				ft_strjoin(expansion, " ", e_true, e_false),
+				cwd_entry->d_name,
+				e_true, e_false
+			);
+		}
+		closedir(cwd);
+	}
+	return (expansion);
 }
 
-// size_t	skip_past_last_single_quote(char *string, size_t offset)
-// {
-// 	while (string[offset])
-// 	{
-// 		if (string[offset] == '\'')
-// 			return (offset + 1);
-// 	}
-// 	return (offset);
-// }
-
-size_t	skip_past_last_char(char *str, size_t offset,
-			char to_skip, int direction)
+char	**clean_results(char **results)
 {
-	int	i;
+	char	**cleared;
+	size_t	count;
+	size_t	i;
+	size_t	j;
 
-	i = offset;
-	while (e_true)
+	count = 0;
+	i = 0;
+	while (results[i])
 	{
-		if (i == 0 || str[i] == '\0')
-			return (i);
-		if (str[i] == to_skip)
-			return (i + direction);
-		i += direction;
+		if ('\0' != *(results[i]))
+			count++;
+		i++;
 	}
-	return ((size_t)-1);
+	cleared =  (char **) malloc((count + 1) * sizeof(char *));
+	cleared[count] = NULL;
+	i = 0;
+	j = 0;
+	while (results[i])
+	{
+		if ('\0' != *(results[i]))
+		{
+			cleared[j] = ft_strcpy(NULL, results[i], ft_strlen(results[i]));
+			j++;
+		}
+		i++;
+	}
+	ft_splitclear(results);
+	return (cleared);
 }
