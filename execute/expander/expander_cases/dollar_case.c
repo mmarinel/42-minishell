@@ -14,5 +14,20 @@
 
 char	*expand_dollar_case(char *args)
 {
-	return (args);
+	char	*args_pre;
+	char	*next_segment;
+	char	*args_post;
+
+	if (!args)
+		return (NULL);
+	expansion_split(STAR, args, &next_segment, &args_post);
+	free(args);
+	return (
+		ft_strjoin(
+			ft_strjoin(args_pre, expand_star_segment(next_segment),
+				e_true, e_true),
+			expand_dollar_case(args_post),
+			e_true, e_true
+		)
+	);
 }
