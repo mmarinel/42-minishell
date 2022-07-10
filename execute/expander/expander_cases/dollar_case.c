@@ -24,7 +24,7 @@ char	*expand_dollar_case(char *args)
 	free(args);
 	return (
 		ft_strjoin(
-			ft_strjoin(args_pre, expand_star_segment(next_segment),
+			ft_strjoin(args_pre, expand_dollar_segment(next_segment),
 				e_true, e_true),
 			expand_dollar_case(args_post),
 			e_true, e_true
