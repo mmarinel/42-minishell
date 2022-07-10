@@ -35,7 +35,16 @@ void	expansion_split(t_special_char special_char,
 		take_next_dollar_segment_boundaries(args,
 			&start_of_segment, &end_of_segment);
 	*next_segment_ref = get_segment(args, start_of_segment, end_of_segment);
-	*post_ref = get_suffix(args, end_of_segment);
+	*post_ref = get_suffix(args, end_of_segment + 1);
+	// printf("start_of_seg: %zu\tend_of_seg:%zu\n", start_of_segment, end_of_segment);
+	// printf("seg: %s\n", *next_segment_ref);
+	// printf("rest: %s\tlen_rest: %zu\n", *post_ref, ft_strlen(*post_ref));
+	// exit(0);
+	// int fd = open("test2", O_RDWR | O_CREAT | O_TRUNC);
+	// write(fd, &start_of_segment, sizeof(start_of_segment));//(YELLOW "expand with arg: %s" RESET, args);
+	// write(fd, " ", sizeof(char));//(YELLOW "expand with arg: %s" RESET, args);
+	// write(fd, &end_of_segment, sizeof(end_of_segment));//(YELLOW "expand with arg: %s" RESET, args);
+	// write(fd, "\n", sizeof(char));//(YELLOW "expand with arg: %s" RESET, args);
 }
 
 /**
@@ -86,6 +95,7 @@ static char	*get_suffix(char *str, size_t cutting_index)
 {
 	size_t	len_str;
 
+	cutting_index = skip_consecutive_chars(str, cutting_index, ' ', +1);
 	len_str = ft_strlen(str);
 	if (cutting_index > len_str - 1)
 		return (NULL);

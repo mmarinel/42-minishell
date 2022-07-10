@@ -16,8 +16,8 @@
 # include "../executor.h"
 
 void	command_not_found_failure(t_tree_node *parse_tree,
-			char *cmd_full_path, char *cmd_simple_name, char **cmd_args);
+			char *cmd_full_path, char *cmd_simple_name, char *cmd_args);
 void	command_execution_failure(t_tree_node *parse_tree,
-			char *cmd_full_path, char *cmd_simple_name, char **cmd_args);
+			char *cmd_full_path, char *cmd_simple_name, char *cmd_args);
 
 #endif

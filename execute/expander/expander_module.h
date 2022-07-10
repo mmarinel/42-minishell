@@ -15,6 +15,6 @@
 
 # include "../executor.h"
 
-char	*expander(char *args);
+char	*expand(char *args);
 
 #endif

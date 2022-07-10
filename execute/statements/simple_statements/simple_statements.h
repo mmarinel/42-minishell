@@ -15,6 +15,7 @@
 
 # include "../../executor_types.h"
 # include "../exec_statements.h"
+# include "../../expander/expander_module.h"
 
 void	execute_simple_cmd(t_tree_node *root, int in, int out);
 t_bool	execute_builtin(t_simple_command_node cmd, int in, int out);

@@ -22,7 +22,8 @@ void	execute_simple_cmd(t_tree_node *root, int in, int out)
 {
 	char	*cmd_simple_name;
 	char	*cmd_full_path;
-	char	**args;
+	char	*args;
+	char	**args_split;
 
 	// printf(YELLOW "execute_simple_cmd\n" RESET);
 	args = NULL;
@@ -37,10 +38,17 @@ void	execute_simple_cmd(t_tree_node *root, int in, int out)
 	// printf("simple name: %s\tlen: %zu\n", cmd_simple_name, ft_strlen(cmd_simple_name));
 	// printf("full name: %s\tlen: %zu\n", cmd_full_path, ft_strlen(cmd_full_path));
 	// printf("full name: %s\n", root->content->simple_cmd.cmd_args);
-	args = ft_split(
+	// args = ft_split(
+	// 		ft_strjoin(
+	// 			ft_strjoin(cmd_simple_name, " ", e_false, e_false),
+	// 			root->content->simple_cmd.cmd_args, e_true, e_false),
+	// 		' ');
+	args = expand(root->content->simple_cmd.cmd_args);
+	args_split= ft_split(
 			ft_strjoin(
 				ft_strjoin(cmd_simple_name, " ", e_false, e_false),
-				root->content->simple_cmd.cmd_args, e_true, e_false),
+				args,
+				e_true, e_true),
 			' ');
 	if (!cmd_full_path)
 		command_not_found_failure(root, cmd_full_path, cmd_simple_name, args);
@@ -60,7 +68,7 @@ void	execute_simple_cmd(t_tree_node *root, int in, int out)
 	// 	j++;
 	// }
 	// exit(0);
-	if (-1 == execve(cmd_full_path, args, bindings_list_to_array(env_handler(ENV_RETURN, NULL))))//bindings_list_to_array(g_env.env)))
+	if (-1 == execve(cmd_full_path, args_split, bindings_list_to_array(env_handler(ENV_RETURN, NULL))))//bindings_list_to_array(g_env.env)))
 		command_execution_failure(root, cmd_full_path, cmd_simple_name, args);
 }
 

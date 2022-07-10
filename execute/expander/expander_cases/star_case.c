@@ -35,6 +35,11 @@ char	*expand_star_case(char *args)
 	if (!args)
 		return (NULL);
 	expansion_split(STAR, args, &next_segment, &args_post);
+	// int fd = open("test2", O_RDWR | O_CREAT | O_TRUNC);
+	// write(fd, next_segment, ft_strlen(next_segment) * sizeof(char));//(YELLOW "expand with arg: %s" RESET, args);
+	// write(fd, " ", sizeof(char));//(YELLOW "expand with arg: %s" RESET, args);
+	// write(fd, args_post, sizeof(args_post));//(YELLOW "expand with arg: %s" RESET, args);
+	// write(fd, "\n", sizeof(char));//(YELLOW "expand with arg: %s" RESET, args);
 	free(args);
 	return (
 		ft_strjoin(

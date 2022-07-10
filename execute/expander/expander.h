@@ -20,7 +20,8 @@
 # include "expander_cases/expander_cases.h"
 # include "expander_utils/expander_utils.h"
 # include "../../utils/ft_utils.h"
+# include "../../colors.h"
 
-char	*expander(char *args);
+char	*expand(char *args);
 
 #endif
