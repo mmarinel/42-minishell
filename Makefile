@@ -13,9 +13,9 @@
 #SAY = say
 #NORMINETTE = norminette -R CheckForbiddenSourceHeader
 CC = @gcc
-HOME = /Users/mmarinel
+# HOME = /Users/mmarinel
 CFLAGS = -I -Wall -Werror -Wextra -fsanitize=address -static-libsan -g
-READLINE_FLAGS = -L/usr/include -lreadline -L$(HOME)/.brew/opt/readline/lib -I $(HOME)/.brew/opt/readline/include
+READLINE_FLAGS = -L/usr/include -lreadline -L$$HOME/.brew/opt/readline/lib -I $$HOME/.brew/opt/readline/include/readline
 OBJS_DIR = ".objs"
 
 INCLUDES = $(shell find . -name "*.h" -print)

@@ -72,7 +72,8 @@ static void	set_sig_handlers(void)
 	struct termios	tty_attrs;
 
 	tcgetattr(STDIN_FILENO, &tty_attrs);
-	tty_attrs.c_lflag &= ECHO;
+	tty_attrs.c_lflag &= ~(ECHOCTL); // ! Ricordati che e' da sistemareeee ! (rimettere il valore vecchio quando esco)
+	// tty_attrs.c_lflag &= ECHO;
 	tcsetattr(STDIN_FILENO, TCSANOW, &tty_attrs);
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);

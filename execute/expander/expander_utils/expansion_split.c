@@ -14,6 +14,8 @@
 
 static void	take_next_star_segment_boundaries(char *str,
 				size_t *start, size_t *end);
+static void	take_next_dollar_segment_boundaries(char *str,
+				size_t *start, size_t *end);
 static char	*get_segment(char *str,
 				size_t start, size_t end);
 static char	*get_suffix(char *str, size_t cutting_index);
@@ -65,6 +67,13 @@ static void	take_next_star_segment_boundaries(char *str,
 	}
 	*end = offset - 1;
 	return ;
+}
+
+static void	take_next_dollar_segment_boundaries(char *str,
+				size_t *start, size_t *end)
+{
+	if (str && start && end)
+		;
 }
 
 static char	*get_segment(char *str,
