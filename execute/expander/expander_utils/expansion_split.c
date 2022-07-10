@@ -72,8 +72,28 @@ static void	take_next_star_segment_boundaries(char *str,
 static void	take_next_dollar_segment_boundaries(char *str,
 				size_t *start, size_t *end)
 {
-	if (str && start && end)
-		;
+	size_t	offset;
+
+	if (!str || !(*str))
+		return ;
+	*start = 0;
+	offset = 0;
+	while (str[offset])
+	{
+		if (str[offset] == '$')
+		{
+			*start = offset;
+			while (str[offset + 1]
+					&& e_false == bash_control_character(str[offset + 1])
+					&& str[offset + 1] != '*'
+					&& str[offset + 1] != '$')
+					offset++;
+			*end = offset + (offset == *start);
+			return ;
+		}
+		offset++;
+	}
+	*end = offset - 1;
 }
 
 static char	*get_segment(char *str,
