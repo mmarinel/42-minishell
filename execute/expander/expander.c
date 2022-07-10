@@ -16,8 +16,6 @@
 
 char	*expand(char *args)
 {
-	// int fd = open("test", O_RDWR | O_CREAT | O_TRUNC);
-	// write(fd, args, sizeof(args));//(YELLOW "expand with arg: %s" RESET, args);
 	if (!args || !(*args))
 		return (args);
 	args = expand_dollar_case(args);

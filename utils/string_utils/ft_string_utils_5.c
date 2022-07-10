@@ -58,3 +58,21 @@ size_t	skip_past_last_char(char *str, size_t offset,
 	}
 	return ((size_t)-1);
 }
+
+char	*ft_strdup(char *str)
+{
+	char	*duplicate;
+	int		len;
+
+	if (!str)
+		return (NULL);
+	len = ft_strlen(str);
+	duplicate = (char *) malloc((len + 1) * sizeof(char));
+	duplicate[len] = '\0';
+	while (len - 1 >= 0)
+	{
+		duplicate[len - 1] = str[len - 1];
+		len -= 1;
+	}
+ 	return (duplicate); 
+}

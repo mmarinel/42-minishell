@@ -39,6 +39,7 @@ void			ft_str_replace(char **str, char *new_);
 size_t			ft_strlen(const char *str);
 char			*split_merge(char	**split, char *const sep,
 					t_bool free_split);
+char			*ft_strdup(char *str);
 void			*ft_splitclear(char **split);
 char			**ft_split(char const *string, char delimiter);
 int				ft_strcmp(const char *s1, const char *s2);

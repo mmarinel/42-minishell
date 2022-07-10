@@ -20,56 +20,31 @@ static void	executor_handle_redirs(t_redirection redir, int cur_in_out,
 
 void	execute_simple_cmd(t_tree_node *root, int in, int out)
 {
-	char	*cmd_simple_name;
-	char	*cmd_full_path;
-	char	*args;
-	char	**args_split;
+	char		*cmd_simple_name;
+	char		*cmd_full_path;
+	char		**args_split;
+	t_bindings	*env;
 
-	// printf(YELLOW "execute_simple_cmd\n" RESET);
-	args = NULL;
-	if (in && out)
-		;
+	env = env_handler(ENV_RETURN, NULL);
 	executor_handle_redirs(root->content->in_redir,
 		in, STDIN_FILENO, e_true);
 	executor_handle_redirs(root->content->out_redir,
 		out, STDOUT_FILENO, e_false);
 	cmd_simple_name = ft_get_cmd_name(root->content->simple_cmd.cmd_name);
 	cmd_full_path = ft_get_pathname(root->content->simple_cmd.cmd_name);
-	// printf("simple name: %s\tlen: %zu\n", cmd_simple_name, ft_strlen(cmd_simple_name));
-	// printf("full name: %s\tlen: %zu\n", cmd_full_path, ft_strlen(cmd_full_path));
-	// printf("full name: %s\n", root->content->simple_cmd.cmd_args);
-	// args = ft_split(
-	// 		ft_strjoin(
-	// 			ft_strjoin(cmd_simple_name, " ", e_false, e_false),
-	// 			root->content->simple_cmd.cmd_args, e_true, e_false),
-	// 		' ');
-	args = expand(root->content->simple_cmd.cmd_args);
 	args_split= ft_split(
 			ft_strjoin(
 				ft_strjoin(cmd_simple_name, " ", e_false, e_false),
-				args,
-				e_true, e_true),
-			' ');
+				expand(ft_strdup(root->content->simple_cmd.cmd_args)),
+				e_true, e_true
+			),
+		' ');
 	if (!cmd_full_path)
-		command_not_found_failure(root, cmd_full_path, cmd_simple_name, args);
-	// printf("cmd_full_path is: %s\n", cmd_full_path);
-	// char	**envp;
-	// envp = bindings_list_to_array(g_env.env);
-	// while (*envp)
-	// {
-	// 	printf("%s\n", *envp);
-	// 	envp++;
-	// }
-	// exit(0);
-	// int j = 0;
-	// while (args[j])
-	// {
-	// 	printf("arg: %s\n", args[j]);
-	// 	j++;
-	// }
-	// exit(0);
-	if (-1 == execve(cmd_full_path, args_split, bindings_list_to_array(env_handler(ENV_RETURN, NULL))))//bindings_list_to_array(g_env.env)))
-		command_execution_failure(root, cmd_full_path, cmd_simple_name, args);
+		command_not_found_failure(root,
+			cmd_full_path, cmd_simple_name, args_split);
+	if (-1 == execve(cmd_full_path, args_split, bindings_list_to_array(env)))
+		command_execution_failure(root,
+			cmd_full_path, cmd_simple_name, args_split);
 }
 
 // t_bool	execute_builtin(t_simple_command_node cmd, int in, int out)

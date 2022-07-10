@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "prompt.h"
-// #include "../../execute/expander/expander_module.h"
+
 static char		*get_decorated_cwd(char *cwd);
 
 static char	*complete_line(char *command);
@@ -67,7 +67,6 @@ char	*ft_readline(char *prompt, t_bool free_prompt)
 	ft_add_history(command);
 	if (free_prompt)
 		free(prompt);
-	// printf("%s\n", expand(command));
 	return (command);
 }
 
