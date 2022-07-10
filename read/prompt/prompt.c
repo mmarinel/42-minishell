@@ -47,7 +47,7 @@ char	*ft_readline(char *prompt, t_bool free_prompt)
 	command = readline(prompt);
 	if (!command)
 	{
-		printf("exit\n");
+		write(STDOUT_FILENO, "    \033[1A\033[12Cexit\n", ft_strlen("    \033[1A\033[12Cexit\n") * sizeof(char));
 		exit(EXIT_SUCCESS);
 	}
 	else if (*command == '\0')
