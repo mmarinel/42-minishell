@@ -12,8 +12,6 @@
 
 #include "expander.h"
 
-# include <fcntl.h>
-
 char	*expand(char *args)
 {
 	if (!args || !(*args))

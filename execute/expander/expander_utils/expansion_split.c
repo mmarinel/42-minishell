@@ -75,24 +75,23 @@ static void	take_next_dollar_segment_boundaries(char *str,
 	size_t	offset;
 	char	additional_delimiter;
 
-	if (!str || !(*str))
+	if (!str || !str[0])
 		return ;
 	{
 		*start = 0;
-		if (str[0] == '$'
-			&& str[1] == '*')
+		if (str[0] == '$' && str[1] == '*')
 			*end = 1;
 		else
 		{
 			offset = 0;
-			while (str[offset]
-					&& str[offset] != '*'
-					&& str[offset] != '$'
-					&& e_false == bash_control_character(str[offset]))
+			while (str[offset + 1]
+					&& str[offset + 1] != '*'
+					&& str[offset + 1] != '$'
+					&& e_false == bash_control_character(str[offset + 1]))
 			{
 				offset++;
 			}
-			*end = offset - 1;
+			*end = offset;
 		}
 	}
 }
