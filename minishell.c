@@ -114,5 +114,5 @@ static void	print_signature(void)
 888       888 888 888  888 888      X88 888  888 Y8b.     888 888\n\
 888       888 888 888  888 888  88888P  888  888  Y8888   888 888\n\n" RESET);
 	printf(RED "As Beautiful as a Shell 😏\n\n" RESET);
-	printf(GREEN "Courtesy of:\n\tmmarinel\n\taligabbos\n\n" RESET);
+	printf(CYAN "Courtesy of:\n\tmmarinel\n\taligabbos\n\n" RESET);
 }

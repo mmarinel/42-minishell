@@ -77,7 +77,7 @@ static t_token	*tokenize(char	*command_line)
 	if (offset < ft_strlen(command_line))
 	{
 		g_env.last_executed_cmd_exit_status = EXIT_FAILURE; // 258
-		printf(RED "Syntax Error: token not recognized near " RESET GREEN "➡️ " RESET RED "%.10s..."
+		printf("Syntax Error: " RED "token not recognized near " RESET GREEN "➡️ " RESET RED "%.10s..."
 			RESET, command_line + offset);
 		free_tok_list(&token_list);
 	}

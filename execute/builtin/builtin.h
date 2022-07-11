@@ -17,5 +17,6 @@
 
 void	execute_env_statement(t_tree_node *root, int in, int out);
 void	execute_exit(t_simple_command_node cmd, char *simple_cmd_name);
+void	execute_pwd(t_simple_command_node cmd, char *simple_cmd_name);
 
 #endif

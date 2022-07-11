@@ -23,7 +23,7 @@ void	command_not_found_failure(t_tree_node *parse_tree,
 	ft_free(cmd_simple_name);
 	ft_splitclear(cmd_args);
 	// free(cmd_args);
-	exit(EXIT_SUCCESS);
+	exit(EXIT_FAILURE);
 	// exit_command_subshell(EXIT_FAILURE, parse_tree);
 }
 

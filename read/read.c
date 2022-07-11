@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "read.h"
-#include "prompt/prompt.h"
+# include "../colors.h"
 
 // TODO :-> put error where exit_shell is (put error will also use exit_shell)
 t_tree_node	*shell_read(void)

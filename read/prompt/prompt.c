@@ -47,7 +47,8 @@ char	*ft_readline(char *prompt, t_bool free_prompt)
 	command = readline(prompt);
 	if (!command)
 	{
-		write(STDOUT_FILENO, "    \033[1A\033[12Cexit\n", ft_strlen("    \033[1A\033[12Cexit\n") * sizeof(char));
+		write(STDOUT_FILENO, "         \033[1A\033[12Cexit\n",
+			ft_strlen("         \033[1A\033[12Cexit\n") * sizeof(char));
 		exit(EXIT_SUCCESS);
 	}
 	else if (*command == '\0')
@@ -75,7 +76,6 @@ static char	*complete_line(char *command)
 	pid_t	line_cont_prompt_pid;
 	int		line_channel[2];
 	int		line_size_channel[2];
-
 
 	pipe(line_channel);
 	pipe(line_size_channel);
@@ -157,19 +157,29 @@ char	*get_current_working_directory(void)
  */
 static char	*get_decorated_cwd(char *cwd)
 {
+	char	*color;
+
+	if (g_env.last_executed_cmd_exit_status == EXIT_SUCCESS)
+		color = GREEN;
+	else
+		color = RED;
 	return (
-		ft_strjoin
-		(
-			"📁:-",
+		ft_strjoin(
+			ft_itoa(g_env.last_executed_cmd_exit_status),
 			ft_strjoin
 			(
-				ft_strjoin(MAGENTA, cwd, e_false, e_false),
-				": " RESET,
-				e_true,
-				e_false
+				" in 📁:-",
+				ft_strjoin
+				(
+					ft_strjoin(color, cwd, e_false, e_false),
+					": " RESET,
+					e_true,
+					e_false
+				),
+				e_false,
+				e_true
 			),
-			e_false,
-			e_true
+			e_true, e_true
 		)
 	);
 }
