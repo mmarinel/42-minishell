@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simple_statements.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:10:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/03 12:34:04 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/11 15:47:39 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "../../expander/expander_module.h"
 
 void	execute_simple_cmd(t_tree_node *root, int in, int out);
-t_bool	execute_builtin(t_simple_command_node cmd, int in, int out);
+void	execute_builtin(t_tree_node *cmd, int in, int out);
 void	execute_redir_only_statement(t_tree_node *root, int in, int out);
 
 #endif

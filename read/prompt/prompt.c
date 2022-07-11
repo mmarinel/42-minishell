@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:34:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/09 23:18:25 by earendil         ###   ########.fr       */
+/*   Updated: 2022/07/11 16:47:56 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*ft_readline(char *prompt, t_bool free_prompt)
 	if (!command)
 	{
 		write(STDOUT_FILENO, "         \033[1A\033[12Cexit\n",
-			ft_strlen("         \033[1A\033[12Cexit\n") * sizeof(char));
+			ft_strlen("         \033[1A\033[12Cexit\n") * sizeof(char)); // * Rimpiazzare [12 con la lunghezza del prompt !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		exit(EXIT_SUCCESS);
 	}
 	else if (*command == '\0')
@@ -135,6 +135,12 @@ char	*get_current_working_directory(void)
 	size_t	idx;
 
 	abs_path = getcwd(NULL, PATH_MAX);
+	if (0 == ft_strcmp(abs_path, env_handler(BINDING_GET_VALUE, "HOME")))
+		return (ft_strjoin(
+			ft_itoa(g_env.last_executed_cmd_exit_status), 
+			" in 📁:-" CYAN " ~ " RESET,
+			e_true, e_false)
+		);
 	last_slash_idx = 0;
 	idx = -1;
 	while (abs_path[++idx])

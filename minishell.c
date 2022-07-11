@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 15:10:31 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/11 15:05:45 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,12 @@ static void	set_env(char *const envp[])
  */
 static void	set_sig_handlers(void)
 {
-	struct termios	tty_attrs;
+	struct termios	tty_attrs_new;
 
-	tcgetattr(STDIN_FILENO, &tty_attrs);
-	tty_attrs.c_lflag &= ~(ECHOCTL); // ! Ricordati che e' da sistemareeee ! (rimettere il valore vecchio quando esco)
+	tcgetattr(STDIN_FILENO, &tty_attrs_new);
+	tty_attrs_new.c_lflag &= ~(ECHOCTL); // ! Ricordati che e' da sistemareeee ! (rimettere il valore vecchio quando esco)
 	// tty_attrs.c_lflag &= ECHO;
-	tcsetattr(STDIN_FILENO, TCSANOW, &tty_attrs);
+	tcsetattr(STDIN_FILENO, TCSANOW, &tty_attrs_new);
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
 }

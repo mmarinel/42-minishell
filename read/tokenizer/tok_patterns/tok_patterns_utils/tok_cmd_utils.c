@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_cmd_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 09:06:47 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/04 11:34:24 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/11 16:03:48 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ size_t	scan_next_cmd_arg(char *command_line, size_t offset,
 	size_t	len_cmd_arg;
 	char	*next_arg;
 
-	// printf(YELLOW "inside scan_next00_cmd_arg\n" RESET);
 	new_offset = scan_invariants(command_line, offset); // * questo lo mettiamo nel chiamante!
 	if (e_true == redirect_char(command_line[new_offset]))
 	{
@@ -61,14 +60,14 @@ size_t	scan_next_cmd_arg(char *command_line, size_t offset,
 			len_cmd_arg = bash_next_word_len(command_line, new_offset + 1) + 1;
 		else
 			len_cmd_arg = bash_next_word_len(command_line, new_offset);
-		next_arg = ft_strjoin(
-				ft_strcpy(NULL, command_line + new_offset, len_cmd_arg),
-				" ",
-				e_true, e_false
-				);
-		(*cur_arg_string) = ft_strjoin((*cur_arg_string),
-						next_arg,
-						e_true, e_true);
+		next_arg = ft_strcpy(NULL, command_line + new_offset, len_cmd_arg);
+		if (!(*cur_arg_string))
+			*cur_arg_string = next_arg;
+		else
+			(*cur_arg_string) = ft_strjoin(
+					(*cur_arg_string),
+					ft_strjoin(" ", next_arg, e_false, e_true),
+					e_true, e_true);
 		new_offset += len_cmd_arg;
 	}
 	return (new_offset);

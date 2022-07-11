@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_bindings_operations.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 13:42:44 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 15:34:19 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/11 16:31:52 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_bindings	*binding_over_write(t_bindings *head, t_bindings *binding)
 		}
 		cursor = cursor->next;
 	}
+	free(binding);
 	return (NULL);
 }
 

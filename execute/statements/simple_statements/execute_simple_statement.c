@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_simple_statement.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 09:49:38 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/04 08:59:11 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/11 15:15:32 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,22 @@ static void		execute_external(t_tree_node *root, int in, int out);
 
 void	execute_simple_statement(t_tree_node *root, int in, int out)
 {
-	// char	*simple_name;
+	char	*simple_name;
 
 	// printf(YELLOW "execute_simple_statement\n" RESET);
-	// simple_name = ft_get_cmd_name(root->content->simple_cmd.cmd_name);
-	// if (0 == ft_strcmp(simple_name, "echo")
-	// 	|| 0 == ft_strcmp(simple_name, "cd")
-	// 	|| 0 == ft_strcmp(simple_name, "pwd")
-	// 	|| 0 == ft_strcmp(simple_name, "export")
-	// 	|| 0 == ft_strcmp(simple_name, "unset")
-	// 	|| 0 == ft_strcmp(simple_name, "env")
-	// 	|| 0 == ft_strcmp(simple_name, "exit")
-	// )
-	// 	execute_builtin(root->content->simple_cmd, in, out);
-	// else
+	simple_name = ft_get_cmd_name(root->content->simple_cmd.cmd_name);
+	if (0 == ft_strcmp(simple_name, "cd")
+		// || 0 == ft_strcmp(simple_name, "echo")
+		// || 0 == ft_strcmp(simple_name, "pwd")
+		// || 0 == ft_strcmp(simple_name, "export")
+		// || 0 == ft_strcmp(simple_name, "unset")
+		// || 0 == ft_strcmp(simple_name, "env")
+		// || 0 == ft_strcmp(simple_name, "exit")
+	)
+		execute_builtin(root, in, out);
+	else
 		execute_external(root, in, out);
+	free(simple_name);
 }
 
 static void	execute_external(t_tree_node *root, int in, int out)
