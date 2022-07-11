@@ -51,20 +51,16 @@ size_t	scan_next_cmd_arg(char *command_line, size_t offset,
 
 	// printf(YELLOW "inside scan_next00_cmd_arg\n" RESET);
 	new_offset = scan_invariants(command_line, offset); // * questo lo mettiamo nel chiamante!
-	if (e_true == bash_control_character(command_line[new_offset])
-		&& e_false == ft_is_quote(command_line[new_offset])
-		&& e_false == ft_isspace(command_line[new_offset])
-		&& e_false == redirect_char(command_line[new_offset]))
-		return (offset);
-	else if (e_true == redirect_char(command_line[new_offset]))
+	if (e_true == redirect_char(command_line[new_offset]))
 	{
 		new_offset = scan_inout_file(command_line, new_offset, token_list);
 	}
 	else
 	{
-		len_cmd_arg = bash_next_word_len(command_line, new_offset);
-		// if (len_cmd_arg == 0)
-		// 	return (new_offset);
+		if (command_line[new_offset] == '$')
+			len_cmd_arg = bash_next_word_len(command_line, new_offset + 1) + 1;
+		else
+			len_cmd_arg = bash_next_word_len(command_line, new_offset);
 		next_arg = ft_strjoin(
 				ft_strcpy(NULL, command_line + new_offset, len_cmd_arg),
 				" ",
@@ -76,3 +72,9 @@ size_t	scan_next_cmd_arg(char *command_line, size_t offset,
 	}
 	return (new_offset);
 }
+
+	// if (e_true == bash_control_character(command_line[new_offset])
+	// 	&& e_false == ft_is_quote(command_line[new_offset])
+	// 	&& e_false == ft_isspace(command_line[new_offset])
+	// 	&& e_false == redirect_char(command_line[new_offset]))
+	// 	return (offset);

@@ -12,22 +12,38 @@
 
 #include "expander_cases.h"
 
+
+static char	*expand_dollar_segment(char *next_segment);
+
+// * end of static declarations //
+
+
 char	*expand_dollar_case(char *args)
 {
-	char	*args_pre;
 	char	*next_segment;
 	char	*args_post;
 
 	if (!args)
 		return (NULL);
-	expansion_split(STAR, args, &next_segment, &args_post);
+	expansion_split(DOLLAR, args, &next_segment, &args_post);
 	free(args);
 	return (
 		ft_strjoin(
-			ft_strjoin(args_pre, expand_dollar_segment(next_segment),
-				e_true, e_true),
+			expand_dollar_segment(next_segment),
 			expand_dollar_case(args_post),
 			e_true, e_true
 		)
 	);
+}
+
+static char	*expand_dollar_segment(char *next_segment)
+{
+	char	*expansion;
+
+	if (next_segment[0] != '$')
+		return (next_segment);
+	return (next_segment);
+	// expansion = env_handler(BINDING_GET_VALUE, next_segment + 1);
+	// free(next_segment);
+	// return (expansion);
 }

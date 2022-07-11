@@ -17,6 +17,7 @@
 # include "expander_types.h"
 
 // * user defined modules //
+# include "../../env/env_module.h"
 # include "expander_cases/expander_cases.h"
 # include "expander_utils/expander_utils.h"
 # include "../../utils/ft_utils.h"
