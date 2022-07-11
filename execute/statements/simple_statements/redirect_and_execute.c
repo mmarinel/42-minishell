@@ -32,7 +32,7 @@ void	execute_simple_cmd(t_tree_node *root, int in, int out)
 		out, STDOUT_FILENO, e_false);
 	cmd_simple_name = ft_get_cmd_name(root->content->simple_cmd.cmd_name);
 	cmd_full_path = ft_get_pathname(root->content->simple_cmd.cmd_name);
-	args_split= ft_split(
+	args_split = ft_split(
 			ft_strjoin(
 				ft_strjoin(cmd_simple_name, " ", e_false, e_false),
 				expand(ft_strdup(root->content->simple_cmd.cmd_args)),

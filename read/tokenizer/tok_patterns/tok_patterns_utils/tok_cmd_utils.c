@@ -67,7 +67,8 @@ size_t	scan_next_cmd_arg(char *command_line, size_t offset,
 				e_true, e_false
 				);
 		(*cur_arg_string) = ft_strjoin((*cur_arg_string),
-				next_arg, e_true, e_true);
+						next_arg,
+						e_true, e_true);
 		new_offset += len_cmd_arg;
 	}
 	return (new_offset);
