@@ -42,8 +42,7 @@ static char	*expand_dollar_segment(char *next_segment)
 
 	if (next_segment[0] != '$')
 		return (next_segment);
-	return (next_segment);
-	// expansion = env_handler(BINDING_GET_VALUE, next_segment + 1);
-	// free(next_segment);
-	// return (expansion);
+	expansion = env_handler(BINDING_GET_VALUE, next_segment + 1);
+	free(next_segment);
+	return (expansion);
 }

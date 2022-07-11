@@ -99,5 +99,5 @@ char	*binding_get_value(t_bindings *head, char *name)
 			);
 		cursor = cursor->next;
 	}
-	return (ft_strcpy(NULL, "", sizeof(char)));
+	return (NULL);//(ft_strcpy(NULL, " ", sizeof(char)));
 }
