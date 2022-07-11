@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_string_utils_5.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 09:30:11 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/09 18:44:22 by earendil         ###   ########.fr       */
+/*   Updated: 2022/07/11 13:03:39 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ size_t	skip_consecutive_chars(char *string, size_t offset,
 	return (offset);
 }
 
-size_t	skip_past_last_char(char *str, size_t offset,
+size_t	skip_past_char(char *str, size_t offset,
 			char to_skip, int direction)
 {
 	int	i;

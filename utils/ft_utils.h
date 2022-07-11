@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:13:18 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/09 18:49:00 by earendil         ###   ########.fr       */
+/*   Updated: 2022/07/11 13:03:32 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 
 // * string utils
 
-size_t			skip_past_last_char(char *str, size_t offset,
+size_t			skip_past_char(char *str, size_t offset,
 					char to_skip, int direction);
 size_t			skip_consecutive_chars(char *string, size_t offset,
 					char to_skip, int direction);

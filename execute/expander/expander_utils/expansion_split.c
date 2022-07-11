@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_split.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:36:03 by earendil          #+#    #+#             */
-/*   Updated: 2022/07/09 20:13:41 by earendil         ###   ########.fr       */
+/*   Updated: 2022/07/11 13:03:44 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	take_next_star_segment_boundaries(char *str,
 	while (e_true)
 	{
 		while (str[offset] == '"' || str[offset] == '\'')
-			offset = skip_past_last_char(str, offset, str[offset], +1);
+			offset = skip_past_char(str, offset, str[offset], +1);
 		if (str[offset] == '\0'
 			|| e_true == bash_control_character(str[offset]))
 			break ;
