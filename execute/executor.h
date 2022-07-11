@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 10:45:53 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 20:35:47 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/11 19:15:35 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 
 // * user defined modules //
 # include "../signals/signals.h"
-# include "../utils/ft_utils.h"
+# include "../read/read_module.h"
 # include "../exit/exit_module.h"
-# include "../colors.h"
+# include "../utils/ft_utils.h"
 
 // * user defined SUBmodules //
 # include "builtin/builtin.h"
@@ -36,6 +36,7 @@
 // * user defined types //
 # include "executor_types.h"
 # include "../read/parser/parser_module.h"
+# include "../colors.h"
 
 // * global variable module //
 # include "../global.h"

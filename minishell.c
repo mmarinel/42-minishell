@@ -6,20 +6,19 @@
 /*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/11 15:05:45 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/11 19:42:16 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	set_env(char *const envp[]);
-static void	set_sig_handlers(void);
 static void	print_signature(void);
 static void	unlink_here_docs(void);
 
 int	main(int argc, char const *argv[], char *const envp[])
 {
-	t_tree_node		*parse_tree;
+	t_tree_node	*parse_tree;
 
 	if (argc != 1)
 	{
@@ -30,7 +29,7 @@ int	main(int argc, char const *argv[], char *const envp[])
 		exit(EXIT_FAILURE);
 	}
 	set_env(envp);
-	set_sig_handlers(); // * rename to sig-handling since we also handle ctrl + c and ctrl + d display here!!!!
+	sig_handling_set(SIG_INITIAL);
 	print_signature();
 	while (e_true)
 	{
@@ -40,7 +39,7 @@ int	main(int argc, char const *argv[], char *const envp[])
 		free_tree(&parse_tree);
 		unlink_here_docs();
 	}
-	clear_history();
+	// clear_history();
 	return (EXIT_SUCCESS);
 }
 
@@ -56,24 +55,8 @@ static void	set_env(char *const envp[])
 	env_handler(ENV_INITIALIZE, (char **)envp);
 	cur_shlvl = ft_atoi(env_handler(BINDING_GET_VALUE, "SHLVL"));
 	env_handler(BINDING_UPDATE, get_new_binding("SHLVL", ft_itoa(cur_shlvl + 1), e_false));
+	env_handler(SET_INITIAL_SHLVL, NULL);
 	g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
-}
-
-/**
- * @brief this function sets signals handlers
- * and disable echoing of special characters -ctr+c (^C), ...
- * 
- */
-static void	set_sig_handlers(void)
-{
-	struct termios	tty_attrs_new;
-
-	tcgetattr(STDIN_FILENO, &tty_attrs_new);
-	tty_attrs_new.c_lflag &= ~(ECHOCTL); // ! Ricordati che e' da sistemareeee ! (rimettere il valore vecchio quando esco)
-	// tty_attrs.c_lflag &= ECHO;
-	tcsetattr(STDIN_FILENO, TCSANOW, &tty_attrs_new);
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, SIG_IGN);
 }
 
 /**

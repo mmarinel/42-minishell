@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_types.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:48:27 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 17:53:57 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/11 19:16:23 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSER_TYPES_H
 
 # include "../tokenizer/tok_types.h"
+# include <unistd.h>
 
 # define SIMPL_CMD 0
 # define ENV_STATEMENT 1

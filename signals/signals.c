@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:15:50 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 12:05:24 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/11 19:40:17 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "signals.h"
+
+// * end of static declarations //
+
 
 /**
  * @brief handler for all
@@ -30,6 +33,29 @@ void	sig_handler(int signum)
 		rl_on_new_line();
 		rl_redisplay();
 	}
+}
+
+/**
+ * @brief this function sets signals handlers
+ * and disable echoing of special characters -ctr+c (^C), ...
+ * 
+ */
+void	sig_handling_set(t_sig_handling_opcode opcode)
+{
+	struct termios			tty_attrs_new;
+	static struct termios	tty_attrs_old;
+
+	if (opcode == INITAL)
+	{
+		tcgetattr(STDIN_FILENO, &tty_attrs_old);
+		tty_attrs_new = tty_attrs_old;
+		tty_attrs_new.c_lflag &= ~(ECHOCTL);
+		tcsetattr(STDIN_FILENO, TCSANOW, &tty_attrs_new);
+		signal(SIGINT, sig_handler);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	else
+		tcsetattr(STDIN_FILENO, TCSANOW, &tty_attrs_old);
 }
 
 /**

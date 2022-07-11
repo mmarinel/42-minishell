@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor_new.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 09:39:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 09:48:07 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/11 18:03:15 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,16 @@ static void	execute_subshell(t_tree_node *root, int in, int out)
 {
 	int	subshell_pid;
 	int	subshell_exit_status;
+	size_t		new_shlvl;
 
-	// printf(YELLOW "execute_subshell\n" RESET);
 	root->launch_subshell = e_false;
 	subshell_pid = fork();
 	if (!subshell_pid)
 	{
+		new_shlvl = atoi(env_handler(BINDING_GET_VALUE, "SHLVL")) + 1;
+		env_handler(BINDING_UPDATE,
+			get_new_binding("SHLVL", ft_itoa(new_shlvl), e_false)
+		);
 		execute_rec(root, in, out);
 		if (!WIFEXITED(g_env.last_executed_cmd_exit_status)
 			|| WEXITSTATUS(g_env.last_executed_cmd_exit_status))
@@ -57,13 +61,11 @@ static void	execute_subshell(t_tree_node *root, int in, int out)
 		else
 			exit(EXIT_SUCCESS);
 	}
-	// printf(RED "waiting for subshell\n" RESET);
 	waitpid(subshell_pid, &subshell_exit_status, 0);
 	if (!WIFEXITED(subshell_exit_status) || WEXITSTATUS(subshell_exit_status))
 		g_env.last_executed_cmd_exit_status = EXIT_FAILURE;
 	else
 		g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
-	// printf(CYAN "subshell exited\n" RESET);
 }
 
 static void	execute_in_shell(t_tree_node *root, int in, int out)

@@ -6,7 +6,7 @@
 /*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:34:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/11 16:47:56 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/11 19:36:38 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,7 @@ char	*ft_readline(char *prompt, t_bool free_prompt)
 
 	command = readline(prompt);
 	if (!command)
-	{
-		write(STDOUT_FILENO, "         \033[1A\033[12Cexit\n",
-			ft_strlen("         \033[1A\033[12Cexit\n") * sizeof(char)); // * Rimpiazzare [12 con la lunghezza del prompt !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		exit(EXIT_SUCCESS);
-	}
+		exit_shell(g_env.last_executed_cmd_exit_status, prompt, e_true);
 	else if (*command == '\0')
 	{
 		free(command);

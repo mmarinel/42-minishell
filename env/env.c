@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:00:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 16:18:27 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/11 18:33:43 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "env.h"
 
 static void	*env_return_cases(t_bindings *env, t_bindings *export,
-					t_env_handl_opcode opcode);
+					size_t *initial_shlvl_ref, t_env_handl_opcode opcode);
 static void	*env_management_cases(t_bindings **env, t_bindings **export,
 					t_env_handl_opcode opcode, void *argument);
 static void	*env_operations_cases(t_bindings *env, t_bindings *export,
@@ -25,33 +25,31 @@ void	*env_handler(t_env_handl_opcode opcode, void *argument)
 {
 	static t_bindings	*env = NULL;
 	static t_bindings	*export = NULL;
+	static size_t		initial_shlvl;
 
 	if (opcode == ENV_INITIALIZE
 		|| opcode == ENV_CLEAN)
 	{
-		return (env_management_cases(&env, &export, opcode, argument));
+		env_management_cases(&env, &export, opcode, argument);
 	}
+	if (opcode == SET_INITIAL_SHLVL)
+		initial_shlvl = ft_atoi(env_handler(BINDING_GET_VALUE, "SHLVL"));
 	if (opcode == ENV_RETURN
 		|| opcode == EXPORT_RETURN
+		|| opcode == INITIAL_SHLVL_RETURN
 		|| opcode == ENV_LIST_TO_ARRAY)
-	{
-		return (env_return_cases(env, export, opcode));
-	}
+		return (env_return_cases(env, export, &initial_shlvl, opcode));
 	if (opcode == BINDING_UPDATE
 		|| opcode == BINDING_UNSET
 		|| opcode == BINDING_GET_VALUE)
-	{
 		return (env_operations_cases(env, export, opcode, argument));
-	}
 	if (opcode == _PRINT_ENV_)
-	{
 		return (debug_cases(env, export, opcode, argument));
-	}
 	return (NULL);
 }
 
 static void	*env_return_cases(t_bindings *env, t_bindings *export,
-					t_env_handl_opcode opcode)
+					size_t *initial_shlvl_ref, t_env_handl_opcode opcode)
 {
 	if (opcode == ENV_RETURN)
 	{
@@ -60,6 +58,10 @@ static void	*env_return_cases(t_bindings *env, t_bindings *export,
 	if (opcode == EXPORT_RETURN)
 	{
 		return (export);
+	}
+	if (opcode == INITIAL_SHLVL_RETURN)
+	{
+		return (initial_shlvl_ref);
 	}
 	if (opcode == ENV_LIST_TO_ARRAY)
 	{

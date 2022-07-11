@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_module.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 16:29:25 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 16:38:41 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/11 19:11:11 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PROMPT_MODULE_H
 # define PROMPT_MODULE_H
 
+// * user defined types //
 # include "../../types.h"
 # include "prompt_types.h"
 

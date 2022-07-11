@@ -1,40 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   types.h                                            :+:      :+:    :+:   */
+/*   signal_module.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/13 15:19:19 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/11 18:56:47 by evento           ###   ########.fr       */
+/*   Created: 2022/07/11 19:00:29 by evento            #+#    #+#             */
+/*   Updated: 2022/07/11 19:40:34 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TYPES_H
-# define TYPES_H
+#ifndef SIGNAL_MODULE_H
+# define SIGNAL_MODULE_H
 
-#ifndef T_BOOL_H
-# define T_BOOL_H
-typedef enum e_bool
-{
-	e_true = 1,
-	e_false = 0
-}	t_bool;
-#endif
+// * user defined types //
+# include "signal_types.h"
 
-typedef enum e_status
-{
-	ERROR,
-	OK
-}	t_status;
-
-typedef struct s_bindings
-{
-	t_bool				concat_mode;
-	char				*var_name;
-	char				*var_val;
-	struct s_bindings	*next;
-	struct s_bindings	*prev;
-}	t_bindings;
+/**
+ * @brief handler for all
+ * 
+ * @param signum 
+ */
+void	sig_handler(int signum);
+void	sig_handling_set(t_sig_handling_opcode opcode);
+void	shell_executor_handler(int signum);
+void	line_completion_prompt_sig_handler(int signum);
 
 #endif

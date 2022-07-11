@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:34:22 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/28 16:38:40 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/11 19:11:54 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "../utils/ft_utils.h"
 # include "../types.h"
 
-// * SUBMODULES //
+// * user defined submodules //
 # include "prompt/prompt_module.h"
 # include "tokenizer/tokenizer_module.h"
 # include "parser/parser_module.h"

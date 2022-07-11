@@ -1,40 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   types.h                                            :+:      :+:    :+:   */
+/*   signal_types.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/13 15:19:19 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/11 18:56:47 by evento           ###   ########.fr       */
+/*   Created: 2022/07/11 18:57:06 by evento            #+#    #+#             */
+/*   Updated: 2022/07/11 19:41:44 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TYPES_H
-# define TYPES_H
+#ifndef SIGNAL_TYPES_H
+# define SIGNAL_TYPES_H
 
-#ifndef T_BOOL_H
-# define T_BOOL_H
-typedef enum e_bool
+typedef enum e_sig_handling_opcode
 {
-	e_true = 1,
-	e_false = 0
-}	t_bool;
-#endif
-
-typedef enum e_status
-{
-	ERROR,
-	OK
-}	t_status;
-
-typedef struct s_bindings
-{
-	t_bool				concat_mode;
-	char				*var_name;
-	char				*var_val;
-	struct s_bindings	*next;
-	struct s_bindings	*prev;
-}	t_bindings;
+	SIG_INITIAL,
+	SIG_AT_EXIT
+}	t_sig_handling_opcode;
 
 #endif

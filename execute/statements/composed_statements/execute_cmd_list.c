@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd_list.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 09:58:33 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/04 09:00:34 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/11 18:01:59 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,11 @@ void	execute_pipe_statement(t_tree_node *root, int in, int out)
 	left_hand_side.pid = fork();
 	if (!left_hand_side.pid)
 	{
-		// printf("left hand side\n");
 		pipe_execute_branch(root->left, new_in_out[0], in, new_in_out[1]);
 	}
 	right_hand_side.pid = fork();
 	if (!right_hand_side.pid)
 	{
-		// printf("right hand side\n");
 		pipe_execute_branch(root->right, new_in_out[1], new_in_out[0], out);
 	}
 	close(new_in_out[0]);
@@ -44,7 +42,6 @@ void	execute_pipe_statement(t_tree_node *root, int in, int out)
 		g_env.last_executed_cmd_exit_status = EXIT_FAILURE;
 	else
 		g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
-	// printf("end of pipe statement\n");
 }
 
 void	execute_and_statement(t_tree_node *root, int in, int out)
@@ -66,6 +63,12 @@ void	execute_or_statement(t_tree_node *root, int in, int out)
 static void	pipe_execute_branch(t_tree_node *branch, int unused_pipe_side,
 				int new_in, int new_out)
 {
+	size_t		new_shlvl;
+
+	new_shlvl = atoi(env_handler(BINDING_GET_VALUE, "SHLVL")) + 1;
+	env_handler(BINDING_UPDATE,
+		get_new_binding("SHLVL", ft_itoa(new_shlvl), e_false)
+	);
 	close(unused_pipe_side);
 	execute_rec(branch, new_in, new_out);
 	if (!WIFEXITED(g_env.last_executed_cmd_exit_status)
