@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 16:43:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 15:03:15 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/11 21:47:37 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,19 +66,21 @@ char	*ft_get_pathname(char *cmd)
 
 static char	**return_paths(void)
 {
-	t_bindings	*cur_var;
+	// t_bindings	*cur_var;
+	char			*paths;
 
-	cur_var = (t_bindings *) env_handler(ENV_RETURN, NULL);//g_env.env;
-	while (e_true)
-	{
-		if (!cur_var)
-			return (NULL);
-		// printf("val: %s\n", cur_var->var_val);
-		if (0 == ft_strcmp(cur_var->var_name, "PATH"))
-			break ;
-		cur_var = cur_var->next;
-	}
-	return (ft_split(cur_var->var_val, ':'));
+	// cur_var = (t_bindings *) env_handler(ENV_RETURN, NULL);//g_env.env;
+	// while (e_true)
+	// {
+	// 	if (!cur_var)
+	// 		return (NULL);
+	// 	// printf("val: %s\n", cur_var->var_val);
+	// 	if (0 == ft_strcmp(cur_var->var_name, "PATH"))
+	// 		break ;
+	// 	cur_var = cur_var->next;
+	// }
+	paths = (char *) env_handler(BINDING_GET_VALUE, "PATH");//g_env.env;
+	return (ft_split(paths, ':'));
 }
 
 static char	*return_path_name(char *cmd, char **pathlist)

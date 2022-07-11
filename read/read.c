@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 16:51:54 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 10:49:23 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/11 20:02:43 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_tree_node	*shell_read(void)
 				ft_strjoin(RESET, "\2", e_false, e_false),
 				e_true, e_true),
 			e_true
-			);
+		);
 	// printf("line read: %s\n", command);
 	tokenizer_feed_input(command);
 	free(command);

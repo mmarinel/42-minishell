@@ -6,7 +6,7 @@
 /*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:15:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/11 15:54:08 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/11 21:41:44 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	execute_simple_cmd(t_tree_node *root, int in, int out)
 		in, STDIN_FILENO, e_true);
 	executor_handle_redirs(root->content->out_redir,
 		out, STDOUT_FILENO, e_false);
+	printf("%s\n", env_handler(BINDING_GET_VALUE, "PATH"));
 	cmd_simple_name = ft_get_cmd_name(root->content->simple_cmd.cmd_name);
 	cmd_full_path = ft_get_pathname(root->content->simple_cmd.cmd_name);
 	args_split = ft_split(

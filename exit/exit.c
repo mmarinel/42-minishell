@@ -6,7 +6,7 @@
 /*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 17:07:46 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/11 19:41:49 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/11 21:29:29 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	exit_shell(int exit_status, char *prompt, t_bool ctrl_d)
 	print_message(prompt, ctrl_d);
 	ft_free(*ft_add_history(NULL)); // ! potevo anche fare ft_clear history senza copiare la stringa nella funzione chiamata ft_add_history
 	rl_clear_history();
-	sig_handling(SIG_AT_EXIT);
+	sig_handling_set(SIG_AT_EXIT);
 	free(prompt);
 	exit(exit_status);
 }
@@ -41,8 +41,11 @@ static void	print_message(char *prompt, t_bool ctrl_d)
 {
 	size_t	shlvl;
 	char	*msg;
+	size_t	prompt_len;
 
-	if (ctrl_d)
+	if (prompt)
+		;
+	if (e_false == ctrl_d)
 	{
 		shlvl = atoi(env_handler(BINDING_GET_VALUE, "SHLVL"));
 		if (shlvl == *((size_t *) env_handler(INITIAL_SHLVL_RETURN, NULL)))
@@ -50,10 +53,19 @@ static void	print_message(char *prompt, t_bool ctrl_d)
 	}
 	else
 	{
+		int	i;
+		i = 0;
+		prompt_len = 0;
+		while (prompt[i])
+		{
+			if (prompt[i] == ':')
+				prompt_len = i + 1;
+			i++;
+		}
 		msg = ft_strjoin(
 			ft_strjoin(
 				"\033[1A\033[",
-				ft_itoa(ft_strlen(prompt)),
+				ft_itoa(21 - 9 + ft_atoi(env_handler(BINDING_GET_VALUE, "PWD"))),
 				e_false, e_true
 			),
 			"Cexit\n",
@@ -61,4 +73,5 @@ static void	print_message(char *prompt, t_bool ctrl_d)
 		);
 	}
 	printf("%s", msg);
+	printf("%zu\n", ft_strlen(prompt));
 }

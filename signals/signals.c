@@ -6,7 +6,7 @@
 /*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:15:50 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/11 19:40:17 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/11 19:48:58 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	sig_handling_set(t_sig_handling_opcode opcode)
 	struct termios			tty_attrs_new;
 	static struct termios	tty_attrs_old;
 
-	if (opcode == INITAL)
+	if (opcode == SIG_INITIAL)
 	{
 		tcgetattr(STDIN_FILENO, &tty_attrs_old);
 		tty_attrs_new = tty_attrs_old;
