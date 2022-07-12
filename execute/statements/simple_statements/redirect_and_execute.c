@@ -6,7 +6,7 @@
 /*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:15:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/12 09:49:55 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/12 11:06:54 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void	execute_builtin(t_tree_node *root, int in, int out)
 	// printf("cmd-args are: %s\n", root->content->simple_cmd.cmd_args);
 	if (0 == ft_strcmp(simple_name, "cd"))
 		execute_cd(root->content->simple_cmd);
+	if (0 == ft_strcmp(simple_name, "exit"))
+		execute_exit(root->content->simple_cmd);
 	// if (0 == ft_strcmp(simple_name, "pwd"))
 	// 	execute_pwd(cmd);
 	// if (0 == ft_strcmp(simple_name, "export"))
@@ -69,8 +71,6 @@ void	execute_builtin(t_tree_node *root, int in, int out)
 	// 	execute_unset(cmd);
 	// if (0 == ft_strcmp(simple_name, "env"))
 	// 	execute_env(cmd);
-	// if (0 == ft_strcmp(simple_name, "exit"))
-	// 	execute_exit(cmd, simple_name);
 	free(simple_name);
 	// if (g_env.last_executed_cmd_exit_status == EXIT_FAILURE)
 	// 	exit(EXIT_FAILURE); // * mettere una exit_shell custom in ogni modulo ! (per freeare tutto il necessario)

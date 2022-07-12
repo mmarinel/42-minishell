@@ -6,7 +6,7 @@
 /*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:34:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/11 21:13:16 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/12 11:10:40 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ char	*ft_readline(char *prompt, t_bool free_prompt)
 
 	command = readline(prompt);
 	if (!command)
-		exit_shell(g_env.last_executed_cmd_exit_status, prompt, e_true);
+	{
+		free(prompt);
+		exit_shell(g_env.last_executed_cmd_exit_status, e_true);
+	}
 	else if (*command == '\0')
 	{
 		free(command);

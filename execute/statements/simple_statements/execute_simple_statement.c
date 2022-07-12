@@ -6,7 +6,7 @@
 /*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 09:49:38 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/11 15:15:32 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/12 11:06:30 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ void	execute_simple_statement(t_tree_node *root, int in, int out)
 	// printf(YELLOW "execute_simple_statement\n" RESET);
 	simple_name = ft_get_cmd_name(root->content->simple_cmd.cmd_name);
 	if (0 == ft_strcmp(simple_name, "cd")
+		|| 0 == ft_strcmp(simple_name, "exit")
 		// || 0 == ft_strcmp(simple_name, "echo")
 		// || 0 == ft_strcmp(simple_name, "pwd")
 		// || 0 == ft_strcmp(simple_name, "export")
 		// || 0 == ft_strcmp(simple_name, "unset")
 		// || 0 == ft_strcmp(simple_name, "env")
-		// || 0 == ft_strcmp(simple_name, "exit")
 	)
 		execute_builtin(root, in, out);
 	else

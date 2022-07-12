@@ -6,7 +6,7 @@
 /*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 17:07:46 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/12 10:27:00 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/12 11:09:42 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ static size_t	get_cwd_len(char *cwd);
  * @param exit_status exit status chosen
  * @param go_on_new_line iff true, a '\ n ' gets printed before exiting.
  */
-void	exit_shell(int exit_status, char *prompt, t_bool ctrl_d)
+void	exit_shell(int exit_status, t_bool ctrl_d)
 {
 	print_message(ctrl_d);
 	ft_free(*ft_add_history(NULL)); // ! potevo anche fare ft_clear history senza copiare la stringa nella funzione chiamata ft_add_history
 	rl_clear_history();
 	sig_handling_set(SIG_AT_EXIT);
-	free(prompt);
+	// * clear_all();
 	exit(exit_status);
 }
 

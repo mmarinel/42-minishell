@@ -6,7 +6,7 @@
 /*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 17:11:39 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/11 19:33:42 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/12 11:09:54 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
  * @param exit_status exit status chosen
  * @param go_on_new_line iff true, a '\ n ' gets printed before exiting.
  */
-void	exit_shell(int exit_status, char *prompt, t_bool ctrl_d);
+void	exit_shell(int exit_status, t_bool ctrl_d);
 
 void rl_clear_history (void);
 
