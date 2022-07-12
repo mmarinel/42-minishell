@@ -6,7 +6,7 @@
 /*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:15:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/12 11:06:54 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/12 12:10:45 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,8 @@ void	execute_builtin(t_tree_node *root, int in, int out)
 	executor_handle_redirs(root->content->out_redir,
 		out, STDOUT_FILENO, e_false);
 	simple_name = ft_get_cmd_name(root->content->simple_cmd.cmd_name);
-	// if (0 == ft_strcmp(simple_name, "echo"))
-	// 	execute_echo(cmd);
-	// printf("cmd-args are: %s\n", root->content->simple_cmd.cmd_args);
+	if (0 == ft_strcmp(simple_name, "echo"))
+		execute_echo(root->content->simple_cmd);
 	if (0 == ft_strcmp(simple_name, "cd"))
 		execute_cd(root->content->simple_cmd);
 	if (0 == ft_strcmp(simple_name, "exit"))

@@ -1,0 +1,5 @@
+
+irrisolvibili:
+
+1. [tollerabile]: quando un comando che produce output su stdout tronca la new_line, il prompt si allunga e quindi il  ctrl-d printa exit sopra il prompt.
+	[possibile sol.: usa termios]

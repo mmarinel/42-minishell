@@ -2,5 +2,6 @@ minishell
 .*
 *.o
 *.txt
+!bugs.txt
 !.gitignore
 !comando_test.txt
