@@ -6,7 +6,7 @@
 /*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:15:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/12 14:46:54 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/12 15:31:24 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ void	execute_builtin(t_tree_node *root, int in, int out)
 		out, STDOUT_FILENO, e_false);
 	if (root->content->content_type == ENV_STATEMENT)
 	{
-		if (root->content->env_decl.set)
+		// if (root->content->env_decl.set)
 			execute_export(root->content->env_decl);
-		else
-			execute_unset(root->content->env_decl);
+		// else
+		// 	execute_unset(root->content->env_decl);
 	}
-	if (root->content->content_type == REDIR)
+	else if (root->content->content_type == REDIR)
 	{
 		execute_redir_only_statement(root, in, out);
 	}
@@ -135,6 +135,7 @@ static void	execute_cmd_builtin(t_simple_command_node simple_cmd)
 {
 	char	*simple_name;
 
+	simple_cmd.cmd_args = expand(simple_cmd.cmd_args);
 	simple_name = ft_get_cmd_name(simple_cmd.cmd_name);
 	if (0 == ft_strcmp(simple_name, "echo"))
 		execute_echo(simple_cmd);

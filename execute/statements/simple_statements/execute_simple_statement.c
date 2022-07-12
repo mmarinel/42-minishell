@@ -6,7 +6,7 @@
 /*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 09:49:38 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/12 14:36:08 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/12 15:28:51 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static t_bool	is_builtin_command(t_tree_node *root);
 
 void	execute_simple_statement(t_tree_node *root, int in, int out)
 {
-
 	if (e_false == is_builtin_command(root))
 		execute_external(root, in, out);
 	else
@@ -86,6 +85,8 @@ static t_bool	is_builtin_command(t_tree_node *root)
 	t_bool	is_builtin;
 	char	*simple_name;
 
+	if (root->content->content_type != SIMPL_CMD)
+		return (e_true);
 	simple_name = ft_get_cmd_name(root->content->simple_cmd.cmd_name);
 	if (0 == ft_strcmp(simple_name, "cd")
 		|| 0 == ft_strcmp(simple_name, "exit")
