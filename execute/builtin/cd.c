@@ -6,7 +6,7 @@
 /*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 12:44:55 by evento            #+#    #+#             */
-/*   Updated: 2022/07/11 21:31:40 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/12 10:24:02 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,5 @@ static	char	*take_parent_dir(void)
 	if (last_slash_pos == 0)
 		return (ft_strdup("/"));
 	else
-		return (ft_strcpy(NULL, cwd, last_slash_pos + 1));
+		return (ft_strcpy(NULL, cwd, last_slash_pos)); // * was last_slash_pos + 1
 }

@@ -6,13 +6,15 @@
 /*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 17:07:46 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/11 21:29:29 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/12 10:27:00 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exit.h"
 
-static void	print_message(char *prompt, t_bool ctrl_d);
+static void	print_message(t_bool ctrl_d);
+static size_t	get_prompt_len(void);
+static size_t	get_cwd_len(char *cwd);
 
 // * end of static declarations //
 
@@ -25,7 +27,7 @@ static void	print_message(char *prompt, t_bool ctrl_d);
  */
 void	exit_shell(int exit_status, char *prompt, t_bool ctrl_d)
 {
-	print_message(prompt, ctrl_d);
+	print_message(ctrl_d);
 	ft_free(*ft_add_history(NULL)); // ! potevo anche fare ft_clear history senza copiare la stringa nella funzione chiamata ft_add_history
 	rl_clear_history();
 	sig_handling_set(SIG_AT_EXIT);
@@ -33,18 +35,12 @@ void	exit_shell(int exit_status, char *prompt, t_bool ctrl_d)
 	exit(exit_status);
 }
 
-// void	exit_command_subshell(int exit_status, t_tree_node *parse_tree)
-// {
-// 	// TODO
-// }
-static void	print_message(char *prompt, t_bool ctrl_d)
+static void	print_message(t_bool ctrl_d)
 {
 	size_t	shlvl;
 	char	*msg;
 	size_t	prompt_len;
 
-	if (prompt)
-		;
 	if (e_false == ctrl_d)
 	{
 		shlvl = atoi(env_handler(BINDING_GET_VALUE, "SHLVL"));
@@ -53,19 +49,10 @@ static void	print_message(char *prompt, t_bool ctrl_d)
 	}
 	else
 	{
-		int	i;
-		i = 0;
-		prompt_len = 0;
-		while (prompt[i])
-		{
-			if (prompt[i] == ':')
-				prompt_len = i + 1;
-			i++;
-		}
 		msg = ft_strjoin(
 			ft_strjoin(
 				"\033[1A\033[",
-				ft_itoa(21 - 9 + ft_atoi(env_handler(BINDING_GET_VALUE, "PWD"))),
+				ft_itoa(get_prompt_len()),
 				e_false, e_true
 			),
 			"Cexit\n",
@@ -73,5 +60,38 @@ static void	print_message(char *prompt, t_bool ctrl_d)
 		);
 	}
 	printf("%s", msg);
-	printf("%zu\n", ft_strlen(prompt));
+}
+
+static size_t	get_prompt_len(void)
+{
+	size_t	len;
+	char	*cwd;
+	char	*last_cmd_exit_status;
+
+	cwd = env_handler(BINDING_GET_VALUE, "PWD");
+	if (0 == ft_strcmp(cwd, (char *) env_handler(BINDING_GET_VALUE, "HOME")))
+		len = 1 + 1; // *~ plus space
+	else
+		len = get_cwd_len(cwd) + 1; // * counting /cwd plus ':'
+	len += 8;
+	last_cmd_exit_status = ft_itoa(g_env.last_executed_cmd_exit_status);
+	len += ft_strlen(last_cmd_exit_status);
+	free(last_cmd_exit_status);
+	return (len + 1);
+}
+
+static size_t	get_cwd_len(char *cwd)
+{
+	size_t	offset;
+	size_t	last_slash_pos;
+
+	last_slash_pos = 0;
+	offset = 0;
+	while (cwd[offset])
+	{
+		if (cwd[offset] == '/')
+			last_slash_pos = offset;
+		offset++;
+	}
+	return (offset - last_slash_pos);
 }
