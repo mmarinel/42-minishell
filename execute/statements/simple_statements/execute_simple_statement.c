@@ -6,7 +6,7 @@
 /*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 09:49:38 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/12 12:09:58 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/12 14:36:08 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,18 @@ static void		spawn_and_wait_command(t_tree_node *root,
 static void		execute_command_and_exit(t_tree_node *root, int in, int out);
 static void		execute_external(t_tree_node *root, int in, int out);
 
+static t_bool	is_builtin_command(t_tree_node *root);
+
 // * end of declarations //
 
 
 void	execute_simple_statement(t_tree_node *root, int in, int out)
 {
-	char	*simple_name;
 
-	// printf(YELLOW "execute_simple_statement\n" RESET);
-	simple_name = ft_get_cmd_name(root->content->simple_cmd.cmd_name);
-	if (0 == ft_strcmp(simple_name, "cd")
-		|| 0 == ft_strcmp(simple_name, "exit")
-		|| 0 == ft_strcmp(simple_name, "echo")
-		// || 0 == ft_strcmp(simple_name, "pwd")
-		// || 0 == ft_strcmp(simple_name, "export")
-		// || 0 == ft_strcmp(simple_name, "unset")
-		// || 0 == ft_strcmp(simple_name, "env")
-	)
-		execute_builtin(root, in, out);
-	else
+	if (e_false == is_builtin_command(root))
 		execute_external(root, in, out);
-	free(simple_name);
+	else
+		execute_builtin(root, in, out);
 }
 
 static void	execute_external(t_tree_node *root, int in, int out)
@@ -88,4 +79,25 @@ static void	execute_command_and_exit(t_tree_node *root, int in, int out)
 	// 	execute_env_statement(root, in, out);
 	if (root->content->content_type == REDIR)
 		execute_redir_only_statement(root, in, out);
+}
+
+static t_bool	is_builtin_command(t_tree_node *root)
+{
+	t_bool	is_builtin;
+	char	*simple_name;
+
+	simple_name = ft_get_cmd_name(root->content->simple_cmd.cmd_name);
+	if (0 == ft_strcmp(simple_name, "cd")
+		|| 0 == ft_strcmp(simple_name, "exit")
+		|| 0 == ft_strcmp(simple_name, "echo")
+		// || 0 == ft_strcmp(simple_name, "pwd")
+		|| 0 == ft_strcmp(simple_name, "export")
+		// || 0 == ft_strcmp(simple_name, "unset")
+		// || 0 == ft_strcmp(simple_name, "env")
+	)
+		is_builtin = e_true;
+	else
+		is_builtin = e_false;
+	free(simple_name);
+	return (is_builtin);
 }
