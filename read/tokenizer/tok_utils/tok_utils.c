@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/07 14:47:38 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/12 12:51:22 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,4 +214,24 @@ size_t	bash_next_quoted_seq(char *command_line, size_t offset, char quote) //* n
 		idx++;
 	}
 	return (0);
+}
+
+t_bool	is_env_statement(char *command_line, size_t offset)
+{
+	size_t	i;
+
+	offset = scan_invariants(command_line, offset);
+	i = offset;
+	while (e_false == bash_control_character(command_line[i]))
+	{
+		if (command_line[i] == '=')
+			return (e_true);
+		i += 1;
+	}
+	if ((ft_strncmp(command_line + offset, "export", 6) == 0
+			&& e_true == ft_isspace(command_line[offset + 6]))
+		|| (ft_strncmp(command_line + offset, "unset", 5) == 0
+			&& e_true == ft_isspace(command_line[offset + 5])))
+		return (e_true);
+	return (e_false);
 }

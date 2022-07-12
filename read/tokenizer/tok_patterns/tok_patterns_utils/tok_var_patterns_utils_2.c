@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_var_patterns_utils_2.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 08:47:20 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/30 10:57:43 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/12 12:56:04 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,31 +30,25 @@ size_t	scan_env_revert(t_token *token, size_t offset)
 
 size_t	scan_initial_keyword_set_token(char *str, size_t offset, t_token **token)
 {
-//	new_offset = scan_invariants(str, offset);
-	if (str[offset] == '\0'
-		||
-		(ft_strncmp(str + offset, "export", 6) != 0
-			&& ft_strncmp(str + offset, "unset", 5) != 0))
-		return (offset);
+	(*token) = (t_token *) malloc(sizeof(t_token));
+	(*token)->token_val = NULL;
+	(*token)->to_string = NULL;
+	(*token)->next = NULL;
+	if (ft_strncmp(str + offset, "export", 6) == 0)
+	{
+		(*token)->token_id =  e_ENV_VAR_DECL;
+		return (offset + 6);
+	}
+	if (ft_strncmp(str + offset, "unset", 5) == 0)
+	{
+		(*token)->token_id =  e_ENV_VAR_UNSET;
+		return (offset + 5);
+	}
 	else
 	{
-		(*token) = (t_token *) malloc(sizeof(t_token));
-		(*token)->token_val = NULL;
-		(*token)->to_string = NULL;
-		(*token)->next = NULL;
-		// (*token)->prev = NULL;
-		if (ft_strncmp(str + offset, "export", 6) == 0)
-		{
-			(*token)->token_id =  e_ENV_VAR_DECL;
-			return (offset + 6);
-		}
-		if (ft_strncmp(str + offset, "unset", 5) == 0)
-		{
-			(*token)->token_id =  e_ENV_VAR_UNSET;
-			return (offset + 5);
-		}
+		(*token)->token_id =  e_ENV_VAR_DECL;
+		return (offset);
 	}
-	return (0);
 }
 
 void	env_tok_add_new_binding(t_token **token_ref,

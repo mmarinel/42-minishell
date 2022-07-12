@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_utils.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 13:04:29 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/02 08:50:41 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/12 12:44:25 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ size_t	scan_epilogue(char *command_line, size_t offset,
  */
 void	tok_add_back(t_token **token_list, t_token *token);
 void	free_tok_list(t_token **token_list);
+
 int		scan_alternate_invariant_spaces_quotes(char *str);
 size_t	bash_next_word_len(char *command_line, size_t offset);
 
@@ -48,7 +49,9 @@ size_t	scan_spaces(char *str, size_t offset);
 size_t	scan_invariant_quotes(char *str, size_t offset);
 size_t	scan_invariants(char *str, size_t offset);
 
-char *tok_to_string(t_token *token);
+char 	*tok_to_string(t_token *token);
 void	print_token(t_token *token);
+
+t_bool	is_env_statement(char *command_line, size_t offset);
 
 #endif

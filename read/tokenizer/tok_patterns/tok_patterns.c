@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_patterns.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/02 11:16:55 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/12 12:56:38 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ size_t	scan_env_declaration(char *str, size_t offset, t_token **token_list)
 	t_bindings			*next_var;
 
 	new_offset = scan_initial_keyword_set_token(str, offset, &token);
-	if (new_offset == offset)
-		return (offset);
 	new_offset = scan_invariants(str, new_offset);
 	while (e_true)
 	{
