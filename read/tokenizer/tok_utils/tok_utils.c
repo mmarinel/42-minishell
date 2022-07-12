@@ -6,7 +6,7 @@
 /*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/12 12:51:22 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/12 16:50:32 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,7 +222,8 @@ t_bool	is_env_statement(char *command_line, size_t offset)
 
 	offset = scan_invariants(command_line, offset);
 	i = offset;
-	while (e_false == bash_control_character(command_line[i]))
+	while (command_line[i]
+			&& e_false == bash_control_character(command_line[i]))
 	{
 		if (command_line[i] == '=')
 			return (e_true);

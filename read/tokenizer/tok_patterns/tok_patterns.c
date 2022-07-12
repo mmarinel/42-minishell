@@ -6,7 +6,7 @@
 /*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/12 12:56:38 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/12 16:47:40 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ size_t	scan_env_declaration(char *str, size_t offset, t_token **token_list)
 		else
 			env_tok_add_new_binding(&token, next_var);
 	}
+	if (token->token_id == e_ENV_VAR_DECL && token->token_val == NULL)
+		return (scan_env_revert(token, offset));
 	env_decl_add_token(token, token_list);
 	return (new_offset);
 }
