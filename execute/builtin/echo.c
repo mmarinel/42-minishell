@@ -6,7 +6,7 @@
 /*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 11:35:33 by evento            #+#    #+#             */
-/*   Updated: 2022/07/12 12:16:55 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/12 17:00:27 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	execute_echo(t_simple_command_node cmd)
 	t_bool	print_trailing_nl;
 	size_t	offset;
 
+	if (!cmd.cmd_args)
+		return ;
 	offset = take_n_option(cmd.cmd_args);
 	{
 		if (offset == 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_var_patterns_utils.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 08:56:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/28 11:27:28 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/12 17:24:32 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,6 @@ size_t	scan_var(char *str, size_t offset,
 	(*next_var)->var_name = var_name;
 	(*next_var)->var_val = var_value;
 	(*next_var)->concat_mode = concat_mode;
+	(*next_var)->prev = NULL;
 	return (new_offset);
 }

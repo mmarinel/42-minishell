@@ -6,7 +6,7 @@
 /*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:00:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/11 18:33:43 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/12 19:07:53 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,13 @@ static void	*env_operations_cases(t_bindings *env, t_bindings *export,
 			binding_add_new(&env, argument, e_false);
 			binding_add_new(&export, argument, e_true);
 		}
+		// env_handler(_PRINT_ENV_, NULL);
 	}
 	if (opcode == BINDING_UNSET)
 	{
 		binding_remove(&env,((t_bindings *) argument)->var_name);
 		binding_remove(&export,((t_bindings *) argument)->var_name);
+		// env_handler(_PRINT_ENV_, NULL);
 	}
 	if (opcode == BINDING_GET_VALUE)
 	{

@@ -6,7 +6,7 @@
 /*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 13:42:44 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/11 21:46:25 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/12 18:08:43 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,21 +62,23 @@ void	binding_remove(t_bindings **head, char *var_name)
 			break ;
 		cur_binding = cur_binding->next;
 	}
-	if (!cur_binding)
-		return ;
+	if (cur_binding)
 	{
-		if (cur_binding->prev)
-			cur_binding->prev->next = cur_binding->next;
-		else
-			*head = (*head)->next;
+		{
+			if (cur_binding->prev)
+				cur_binding->prev->next = cur_binding->next;
+			else
+				*head = (*head)->next;
+		}
+		if (cur_binding->next)
+		{
+			cur_binding->next->prev = cur_binding->prev;
+		}
+		free(cur_binding->var_name);
+		free(cur_binding->var_val);
+		free(cur_binding);
 	}
-	if (cur_binding->next)
-	{
-		cur_binding->next->prev = cur_binding->prev;
-	}
-	free(cur_binding->var_name);
-	free(cur_binding->var_val);
-	free(cur_binding);
+	// printf("removed?: %s\n", binding_get_value(*head, var_name));
 }
 
 /**

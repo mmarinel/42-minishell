@@ -6,7 +6,7 @@
 /*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 08:47:20 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/12 12:56:04 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/12 17:35:03 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	env_tok_add_new_binding(t_token **token_ref,
 		t_bindings *next_binding)
 {
 	next_binding->next = (t_bindings *)(*token_ref)->token_val;
+	// next_binding->prev = NULL;
 	(*token_ref)->token_val = next_binding;
 }
 

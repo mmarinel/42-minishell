@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   star_case.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:16:31 by earendil          #+#    #+#             */
-/*   Updated: 2022/07/09 20:33:19 by earendil         ###   ########.fr       */
+/*   Updated: 2022/07/12 18:39:23 by evento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*expand_star_case(char *args)
 	char	*next_segment;
 	char	*args_post;
 
-	if (!args)
+	if (!args)// * || !(*args)
 		return (NULL);
 	expansion_split(STAR, args, &next_segment, &args_post);
 	free(args);
