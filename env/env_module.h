@@ -6,7 +6,7 @@
 /*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:02:03 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/13 12:23:25 by earendil         ###   ########.fr       */
+/*   Updated: 2022/07/13 16:51:35 by earendil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@ void	*env_handler(t_env_handl_opcode opcode, void *argument);
 
 // *utils //
 t_bindings	*get_new_binding(char *var_name, char *var_val, t_bool concat_mode);
+char		**bindings_list_to_array(t_bindings *head);
 
 #endif

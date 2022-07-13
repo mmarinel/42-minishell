@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_and_execute.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:15:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/12 15:31:24 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/13 17:06:59 by earendil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	execute_builtin(t_tree_node *root, int in, int out)
 	if (root->content->content_type == ENV_STATEMENT)
 	{
 		// if (root->content->env_decl.set)
-			execute_export(root->content->env_decl);
+			execute_env_statement(root->content->env_decl);
 		// else
 		// 	execute_unset(root->content->env_decl);
 	}
@@ -98,7 +98,7 @@ void	execute_redir_only_statement(t_tree_node *root, int in, int out)
 	// printf(YELLOW "at the end of execute_redir_only\n" RESET);
 	exit(g_env.last_executed_cmd_exit_status);
 	if (in || out)
-		;
+	{}
 }
 
 static void	executor_handle_redirs(t_redirection redir, int cur_in_out,
@@ -145,12 +145,12 @@ static void	execute_cmd_builtin(t_simple_command_node simple_cmd)
 		execute_exit(simple_cmd);
 	// if (0 == ft_strcmp(simple_name, "pwd"))
 	// 	execute_pwd(cmd);
-	// if (0 == ft_strcmp(simple_name, "export"))
-	// 	execute_export(cmd);
-	// if (0 == ft_strcmp(simple_name, "unset"))
-	// 	execute_unset(cmd);
-	// if (0 == ft_strcmp(simple_name, "env"))
-	// 	execute_env(cmd);
+	if (0 == ft_strcmp(simple_name, "export"))
+		execute_export();
+	if (0 == ft_strcmp(simple_name, "unset"))
+		execute_unset();
+	if (0 == ft_strcmp(simple_name, "env"))
+		execute_env();
 	free(simple_name);
 	// if (g_env.last_executed_cmd_exit_status == EXIT_FAILURE)
 	// 	exit(EXIT_FAILURE); // * mettere una exit_shell custom in ogni modulo ! (per freeare tutto il necessario)

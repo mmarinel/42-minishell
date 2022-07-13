@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_simple_statement.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 09:49:38 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/12 15:28:51 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/13 16:47:03 by earendil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ static t_bool	is_builtin_command(t_tree_node *root)
 		|| 0 == ft_strcmp(simple_name, "echo")
 		// || 0 == ft_strcmp(simple_name, "pwd")
 		|| 0 == ft_strcmp(simple_name, "export")
-		// || 0 == ft_strcmp(simple_name, "unset")
-		// || 0 == ft_strcmp(simple_name, "env")
+		|| 0 == ft_strcmp(simple_name, "unset")
+		|| 0 == ft_strcmp(simple_name, "env")
 	)
 		is_builtin = e_true;
 	else
