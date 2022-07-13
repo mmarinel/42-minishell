@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:52:56 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 15:35:25 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/13 12:15:35 by earendil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		binding_add_new(t_bindings **head, t_bindings *new_binding,
 void		binding_remove(t_bindings **head, char *var_name);
 t_bool		binding_exist(t_bindings *head, t_bindings *binding);
 size_t		bindings_len(t_bindings *head);
-void		copy_env(t_bindings **head, char **envp, t_bool in_order);
+void		copy_env(char **envp);
 void		free_env(t_bindings *head);
 /**
  * @brief this function returns the current value for the environment variable 'name'
@@ -32,6 +32,7 @@ void		free_env(t_bindings *head);
  */
 char		*binding_get_value(t_bindings *head, char *name);
 t_bindings	*get_new_binding(char *var_name, char *var_val, t_bool concat_mode);
+void		free_binding(t_bindings *binding);
 t_bindings	*binding_over_write(t_bindings *head, t_bindings *binding);
 void		binding_add_front(t_bindings **head, t_bindings *new_binding);
 void		binding_add_back(t_bindings **head, t_bindings *new_binding);

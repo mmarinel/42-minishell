@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   t_bindings_manage.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 09:18:17 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 15:23:31 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/13 12:16:21 by earendil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env_utils.h"
 
-void	copy_env(t_bindings **head, char **envp, t_bool in_order)
+void	copy_env(char **envp)
 {
 	char	**split;
 	char	*var_name;
@@ -21,14 +21,13 @@ void	copy_env(t_bindings **head, char **envp, t_bool in_order)
 	while (*envp)
 	{
 		split = ft_split(*envp, '=');
-		if (0 != ft_strcmp(split[0], "_") || e_false == in_order)
-		{
-			var_name = ft_strcpy(NULL, split[0], ft_strlen(split[0]));
-			var_val = ft_strcpy(NULL, split[1], ft_strlen(split[1]));
-			binding_add_new(head,
-				get_new_binding(var_name, var_val, e_false),
-				in_order);
-		}
+		var_name = split[0];
+		var_val = split[1];
+		env_handler(BINDING_UPDATE,
+			get_new_binding(var_name, var_val, e_false));
+		// binding_add_new(head,
+		// 	get_new_binding(var_name, var_val, e_false),
+		// 	in_order);
 		free(split[0]);
 		free(split[1]);
 		free(split);
@@ -74,10 +73,17 @@ t_bindings	*get_new_binding(char *var_name, char *var_val, t_bool concat_mode)
 	t_bindings	*new_binding;
 
 	new_binding = (t_bindings *) malloc(sizeof(t_bindings));
-	new_binding->var_name = var_name;
-	new_binding->var_val = var_val;
+	new_binding->var_name = ft_strdup(var_name);
+	new_binding->var_val = ft_strdup(var_val);
 	new_binding->concat_mode = concat_mode;
 	new_binding->prev = NULL;
 	new_binding->next = NULL;
 	return (new_binding);
+}
+
+void	free_binding(t_bindings *binding)
+{
+	free(binding->var_name);
+	free(binding->var_val);
+	free(binding);
 }

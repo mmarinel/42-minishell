@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_module.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:02:03 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 14:35:09 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/13 12:23:25 by earendil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 # include "env_types.h"
 
+// *main exposed function//
 void	*env_handler(t_env_handl_opcode opcode, void *argument);
+
+// *utils //
+t_bindings	*get_new_binding(char *var_name, char *var_val, t_bool concat_mode);
 
 #endif

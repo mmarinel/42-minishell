@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 07:51:39 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/11 19:40:40 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/13 11:30:44 by earendil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 // * system libraries //
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <unistd.h>
 # include <signal.h>
 # include <stdlib.h>
 # include <termios.h>

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   env_types.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:03:20 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/11 18:30:50 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/13 11:25:55 by earendil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENV_TYPES_H
 # define ENV_TYPES_H
 
-# include "env.h"
+// # include "env.h"
 # include "../types.h"
 
 typedef enum e_env_hndl_opcode

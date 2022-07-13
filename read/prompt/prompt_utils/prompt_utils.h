@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_utils.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 19:04:09 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/04 14:58:03 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/13 09:06:27 by earendil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
+# include <signal.h>
+# include <stdio.h>
+# include <sys/wait.h>
 
 // * user defined 
 # include "../../../global.h"

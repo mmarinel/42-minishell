@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_bindings_operations.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 13:42:44 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/12 18:08:43 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/13 11:23:02 by earendil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,18 @@ void	binding_add_new(t_bindings **head, t_bindings *new_binding,
 			t_bool in_order)
 {
 	t_bindings	*cursor;
+	t_bindings	*new_binding_copy;
 
+	new_binding_copy = get_new_binding(
+				new_binding->var_name,
+				new_binding->var_val,
+				new_binding->concat_mode);
 	if (!(*head))
-		binding_add_front(head, new_binding);
+		binding_add_front(head, new_binding_copy);
 	else if (in_order == e_false)
-		binding_add_back(head, new_binding);
+		binding_add_back(head, new_binding_copy);
 	else
-		binding_add_in_order(head, new_binding);
+		binding_add_in_order(head, new_binding_copy);
 }
 
 /**
@@ -33,21 +38,24 @@ void	binding_add_new(t_bindings **head, t_bindings *new_binding,
 t_bindings	*binding_over_write(t_bindings *head, t_bindings *binding)
 {
 	t_bindings	*cursor;
+	char		*new_val;
 
+	new_val = ft_strdup(binding->var_val);
 	cursor = head;
 	while (cursor)
 	{
 		if (ft_strcmp(cursor->var_name, binding->var_name) == 0)
 		{
 			if (binding->concat_mode == e_true)
-				cursor->var_val = ft_strjoin(cursor->var_val, binding->var_val, e_true, e_false);
+				cursor->var_val =
+					ft_strjoin(cursor->var_val, new_val, e_true, e_true);
 			else
-				ft_str_replace(&(cursor->var_val), binding->var_val);
+				ft_str_replace(&(cursor->var_val), new_val);
 			return (cursor);
 		}
 		cursor = cursor->next;
 	}
-	free(binding);
+	// free(binding);
 	return (NULL);
 }
 
@@ -96,10 +104,7 @@ char	*binding_get_value(t_bindings *head, char *name)
 	while (cursor)
 	{
 		if (0 == ft_strcmp(cursor->var_name, name))
-			return (
-				ft_strcpy(NULL, cursor->var_val,
-					ft_strlen(cursor->var_val))
-			);
+			return (ft_strdup(cursor->var_val));
 		cursor = cursor->next;
 	}
 	return (NULL);//(ft_strcpy(NULL, " ", sizeof(char)));

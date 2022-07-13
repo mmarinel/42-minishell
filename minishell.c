@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/11 22:33:51 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/13 11:16:16 by earendil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ static void	set_env(char *const envp[])
 
 	env_handler(ENV_INITIALIZE, (char **)envp);
 	cur_shlvl = ft_atoi(env_handler(BINDING_GET_VALUE, "SHLVL"));
-	env_handler(BINDING_UPDATE, get_new_binding("SHLVL", ft_itoa(cur_shlvl + 1), e_false));
+	env_handler(BINDING_UPDATE,
+		get_new_binding("SHLVL", ft_itoa(cur_shlvl + 1), e_false));
 	env_handler(SET_INITIAL_SHLVL, NULL);
 	g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
 	// env_handler(_PRINT_ENV_, NULL);
