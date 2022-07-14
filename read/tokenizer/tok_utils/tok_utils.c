@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/12 16:50:32 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/14 17:16:33 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,7 @@ size_t	bash_next_quoted_seq(char *command_line, size_t offset, char quote) //* n
 t_bool	is_env_statement(char *command_line, size_t offset)
 {
 	size_t	i;
+	size_t	len_command_line;
 
 	offset = scan_invariants(command_line, offset);
 	i = offset;
@@ -229,9 +230,12 @@ t_bool	is_env_statement(char *command_line, size_t offset)
 			return (e_true);
 		i += 1;
 	}
+	len_command_line = ft_strlen(command_line + offset);
 	if ((ft_strncmp(command_line + offset, "export", 6) == 0
+			&& len_command_line >= 6
 			&& e_true == ft_isspace(command_line[offset + 6]))
 		|| (ft_strncmp(command_line + offset, "unset", 5) == 0
+			&& len_command_line >= 5
 			&& e_true == ft_isspace(command_line[offset + 5])))
 		return (e_true);
 	return (e_false);

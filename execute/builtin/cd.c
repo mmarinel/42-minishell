@@ -6,13 +6,14 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 12:44:55 by evento            #+#    #+#             */
-/*   Updated: 2022/07/14 17:02:43 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/14 17:30:43 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
 static	char	*take_parent_dir(void);
+static void		cd_error(char *path);
 
 void	execute_cd(t_simple_command_node cmd)
 {
@@ -20,21 +21,17 @@ void	execute_cd(t_simple_command_node cmd)
 
 	path = cmd.cmd_args;
 	{
-		if (path[0] == '\0')
+		if (!path)
 			path = ft_strdup(env_handler(BINDING_GET_VALUE, "HOME"));
-		if (path[0] == '.' && path[1] == '\0')
+		else if (path[0] == '.' && path[1] == '\0')
 			return ;
-		if (path[0] == '.' && path[1] == '.' && path[2] == '\0')
+		else if (path[0] == '.' && path[1] == '.' && path[2] == '\0')
 			path = take_parent_dir();
 		else
 			path = ft_strdup(cmd.cmd_args);
 	}
 	if (-1 == chdir(path))
-	{
-		perror("minishell at execute_cd" RED);
-		printf(RESET);
-		g_env.last_executed_cmd_exit_status = EXIT_FAILURE;
-	}
+		cd_error(path);
 	else
 	{
 		g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
@@ -62,4 +59,18 @@ static	char	*take_parent_dir(void)
 		return (ft_strdup("/"));
 	else
 		return (ft_strcpy(NULL, cwd, last_slash_pos)); // * was last_slash_pos + 1
+}
+
+static void	cd_error(char *path)
+{
+	if (!path)
+	{
+		printf("minishell at execute_cd: " RED "HOME not set\n" RESET);
+	}
+	else
+	{
+		perror("minishell at execute_cd" RED);
+		printf(RESET);
+	}
+	g_env.last_executed_cmd_exit_status = EXIT_FAILURE;
 }

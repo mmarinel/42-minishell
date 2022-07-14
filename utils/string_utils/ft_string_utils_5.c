@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_string_utils_5.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 09:30:11 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/11 13:03:39 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/14 17:22:34 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	ft_strcmp(const char *s1, const char *s2)
 {
 	size_t	i;
 
+	if (!s1 || !s2)
+		return (1);
 	i = 0;
 	while (e_true)
 	{

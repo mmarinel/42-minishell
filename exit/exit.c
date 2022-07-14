@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 17:07:46 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/12 11:09:42 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/14 17:34:30 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static size_t	get_prompt_len(void)
 	char	*cwd;
 	char	*last_cmd_exit_status;
 
-	cwd = env_handler(BINDING_GET_VALUE, "PWD");
+	cwd = getcwd(NULL, PATH_MAX);
 	if (0 == ft_strcmp(cwd, (char *) env_handler(BINDING_GET_VALUE, "HOME")))
 		len = 1 + 1; // *~ plus space
 	else
