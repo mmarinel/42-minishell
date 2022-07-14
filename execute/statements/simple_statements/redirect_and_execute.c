@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_and_execute.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:15:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/13 17:06:59 by earendil         ###   ########.fr       */
+/*   Updated: 2022/07/14 17:58:36 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,8 +143,8 @@ static void	execute_cmd_builtin(t_simple_command_node simple_cmd)
 		execute_cd(simple_cmd);
 	if (0 == ft_strcmp(simple_name, "exit"))
 		execute_exit(simple_cmd);
-	// if (0 == ft_strcmp(simple_name, "pwd"))
-	// 	execute_pwd(cmd);
+	if (0 == ft_strcmp(simple_name, "pwd"))
+		execute_pwd(simple_cmd);
 	if (0 == ft_strcmp(simple_name, "export"))
 		execute_export();
 	if (0 == ft_strcmp(simple_name, "unset"))
