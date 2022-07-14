@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_errors.h                                      :+:      :+:    :+:   */
+/*   put_error.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/03 10:20:23 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/14 18:22:13 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/07/14 18:23:05 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/07/14 18:38:23 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_FAILURES_H
-# define EXEC_FAILURES_H
+#include "print.h"
 
-# include "../executor.h"
+void	put_error(char *preamble, char *message, char *epilogue,
+			t_bool free_epilogue)
+{
+	int	clone_stdout;
 
-//* Failures //
-void	command_not_found_failure(t_tree_node *parse_tree,
-			char *cmd_full_path, char *cmd_simple_name, char **cmd_args);
-void	command_execution_failure(t_tree_node *parse_tree,
-			char *cmd_full_path, char *cmd_simple_name, char **cmd_args);
-
-#endif
+	clone_stdout = dup(STDOUT_FILENO);
+	dup2(STDERR_FILENO, STDOUT_FILENO);
+	printf("%s", preamble);
+	printf(RED "%s" RESET, message);
+	if (epilogue)
+		printf("%s", epilogue);
+	printf("\n");
+	if (free_epilogue)
+		free(epilogue);
+	dup2(clone_stdout, STDOUT_FILENO);
+}

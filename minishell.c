@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/13 11:16:16 by earendil         ###   ########.fr       */
+/*   Updated: 2022/07/14 18:38:50 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ int	main(int argc, char const *argv[], char *const envp[])
 
 	if (argc != 1)
 	{
-		printf(RED "no arguments allowed\n" RESET
-		CYAN "found argument: " RESET
-		YELLOW"%s\n" RESET,
-		*(argv + 1));
+		put_error("minishell: ", "no arguments allowed",
+			ft_strjoin("\nfound argument: ", (char *) *(argv + 1),
+				e_false, e_false),
+			e_true);
 		exit(EXIT_FAILURE);
 	}
 	set_env(envp);

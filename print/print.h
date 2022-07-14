@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   print.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/13 14:45:22 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/14 18:27:34 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/07/14 18:23:33 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/07/14 18:37:21 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef PRINT_H
+# define PRINT_H
 
-// *system libraries //
+//* system libraries
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
 
-// * user defined submodules //
-# include "signals/signal_module.h"
-# include "read/read_module.h"
-# include "execute/executor_module.h"
-# include "env/env_module.h"
-# include "utils/ft_utils.h"
-# include "print/print_module.h"
+//* user defined types
+# include "../colors.h"
+# include "../types.h"
 
-// * user defined types
-# include "global.h"
-# include "types.h"
-# include "colors.h"
+
+//* user defined exposed functions
+void	put_error(char *preamble, char *message, char *epilogue,
+			t_bool free_epilogue);
 
 #endif
