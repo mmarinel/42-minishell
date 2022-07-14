@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 18:23:05 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/14 18:38:23 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/14 19:04:30 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	put_error(char *preamble, char *message, char *epilogue,
 	dup2(STDERR_FILENO, STDOUT_FILENO);
 	printf("%s", preamble);
 	printf(RED "%s" RESET, message);
-	if (epilogue)
-		printf("%s", epilogue);
 	printf("\n");
-	if (free_epilogue)
+	if (epilogue)
+		printf("%s\n", epilogue);
+	if (free_epilogue && epilogue)
 		free(epilogue);
 	dup2(clone_stdout, STDOUT_FILENO);
 }

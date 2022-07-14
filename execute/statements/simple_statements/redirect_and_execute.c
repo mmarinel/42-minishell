@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:15:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/14 17:58:36 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/14 19:23:22 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ void	execute_redir_only_statement(t_tree_node *root, int in, int out)
 {
 	int	out_fd;
 
-	printf(YELLOW "execute_redir_only_statement\n" RESET);
+	// printf(YELLOW "execute_redir_only_statement\n" RESET);
 	out_fd = 0;
 	if (root->content->out_redir.file_name)
 	{
-		printf("file name is: %s\n", root->content->out_redir.file_name);
+		// printf("file name is: %s\n", root->content->out_redir.file_name);
 		if (root->content->out_redir.append_mode == e_true)
 			out_fd = open(root->content->out_redir.file_name,
 						O_CREAT | O_APPEND | O_WRONLY, 0777);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 11:07:59 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/12 11:10:08 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/14 19:02:43 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	execute_exit(t_simple_command_node cmd)
 {
 	if (cmd.cmd_args)
 	{
-		printf("minishell at execuet_exit: invalid arguments\n");
+		put_error("minishell at execute_exit: ", "invalid arguments",
+			NULL, e_false);
 		g_env.last_executed_cmd_exit_status = EXIT_FAILURE;
 	}
 	else

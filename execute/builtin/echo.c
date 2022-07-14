@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 11:35:33 by evento            #+#    #+#             */
-/*   Updated: 2022/07/12 17:00:27 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/14 19:19:01 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	execute_echo(t_simple_command_node cmd)
 	printf("%s", cmd.cmd_args + offset);
 	if (print_trailing_nl)
 		printf("\n");
+	g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
 }
 
 static size_t	take_n_option(char *args)

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 12:44:55 by evento            #+#    #+#             */
-/*   Updated: 2022/07/14 17:30:43 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/14 18:55:08 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ static void	cd_error(char *path)
 {
 	if (!path)
 	{
-		printf("minishell at execute_cd: " RED "HOME not set\n" RESET);
+		put_error("minishell at execute_cd: ", "HOME not set", NULL,
+			e_false);
 	}
 	else
 	{

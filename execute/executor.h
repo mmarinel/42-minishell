@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 10:45:53 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/11 19:15:35 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/14 18:52:02 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include "../read/read_module.h"
 # include "../exit/exit_module.h"
 # include "../utils/ft_utils.h"
+# include "../print/print_module.h"
 
 // * user defined SUBmodules //
 # include "builtin/builtin.h"

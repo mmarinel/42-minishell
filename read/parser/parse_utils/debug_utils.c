@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 12:02:01 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/03 21:51:59 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/14 19:34:01 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,5 @@ void	tree_to_string(t_tree_node *root)
 		tree_to_string(root->right);
 		printf(")");
 	}
+	printf("\n");
 }

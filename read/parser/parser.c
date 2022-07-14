@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:26:21 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 16:47:19 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/14 19:34:07 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,16 @@ t_tree_node	*parse(void)
 	{
 		g_env.last_executed_cmd_exit_status = EXIT_FAILURE; // 258
 		if (parser_status.last_read_token)
-			printf("parser: parse error near"
-				RED " %s " RESET "token at pos %d",
+			put_error("parser: parse error near token ",
 				tok_to_string(parser_status.last_read_token),
-				parser_status.last_read_tok_pos);
+				ft_strjoin("at pos ", ft_itoa(parser_status.last_read_tok_pos),
+					e_false, e_true),
+				e_true);
 		free_tree(&tree);
 		tokenizer_free(); // * meglio se la chiamo nello entry point di minishell insieme a parser_free
 		parser_initialize(&parser_status);
 	}
 	tree_to_string(tree);
-	printf ("\n");
 	return (tree);
 }
 
