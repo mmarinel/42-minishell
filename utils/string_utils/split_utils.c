@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 16:59:11 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/09 18:48:14 by earendil         ###   ########.fr       */
+/*   Updated: 2022/07/14 16:59:19 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,14 @@ char	*split_merge(char	**split, char *const sep, t_bool free_split)
 	i = 0;
 	while (split[i])
 	{
-		merge = ft_strjoin(
-			ft_strjoin(merge, sep, e_true, e_false),
-			split[i],
-			e_true, e_false
-		);
+		if (!merge)
+			merge = ft_strdup(split[i]);
+		else
+			merge = ft_strjoin(
+				ft_strjoin(merge, sep, e_true, e_false),
+				split[i],
+				e_true, e_false
+			);
 		i++;
 	}
 	if (free_split)

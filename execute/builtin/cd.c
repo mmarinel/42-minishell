@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 12:44:55 by evento            #+#    #+#             */
-/*   Updated: 2022/07/12 10:24:02 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/14 17:02:43 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	execute_cd(t_simple_command_node cmd)
 	}
 	if (-1 == chdir(path))
 	{
-		perror("minishell cd: ");
+		perror("minishell at execute_cd" RED);
+		printf(RESET);
 		g_env.last_executed_cmd_exit_status = EXIT_FAILURE;
 	}
 	else
