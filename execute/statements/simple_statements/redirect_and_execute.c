@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:15:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/14 19:23:22 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/14 20:16:23 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,10 @@ static void	executor_handle_redirs(t_redirection redir, int cur_in_out,
 			else
 			{
 				if (redir.append_mode == e_true)
-					cur_in_out = open(redir.file_name,
+					cur_in_out = ft_open_file(redir.file_name,
 								O_CREAT | O_APPEND | O_WRONLY, 0777);
 				else
-					cur_in_out = open(redir.file_name,
+					cur_in_out = ft_open_file(redir.file_name,
 								O_CREAT | O_TRUNC | O_WRONLY, 0777);
 			}
 		}

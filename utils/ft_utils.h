@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:13:18 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/11 13:03:32 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/14 20:15:54 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ t_bool			bash_cmd_separator(char c);
 t_bool			redirect_char(char c);
 t_bool			asked_for_termination(char	*command);
 void			close_pipe(int pipe_[]);
+int				ft_open_file(char *file, unsigned long long flags, int mode);
 
 // * misc utils
 
