@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_split.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:36:03 by earendil          #+#    #+#             */
-/*   Updated: 2022/07/11 13:03:44 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/15 10:40:42 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	take_next_star_segment_boundaries(char *str,
 	if (!str || !(*str))
 		return ;
 	*start = 0;
-	offset = 0;
+	offset = skip_consecutive_chars(str, 0, ' ', +1);
 	while (e_true)
 	{
 		while (str[offset] == '"' || str[offset] == '\'')
@@ -83,7 +83,7 @@ static void	take_next_dollar_segment_boundaries(char *str,
 			*end = 1;
 		else
 		{
-			offset = 0;
+			offset = skip_consecutive_chars(str, 0, ' ', +1);
 			while (str[offset + 1]
 					&& str[offset + 1] != '*'
 					&& str[offset + 1] != '$'
@@ -106,7 +106,7 @@ static char	*get_suffix(char *str, size_t cutting_index)
 {
 	size_t	len_str;
 
-	cutting_index = skip_consecutive_chars(str, cutting_index, ' ', +1);
+	// cutting_index = skip_consecutive_chars(str, cutting_index, ' ', +1);
 	len_str = ft_strlen(str);
 	if (cutting_index > len_str - 1)
 		return (NULL);
