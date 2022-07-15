@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 12:44:55 by evento            #+#    #+#             */
-/*   Updated: 2022/07/14 18:55:08 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/15 12:22:47 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	cd_error(char *path)
 	else
 	{
 		perror("minishell at execute_cd" RED);
-		printf(RESET);
+		write(STDOUT_FILENO, RESET, ft_strlen(RESET) * sizeof(char));
 	}
 	g_env.last_executed_cmd_exit_status = EXIT_FAILURE;
 }

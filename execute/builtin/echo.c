@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 11:35:33 by evento            #+#    #+#             */
-/*   Updated: 2022/07/15 12:11:42 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/15 12:25:17 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,10 @@ void	execute_echo(t_simple_command_node cmd)
 	}
 	while (e_true == ft_isspace(cmd.cmd_args[offset]))
 		offset++;
-	write(STDOUT_FILENO, cmd.cmd_args + offset, ft_strlen(cmd.cmd_args + offset) * sizeof(char));
-	// printf("%s", cmd.cmd_args + offset);
+	write(STDOUT_FILENO, cmd.cmd_args + offset,
+		ft_strlen(cmd.cmd_args + offset) * sizeof(char));
 	if (print_trailing_nl)
 		write(STDOUT_FILENO, "\n", sizeof(char));
-		// printf("\n");
 	g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
 }
 

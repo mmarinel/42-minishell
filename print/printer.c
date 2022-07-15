@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 10:51:33 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/15 12:13:30 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/15 12:24:08 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ size_t	printer(t_print_opcode opcode)
 		dump_file_fd = open(".stdout-dump", O_RDONLY, 0777);
 		// dup2(dump_file_fd, STDOUT_FILENO);
 		// dup2(dump_file_fd, STDERR_FILENO);
+		stdout_byte_shift = 0;
 		while (e_true)
 		{
 			line = get_next_line(dump_file_fd, BUFFER_SIZE);
