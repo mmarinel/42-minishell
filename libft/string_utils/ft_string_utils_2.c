@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_string_utils_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:45:17 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/11 18:25:57 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/15 17:33:31 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_utils.h"
-
-static int	ft_atoi_rec(const char *str, int *exponent);
+#include "../libft.h"
 
 /**
  * @brief this function checks wether the number of occurrences
@@ -71,25 +69,4 @@ char	*ft_itoa(int nbr)
 	if (nbr > 9)
 		return (ft_strjoin(ft_itoa(nbr / 10), digit, e_true, e_false));
 	return (ft_strjoin("", digit, e_false, e_false));
-}
-
-int	ft_atoi(const char *str)
-{
-	int	e;
-
-	return (ft_atoi_rec(str, &e));
-}
-
-static int	ft_atoi_rec(const char *str, int *exponent)
-{
-	int	rec_res;
-	int	res;
-
-	if (!(*str)
-		|| (*str < '0' || *str > '9'))
-		return (*exponent = 0);
-	rec_res = ft_atoi_rec(str + 1, exponent);
-	res = rec_res + ft_pow(10, *exponent) * (*str - '0');
-	*exponent = *exponent + 1;
-	return (res);
 }

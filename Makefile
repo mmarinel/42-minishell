@@ -6,7 +6,7 @@
 #    By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/10 12:28:57 by mmarinel          #+#    #+#              #
-#    Updated: 2022/06/26 20:05:55 by mmarinel         ###   ########.fr        #
+#    Updated: 2022/07/15 18:34:19 by mmarinel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,10 @@ OBJS_DIR = ".objs"
 INCLUDES = $(shell find . -name "*.h" -print)
 MANDATORY_OBJS = $(shell find . -name "*.c" -print | grep -v bonus.c | sed 's/\.c/\.o/g' | sed 's/\.\///') # last cmd removes ./ at the beginning of each file
 BONUS_OBJS = $(shell find . -name "*.c" -print | grep -v mand | sed 's/\.c/\.o/g' | sed 's/\.\///') # last cmd removes ./ at the beginning of each file
+OBJS = $(MANDATORY_OBJS) $(BONUS_OBJS)
+
+LIBFT_OBJS = $(OBJS_DIR)/libft/**/*.o
+LIBFT_SRCS = libft/**/*.c
 
 
 ####################### Unvoiced Makes #########################
@@ -31,9 +35,9 @@ bonus:
 norm:
 	@$(MAKE) n SAY="say -o /dev/null"
 clean:
-	@$(MAKE) cl SAY="say -o /dev/null"
+	@$(MAKE) cl OBJS="$(addprefix $(OBJS_DIR)/, $(OBJS))" SAY="say -o /dev/null"
 fclean:
-	@$(MAKE) fcl SAY="say -o /dev/null"
+	@$(MAKE) fcl OBJS="$(addprefix $(OBJS_DIR)/, $(OBJS))" SAY="say -o /dev/null"
 
 ####################### VOCAL ASSISTANT #########################
 say: .ADD_MANDATORY
@@ -69,8 +73,11 @@ re_bonus_say: fclean_say bonus_say
 do_bonus: $(NAME)
 do_mandatory: $(NAME)
 
-$(NAME): $(OBJS) $(INCLUDES)
+$(NAME): $(OBJS) $(LIBFT_OBJS) $(INCLUDES)
 	$(CC) $(CFLAGS) $(READLINE_FLAGS) $(OBJS) -o $(NAME)
+
+$(LIBFT_OBJS): $(LIBFT_SRCS)
+	@cd libft && make && cd ..
 
 $(shell echo $(OBJS_DIR))/%.o: %.c $(wildcard $(<D)/*.h)
 	@mkdir -p '$(@D)'
@@ -78,7 +85,7 @@ $(shell echo $(OBJS_DIR))/%.o: %.c $(wildcard $(<D)/*.h)
 
 cl:
 	@printf "removing Object files...\n"
-	@/bin/rm -f $(OBJS_DIR)/**/*.o
+	@/bin/rm -f $(OBJS)
 	@printf "\033[0;35mObject files removed!\n"
 	@echo "\033[0;37m"
 

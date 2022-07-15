@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:01:29 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/15 14:50:04 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/15 18:03:42 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 //* user defined modules //
 # include "../executor.h"
-#include "../../simple_printf/ft_printf_module.h"
+#include "../../libft/simple_printf/ft_printf_module.h"
 
 void	execute_env_statement(t_env_decl_node env_statement);
 void	execute_export(void);

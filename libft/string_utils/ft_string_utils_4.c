@@ -6,11 +6,11 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 18:16:45 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/23 16:13:13 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/15 17:43:06 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_utils.h"
+#include "../libft.h"
 
 /**
  * @brief this function takes the next word
@@ -51,6 +51,18 @@ t_bool	char_is_digit(char c)
 	);
 }
 
+/**
+ * @brief this function returns a new allocated string
+ * corresponding to the portion [0, delim_index) of string 'str',
+ * where 'delim_index' stands for the index of the first occurrence of
+ * char 'delimiter' inside string 'str'.
+ * (If no occurrences are found, a duplicate of string
+ * 'str' is stored in the new string)
+ * 
+ * @param str 
+ * @param delimiter 
+ * @return char* the new allocated string.
+ */
 char	*ft_substr(char *str, char delimiter)
 {
 	char	*substr;

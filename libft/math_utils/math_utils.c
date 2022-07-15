@@ -6,11 +6,11 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 16:19:20 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/04 09:35:14 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/15 17:50:56 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_utils.h"
+#include "../libft.h"
 
 unsigned int	ft_pow(unsigned int m, unsigned int e)
 {

@@ -6,11 +6,11 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:01:21 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/23 16:13:58 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/15 17:36:10 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_utils.h"
+#include "../libft.h"
 
 t_bool	ft_isspace(char c)
 {
@@ -79,6 +79,14 @@ int	str_number_occurrences(char *str, char c)
 	return (occurrences);
 }
 
+/**
+ * @brief this function returns a pointer to the starting of
+ * substr sequence inside string 'str'
+ * 
+ * @param str 
+ * @param substr 
+ * @return char* 
+ */
 char	*take_substr(char *str, char *substr)
 {
 	char	*str_tmp;
