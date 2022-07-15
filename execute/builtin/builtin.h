@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:01:29 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/13 17:05:47 by earendil         ###   ########.fr       */
+/*   Updated: 2022/07/15 14:50:04 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTIN_H
 # define BUILTIN_H
 
+//* user defined modules //
 # include "../executor.h"
+#include "../../simple_printf/ft_printf_module.h"
 
 void	execute_env_statement(t_env_decl_node env_statement);
 void	execute_export(void);

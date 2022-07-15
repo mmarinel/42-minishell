@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 17:52:55 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/14 19:05:14 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/15 14:47:07 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	execute_pwd(t_simple_command_node cmd)
 	cwd = getcwd(NULL, PATH_MAX);
 	if (cmd.cmd_args == NULL)
 	{
-		printf("%s\n", cwd);
+		ft_printf("%s\n", cwd);
 	}
 	else
 	{

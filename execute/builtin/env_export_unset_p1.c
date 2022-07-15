@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_export.c                                       :+:      :+:    :+:   */
+/*   env_export_unset_p1.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:01:18 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/13 16:55:56 by earendil         ###   ########.fr       */
+/*   Updated: 2022/07/15 14:47:19 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ void	execute_export(void)
 	{
 		if (0 != ft_strcmp(export->var_name, "_"))
 		{
-			printf("declare -x %s", export->var_name);
+			ft_printf("declare -x %s", export->var_name);
 			if (export->var_val)
-				printf("=\"%s\"", export->var_val);
-			printf("\n");
+				ft_printf("=\"%s\"", export->var_val);
+			ft_printf("\n");
 		}
 		export = export->next;
 	}
@@ -58,7 +58,7 @@ void	execute_env(void)
 	{
 		if (env->var_val)
 		{
-			printf("%s=%s\n", env->var_name, env->var_val);
+			ft_printf("%s=%s\n", env->var_name, env->var_val);
 		}
 		env = env->next;
 	}

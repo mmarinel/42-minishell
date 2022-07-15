@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 18:23:33 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/15 11:00:32 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/15 14:51:49 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 
 //* user defined modules
 # include "../get_next_line/get_next_line.h"
+# include "../simple_printf/ft_printf_module.h"
 
 //* user defined exposed functions
 void	put_error(char *preamble, char *message, char *epilogue,

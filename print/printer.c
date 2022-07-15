@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 10:51:33 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/15 12:24:08 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/15 14:51:30 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ size_t	printer(t_print_opcode opcode)
 			if (line == NULL)
 				break ;
 			stdout_byte_shift = byteshift_update(line, stdout_byte_shift);
-			printf("%s", line);
+			ft_printf("%s", line);
 			free(line);
 		}
 		// dup2(stdout_clone, STDOUT_FILENO);
