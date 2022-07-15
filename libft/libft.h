@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:24:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/15 18:16:19 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/15 18:47:15 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ t_bool			char_is_digit(char c);
 char			take_starting_quote(char *str);
 t_bool			ft_quote_occurrence_balanced(char *str);
 int				str_number_occurrences(char *str, char c);
-
 
 
 //* split
