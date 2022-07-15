@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 09:39:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/15 11:28:48 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/15 17:15:30 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,15 @@ static void	execute_subshell(t_tree_node *root, int in, int out);
 void	execute(t_tree_node *parse_tree)
 {
 	int	stdout_clone;
-	// int	stderr_clone;
 	int	fd_stdout_dump_file;
 
-	// stderr_clone = dup(STDERR_FILENO);
 	stdout_clone = dup(STDOUT_FILENO);
 	fd_stdout_dump_file = open(".stdout-dump",
 		O_CREAT | O_WRONLY | O_TRUNC, 0777);
 	dup2(fd_stdout_dump_file, STDOUT_FILENO);
-	// dup2(fd_stdout_dump_file, STDERR_FILENO);
 	if (parse_tree)
 		execute_rec(parse_tree, STDIN_FILENO, STDOUT_FILENO);
 	dup2(stdout_clone, STDOUT_FILENO);
-	// dup2(stderr_clone, STDERR_FILENO);
 	close(fd_stdout_dump_file);
 }
 

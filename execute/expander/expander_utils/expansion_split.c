@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:36:03 by earendil          #+#    #+#             */
-/*   Updated: 2022/07/15 10:40:42 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/15 17:08:10 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,12 @@ static char	*get_segment(char *str,
 static char	*get_suffix(char *str, size_t cutting_index)
 {
 	size_t	len_str;
+	size_t	spaces;
 
-	// cutting_index = skip_consecutive_chars(str, cutting_index, ' ', +1);
+	spaces = skip_consecutive_chars(str, cutting_index, ' ', +1);
 	len_str = ft_strlen(str);
-	if (cutting_index > len_str - 1)
+	if (str[spaces] == '\0'
+		|| cutting_index > len_str - 1)
 		return (NULL);
 	else
 		return (ft_strcpy(NULL, str + cutting_index,
