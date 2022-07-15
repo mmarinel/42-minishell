@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 17:11:39 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/12 11:09:54 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/15 11:17:12 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 // * user defined modules //
 # include "../signals/signal_module.h"
 # include "../read/prompt/prompt_utils/prompt_utils.h"
-# include  "../env/env_module.h"
+# include "../env/env_module.h"
+# include "../print/print_module.h"
 
 /**
  * @brief this function exits the current shell.

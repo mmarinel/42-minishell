@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 17:07:46 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/14 17:56:35 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/15 11:17:42 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static size_t	get_prompt_len(void)
 	len += ft_strlen(last_cmd_exit_status);
 	free(last_cmd_exit_status);
 	free(cwd);
-	return (len + 1);
+	return (len + 1 + printer(GET_STDOUT_BYTE_SHIFT));
 }
 
 static size_t	get_cwd_len(char *cwd)

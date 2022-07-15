@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/14 18:38:50 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/15 12:12:15 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	main(int argc, char const *argv[], char *const envp[])
 	{
 		parse_tree = shell_read();
 		execute(parse_tree);
+		printer(PRINT);
 		tokenizer_free();
 		free_tree(&parse_tree);
 		unlink_here_docs();
