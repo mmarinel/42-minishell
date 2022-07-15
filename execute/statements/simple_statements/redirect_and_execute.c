@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:15:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/14 20:16:23 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/15 09:21:15 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,11 @@ void	execute_simple_cmd(t_tree_node *root, int in, int out)
 
 void	execute_builtin(t_tree_node *root, int in, int out)
 {
+	int	stdin_clone;
+	int	stdout_clone;
+
+	stdin_clone = dup(STDIN_FILENO);
+	stdout_clone = dup(STDOUT_FILENO);
 	executor_handle_redirs(root->content->in_redir,
 		in, STDIN_FILENO, e_true);
 	executor_handle_redirs(root->content->out_redir,
@@ -70,6 +75,8 @@ void	execute_builtin(t_tree_node *root, int in, int out)
 	{
 		execute_cmd_builtin(root->content->simple_cmd);
 	}
+	dup2(stdin_clone, STDIN_FILENO);
+	dup2(stdout_clone, STDOUT_FILENO);
 }
 
 void	execute_redir_only_statement(t_tree_node *root, int in, int out)
@@ -89,7 +96,7 @@ void	execute_redir_only_statement(t_tree_node *root, int in, int out)
 						O_CREAT | O_TRUNC | O_WRONLY, 0777);
 		if (out_fd == -1)
 		{
-			perror("minishell at execute_redir_only_statement: ");
+			perror("minishell at execute_redir_only_statement");
 			g_env.last_executed_cmd_exit_status = EXIT_FAILURE;
 		}
 		else
