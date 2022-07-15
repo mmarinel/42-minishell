@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 11:07:49 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/02 11:08:13 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/15 10:00:07 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,19 @@ t_token	*scan_in_out_finalize(char *next_word_begin, size_t next_word_len,
 		*here_docs += 1;
 	}
 	return (token);
+}
+
+size_t	read_file_name(char *str, size_t offset)
+{
+	size_t	len_file_name;
+
+	if (str[offset] == '&' && str[offset + 1] != '&')
+	{
+		offset += 1;
+		len_file_name = 1;
+	}
+	else
+		len_file_name = 0;
+	len_file_name += bash_next_word_len(str, offset);
+	return (len_file_name);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_patterns.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/12 16:47:40 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/15 10:02:22 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ size_t	scan_inout_file(char *command_line, size_t offset, t_token **token_list)
 	pre_offset = scan_invariants(command_line, pre_offset);
 	if (!command_line[pre_offset])
 		return (offset);
-	len_file_name = bash_next_word_len(command_line, pre_offset);
+	len_file_name = read_file_name(command_line, pre_offset);
+	// len_file_name = bash_next_word_len(command_line, pre_offset);
 	if (len_file_name == 0)
 		return (offset);
 	tok_add_back(
