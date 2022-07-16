@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/14 17:16:33 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/16 13:08:22 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,16 +181,19 @@ size_t	bash_next_word_len(char *command_line, size_t offset)
 	char	delimiter;
 
 	offset = scan_invariants(command_line, offset);
-	if (ft_is_quote(command_line[offset]))
-		return (bash_next_quoted_seq(command_line, offset + 1,
-					command_line[offset]));
-	else
+	while (ft_is_quote(command_line[offset]))
+		offset = skip_past_char(command_line, offset + 1, command_line[offset],
+					+1);
+	// 	return (bash_next_quoted_seq(command_line, offset + 1,
+	// 				command_line[offset]));
+	// else
 	{
-		len_word = 0;
+		len_word = offset;
 		while (command_line[offset + len_word])
 		{
 			if (e_true
 					== bash_control_character(command_line[offset + len_word])
+				&& e_false == ft_is_quote(command_line[offset + len_word])
 			)
 				break ;
 			len_word++;

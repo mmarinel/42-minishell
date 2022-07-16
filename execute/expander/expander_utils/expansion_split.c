@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:36:03 by earendil          #+#    #+#             */
-/*   Updated: 2022/07/16 11:21:46 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/16 11:48:26 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,20 @@ static void	take_next_star_segment_boundaries(char *str,
 	if (!str || !(*str))
 		return ;
 	*start = 0;
-	if (str[offset] == '"' || str[offset] == '\'')
+	if (str[0] == '"' || str[0] == '\'')
 	{
-			offset = skip_past_char(str, offset + 1, str[offset], +1);
+			offset = skip_past_char(str, 0 + 1, str[0], +1);
+			printf("offset at end of \" is: %zu\n", offset);
 	}
+	else if (e_true == ft_isspace(str[0]))
+		offset = skip_consecutive_chars(str, 0, str[0], +1);
 	else
 	{
-		offset = skip_consecutive_chars(str, 0, ' ', +1);
+		offset = 0; //skip_past_char(str, 0, ' ', +1);//skip_consecutive_chars(str, 0, ' ', +1);
 		while (e_true)
 		{
 			if (str[offset] == '\0'
-				|| e_true == bash_control_character(str[offset]))
+				|| e_true == ft_isspace(str[offset]))//bash_control_character(str[offset]))
 				break ;
 			offset++;
 		}

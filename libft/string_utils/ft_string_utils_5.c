@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 09:30:11 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/15 17:45:10 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/16 11:34:19 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ size_t	skip_past_char(char *str, size_t offset,
 			return (i + direction);
 		i += direction;
 	}
-	return ((size_t)-1);
+	return (offset);
 }
 
 char	*ft_strdup(char *str)

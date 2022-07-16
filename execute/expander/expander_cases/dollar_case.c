@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 19:49:32 by earendil          #+#    #+#             */
-/*   Updated: 2022/07/16 10:50:23 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/16 12:22:00 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ char	*expand_dollar_case(char *args)
 		return (NULL);
 	expansion_split(DOLLAR, args, &next_segment, &args_post);
 	free(args);
+	printf("arg post:%s\n", args_post);
 	return (
 		ft_strjoin(
 			expand_dollar_segment(next_segment),
@@ -48,8 +49,11 @@ static char	*expand_dollar_segment(char *next_segment)
 				ft_strcpy(NULL, next_segment + 1, seg_len - 2)
 		);
 	}
-	else if (next_segment[0] == '\''
-			|| next_segment[0] != '$')
+	else if (next_segment[0] == '\'')
+	{
+		expansion = ft_strcpy(NULL, next_segment + 1, seg_len - 2);
+	}
+	else if (next_segment[0] != '$')
 	{
 		expansion = ft_strdup(next_segment);
 	}
