@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 17:27:45 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/09 18:49:25 by earendil         ###   ########.fr       */
+/*   Updated: 2022/07/16 18:17:25 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,25 @@ char	**clean_results(char **results)
 	}
 	ft_splitclear(results);
 	return (cleared);
+}
+
+size_t	parse_uninterpreted_prefix(char *segment,
+			char **uninterpreted_prefix_ref)
+{
+	size_t	suffix_offset;
+
+	if (segment[0] == '"' || segment[0] == '\'')
+	{
+		suffix_offset = skip_past_char(segment, 0 + 1, segment[0], +1);
+		*uninterpreted_prefix_ref = string_strip(
+			ft_strcpy(NULL, segment, suffix_offset),
+			segment[0], e_true
+		);
+	}
+	else
+	{
+		*uninterpreted_prefix_ref = NULL;
+		suffix_offset = 0;
+	}
+	return (suffix_offset);
 }

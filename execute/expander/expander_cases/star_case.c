@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:16:31 by earendil          #+#    #+#             */
-/*   Updated: 2022/07/16 16:27:24 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/16 18:23:46 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 
 // * pattern matching //
-static t_bool	match(char *name, char *regex);
+static t_bool	match(char *name, char *uninterpreted_prefix, char *regex);
 static t_bool	backtrack_matching(char *name, char *regex,
 					t_bool star_found);
 
@@ -48,46 +48,71 @@ char	*expand_star_case(char *args)
 static char	*expand_star_segment(char *segment)
 {
 	char	**entries;
+	char	*uninterpreted_prefix;
+	size_t	offset;
 	size_t	i;
 
-	if (segment[0] == '"' || segment[0] == '\'')
-		return (segment);
-	// else
-	// 	printf("segment[0] is %c\n", segment[0]);
-	entries = ft_split(cwd_read(), ' ');
-	i = 0;
-	while (entries[i])
+	offset = parse_uninterpreted_prefix(segment, &uninterpreted_prefix);
 	{
-		if (e_false == match(entries[i], segment))
+		entries = ft_split(cwd_read(), ' ');
+		i = 0;
+		while (entries[i])
 		{
-			free(entries[i]);
-			entries[i] = ft_strcpy(NULL, "", sizeof(char));
+			if (e_false == match(entries[i], uninterpreted_prefix,
+					segment + offset))
+			{
+				free(entries[i]);
+				entries[i] = ft_strcpy(NULL, "", sizeof(char));
+			}
+			i++;
 		}
-		i++;
+		entries = clean_results(entries);
+		return (expansion_return(entries, segment));
 	}
-	entries = clean_results(entries);
-	return (expansion_return(entries, segment));
 }
 
 static char	*expansion_return(char **entries, char *segment)
 {
+	char	*ret;
+	char	*prefix_uninterpreted;
+	size_t	suffix_offset;
+
 	if (entries[0] == NULL)
 	{
 		ft_splitclear(entries);
-		return (segment);
+		ret = ft_strdup(segment);
 	}
 	else
 	{
-		free(segment);
-		return (split_merge(entries, " ", e_true));
+		ret = (split_merge(entries, " ", e_true));
 	}
+	free(segment);
+	return (ret);
 }
 
-static t_bool	match(char *name, char *regex)
+	// if (entries == NULL)
+	// {
+	// 	suffix_offset = skip_past_char(segment, 0 + 1, segment[0], +1);
+	// 	prefix_uninterpreted = string_strip(
+	// 		ft_strcpy(NULL, segment, suffix_offset),
+	// 		segment[0], e_true
+	// 	);
+	// 	ret = expand_star_segment(
+	// 		ft_strjoin(,
+	// 			ft_strdup(segment + suffix_offset),
+	// 			e_true, e_true
+	// 		)
+	// 	);
+	// }
+static t_bool	match(char *name, char *uninterpreted_prefix, char *regex)
 {
 	size_t	star_found;
 
 	star_found = e_false;
+	if (uninterpreted_prefix)
+		if (0 != ft_strncmp(name, uninterpreted_prefix,
+				ft_strlen(uninterpreted_prefix)))
+			return (e_false);
 	if (regex[0] == '*')
 	{
 		star_found = e_true;
@@ -112,7 +137,7 @@ static t_bool	backtrack_matching(char *name, char *regex,
 		while (name[next_pos])
 		{
 			if (name[next_pos] == regex[0]
-				&& match(name + next_pos + 1, regex + 1))
+				&& match(name + next_pos + 1, NULL, regex + 1))
 				return (e_true);
 			next_pos++;
 		}
@@ -123,6 +148,6 @@ static t_bool	backtrack_matching(char *name, char *regex,
 		if (regex[0] != name[0])
 			return (e_false);
 		else
-			return (match(name + 1, regex + 1));
+			return (match(name + 1, NULL, regex + 1));
 	}
 }
