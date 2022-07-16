@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   star_case.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:16:31 by earendil          #+#    #+#             */
-/*   Updated: 2022/07/12 18:39:23 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/15 19:52:23 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ static char	*expand_star_segment(char *segment)
 	char	**entries;
 	size_t	i;
 
+	if (segment[0] == '"' || segment[0] == '\'')
+		return (segment);
 	entries = ft_split(cwd_read(), ' ');
 	i = 0;
 	while (entries[i])

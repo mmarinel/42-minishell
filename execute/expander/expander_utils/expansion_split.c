@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:36:03 by earendil          #+#    #+#             */
-/*   Updated: 2022/07/15 17:08:10 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/16 11:05:44 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,20 @@ static void	take_next_star_segment_boundaries(char *str,
 	if (!str || !(*str))
 		return ;
 	*start = 0;
-	offset = skip_consecutive_chars(str, 0, ' ', +1);
-	while (e_true)
+	if (str[offset] == '"' || str[offset] == '\'')
 	{
-		while (str[offset] == '"' || str[offset] == '\'')
-			offset = skip_past_char(str, offset, str[offset], +1);
-		if (str[offset] == '\0'
-			|| e_true == bash_control_character(str[offset]))
-			break ;
-		offset++;
+			offset = skip_past_char(str, offset + 1, str[offset], +1);
+	}
+	else
+	{
+		offset = skip_consecutive_chars(str, 0, ' ', +1);
+		while (e_true)
+		{
+			if (str[offset] == '\0'
+				|| e_true == bash_control_character(str[offset]))
+				break ;
+			offset++;
+		}
 	}
 	*end = offset - 1;
 	return ;
@@ -79,7 +84,9 @@ static void	take_next_dollar_segment_boundaries(char *str,
 		return ;
 	{
 		*start = 0;
-		if (str[0] == '$' && str[1] == '*')
+		if (str[0] == '"' || str[0] == '\'')
+				*end = skip_past_char(str, 1, str[0], +1) - 1;
+		else if (str[0] == '$' && str[1] == '*')
 			*end = 1;
 		else
 		{
@@ -105,11 +112,12 @@ static char	*get_segment(char *str,
 static char	*get_suffix(char *str, size_t cutting_index)
 {
 	size_t	len_str;
-	size_t	spaces;
+	size_t	first_non_space_char_index;
 
-	spaces = skip_consecutive_chars(str, cutting_index, ' ', +1);
 	len_str = ft_strlen(str);
-	if (str[spaces] == '\0'
+	first_non_space_char_index
+		= skip_consecutive_chars(str, cutting_index, ' ', +1);
+	if (first_non_space_char_index > len_str - 1
 		|| cutting_index > len_str - 1)
 		return (NULL);
 	else
