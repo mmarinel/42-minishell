@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/16 13:08:22 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/16 15:04:30 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,9 +178,10 @@ void	print_token(t_token *token)
 size_t	bash_next_word_len(char *command_line, size_t offset)
 {
 	size_t	len_word;
-	char	delimiter;
+	size_t	invariant_chars;
 
 	offset = scan_invariants(command_line, offset);
+	invariant_chars = offset;
 	while (ft_is_quote(command_line[offset]))
 		offset = skip_past_char(command_line, offset + 1, command_line[offset],
 					+1);
@@ -188,12 +189,13 @@ size_t	bash_next_word_len(char *command_line, size_t offset)
 	// 				command_line[offset]));
 	// else
 	{
-		len_word = offset;
-		while (command_line[offset + len_word])
+		len_word = offset - invariant_chars;
+		while (command_line[invariant_chars + len_word])
 		{
-			if (e_true
-					== bash_control_character(command_line[offset + len_word])
-				&& e_false == ft_is_quote(command_line[offset + len_word])
+			if (e_true == bash_control_character(command_line[
+							invariant_chars + len_word])
+				&& e_false == ft_is_quote(command_line[
+						invariant_chars + len_word])
 			)
 				break ;
 			len_word++;
