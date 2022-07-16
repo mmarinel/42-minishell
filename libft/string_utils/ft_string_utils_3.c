@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:01:21 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/15 17:36:10 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/16 16:44:20 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_bool	ft_isspace(char c)
 	return (c == 32 || (c >= '\t' && c <= '\r'));
 }
 
-char	*string_strip(char *str, char c, t_bool free_input)
+char	*string_strip(char *str, char to_strip, t_bool free_input)
 {
 	char	*stripped;
 	int		occurrences;
@@ -26,16 +26,16 @@ char	*string_strip(char *str, char c, t_bool free_input)
 
 	if (!str)
 		return (NULL);
-	occurrences = str_number_occurrences(str, c);
+	occurrences = str_number_occurrences(str, to_strip);
 	stripped = (char *) malloc(
 			(ft_strlen(str) - occurrences + 1) * sizeof(char));
 	idx_stripped = 0;
 	idx_input = 0;
 	while (idx_input < (int)ft_strlen(str))
 	{
-		if (str[idx_input] != c)
+		if (str[idx_input] != to_strip)
 		{
-			stripped[idx_stripped] = *str;
+			stripped[idx_stripped] = str[idx_input];
 			idx_stripped++;
 		}
 		idx_input++;
@@ -67,7 +67,7 @@ int	str_number_occurrences(char *str, char c)
 
 	if (!str)
 		return (0);
-	if (!(*str))
+	if (c == '\0')
 		return (1);
 	occurrences = 0;
 	while (*str)

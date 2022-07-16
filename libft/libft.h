@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:24:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/15 18:47:15 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/16 16:02:07 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_bool			str_not_empty(char *str);
 
 	//*  string strip
 
-char			*string_strip(char *str, char c, t_bool free_input);
+char			*string_strip(char *str, char to_strip, t_bool free_input);
 char			*str_strip_spaces(char *str);
 
 

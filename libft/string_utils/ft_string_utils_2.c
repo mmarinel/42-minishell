@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:45:17 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/15 17:33:31 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/16 16:46:48 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,27 @@
  */
 t_bool	ft_quote_occurrence_balanced(char *str)
 {
-	char	quote;
-	int		occurrences;
+	// char	quote;
+	// int		occurrences;
 
-	if (!str)
-		return (e_true);
-	quote = take_starting_quote(str);
-	if (quote != '"' && quote != '\'')
-		return (e_true);
-	occurrences = 0;
-	while (*str)
-	{
-		if (*str == quote)
-			occurrences += 1;
-		str++;
-	}
-	return (occurrences % 2 == 0);
+	return (
+			str_number_occurrences(str, '\'') % 2 == 0
+		&&
+			str_number_occurrences(str, '"') % 2 == 0
+	);
+	// if (!str)
+	// 	return (e_true);
+	// quote = take_starting_quote(str);
+	// if (quote != '"' && quote != '\'')
+	// 	return (e_true);
+	// occurrences = 0;
+	// while (*str)
+	// {
+	// 	if (*str == quote)
+	// 		occurrences += 1;
+	// 	str++;
+	// }
+	// return (occurrences % 2 == 0);
 }
 
 char	take_starting_quote(char *str)

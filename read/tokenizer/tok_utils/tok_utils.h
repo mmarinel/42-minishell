@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_utils.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 13:04:29 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/12 12:44:25 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/16 17:05:03 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,12 @@
 # include "../../../utils/ft_utils.h"
 # include "../tok_types.h"
 # include "../../../types.h"
+# include "../../../global.h"
 
 // * user defined functions
 
 
 size_t	scan_simple_command(char *command_line, size_t offset,
-			t_token **token_list);
-size_t	scan_prologue(char *command_line, size_t offset,
-			t_token **token_list);
-size_t	scan_body(char *command_line, size_t offset,
-			t_token **token_list);
-size_t	scan_epilogue(char *command_line, size_t offset,
 			t_token **token_list);
 /**
  * @brief this function adds the given token

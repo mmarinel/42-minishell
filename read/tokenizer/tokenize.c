@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 18:48:51 by earendil          #+#    #+#             */
-/*   Updated: 2022/07/14 19:43:12 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/16 17:08:14 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,29 +59,19 @@ static void	*tokenizer(char *command_line, t_op_code op_code)
 static t_token	*tokenize(char	*command_line)
 {
 	t_token	*token_list;
-	size_t	offset;
-	char	*cursor;
 
 	token_list = NULL;
-	cursor = command_line;
-	offset = 0;
-	while (command_line[offset])
+	if (e_false == ft_quote_occurrence_balanced(command_line))
 	{
-		offset = scan_prologue(command_line, offset, &token_list);
-		offset = scan_body(command_line, offset, &token_list);
-		offset = scan_epilogue(command_line, offset, &token_list);
-		if (cursor == command_line + offset)
-			break ;
-		cursor = command_line + offset;
-	}
-	if (offset < ft_strlen(command_line))
-	{
-		g_env.last_executed_cmd_exit_status = EXIT_FAILURE; // 258
+		g_env.last_executed_cmd_exit_status = 258;//EXIT_FAILURE; // 258
 		put_error("Syntax Error: ",
-			"token not recognized",
-			ft_strjoin("near ...", command_line + offset, e_false, e_false),
-			e_true);
-		free_tok_list(&token_list);
+			"quote unbalanced input string",
+			NULL,
+			e_false);
+	}
+	else
+	{
+		scan(command_line, &token_list);
 	}
 	return (token_list);
 }

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:16:31 by earendil          #+#    #+#             */
-/*   Updated: 2022/07/16 12:01:23 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/16 16:27:24 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ static char	*expand_star_segment(char *segment)
 	size_t	i;
 
 	if (segment[0] == '"' || segment[0] == '\'')
-		return (expansion_return(NULL, segment));
-	else
-		printf("segment[0] is %c\n", segment[0]);
+		return (segment);
+	// else
+	// 	printf("segment[0] is %c\n", segment[0]);
 	entries = ft_split(cwd_read(), ' ');
 	i = 0;
 	while (entries[i])
@@ -71,24 +71,16 @@ static char	*expand_star_segment(char *segment)
 
 static char	*expansion_return(char **entries, char *segment)
 {
-	char	*ret;
-
-	if (!entries)
-	{
-		ret = ft_strcpy(NULL, segment + 1, ft_strlen(segment) - 2);
-		free(segment);
-	}
-	else if (entries[0] == NULL)
+	if (entries[0] == NULL)
 	{
 		ft_splitclear(entries);
-		ret = (segment);
+		return (segment);
 	}
 	else
 	{
 		free(segment);
-		ret = (split_merge(entries, " ", e_true));
+		return (split_merge(entries, " ", e_true));
 	}
-	return (ret);
 }
 
 static t_bool	match(char *name, char *regex)
