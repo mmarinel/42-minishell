@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 09:39:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/15 17:15:30 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/17 09:17:45 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,32 @@ void	execute(t_tree_node *parse_tree)
 	int	stdout_clone;
 	int	fd_stdout_dump_file;
 
-	stdout_clone = dup(STDOUT_FILENO);
-	fd_stdout_dump_file = open(".stdout-dump",
-		O_CREAT | O_WRONLY | O_TRUNC, 0777);
-	dup2(fd_stdout_dump_file, STDOUT_FILENO);
+	{
+		stdout_clone = dup(STDOUT_FILENO);
+		fd_stdout_dump_file = open(".stdout-dump",
+			O_CREAT | O_WRONLY | O_TRUNC, 0777);
+		dup2(fd_stdout_dump_file, STDOUT_FILENO);
+	}
 	if (parse_tree)
 		execute_rec(parse_tree, STDIN_FILENO, STDOUT_FILENO);
-	dup2(stdout_clone, STDOUT_FILENO);
-	close(fd_stdout_dump_file);
+	{
+		dup2(stdout_clone, STDOUT_FILENO);
+		close(fd_stdout_dump_file);
+	}
 }
 
 void	execute_rec(t_tree_node *root, int in, int out)
 {
 	if (!root)
 		return ;
-	// printf(YELLOW "execute_rec\n" RESET);
-	signal(SIGUSR1, shell_executor_handler);
-	signal(SIGUSR2, shell_executor_handler);
-	if (root->launch_subshell == e_true)
-		execute_subshell(root, in, out);
-	else
-		execute_in_shell(root, in, out);
+	{
+		signal(SIGUSR1, shell_executor_handler);
+		signal(SIGUSR2, shell_executor_handler);
+		if (root->launch_subshell == e_true)
+			execute_subshell(root, in, out);
+		else
+			execute_in_shell(root, in, out);
+	}
 }
 
 static void	execute_subshell(t_tree_node *root, int in, int out)
@@ -76,7 +81,6 @@ static void	execute_subshell(t_tree_node *root, int in, int out)
 
 static void	execute_in_shell(t_tree_node *root, int in, int out)
 {
-	// printf(YELLOW "execute_in_shell\n" RESET);
 	if (root->content->content_type == SIMPL_CMD
 		|| root->content->content_type == ENV_STATEMENT
 		|| root->content->content_type == REDIR)

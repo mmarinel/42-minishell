@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_case.c                                      :+:      :+:    :+:   */
+/*   parser_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:29:47 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/02 14:30:17 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/17 11:33:26 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,5 @@ void	parser_initialize(t_parser_status *parser_status)
 	parser_status->open.double_qquotes = 0;
 	parser_status->open.quotes = 0;
 	parser_status->open.parenthesis = 0;
+	parser_status->last_read_tok_pos = 0;
 }

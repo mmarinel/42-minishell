@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   here_doc_utils.c                                   :+:      :+:    :+:   */
+/*   here_doc_read.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 10:01:00 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 11:49:16 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/17 12:42:59 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ static size_t	here_docs_count(char *command);
 static char		**here_doc_take_delimiters(char *command);
 static void		here_doc_prompt(char *delimiter, char *handle_name);
 
+//* end of static declarations //
+
+
 t_bool	here_doc_line(char *command)
 {
 	if (!command)
@@ -24,7 +27,7 @@ t_bool	here_doc_line(char *command)
 	return (here_docs_count(command) > 0);
 }
 
-void	here_doc_read(char *command)
+t_status	here_doc_read(char **command)
 {
 	char			*cur_file_name;
 	char			**here_doc_delims;
@@ -33,7 +36,6 @@ void	here_doc_read(char *command)
 
 	here_docs = here_docs_count(command);
 	here_doc_delims =  here_doc_take_delimiters(command);
-	// i = 0;
 	while (here_docs--)
 	{
 		cur_file_name = ft_strjoin(".here_doc-", ft_itoa(i), e_false, e_true);
@@ -44,70 +46,33 @@ void	here_doc_read(char *command)
 		else
 			i++;
 	}
-	// printf("last delim: %s\n", here_doc_delims[1]);
 	ft_splitclear(here_doc_delims);
 }
 
-static void	here_doc_read_current(char *delimiter, char *handle_name)
+static t_status	here_doc_read_current(char *delimiter, char *hdoc_file_name)
 {
 	pid_t	hdoc_prompt_pid;
 	int		hdoc_prompt_exit_status;
-	// int		fd_here_document;
+	int		line_channel[2];
+	int		line_size_channel[2];
 
-	// printf("here_doc is %s\n", handle_name);
-	// fd_here_document = open(handle_name, O_CREAT | O_RDWR | O_APPEND, 0777);
-	// if (-1 == fd_here_document)
-	// 	exit_shell(EXIT_FAILURE, e_false);
+	pipe(line_channel);
+	pipe(line_size_channel);
 	hdoc_prompt_pid = fork();
 	if (!hdoc_prompt_pid)
 	{
-		here_doc_prompt(delimiter, handle_name);
+		here_doc_prompt(delimiter, hdoc_file_name);
 	}
-	// close(fd_here_document);
 	waitpid(hdoc_prompt_pid, &hdoc_prompt_exit_status, 0);
 	if (!WIFEXITED(hdoc_prompt_exit_status) || WEXITSTATUS(hdoc_prompt_exit_status))
+	{
 		g_env.last_executed_cmd_exit_status = EXIT_FAILURE;
-	else
-		g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
-}
-
-static void	here_doc_prompt(char *delimiter, char *handle_name)
-{
-	int		fd_here_document;
-	char	*next_line;
-
-	signal(SIGINT, SIG_IGN);
-	unlink(handle_name);
-	fd_here_document = open(handle_name, O_CREAT | O_RDWR | O_TRUNC, 0777);
-	if (-1 == fd_here_document)
-	{
-		perror("minishell at here_doc_prompt: ");
-		exit(EXIT_FAILURE);
+		return (ERROR);
 	}
-	while (e_true)
+	else
 	{
-		next_line = readline("heredoc> ");
-		// printf("delimiter is %s\n", delimiter);
-		if (!next_line
-			|| 0 == ft_strcmp(next_line, delimiter))
-		{
-			close(fd_here_document);
-			ft_free(next_line);
-			exit(EXIT_SUCCESS);
-		}
-		else if (*next_line == '\0')
-		{
-			write(fd_here_document, "", 0);
-			close(fd_here_document);
-			free(next_line);
-			exit(EXIT_FAILURE);
-		}
-		else
-		{
-			next_line = ft_strjoin(next_line, "\n", e_true, e_false);
-			write(fd_here_document, next_line, ft_strlen(next_line));
-			free(next_line);
-		}
+		g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
+		return (OK);
 	}
 }
 

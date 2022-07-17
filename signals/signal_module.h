@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_module.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 19:00:29 by evento            #+#    #+#             */
-/*   Updated: 2022/07/11 19:40:34 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/17 12:16:40 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@ void	sig_handler(int signum);
 void	sig_handling_set(t_sig_handling_opcode opcode);
 void	shell_executor_handler(int signum);
 void	line_completion_prompt_sig_handler(int signum);
+void	here_doc_prompt_sig_handler(int signum);
 
 #endif

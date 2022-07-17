@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:15:50 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/11 19:48:58 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/17 12:15:04 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,19 @@ void	line_completion_prompt_sig_handler(int signum)
 	{
 		line_continuation_prompt(KILL, NULL, NULL);
 	}
+}
+
+/**
+ * @brief EXIT_FAILURE is "thrown" for ctrl + C
+ * 
+ * @param signum 
+ */
+void	here_doc_prompt_sig_handler(int signum)
+{
+	// if (signum == SIGINT)
+	// {
+	// 	line_continuation_prompt(KILL, NULL, NULL);
+	// }
 }
 
 /**

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_utils.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 19:04:09 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/13 09:06:27 by earendil         ###   ########.fr       */
+/*   Updated: 2022/07/17 12:32:08 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # include "../../../types.h"
 # include "../../../colors.h"
 # include "../../../utils/ft_utils.h"
+# include "../../../signals/signal_module.h"
+# include "../prompt_types.h"
 
 
 // * user defined module
@@ -35,9 +37,9 @@
 // * includes end //
 
 
-char	**ft_add_history(char *command);
+char		**ft_add_history(char *command);
 
-t_bool	here_doc_line(char *command);
-void	here_doc_read(char *command);
+t_bool		here_doc_line(char *command);
+t_status	here_doc_read(char **command);
 
 #endif

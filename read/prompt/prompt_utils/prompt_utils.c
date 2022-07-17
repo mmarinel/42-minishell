@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 19:00:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 09:42:40 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/17 11:06:18 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	**ft_add_history(char *command)
 	if (command)
 	{
 		if (str_not_empty(command)
-			&& (!last || 0 != ft_strncmp(command, last, ft_strlen(last)))
+			&& (!last || 0 != ft_strcmp(last, command))
 		)
 		{
 			add_history(command);

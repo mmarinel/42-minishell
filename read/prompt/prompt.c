@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:34:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/12 11:10:40 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/17 11:57:45 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static char		*get_decorated_cwd(char *cwd);
 
-static char	*complete_line(char *command);
-static char	*return_complete_line(char *command,
-				pid_t line_completion_prompt_pid,
-				int line_channel[], int line_size_channel[]);
+static t_status	complete_line(char **command);
+static t_status	read_completed_line(char **command,
+					pid_t line_completion_prompt_pid,
+					int line_channel[], int line_size_channel[]);
 
 // * end of static declarations //
 
@@ -42,8 +42,10 @@ static char	*return_complete_line(char *command,
  */
 char	*ft_readline(char *prompt, t_bool free_prompt)
 {
-	char	*command;
+	char		*command;
+	t_status	prompt_status;
 
+	prompt_status = OK;
 	command = readline(prompt);
 	if (!command)
 	{
@@ -58,23 +60,29 @@ char	*ft_readline(char *prompt, t_bool free_prompt)
 	else if (e_true == ft_pending_pipe(command)
 			|| e_true == ft_pending_logical_op(command))
 	{
-		command = complete_line(command);
+		prompt_status = complete_line(&command);
 	}
 	if (e_true == here_doc_line(command))
 	{
-		here_doc_read(command);
+		prompt_status = here_doc_read(&command);
 	}
 	ft_add_history(command);
 	if (free_prompt)
 		free(prompt);
+	if (prompt_status == ERROR)
+	{
+		free(command);
+		command = NULL;
+	}
 	return (command);
 }
 
-static char	*complete_line(char *command)
+static t_status	complete_line(char **command)
 {
-	pid_t	line_cont_prompt_pid;
-	int		line_channel[2];
-	int		line_size_channel[2];
+	t_status	outcome;
+	pid_t		line_cont_prompt_pid;
+	int			line_channel[2];
+	int			line_size_channel[2];
 
 	pipe(line_channel);
 	pipe(line_size_channel);
@@ -86,22 +94,23 @@ static char	*complete_line(char *command)
 	else
 	{
 		signal(SIGINT, SIG_IGN);
-		command = return_complete_line(command, line_cont_prompt_pid,
+		outcome = read_completed_line(command, line_cont_prompt_pid,
 					line_channel, line_size_channel);
 		signal(SIGINT, sig_handler);
 	}
 	close_pipe(line_channel);
 	close_pipe(line_size_channel);
-	return (command);
+	return (outcome);
 }
 
-static char	*return_complete_line(char *command,
-				pid_t line_completion_prompt_pid,
-				int line_channel[], int line_size_channel[])
+static t_status	read_completed_line(char **command,
+					pid_t line_completion_prompt_pid,
+					int line_channel[], int line_size_channel[])
 {
-	char	*continuation;
-	size_t	continuation_len;
-	int		line_completion_prompt_exit_status;
+	char		*continuation;
+	size_t		continuation_len;
+	int			line_completion_prompt_exit_status;
+	t_status	outcome;
 
 	close(line_channel[1]);
 	close(line_size_channel[1]);
@@ -110,15 +119,16 @@ static char	*return_complete_line(char *command,
 		|| WEXITSTATUS(line_completion_prompt_exit_status))
 	{
 		g_env.last_executed_cmd_exit_status = EXIT_FAILURE;
-		free(command);
-		return (NULL);
+		outcome = ERROR;
 	}
+	else
+		outcome = OK;
 	read(line_size_channel[0], &continuation_len, sizeof(continuation_len));
 	continuation = (char *) malloc((continuation_len + 1) * sizeof(char));
 	read(line_channel[0], continuation, continuation_len * sizeof(char));
 	continuation[continuation_len] = '\0';
-	command = ft_strjoin(command, continuation, e_true, e_true);
-	return (command);
+	*command = ft_strjoin(*command, continuation, e_true, e_true);
+	return (outcome);
 }
 
 /**

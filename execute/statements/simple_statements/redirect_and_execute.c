@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:15:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/15 09:21:15 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/17 09:22:52 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,7 @@ void	execute_builtin(t_tree_node *root, int in, int out)
 		out, STDOUT_FILENO, e_false);
 	if (root->content->content_type == ENV_STATEMENT)
 	{
-		// if (root->content->env_decl.set)
 			execute_env_statement(root->content->env_decl);
-		// else
-		// 	execute_unset(root->content->env_decl);
 	}
 	else if (root->content->content_type == REDIR)
 	{
@@ -83,11 +80,9 @@ void	execute_redir_only_statement(t_tree_node *root, int in, int out)
 {
 	int	out_fd;
 
-	// printf(YELLOW "execute_redir_only_statement\n" RESET);
 	out_fd = 0;
 	if (root->content->out_redir.file_name)
 	{
-		// printf("file name is: %s\n", root->content->out_redir.file_name);
 		if (root->content->out_redir.append_mode == e_true)
 			out_fd = open(root->content->out_redir.file_name,
 						O_CREAT | O_APPEND | O_WRONLY, 0777);
@@ -102,10 +97,36 @@ void	execute_redir_only_statement(t_tree_node *root, int in, int out)
 		else
 			close(out_fd);
 	}
-	// printf(YELLOW "at the end of execute_redir_only\n" RESET);
-	exit(g_env.last_executed_cmd_exit_status);
+	g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
 	if (in || out)
 	{}
+}
+
+static void	execute_cmd_builtin(t_simple_command_node simple_cmd)
+{
+	char	*simple_name;
+
+	simple_cmd.cmd_args = expand(simple_cmd.cmd_args);
+	simple_name = ft_get_cmd_name(simple_cmd.cmd_name);
+	if (0 == ft_strcmp(simple_name, "echo"))
+		execute_echo(simple_cmd);
+	if (0 == ft_strcmp(simple_name, "cd"))
+		execute_cd(simple_cmd);
+	if (0 == ft_strcmp(simple_name, "exit"))
+		execute_exit(simple_cmd);
+	if (0 == ft_strcmp(simple_name, "pwd"))
+		execute_pwd(simple_cmd);
+	if (0 == ft_strcmp(simple_name, "export"))
+		execute_export();
+	if (0 == ft_strcmp(simple_name, "unset"))
+		execute_unset();
+	if (0 == ft_strcmp(simple_name, "env"))
+		execute_env();
+	free(simple_name);
+	// if (g_env.last_executed_cmd_exit_status == EXIT_FAILURE)
+	// 	exit(EXIT_FAILURE); // * mettere una exit_shell custom in ogni modulo ! (per freeare tutto il necessario)
+	// else
+	// 	exit(EXIT_SUCCESS); // * mettere una exit_shell custom in ogni modulo ! (per freeare tutto il necessario)
 }
 
 static void	executor_handle_redirs(t_redirection redir, int cur_in_out,
@@ -136,31 +157,4 @@ static void	executor_handle_redirs(t_redirection redir, int cur_in_out,
 		dup2(cur_in_out, std_in_out);
 		close(cur_in_out);
 	}
-}
-
-static void	execute_cmd_builtin(t_simple_command_node simple_cmd)
-{
-	char	*simple_name;
-
-	simple_cmd.cmd_args = expand(simple_cmd.cmd_args);
-	simple_name = ft_get_cmd_name(simple_cmd.cmd_name);
-	if (0 == ft_strcmp(simple_name, "echo"))
-		execute_echo(simple_cmd);
-	if (0 == ft_strcmp(simple_name, "cd"))
-		execute_cd(simple_cmd);
-	if (0 == ft_strcmp(simple_name, "exit"))
-		execute_exit(simple_cmd);
-	if (0 == ft_strcmp(simple_name, "pwd"))
-		execute_pwd(simple_cmd);
-	if (0 == ft_strcmp(simple_name, "export"))
-		execute_export();
-	if (0 == ft_strcmp(simple_name, "unset"))
-		execute_unset();
-	if (0 == ft_strcmp(simple_name, "env"))
-		execute_env();
-	free(simple_name);
-	// if (g_env.last_executed_cmd_exit_status == EXIT_FAILURE)
-	// 	exit(EXIT_FAILURE); // * mettere una exit_shell custom in ogni modulo ! (per freeare tutto il necessario)
-	// else
-	// 	exit(EXIT_SUCCESS); // * mettere una exit_shell custom in ogni modulo ! (per freeare tutto il necessario)
 }
