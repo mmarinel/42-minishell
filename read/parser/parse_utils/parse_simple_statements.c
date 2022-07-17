@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 12:55:41 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/17 09:51:58 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/17 15:14:08 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void	parse_redir(t_node_content *node_content, char *file_name, t_token_id in_ou
 		direction = &(node_content->out_redir);
 	ft_free(direction->file_name);
 	direction->file_name = ft_strdup(file_name);
-	if (in_out == e_OUT_FILE_APPEND)
+	if (//in_out == e_HERE_DOC ||
+		 in_out == e_OUT_FILE_APPEND)
 		direction->append_mode = e_true;
 	else
 		direction->append_mode = e_false;

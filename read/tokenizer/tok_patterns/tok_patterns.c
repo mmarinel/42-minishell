@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/15 10:02:22 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/17 15:41:40 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	scan_inout_file(char *command_line, size_t offset, t_token **token_list)
 {
 	static size_t	here_docs = 0; // * non e' un problema se non lo re-inizializzo perche e' solo un nome per il prossimo handle, e i file li unlinko (distruggo) alla fine di ogni reed!
 	t_token_id		_in_out_;
-	size_t			len_file_name;
+	size_t			next_word_len; //* file name or here_doc delimiter
 	size_t			pre_offset;
 
 	// printf(YELLOW "inside scan_in_out_file\n" RESET);
@@ -30,16 +30,16 @@ size_t	scan_inout_file(char *command_line, size_t offset, t_token **token_list)
 	pre_offset = scan_invariants(command_line, pre_offset);
 	if (!command_line[pre_offset])
 		return (offset);
-	len_file_name = read_file_name(command_line, pre_offset);
+	next_word_len = read_file_name(command_line, pre_offset);
 	// len_file_name = bash_next_word_len(command_line, pre_offset);
-	if (len_file_name == 0)
+	if (next_word_len == 0)
 		return (offset);
 	tok_add_back(
 		token_list,
-		scan_in_out_finalize(command_line + pre_offset, len_file_name,
+		scan_in_out_finalize(command_line + pre_offset, next_word_len,
 				_in_out_, &here_docs)
 	);
-	return (pre_offset + len_file_name);
+	return (pre_offset + next_word_len);
 }
 
 size_t	scan_simple_command(char *command_line, size_t offset,

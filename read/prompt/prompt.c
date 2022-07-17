@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:34:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/17 11:57:45 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/17 18:59:35 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*ft_readline(char *prompt, t_bool free_prompt)
 	}
 	if (e_true == here_doc_line(command))
 	{
-		prompt_status = here_doc_read(&command);
+		prompt_status = here_doc_read(command);
 	}
 	ft_add_history(command);
 	if (free_prompt)

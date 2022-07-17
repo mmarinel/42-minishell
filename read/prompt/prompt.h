@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 16:43:31 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/11 16:38:08 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/17 19:05:50 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@
 
 // * SUBMODULES //
 # include "line_continuation_prompt/line_continuation_prompt.h"
+# include "here_doc/here_doc_module.h"
 # include "prompt_utils/prompt_utils.h"
 # include "../../signals/signals.h"
+
 
 // * readline //
 # include <readline/readline.h>
