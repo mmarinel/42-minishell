@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 16:43:31 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/17 19:05:50 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/17 19:20:04 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@
 # include "here_doc/here_doc_module.h"
 # include "prompt_utils/prompt_utils.h"
 # include "../../signals/signals.h"
-
 
 // * readline //
 # include <readline/readline.h>
