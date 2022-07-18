@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 19:04:09 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/17 18:43:12 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/18 09:14:40 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,14 @@
 // * includes end //
 
 
+/**
+ * @brief this function reads a non-empty line using the readline library function.
+ * If ctrl-d is hit it returns NULL.
+ * 
+ * @param prompt 
+ * @return char* 
+ */
+char		*ft_readline(char *prompt);
 char		**ft_add_history(char *command);
 
 #endif

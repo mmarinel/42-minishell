@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 10:01:00 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/17 19:05:24 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/17 22:47:51 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_status	here_doc_read(char *command)
 	char			**here_doc_delims;
 	size_t			here_docs;
 
+	signal(SIGINT, SIG_IGN);
 	outcome = OK;
 	here_docs = here_docs_count(command);
 	here_doc_delims = here_doc_take_delimiters(command);
@@ -46,7 +47,7 @@ static t_status	here_doc_read_current(char *delimiter, char *hdoc_file_name)
 	pid_t		hdoc_prompt_pid;
 	int			hdoc_prompt_exit_status;
 
-	signal(SIGINT, SIG_IGN);
+	// signal(SIGINT, SIG_IGN);
 	hdoc_prompt_pid = fork();
 	if (!hdoc_prompt_pid)
 	{
@@ -58,7 +59,7 @@ static t_status	here_doc_read_current(char *delimiter, char *hdoc_file_name)
 		outcome = ERROR;
 	else
 		outcome = OK;
-	signal(SIGINT, sig_handler);
+	// signal(SIGINT, sig_handler);
 	return (outcome);
 }
 

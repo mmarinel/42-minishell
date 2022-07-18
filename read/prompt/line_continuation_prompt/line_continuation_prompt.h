@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 16:26:28 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 16:28:43 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/18 12:40:50 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "../prompt.h"
 
-void	line_continuation_prompt(t_prompt_behav opcode,
+void	line_continuation_prompt(t_prompt_behav opcode, char *initial_command,
 			int line_channel[2], int line_size_channel[2]);
 
 #endif

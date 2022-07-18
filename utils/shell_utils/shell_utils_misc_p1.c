@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell_utils_misc.c                                 :+:      :+:    :+:   */
+/*   shell_utils_misc_p1.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 16:29:04 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 13:44:35 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/18 12:30:07 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,12 @@ void	close_pipe(int pipe_[])
 {
 	close(pipe_[0]);
 	close(pipe_[1]);
+}
+
+void	clone_pipe(int target[2], int clone[2])
+{
+	clone[0] = target[0];
+	clone[1] = target[1];
 }
 
 void	set_error(t_status *status)

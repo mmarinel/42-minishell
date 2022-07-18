@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 16:51:54 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/11 20:02:43 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/18 09:25:43 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,20 @@ t_tree_node	*shell_read(void)
 	char	*command;
 
 	printf("\1");
-	command = ft_readline
-		(
+	command = ft_read_command(
 			ft_strjoin(
 				get_current_working_directory(),
 				ft_strjoin(RESET, "\2", e_false, e_false),
-				e_true, e_true),
-			e_true
-		);
+				e_true, e_true)
+	);
+	// command = ft_readline
+	// 	(
+	// 		ft_strjoin(
+	// 			get_current_working_directory(),
+	// 			ft_strjoin(RESET, "\2", e_false, e_false),
+	// 			e_true, e_true),
+	// 		e_true
+	// 	);
 	// printf("line read: %s\n", command);
 	tokenizer_feed_input(command);
 	free(command);

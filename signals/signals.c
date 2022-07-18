@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:15:50 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/17 18:58:27 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/17 22:28:36 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	line_completion_prompt_sig_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
-		line_continuation_prompt(KILL, NULL, NULL);
+		line_continuation_prompt(KILL, NULL, NULL, NULL);
 	}
 }
 

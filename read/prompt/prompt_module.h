@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_module.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 16:29:25 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/11 19:11:11 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/18 09:25:01 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@
  * @return char* the next line read
  * (except here_doc content which is put in a hidden file for later use)
  */
-char	*ft_readline(char *prompt, t_bool free_prompt);
+char	*ft_read_command(char *main_prompt);
+// char	*ft_readline(char *prompt, t_bool free_prompt);
 
 /**
  * @brief Get the current working directory (not with full path)
@@ -41,7 +42,7 @@ char	*get_current_working_directory(void);
 // * WE NEED TO EXPOSE this prototype so that the relative sig-handler
 // *in 'signals' module can access it asking to clean memory
 // *with appropriate opcode !
-void	line_continuation_prompt(t_prompt_behav opcode,
+void	line_continuation_prompt(t_prompt_behav opcode, char *initial_prompt,
 			int line_channel[2], int line_size_channel[2]);
 
 #endif

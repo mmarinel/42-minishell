@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:13:18 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/15 18:03:25 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/18 12:30:25 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ t_bool			ft_is_quote(char c);
 t_bool			bash_cmd_separator(char c);
 t_bool			redirect_char(char c);
 t_bool			asked_for_termination(char	*command);
+void			clone_pipe(int target[2], int clone[2]);
 void			close_pipe(int pipe_[]);
 int				ft_open_file(char *file, unsigned long long flags, int mode);
 

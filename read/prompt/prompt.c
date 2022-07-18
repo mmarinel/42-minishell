@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:34:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/17 18:59:35 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/18 16:13:35 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static char		*get_decorated_cwd(char *cwd);
 
-static t_status	complete_line(char **command);
+static t_status	complete_line(char **initial_command_ref,
+					char *initial_command);
 static t_status	read_completed_line(char **command,
 					pid_t line_completion_prompt_pid,
 					int line_channel[], int line_size_channel[]);
@@ -40,44 +41,27 @@ static t_status	read_completed_line(char **command,
  * @return char* the next line read
  * (except here_doc content which is put in a hidden file for later use)
  */
-char	*ft_readline(char *prompt, t_bool free_prompt)
+char	*ft_read_command(char *main_prompt)
 {
 	char		*command;
 	t_status	prompt_status;
 
-	prompt_status = OK;
-	command = readline(prompt);
+	command = ft_readline(main_prompt);
 	if (!command)
-	{
-		free(prompt);
 		exit_shell(g_env.last_executed_cmd_exit_status, e_true);
-	}
-	else if (*command == '\0')
-	{
-		free(command);
-		return (ft_readline(prompt, free_prompt));
-	}
-	else if (e_true == ft_pending_pipe(command)
-			|| e_true == ft_pending_logical_op(command))
-	{
-		prompt_status = complete_line(&command);
-	}
-	if (e_true == here_doc_line(command))
-	{
-		prompt_status = here_doc_read(command);
-	}
+	prompt_status = complete_line(&command, command);
 	ft_add_history(command);
-	if (free_prompt)
-		free(prompt);
 	if (prompt_status == ERROR)
 	{
+		g_env.last_executed_cmd_exit_status = EXIT_FAILURE;
 		free(command);
 		command = NULL;
 	}
 	return (command);
 }
 
-static t_status	complete_line(char **command)
+static t_status	complete_line(char **initial_command_ref,
+					char *initial_command)
 {
 	t_status	outcome;
 	pid_t		line_cont_prompt_pid;
@@ -89,12 +73,16 @@ static t_status	complete_line(char **command)
 	line_cont_prompt_pid = fork();
 	if (!line_cont_prompt_pid)
 	{
-		line_continuation_prompt(COMPLETE_LINE, line_channel, line_size_channel);
+		if (initial_command)
+			;
+		line_continuation_prompt(COMPLETE_LINE, initial_command,
+			line_channel, line_size_channel);
 	}
 	else
 	{
 		signal(SIGINT, SIG_IGN);
-		outcome = read_completed_line(command, line_cont_prompt_pid,
+		outcome = read_completed_line(initial_command_ref,
+					line_cont_prompt_pid,
 					line_channel, line_size_channel);
 		signal(SIGINT, sig_handler);
 	}
@@ -107,27 +95,27 @@ static t_status	read_completed_line(char **command,
 					pid_t line_completion_prompt_pid,
 					int line_channel[], int line_size_channel[])
 {
-	char		*continuation;
-	size_t		continuation_len;
-	int			line_completion_prompt_exit_status;
 	t_status	outcome;
+	char		*completed;
+	size_t		completion_len;
+	int			line_completion_prompt_exit_status;
 
 	close(line_channel[1]);
 	close(line_size_channel[1]);
 	waitpid(line_completion_prompt_pid, &line_completion_prompt_exit_status, 0);
 	if (!WIFEXITED(line_completion_prompt_exit_status)
 		|| WEXITSTATUS(line_completion_prompt_exit_status))
-	{
-		g_env.last_executed_cmd_exit_status = EXIT_FAILURE;
 		outcome = ERROR;
-	}
 	else
 		outcome = OK;
-	read(line_size_channel[0], &continuation_len, sizeof(continuation_len));
-	continuation = (char *) malloc((continuation_len + 1) * sizeof(char));
-	read(line_channel[0], continuation, continuation_len * sizeof(char));
-	continuation[continuation_len] = '\0';
-	*command = ft_strjoin(*command, continuation, e_true, e_true);
+	read(line_size_channel[0], &completion_len, sizeof(completion_len));
+	if (completion_len)
+	{
+		completed = (char *) malloc((completion_len + 1) * sizeof(char));
+		read(line_channel[0], completed, completion_len * sizeof(char));
+		completed[completion_len] = '\0';
+		ft_str_replace(command, completed);
+	}
 	return (outcome);
 }
 
@@ -198,3 +186,44 @@ static char	*get_decorated_cwd(char *cwd)
 		)
 	);
 }
+
+// * char	*ft_readline(char *prompt, t_bool free_prompt)
+// {
+// 	char		*command;
+// 	t_status	prompt_status;
+
+// 	// command = readline(prompt);
+// 	// if (!command)
+// 	// {
+// 	// 	free(prompt);
+// 	// 	exit_shell(g_env.last_executed_cmd_exit_status, e_true);
+// 	// }
+// 	// else if (*command == '\0')
+// 	// {
+// 	// 	free(command);
+// 	// 	return (ft_readline(prompt, free_prompt));
+// 	// }
+// 	command = NULL;
+// 	if (!command)
+// 	{
+// 		free(prompt);
+// 		exit_shell(g_env.last_executed_cmd_exit_status, e_true);
+// 	}
+// 	else if (*command == '\0')
+// 	{
+// 		free(command);
+// 		return (ft_readline(prompt, free_prompt));
+// 	}
+// 	prompt_status = complete_line(&command, prompt);
+// 	ft_add_history(command);
+// 	{
+// 		if (free_prompt) // TODO remove
+// 			free(prompt);
+// 		if (prompt_status == ERROR)
+// 		{
+// 			free(command);
+// 			command = NULL;
+// 		}
+// 	}
+// 	return (command);
+// }
