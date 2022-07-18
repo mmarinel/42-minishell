@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 18:03:26 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/17 18:09:19 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/18 20:16:47 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,14 @@ char	**here_doc_take_delimiters(char *command)
 	{
 		if (command[i] == '<' && command[i + 1] == '<')
 		{
+			int len = 0;
 			i += 2;
 			while (e_true == ft_isspace(command[i]))
 				i++;
-			here_docs_file_names[j] = take_next_word(command + i);
+			while (e_false == bash_control_character(command[i + len]))
+				len++;
+			here_docs_file_names[j] = ft_strcpy(NULL, command + i, len);
+			printf("next delimiter: %s\tlen: %zu\n", here_docs_file_names[j], ft_strlen(here_docs_file_names[j]));
 			j++;
 		}
 		else

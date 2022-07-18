@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/17 15:41:40 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/18 17:28:51 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // ! in case of here_doc, len_file_name is len of delimiter
 size_t	scan_inout_file(char *command_line, size_t offset, t_token **token_list)
 {
-	static size_t	here_docs = 0; // * non e' un problema se non lo re-inizializzo perche e' solo un nome per il prossimo handle, e i file li unlinko (distruggo) alla fine di ogni reed!
+	// static size_t	here_docs = 0; // * non e' un problema se non lo re-inizializzo perche e' solo un nome per il prossimo handle, e i file li unlinko (distruggo) alla fine di ogni reed!
 	t_token_id		_in_out_;
 	size_t			next_word_len; //* file name or here_doc delimiter
 	size_t			pre_offset;
@@ -37,7 +37,7 @@ size_t	scan_inout_file(char *command_line, size_t offset, t_token **token_list)
 	tok_add_back(
 		token_list,
 		scan_in_out_finalize(command_line + pre_offset, next_word_len,
-				_in_out_, &here_docs)
+				_in_out_, NULL)//&here_docs)
 	);
 	return (pre_offset + next_word_len);
 }

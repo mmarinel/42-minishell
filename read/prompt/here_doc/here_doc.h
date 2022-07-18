@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 18:07:22 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/17 19:06:07 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/18 17:08:54 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 
 //* user defined types //
 # include "../../../types.h"
+# include "../../../global.h"
 # include "here_doc_types.h"
 
 //* prompt

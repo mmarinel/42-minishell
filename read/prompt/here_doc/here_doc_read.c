@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 10:01:00 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/17 22:47:51 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/18 20:28:51 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,20 @@ t_status	here_doc_read(char *command)
 	t_status		outcome;
 	char			*cur_file_name;
 	char			**here_doc_delims;
-	size_t			here_docs;
+	int				cur_line_here_docs;
 
 	signal(SIGINT, SIG_IGN);
 	outcome = OK;
-	here_docs = here_docs_count(command);
+	if (here_docs_count(command) == 0)
+		return (OK);
+	cur_line_here_docs = here_docs_count(command) - 1;
 	here_doc_delims = here_doc_take_delimiters(command);
-	while (here_docs--)
+	while (cur_line_here_docs > -1)
 	{
 		cur_file_name = hdoc_next_file_name();
-		outcome = here_doc_read_current(here_doc_delims[here_docs],
+		outcome = here_doc_read_current(here_doc_delims[(here_docs_count(command) - 1) - cur_line_here_docs],
 					cur_file_name);
+		cur_line_here_docs--;
 		free(cur_file_name);
 		if (outcome == ERROR)
 			break ;
@@ -65,10 +68,20 @@ static t_status	here_doc_read_current(char *delimiter, char *hdoc_file_name)
 
 static char	*hdoc_next_file_name(void)
 {
-	static size_t	i = 0; //* ci serve statico perche' il tokenizer scannerizza una word alla volta e ad ogni istante deve sapere quanti here_doc ha gia' incontrato per dare il giusto nome al relativo buffer file. Se vogliamo azzerargli il conteggio alla fine della tokenizzazione, dobbiamo chiamare la funzione di scan_in_out con un opportuno opcode.
+	// static size_t	i = 0;//* ci serve statico perche' il tokenizer scannerizza una word alla volta e ad ogni istante deve sapere quanti here_doc ha gia' incontrato per dare il giusto nome al relativo buffer file. Se vogliamo azzerargli il conteggio alla fine della tokenizzazione, dobbiamo chiamare la funzione di scan_in_out con un opportuno opcode.
+	size_t	i;
 	char			*buffer_file_name;
 
-	buffer_file_name = ft_strjoin(".here_doc-", ft_itoa(i), e_false, e_true);
-	i += 1;
+	i = 0;
+	while (e_true)
+	{
+		buffer_file_name = ft_strjoin(".here_doc-", ft_itoa(i), e_false, e_true);
+		if (0 != access(buffer_file_name, R_OK | W_OK))
+			break ;
+		free(buffer_file_name);
+		i++;
+	}
+	// buffer_file_name = ft_strjoin(".here_doc-", ft_itoa(i), e_false, e_true);
+	// i = (i + 1) % g_env.here_docs;
 	return (buffer_file_name);
 }

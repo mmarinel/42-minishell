@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/17 19:16:17 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/18 19:02:45 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,18 @@ static void	set_env(char *const envp[])
  */
 static void	unlink_here_docs(void)
 {
-	static size_t	progressive_nbr = 0;
+	// static size_t	progressive_nbr = 0;
+	size_t			progressive_nbr;
 	char			*prefix;
 	char			*next_here_doc;
 
 	prefix = ".here_doc-";
+	progressive_nbr = 0;
 	while (e_true)
 	{
 		next_here_doc = ft_strjoin(prefix, ft_itoa(progressive_nbr),
 							e_false, e_true);
-		if (access(next_here_doc, R_OK | W_OK) != 0)	
+		if (access(next_here_doc, R_OK | W_OK) != 0)
 			break ;
 		unlink(next_here_doc);
 		free(next_here_doc);
