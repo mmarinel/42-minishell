@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:13:18 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/18 12:30:25 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/19 12:21:22 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 
 // * shell utils
 
+size_t			bash_next_word_len(char *command_line, size_t offset);
 void			set_error(t_status *status);
 t_bool			ft_pending_pipe(char *command);
 t_bool			ft_pending_logical_op(char *command);

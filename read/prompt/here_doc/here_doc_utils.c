@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 18:03:26 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/19 11:16:15 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/19 13:02:05 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,15 @@ char	**here_doc_take_delimiters(char *command)
 
 static char	*take_next_delimiter(char *command, size_t offset)
 {
+	char	*delimiter;
 	size_t	delimiter_len;
 
-	delimiter_len = 0;
-	while (e_false == bash_control_character(command[delimiter_len + offset]))
-		delimiter_len++;
-	return (ft_strcpy(NULL, command + offset, delimiter_len));
+	offset = skip_consecutive_chars(command, offset, ' ', +1);
+	delimiter_len = bash_next_word_len(command, offset);
+	delimiter = ft_strcpy(NULL, command + offset, delimiter_len);
+	delimiter = expand(delimiter);
+	// delimiter_len = 0;
+	// while (e_false == bash_control_character(command[delimiter_len + offset]))
+	// 	delimiter_len++;
+	return (delimiter);
 }

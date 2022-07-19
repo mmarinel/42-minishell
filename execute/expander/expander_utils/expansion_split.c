@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:36:03 by earendil          #+#    #+#             */
-/*   Updated: 2022/07/16 16:23:07 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/19 13:08:24 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,8 @@ static char	*get_suffix(char *str, size_t cutting_index)
 	size_t	first_non_space_char_index;
 
 	len_str = ft_strlen(str);
+	if (cutting_index > len_str - 1)
+		return (NULL);
 	first_non_space_char_index
 		= skip_consecutive_chars(str, cutting_index, ' ', +1);
 	if (first_non_space_char_index > len_str - 1

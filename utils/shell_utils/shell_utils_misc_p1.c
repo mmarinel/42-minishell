@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 16:29:04 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/19 11:06:54 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/19 12:57:19 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,42 @@ void	clone_pipe(int target[2], int clone[2])
 void	set_error(t_status *status)
 {
 	*status = ERROR;
+}
+
+/**
+ * @brief this function scans the next word delimited by spaces
+ * and consisting of contiguous quoted sequences
+ * ending with a bash control character. 
+ * (i.e.: a quoted sequence is a sequence of chars delimited by quotes
+ * or a single word delimited by bash control characters except quotes)
+ * 
+ * @param command_line 
+ * @param offset current offste inside command line
+ * @return size_t the lenght of the next bash word
+ */
+size_t	bash_next_word_len(char *command_line, size_t offset)
+{
+	size_t	len_word;
+
+	offset = skip_consecutive_chars(command_line, offset, ' ', +1);
+	shifted: {
+		len_word = 0;
+		while (command_line[offset + len_word])
+		{
+			while (ft_is_quote(command_line[offset + len_word]))
+					len_word = skip_past_char(
+						command_line + offset,
+						len_word + 1,
+						command_line[offset + len_word],
+						+1);
+			if (command_line[offset + len_word] == '\0'
+				|| e_true == bash_control_character(
+							command_line[offset + len_word]))
+				break ;
+			len_word++;
+		}
+		return (len_word);
+	}
 }
 
 /**

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 09:30:11 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/16 11:34:19 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/19 11:49:17 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ size_t	skip_past_char(char *str, size_t offset,
 	i = offset;
 	while (e_true)
 	{
-		if (i == 0 || str[i] == '\0')
+		if ((i == 0 && direction == -1)
+			|| (str[i] == '\0' && direction == +1))
 			return (i);
 		if (str[i] == to_skip)
 			return (i + direction);

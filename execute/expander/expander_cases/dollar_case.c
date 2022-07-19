@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 19:49:32 by earendil          #+#    #+#             */
-/*   Updated: 2022/07/16 16:39:05 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/19 13:16:48 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ static char	*expand_dollar_segment(char *next_segment)
 	seg_len = ft_strlen(next_segment);
 	if (next_segment[0] == '"')
 	{
-		expansion = expand_dollar_case(
+		if (next_segment[1] == '"')
+			expansion = NULL;
+		else
+			expansion = expand_dollar_case(
 				ft_strcpy(NULL, next_segment + 1, seg_len - 2));
 		expansion = ft_strjoin(
 			ft_strjoin("\"", expansion, e_false, e_true),
