@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 18:48:51 by earendil          #+#    #+#             */
-/*   Updated: 2022/07/16 17:08:14 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/19 19:33:47 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,16 @@ static t_token	*tokenize(char	*command_line)
 	t_token	*token_list;
 
 	token_list = NULL;
-	if (e_false == ft_quote_occurrence_balanced(command_line))
+	if (str_number_occurrences(command_line, '\'') % 2 != 0
+		|| str_number_occurrences(command_line, '"') % 2 != 0
+		|| str_number_occurrences(command_line, '(')
+			!= str_number_occurrences(command_line, ')')
+	)
 	{
-		g_env.last_executed_cmd_exit_status = 258;//EXIT_FAILURE; // 258
+		g_env.last_executed_cmd_exit_status = 258;
 		put_error("Syntax Error: ",
-			"quote unbalanced input string",
-			NULL,
+			"unbalanced input string",
+			"you have at least one pending quote or parenthesis",
 			e_false);
 	}
 	else

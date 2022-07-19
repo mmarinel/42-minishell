@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:26:21 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/17 11:56:39 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/19 19:32:16 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,15 @@ static t_tree_node	*parse_statement(t_token *token);
 
 t_tree_node	*parse(void)
 {
-	static t_parser_status	parser_status = (t_parser_status){
-		OK, (t_groupings){0,0,0}, NULL, 0
-		};
 	t_tree_node				*tree;
+	t_parser_status			parser_status;
 
 	parser_initialize(&parser_status);
 	tree = parse_cmd_list(parse_atomic_exp(&parser_status), &parser_status);
-	if (parser_status.status == ERROR || parser_status.open.parenthesis)
+	if (parser_status.status == ERROR)
 	{
-		g_env.last_executed_cmd_exit_status = 258;//EXIT_FAILURE; // 258
-		if (parser_status.open.parenthesis)
-			put_error("parser: parse error ",
-				"unclosed parenthesis",
-				NULL,
-				e_false);
-		else if (parser_status.last_read_token)
+		g_env.last_executed_cmd_exit_status = 258;
+		if (parser_status.last_read_token)
 			put_error("parser: parse error near token ",
 				tok_to_string(parser_status.last_read_token),
 				ft_strjoin("at pos ", ft_itoa(parser_status.last_read_tok_pos),
