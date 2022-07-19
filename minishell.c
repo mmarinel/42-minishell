@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/19 17:50:54 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/19 18:45:08 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	set_env(char *const envp[]);
 static void	print_signature(void);
 static void	unlink_here_docs(void);
+void		set_pid_variable(void);
 
 int	main(int argc, char const *argv[], char *const envp[])
 {
@@ -55,6 +56,8 @@ static void	set_env(char *const envp[])
 {
 	size_t	cur_shlvl;
 
+	set_pid_variable();
+	printf("my pid is %d\n", g_env.pid);
 	env_handler(ENV_INITIALIZE, (char **)envp);
 	cur_shlvl = ft_atoi(env_handler(BINDING_GET_VALUE, "SHLVL"));
 	env_handler(BINDING_UPDATE,
@@ -62,6 +65,28 @@ static void	set_env(char *const envp[])
 	env_handler(SET_INITIAL_SHLVL, NULL);
 	g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
 	// env_handler(_PRINT_ENV_, NULL); //* DEBUG
+}
+
+void	set_pid_variable(void)
+{
+	pid_t	pid;
+	int		pid_val_channel[2];
+	int		shell_exit_value;
+
+	pipe(pid_val_channel);
+	pid = fork();
+	if (pid == 0)
+	{
+		close(pid_val_channel[1]);
+		read(pid_val_channel[0], &g_env.pid, sizeof(pid_t));
+	}
+	else
+	{
+		close(pid_val_channel[0]);
+		write(pid_val_channel[1], &pid, sizeof(pid_t));
+		waitpid(pid, &shell_exit_value, 0);
+		exit(shell_exit_value);
+	}
 }
 
 /**

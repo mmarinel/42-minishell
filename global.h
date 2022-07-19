@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 15:27:24 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 14:55:16 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/19 18:44:18 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 
 typedef struct g_global
 {
-	int			last_executed_cmd_exit_status; // * $?
+	pid_t			pid;//* $$
+	int			last_executed_cmd_exit_status;// * $?
 }	t_global;
 
 t_global	g_env;

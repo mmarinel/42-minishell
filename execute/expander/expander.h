@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 16:53:32 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/09 19:47:59 by earendil         ###   ########.fr       */
+/*   Updated: 2022/07/19 18:48:35 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "expander_utils/expander_utils.h"
 # include "../../utils/ft_utils.h"
 # include "../../colors.h"
+# include "../../global.h"
 
 char	*expand(char *args);
 

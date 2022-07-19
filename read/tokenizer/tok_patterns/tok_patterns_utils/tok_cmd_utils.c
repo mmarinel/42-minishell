@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   tok_cmd_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 09:06:47 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/11 16:03:48 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/19 19:12:47 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tok_patterns_utils.h"
+
+static size_t	take_next_arg_len(char *command_line, size_t offset);
+
+//* end of static declarations
+
 
 size_t	scan_cmd_arg(char *command_line, size_t offset, t_token **token_list)
 {
@@ -56,10 +61,11 @@ size_t	scan_next_cmd_arg(char *command_line, size_t offset,
 	}
 	else
 	{
-		if (command_line[new_offset] == '$')
-			len_cmd_arg = bash_next_word_len(command_line, new_offset + 1) + 1;
-		else
-			len_cmd_arg = bash_next_word_len(command_line, new_offset);
+		len_cmd_arg = take_next_arg_len(command_line, new_offset);
+		// if (command_line[new_offset] == '$')
+		// 	len_cmd_arg = bash_next_word_len(command_line, new_offset + 1) + 1;
+		// else
+		// 	len_cmd_arg = bash_next_word_len(command_line, new_offset);
 		next_arg = ft_strcpy(NULL, command_line + new_offset, len_cmd_arg);
 		if (!(*cur_arg_string))
 			*cur_arg_string = next_arg;
@@ -71,6 +77,23 @@ size_t	scan_next_cmd_arg(char *command_line, size_t offset,
 		new_offset += len_cmd_arg;
 	}
 	return (new_offset);
+}
+
+static size_t	take_next_arg_len(char *command_line, size_t offset)
+{
+	size_t	new_offset;
+	t_bool	repeat;
+
+	new_offset = offset;
+	repeat = e_true;
+	while (repeat)
+	{
+		new_offset = skip_consecutive_chars(command_line, new_offset, '$', +1);
+		new_offset += bash_next_word_len(command_line, new_offset);
+		if (command_line[new_offset] != '$')
+			repeat = e_false;
+	}
+	return (new_offset - offset);
 }
 
 	// if (e_true == bash_control_character(command_line[new_offset])

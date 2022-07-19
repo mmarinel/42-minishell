@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:36:03 by earendil          #+#    #+#             */
-/*   Updated: 2022/07/19 13:08:24 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/19 18:54:56 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ static void	take_next_dollar_segment_boundaries(char *str,
 		if (str[0] == '"' || str[0] == '\'')
 				*end = skip_past_char(str, 1, str[0], +1) - 1;
 		else if (str[0] == '$' && str[1] == '*')
+			*end = 1;
+		else if (str[0] == '$' && str[1] == '$')
 			*end = 1;
 		else
 		{
