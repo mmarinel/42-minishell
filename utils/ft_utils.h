@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:13:18 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/19 12:21:22 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/19 16:34:55 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ t_bool			redirect_char(char c);
 t_bool			asked_for_termination(char	*command);
 void			clone_pipe(int target[2], int clone[2]);
 void			close_pipe(int pipe_[]);
-int				ft_open_file(char *file, unsigned long long flags, int mode);
+int				ft_open(char *file_name,
+					unsigned long long flags, int mode,
+					t_bool free_file_name);
+int				ft_unlink(char *file_name, t_bool free_file_name);
 
 #endif

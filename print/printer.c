@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 10:51:33 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/15 14:51:30 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/19 17:06:29 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ size_t	printer(t_print_opcode opcode)
 	{
 		// stdout_clone = dup(STDOUT_FILENO);
 		// stderr_clone = dup(STDERR_FILENO);
-		dump_file_fd = open(".stdout-dump", O_RDONLY, 0777);
+		dump_file_fd = ft_open(get_stdout_dump_file_name(), O_RDONLY, 0777,
+							e_true);
 		// dup2(dump_file_fd, STDOUT_FILENO);
 		// dup2(dump_file_fd, STDERR_FILENO);
 		stdout_byte_shift = 0;
@@ -49,8 +50,8 @@ size_t	printer(t_print_opcode opcode)
 		}
 		// dup2(stdout_clone, STDOUT_FILENO);
 		// dup2(stderr_clone, STDERR_FILENO);
-		// close(dump_file_fd);
-		unlink(".stdout-dump");
+		close(dump_file_fd);
+		ft_unlink(get_stdout_dump_file_name(), e_true);
 		return ((size_t)-1);
 	}
 }

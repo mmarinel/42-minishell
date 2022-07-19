@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 17:07:46 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/15 11:17:42 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/19 17:20:55 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	exit_shell(int exit_status, t_bool ctrl_d)
 	ft_free(*ft_add_history(NULL)); // ! potevo anche fare ft_clear history senza copiare la stringa nella funzione chiamata ft_add_history
 	rl_clear_history();
 	sig_handling_set(SIG_AT_EXIT);
+	ft_unlink(get_stdout_dump_file_name(), e_true);
 	// * clear_all();
 	exit(exit_status);
 }

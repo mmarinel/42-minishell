@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 09:39:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/17 09:17:45 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/19 17:24:38 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,10 @@ void	execute(t_tree_node *parse_tree)
 	int	stdout_clone;
 	int	fd_stdout_dump_file;
 
-	{
-		stdout_clone = dup(STDOUT_FILENO);
-		fd_stdout_dump_file = open(".stdout-dump",
-			O_CREAT | O_WRONLY | O_TRUNC, 0777);
-		dup2(fd_stdout_dump_file, STDOUT_FILENO);
-	}
+	redirector(STDOUT_2_DUMP);
 	if (parse_tree)
 		execute_rec(parse_tree, STDIN_FILENO, STDOUT_FILENO);
-	{
-		dup2(stdout_clone, STDOUT_FILENO);
-		close(fd_stdout_dump_file);
-	}
+	redirector(STDOUT_RESTORE);
 }
 
 void	execute_rec(t_tree_node *root, int in, int out)
@@ -65,7 +57,10 @@ static void	execute_subshell(t_tree_node *root, int in, int out)
 		env_handler(BINDING_UPDATE,
 			get_new_binding("SHLVL", ft_itoa(new_shlvl), e_false)
 		);
+		redirector(STDOUT_RESTORE);
+		redirector(STDOUT_2_DUMP);
 		execute_rec(root, in, out);
+		redirector(STDOUT_RESTORE);
 		if (!WIFEXITED(g_env.last_executed_cmd_exit_status)
 			|| WEXITSTATUS(g_env.last_executed_cmd_exit_status))
 			exit(EXIT_FAILURE);

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 09:58:33 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/17 09:28:05 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/19 17:15:31 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,11 @@ static void	pipe_execute_branch(t_tree_node *branch, int unused_pipe_side,
 	env_handler(BINDING_UPDATE,
 		get_new_binding("SHLVL", ft_itoa(new_shlvl), e_false)
 	);
+	redirector(STDOUT_RESTORE);
+	redirector(STDOUT_2_DUMP);
 	close(unused_pipe_side);
 	execute_rec(branch, new_in, new_out);
+	redirector(STDOUT_RESTORE);
 	exit(g_env.last_executed_cmd_exit_status);
 	// if (!WIFEXITED(g_env.last_executed_cmd_exit_status)
 	// 	|| WEXITSTATUS(g_env.last_executed_cmd_exit_status))

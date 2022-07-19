@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:15:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/17 09:22:52 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/19 17:54:20 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	execute_simple_cmd(t_tree_node *root, int in, int out)
 	if (!cmd_full_path)
 		command_not_found_failure(root,
 			cmd_full_path, cmd_simple_name, args_split);
+	if (0 == ft_strcmp(cmd_simple_name, "minishell"))
+		redirector(STDOUT_RESTORE);
 	if (-1 == execve(cmd_full_path, args_split, bindings_list_to_array(env)))
 		command_execution_failure(root,
 			cmd_full_path, cmd_simple_name, args_split);
@@ -144,11 +146,11 @@ static void	executor_handle_redirs(t_redirection redir, int cur_in_out,
 			else
 			{
 				if (redir.append_mode == e_true)
-					cur_in_out = ft_open_file(redir.file_name,
-								O_CREAT | O_APPEND | O_WRONLY, 0777);
+					cur_in_out = ft_open(redir.file_name,
+								O_CREAT | O_APPEND | O_WRONLY, 0777, e_false);
 				else
-					cur_in_out = ft_open_file(redir.file_name,
-								O_CREAT | O_TRUNC | O_WRONLY, 0777);
+					cur_in_out = ft_open(redir.file_name,
+								O_CREAT | O_TRUNC | O_WRONLY, 0777, e_false);
 			}
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 18:23:33 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/15 18:04:03 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/19 17:09:23 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,15 @@
 # include "../types.h"
 
 //* user defined modules
+# include "../utils/ft_utils.h"
 # include "../get_next_line/get_next_line.h"
 # include "../libft/simple_printf/ft_printf_module.h"
+# include "../env/env_module.h"
 
 //* user defined exposed functions
 void	put_error(char *preamble, char *message, char *epilogue,
 			t_bool free_epilogue);
+void	redirector(t_stdout_to_dump opcode);
+char	*get_stdout_dump_file_name(void);
 
 #endif
