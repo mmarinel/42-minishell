@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/18 19:02:45 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/19 09:53:30 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,14 @@ int	main(int argc, char const *argv[], char *const envp[])
 		parse_tree = shell_read();
 		execute(parse_tree);
 		printer(PRINT);
-		tokenizer_free();
-		free_tree(&parse_tree);
-		unlink_here_docs();
+		clean_all:
+		{
+			tokenizer_free();
+			free_tree(&parse_tree);
+			unlink_here_docs();
+		}
 	}
-	// clear_history();
-	return (EXIT_SUCCESS);
+	return (EXIT_SUCCESS); //* UNREACHABLE
 }
 
 /**
@@ -59,7 +61,7 @@ static void	set_env(char *const envp[])
 		get_new_binding("SHLVL", ft_itoa(cur_shlvl + 1), e_false));
 	env_handler(SET_INITIAL_SHLVL, NULL);
 	g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
-	// env_handler(_PRINT_ENV_, NULL);
+	// env_handler(_PRINT_ENV_, NULL); //* DEBUG
 }
 
 /**
@@ -68,24 +70,25 @@ static void	set_env(char *const envp[])
  */
 static void	unlink_here_docs(void)
 {
-	// static size_t	progressive_nbr = 0;
+	t_bool			repeat;
+	char			*next_here_doc;
 	size_t			progressive_nbr;
 	char			*prefix;
-	char			*next_here_doc;
 
 	prefix = ".here_doc-";
 	progressive_nbr = 0;
-	while (e_true)
+	repeat = e_true;
+	while (repeat)
 	{
 		next_here_doc = ft_strjoin(prefix, ft_itoa(progressive_nbr),
 							e_false, e_true);
 		if (access(next_here_doc, R_OK | W_OK) != 0)
-			break ;
-		unlink(next_here_doc);
+			repeat = e_false;
+		else
+			unlink(next_here_doc);
 		free(next_here_doc);
 		progressive_nbr++;
 	}
-	free(next_here_doc);
 }
 
 static void	print_signature(void)

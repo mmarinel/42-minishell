@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 10:01:00 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/18 20:28:51 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/19 10:08:23 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,22 @@ t_status	here_doc_read(char *command)
 	t_status		outcome;
 	char			*cur_file_name;
 	char			**here_doc_delims;
-	int				cur_line_here_docs;
+	int				cur_hdoc_cont_id;
 
-	signal(SIGINT, SIG_IGN);
-	outcome = OK;
 	if (here_docs_count(command) == 0)
 		return (OK);
-	cur_line_here_docs = here_docs_count(command) - 1;
+	outcome = OK;
+	signal(SIGINT, SIG_IGN);
+	cur_hdoc_cont_id = here_docs_count(command) - 1;//* n - 1
 	here_doc_delims = here_doc_take_delimiters(command);
-	while (cur_line_here_docs > -1)
+	while (cur_hdoc_cont_id > -1)
 	{
 		cur_file_name = hdoc_next_file_name();
-		outcome = here_doc_read_current(here_doc_delims[(here_docs_count(command) - 1) - cur_line_here_docs],
-					cur_file_name);
-		cur_line_here_docs--;
+		outcome = here_doc_read_current(
+			here_doc_delims[here_docs_count(command) - cur_hdoc_cont_id - 1],
+			cur_file_name
+		);
+		cur_hdoc_cont_id--;
 		free(cur_file_name);
 		if (outcome == ERROR)
 			break ;
@@ -50,7 +52,6 @@ static t_status	here_doc_read_current(char *delimiter, char *hdoc_file_name)
 	pid_t		hdoc_prompt_pid;
 	int			hdoc_prompt_exit_status;
 
-	// signal(SIGINT, SIG_IGN);
 	hdoc_prompt_pid = fork();
 	if (!hdoc_prompt_pid)
 	{
@@ -62,15 +63,13 @@ static t_status	here_doc_read_current(char *delimiter, char *hdoc_file_name)
 		outcome = ERROR;
 	else
 		outcome = OK;
-	// signal(SIGINT, sig_handler);
 	return (outcome);
 }
 
 static char	*hdoc_next_file_name(void)
 {
-	// static size_t	i = 0;//* ci serve statico perche' il tokenizer scannerizza una word alla volta e ad ogni istante deve sapere quanti here_doc ha gia' incontrato per dare il giusto nome al relativo buffer file. Se vogliamo azzerargli il conteggio alla fine della tokenizzazione, dobbiamo chiamare la funzione di scan_in_out con un opportuno opcode.
-	size_t	i;
 	char			*buffer_file_name;
+	size_t			i;
 
 	i = 0;
 	while (e_true)
@@ -81,7 +80,5 @@ static char	*hdoc_next_file_name(void)
 		free(buffer_file_name);
 		i++;
 	}
-	// buffer_file_name = ft_strjoin(".here_doc-", ft_itoa(i), e_false, e_true);
-	// i = (i + 1) % g_env.here_docs;
 	return (buffer_file_name);
 }

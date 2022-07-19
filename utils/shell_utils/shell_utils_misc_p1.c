@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 16:29:04 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/18 19:42:51 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/19 11:06:54 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,10 +134,17 @@ t_bool	minishell_illegal_chars(char *command)
 
 t_bool	ft_pending_pipe(char *command)
 {
+	size_t	len_command;
+	size_t	tip;
+
 	if (!command)
 		return (e_false);
 	else
-		return (command[ft_strlen(command) - 1] == '|');
+	{
+		len_command = ft_strlen(command);
+		tip = skip_consecutive_chars(command, len_command - 1, ' ', -1);
+		return (command[tip] == '|');
+	}
 }
 
 t_bool	ft_pending_logical_op(char *command)

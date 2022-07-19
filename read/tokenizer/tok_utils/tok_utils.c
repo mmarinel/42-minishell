@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/16 15:04:30 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/19 11:00:40 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,28 +175,42 @@ void	print_token(t_token *token)
 	// printf("%s ", id);
 }
 
+/**
+ * @brief this function scan the next word delimited by invariant chars
+ * (i.e.: consecutive spaces optionally followed by empty quotes)
+ * and consisting of contiguous quoted sequences
+ * ending with a bash control character. 
+ * (i.e.: a quoted sequence is a sequence of chars delimited by quotes
+ * or a single word delimited by bash control characters except quotes)
+ * 
+ * @param command_line 
+ * @param offset current offste inside command line
+ * @return size_t the lenght of the next bash word
+ */
 size_t	bash_next_word_len(char *command_line, size_t offset)
 {
 	size_t	len_word;
 	size_t	invariant_chars;
 
-	offset = scan_invariants(command_line, offset);
-	invariant_chars = offset;
-	while (ft_is_quote(command_line[offset]))
-		offset = skip_past_char(command_line, offset + 1, command_line[offset],
-					+1);
-	// 	return (bash_next_quoted_seq(command_line, offset + 1,
-	// 				command_line[offset]));
-	// else
+	invariant_chars = scan_invariants(command_line, offset);
+	// offset = scan_invariants(command_line, offset);
+	// invariant_chars = offset;
+	// while (ft_is_quote(command_line[offset]))
+	// 	offset = skip_past_char(command_line, offset + 1, command_line[offset],
+	// 				+1);
 	{
-		len_word = offset - invariant_chars;
+		// len_word = offset - invariant_chars;
+		len_word = 0;
 		while (command_line[invariant_chars + len_word])
 		{
-			if (e_true == bash_control_character(command_line[
-							invariant_chars + len_word])
-				&& e_false == ft_is_quote(command_line[
-						invariant_chars + len_word])
-			)
+			while (ft_is_quote(command_line[invariant_chars + len_word]))
+					len_word = skip_past_char(
+						command_line + invariant_chars,
+						len_word + 1,
+						command_line[invariant_chars + len_word],
+						+1);
+			if (e_true == bash_control_character(
+							command_line[invariant_chars + len_word]))
 				break ;
 			len_word++;
 		}
