@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 19:49:32 by earendil          #+#    #+#             */
-/*   Updated: 2022/07/19 18:48:43 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/19 19:15:57 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ static char	*expand_dollar_segment(char *next_segment)
 		expansion = ft_strdup(next_segment);
 	else if (next_segment[0] == '$' && next_segment[1] == '$')
 		expansion = ft_itoa(g_env.pid);
+	else if (next_segment[0] == '$' && next_segment[1] == '?')
+		expansion = ft_itoa(g_env.last_executed_cmd_exit_status);
 	else
 		expansion = env_handler(BINDING_GET_VALUE, next_segment + 1);
 	free(next_segment);
