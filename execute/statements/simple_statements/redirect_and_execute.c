@@ -6,14 +6,14 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:15:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/20 13:05:11 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/20 13:50:42 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "simple_statements.h"
 
 static void	executor_handle_redirs(t_redirection redir, int cur_in_out,
-			int	std_in_out, t_bool redirect_input);
+			int	std_in_out, t_bool input_redir_case);
 
 static void	execute_cmd_builtin(t_simple_command_node simple_cmd);
 
@@ -53,18 +53,20 @@ void	execute_simple_cmd(t_tree_node *root, int in, int out)
 
 void	execute_builtin(t_tree_node *root, int in, int out)
 {
-	// int	stdin_clone;
-	// int	stdout_clone;
+	int	stdin_clone;
+	int	stdout_clone;
 
-	// stdin_clone = dup(STDIN_FILENO);
-	// stdout_clone = dup(STDOUT_FILENO);
+	int clone = dup(in); //TODO debug
+	int clone_ = dup(out); //TODO debug
+	stdin_clone = dup(STDIN_FILENO);
+	stdout_clone = dup(STDOUT_FILENO);
 	executor_handle_redirs(root->content->in_redir,
 		in, STDIN_FILENO, e_true);
 	executor_handle_redirs(root->content->out_redir,
 		out, STDOUT_FILENO, e_false);
 	if (root->content->content_type == ENV_STATEMENT)
 	{
-			execute_env_statement(root->content->env_decl);
+		execute_env_statement(root->content->env_decl);
 	}
 	else if (root->content->content_type == REDIR)
 	{
@@ -74,8 +76,8 @@ void	execute_builtin(t_tree_node *root, int in, int out)
 	{
 		execute_cmd_builtin(root->content->simple_cmd);
 	}
-	// dup2(stdin_clone, STDIN_FILENO);
-	// dup2(stdout_clone, STDOUT_FILENO);
+	dup2(stdin_clone, STDIN_FILENO);
+	dup2(stdout_clone, STDOUT_FILENO);
 }
 
 void	execute_redir_only_statement(t_tree_node *root, int in, int out)
@@ -132,7 +134,7 @@ static void	execute_cmd_builtin(t_simple_command_node simple_cmd)
 }
 
 static void	executor_handle_redirs(t_redirection redir, int cur_in_out,
-			int	std_in_out, t_bool redirect_input)
+			int	std_in_out, t_bool input_redir_case)
 {
 	if (redir.file_name)
 	{
@@ -141,7 +143,7 @@ static void	executor_handle_redirs(t_redirection redir, int cur_in_out,
 			close(cur_in_out);
 		}
 		{
-			if (redirect_input == e_true)
+			if (input_redir_case == e_true)
 				cur_in_out = open(redir.file_name, O_RDONLY);
 			else
 			{
