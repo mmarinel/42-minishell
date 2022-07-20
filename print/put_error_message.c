@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer_module.h                                 :+:      :+:    :+:   */
+/*   put_error_message.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/28 15:18:06 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/20 10:18:43 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/07/14 18:23:05 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/07/20 11:18:34 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKENIZER_MODULE_H
-# define TOKENIZER_MODULE_H
+#include "print.h"
 
-# include "tok_types.h"
-
-void	tokenizer_feed_input(char *command_line);
-t_token	*next_token(void);
-void	tokenizer_free(void);
-
-char	*tok_to_string(t_token *token);
-void	print_token(t_token *token);
-
-#endif
+void	put_error_message(char *preamble, char *message, char *epilogue,
+			t_bool free_epilogue)
+{
+	ft_printf("%s", preamble);
+	ft_printf(RED "%s" RESET, message);
+	ft_printf("\n");
+	if (epilogue)
+		ft_printf("%s\n", epilogue);
+	if (free_epilogue && epilogue)
+		free(epilogue);
+}

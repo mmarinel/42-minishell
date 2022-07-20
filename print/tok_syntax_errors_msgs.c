@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   put_error.c                                        :+:      :+:    :+:   */
+/*   tok_syntax_error.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/14 18:23:05 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/15 16:42:52 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/07/20 09:36:51 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/07/20 09:48:27 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "print.h"
 
-void	put_error(char *preamble, char *message, char *epilogue,
-			t_bool free_epilogue)
+void	put_unbalanced_input_error_message(void)
 {
-	int	clone_stdout;
+	put_error_message("Syntax Error: ",
+		"unbalanced input string",
+		"you have at least one pending quote or parenthesis",
+		e_false);
+}
 
-	clone_stdout = dup(STDOUT_FILENO);
-	dup2(STDERR_FILENO, STDOUT_FILENO);
-	ft_printf("%s", preamble);
-	ft_printf(RED "%s" RESET, message);
-	ft_printf("\n");
-	if (epilogue)
-		ft_printf("%s\n", epilogue);
-	if (free_epilogue && epilogue)
-		free(epilogue);
-	dup2(clone_stdout, STDOUT_FILENO);
+void	put_token_not_found_error_message(char *cursor)
+{
+	put_error_message("Syntax Error: ",
+		"token not recognized",
+		ft_strjoin("near ...", cursor, e_false, e_false),
+		e_true);
 }

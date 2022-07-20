@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 17:52:55 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/15 14:47:07 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/20 10:45:35 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ void	execute_pwd(t_simple_command_node cmd)
 	}
 	else
 	{
-		put_error("minishell at execute_pwd: ", "Illegal Arguments found",
-			" --no arguments expected", e_false);
+		put_error(PWD_ARGS_ERROR, EXIT_FAILURE, NULL);
 	}
 	free(cwd);
 }

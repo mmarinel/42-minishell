@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_types.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:48:27 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/11 19:16:23 by evento           ###   ########.fr       */
+/*   Updated: 2022/07/20 12:15:13 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_tree_node
 	t_node_content		*content;
 	t_bool				launch_subshell;
 	void				(*to_string)(struct s_tree_node *node);
+	t_bool				is_parse_tree_root;
 	struct s_tree_node	*left;
 	struct s_tree_node	*right;
 }	t_tree_node;

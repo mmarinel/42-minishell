@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:34:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/18 16:13:35 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/20 11:49:20 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ char	*ft_read_command(char *main_prompt)
 		exit_shell(g_env.last_executed_cmd_exit_status, e_true);
 	prompt_status = complete_line(&command, command);
 	ft_add_history(command);
+	command = tee_wrap_command(command);
 	if (prompt_status == ERROR)
 	{
 		g_env.last_executed_cmd_exit_status = EXIT_FAILURE;

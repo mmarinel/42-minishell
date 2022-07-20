@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:36:45 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/16 17:07:57 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/20 10:13:39 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,7 @@ void	scan(char *command_line, t_token **tok_list_ref)
 	}
 	if (offset < ft_strlen(command_line))
 	{
-		g_env.last_executed_cmd_exit_status = 258;//EXIT_FAILURE; // 258
-		put_error("Syntax Error: ",
-			"token not recognized",
-			ft_strjoin("near ...", command_line + offset, e_false, e_false),
-			e_true);
+		put_error(TOK_NOT_RECOGNIZED_ERROR, 258, command_line + offset);
 		free_tok_list(tok_list_ref);
 	}
 }

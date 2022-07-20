@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer_module.h                                 :+:      :+:    :+:   */
+/*   parser_syntax_errors_msgs.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/28 15:18:06 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/20 10:18:43 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/07/20 09:53:49 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/07/20 10:23:30 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKENIZER_MODULE_H
-# define TOKENIZER_MODULE_H
+#include "print.h"
 
-# include "tok_types.h"
-
-void	tokenizer_feed_input(char *command_line);
-t_token	*next_token(void);
-void	tokenizer_free(void);
-
-char	*tok_to_string(t_token *token);
-void	print_token(t_token *token);
-
-#endif
+void	put_parser_syntax_error_message(t_parser_status *parser_status)
+{
+	if (parser_status->last_read_tok_pos)
+		put_error_message(
+			"parser: parse error near token ",
+			tok_to_string(parser_status->last_read_token),
+			ft_strjoin(
+				"at pos ",
+				ft_itoa(parser_status->last_read_tok_pos),
+				e_false, e_true
+			),
+			e_true);
+}

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:15:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/19 17:54:20 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/20 13:05:11 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	execute_simple_cmd(t_tree_node *root, int in, int out)
 	if (!cmd_full_path)
 		command_not_found_failure(root,
 			cmd_full_path, cmd_simple_name, args_split);
-	if (0 == ft_strcmp(cmd_simple_name, "minishell"))
-		redirector(STDOUT_RESTORE);
+	// if (0 == ft_strcmp(cmd_simple_name, "minishell"))
+	// 	redirector(STDOUT_RESTORE);
 	if (-1 == execve(cmd_full_path, args_split, bindings_list_to_array(env)))
 		command_execution_failure(root,
 			cmd_full_path, cmd_simple_name, args_split);
@@ -53,11 +53,11 @@ void	execute_simple_cmd(t_tree_node *root, int in, int out)
 
 void	execute_builtin(t_tree_node *root, int in, int out)
 {
-	int	stdin_clone;
-	int	stdout_clone;
+	// int	stdin_clone;
+	// int	stdout_clone;
 
-	stdin_clone = dup(STDIN_FILENO);
-	stdout_clone = dup(STDOUT_FILENO);
+	// stdin_clone = dup(STDIN_FILENO);
+	// stdout_clone = dup(STDOUT_FILENO);
 	executor_handle_redirs(root->content->in_redir,
 		in, STDIN_FILENO, e_true);
 	executor_handle_redirs(root->content->out_redir,
@@ -74,8 +74,8 @@ void	execute_builtin(t_tree_node *root, int in, int out)
 	{
 		execute_cmd_builtin(root->content->simple_cmd);
 	}
-	dup2(stdin_clone, STDIN_FILENO);
-	dup2(stdout_clone, STDOUT_FILENO);
+	// dup2(stdin_clone, STDIN_FILENO);
+	// dup2(stdout_clone, STDOUT_FILENO);
 }
 
 void	execute_redir_only_statement(t_tree_node *root, int in, int out)

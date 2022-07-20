@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 14:45:22 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/19 09:45:42 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/20 10:20:16 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include "signals/signal_module.h"
 # include "read/read_module.h"
 # include "execute/executor_module.h"
+# include "error_handling/error_handling_module.h"
 # include "print/print_module.h"
 # include "exit/exit_module.h"
 

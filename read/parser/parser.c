@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:26:21 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/19 19:32:16 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/20 12:08:41 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,10 @@ t_tree_node	*parse(void)
 
 	parser_initialize(&parser_status);
 	tree = parse_cmd_list(parse_atomic_exp(&parser_status), &parser_status);
+	tree->is_parse_tree_root = e_true;
 	if (parser_status.status == ERROR)
 	{
-		g_env.last_executed_cmd_exit_status = 258;
-		if (parser_status.last_read_token)
-			put_error("parser: parse error near token ",
-				tok_to_string(parser_status.last_read_token),
-				ft_strjoin("at pos ", ft_itoa(parser_status.last_read_tok_pos),
-					e_false, e_true),
-				e_true);
+		put_error(PARSE_ERROR, 258, &parser_status);
 		free_tree(&tree);
 		tokenizer_free(); // * meglio se la chiamo nello entry point di minishell insieme a parser_free
 		parser_initialize(&parser_status);
@@ -81,6 +76,7 @@ static t_tree_node	*parse_cmd_list(t_tree_node *current,
 					parse_atomic_exp(parser_status)),
 				parser_status);
 		new_subtree->launch_subshell = e_false; //launch_subshell;
+		new_subtree->is_parse_tree_root = e_false;
 		if (new_subtree->right == NULL)
 			set_error(&(parser_status->status));
 		return (new_subtree);

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 10:01:36 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/29 10:37:36 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/20 10:53:54 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,15 @@
 
 typedef enum e_err_handl_opcodes
 {
-	PUT_ERROR,
-	GET_STATUS,
-	CLEAR_ERRORS
+	ARGS_ERROR,
+	TOK_UNBALANCED_ERROR,
+	TOK_NOT_RECOGNIZED_ERROR,
+	PARSE_ERROR,
+	CD_PATH_ERROR,
+	EXIT_ARGS_ERROR,
+	PWD_ARGS_ERROR,
+	CMD_NOT_FOUND_ERROR,
+	CMD_FAILED_ERROR,
 }	t_err_handl_opcodes;
 
 #endif

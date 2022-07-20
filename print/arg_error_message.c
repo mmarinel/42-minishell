@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer_module.h                                 :+:      :+:    :+:   */
+/*   arg_error_message.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/28 15:18:06 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/20 10:18:43 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/07/20 09:32:58 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/07/20 11:01:31 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKENIZER_MODULE_H
-# define TOKENIZER_MODULE_H
+#include "print.h"
 
-# include "tok_types.h"
+void	put_args_error_message(char *arg_found)
+{
+	char	*epilogue;
 
-void	tokenizer_feed_input(char *command_line);
-t_token	*next_token(void);
-void	tokenizer_free(void);
-
-char	*tok_to_string(t_token *token);
-void	print_token(t_token *token);
-
-#endif
+	epilogue = ft_strjoin("\nfound argument: ", arg_found, e_false, e_false);
+	put_error_message(
+		"minishell: ", "no arguments allowed",
+		epilogue,
+		e_true
+	);
+}

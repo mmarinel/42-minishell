@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 09:39:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/19 17:24:38 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/20 11:41:02 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ static void	execute_subshell(t_tree_node *root, int in, int out);
 
 void	execute(t_tree_node *parse_tree)
 {
-	int	stdout_clone;
-	int	fd_stdout_dump_file;
+	// int	stdout_clone;
+	// int	fd_stdout_dump_file;
 
-	redirector(STDOUT_2_DUMP);
+	// redirector(STDOUT_2_DUMP);
 	if (parse_tree)
 		execute_rec(parse_tree, STDIN_FILENO, STDOUT_FILENO);
-	redirector(STDOUT_RESTORE);
+	// redirector(STDOUT_RESTORE);
 }
 
 void	execute_rec(t_tree_node *root, int in, int out)
@@ -45,8 +45,8 @@ void	execute_rec(t_tree_node *root, int in, int out)
 
 static void	execute_subshell(t_tree_node *root, int in, int out)
 {
-	int	subshell_pid;
-	int	subshell_exit_status;
+	int			subshell_pid;
+	int			subshell_exit_status;
 	size_t		new_shlvl;
 
 	root->launch_subshell = e_false;
@@ -57,10 +57,11 @@ static void	execute_subshell(t_tree_node *root, int in, int out)
 		env_handler(BINDING_UPDATE,
 			get_new_binding("SHLVL", ft_itoa(new_shlvl), e_false)
 		);
-		redirector(STDOUT_RESTORE);
-		redirector(STDOUT_2_DUMP);
+		// redirector(STDOUT_RESTORE);
+		// redirector(STDOUT_2_DUMP);
 		execute_rec(root, in, out);
-		redirector(STDOUT_RESTORE);
+		// redirector(STDOUT_RESTORE);
+		// TODO replace with exit(g_env.last_executed_cmd_exit_status);
 		if (!WIFEXITED(g_env.last_executed_cmd_exit_status)
 			|| WEXITSTATUS(g_env.last_executed_cmd_exit_status))
 			exit(EXIT_FAILURE);

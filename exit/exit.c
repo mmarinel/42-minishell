@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 17:07:46 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/19 17:20:55 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/20 12:38:41 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ static size_t	get_prompt_len(void)
 	len += ft_strlen(last_cmd_exit_status);
 	free(last_cmd_exit_status);
 	free(cwd);
+	// printf("stdout byte shift is: %zu\n", printer(GET_STDOUT_BYTE_SHIFT));
 	return (len + 1 + printer(GET_STDOUT_BYTE_SHIFT));
 }
 

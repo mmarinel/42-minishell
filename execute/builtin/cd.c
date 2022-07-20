@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 12:44:55 by evento            #+#    #+#             */
-/*   Updated: 2022/07/15 14:48:26 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/20 12:56:04 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ void	execute_cd(t_simple_command_node cmd)
 	char	*path;
 
 	path = cmd.cmd_args;
+	taking_path:
 	{
-		if (!path)
+		if (bash_word_is_empty(path))
 			path = ft_strdup(env_handler(BINDING_GET_VALUE, "HOME"));
 		else if (path[0] == '.' && path[1] == '\0')
 			return ;
@@ -65,13 +66,12 @@ static void	cd_error(char *path)
 {
 	if (!path)
 	{
-		put_error("minishell at execute_cd: ", "HOME not set", NULL,
-			e_false);
+		put_error(CD_PATH_ERROR, EXIT_FAILURE, NULL);
 	}
 	else
 	{
 		perror("minishell at execute_cd" RED);
 		ft_printf(RESET);
+		g_env.last_executed_cmd_exit_status = EXIT_FAILURE;
 	}
-	g_env.last_executed_cmd_exit_status = EXIT_FAILURE;
 }

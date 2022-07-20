@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 11:23:53 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/16 17:07:33 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/20 10:11:41 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include "tok_utils/tok_utils.h"
 
 //* user defined modules //
+# include "../../error_handling/error_handling_module.h"
 # include "../../print/print_module.h"
 
 // * start of declarations //

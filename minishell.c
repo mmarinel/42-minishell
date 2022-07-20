@@ -6,16 +6,16 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/19 18:45:08 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/07/20 11:44:32 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	set_env(char *const envp[]);
-static void	print_signature(void);
-static void	unlink_here_docs(void);
-void		set_pid_variable(void);
+static void		set_env(char *const envp[]);
+static void		print_signature(void);
+static void		unlink_here_docs(void);
+static void		set_pid_variable(void);
 
 int	main(int argc, char const *argv[], char *const envp[])
 {
@@ -23,10 +23,7 @@ int	main(int argc, char const *argv[], char *const envp[])
 
 	if (argc != 1)
 	{
-		put_error("minishell: ", "no arguments allowed",
-			ft_strjoin("\nfound argument: ", (char *) *(argv + 1),
-				e_false, e_false),
-			e_true);
+		put_error(ARGS_ERROR, EXIT_FAILURE, (void *)(*argv + 1));
 		exit(EXIT_FAILURE);
 	}
 	set_env(envp);
@@ -36,7 +33,7 @@ int	main(int argc, char const *argv[], char *const envp[])
 	{
 		parse_tree = shell_read();
 		execute(parse_tree);
-		printer(PRINT);
+		printer(CALCULATE_STDOUT_BYTE_SHIFT);
 		clean_all:
 		{
 			tokenizer_free();
@@ -67,7 +64,7 @@ static void	set_env(char *const envp[])
 	// env_handler(_PRINT_ENV_, NULL); //* DEBUG
 }
 
-void	set_pid_variable(void)
+static void	set_pid_variable(void)
 {
 	pid_t	pid;
 	int		pid_val_channel[2];
