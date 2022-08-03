@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simple_statements.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:10:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/13 16:51:07 by earendil         ###   ########.fr       */
+/*   Updated: 2022/08/03 16:46:37 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,17 @@
 # include "../../expander/expander_module.h"
 # include "../../../env/env_module.h"
 
-void	execute_simple_cmd(t_tree_node *root, int in, int out);
-void	execute_builtin(t_tree_node *cmd, int in, int out);
-void	execute_redir_only_statement(t_tree_node *root, int in, int out);
+//* redirections
+void	external_handle_redirs(t_redirection redir, int cur_in_out,
+			int	std_in_out, t_bool input_redir_case);
+void	builtin_handle_redirs(t_redirection redir, int cur_in_out,
+			int	std_in_out, t_bool input_redir_case);
+
+void	execute_external_simple_cmd(t_tree_node *root, int in, int out);
+
+void	execute_env_statement(t_env_decl_node env_statement);
+void	execute_redir_only_statement(t_tree_node *root,
+				int in, int out);
+void	execute_cmd_builtin(t_simple_command_node simple_cmd);
 
 #endif

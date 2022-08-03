@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:01:18 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/15 14:47:19 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/03 16:44:48 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ static void	remove_bindings(t_bindings *head);
 
 //* end of static declarations //
 
-
-void	execute_env_statement(t_env_decl_node env_statement)
+void	_execute_env_statement(t_env_decl_node env_statement)
 {
 	if (env_statement.set)
 	{

@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_simple_statements.c                          :+:      :+:    :+:   */
+/*   parse_statement_granular.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/28 12:55:41 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/17 15:14:08 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/08/03 10:14:30 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/08/03 10:15:03 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse_utils.h"
+#include "parse_cases.h"
 
 t_node_content	*parse_operator(t_token *token)
 {
 	t_node_content	*new;
 
+	if (token == NULL)
+		return (NULL);
 	new = (t_node_content *) malloc(sizeof(t_node_content));
 	new->content_type = OPERATOR;
 	new->in_redir.file_name = NULL;

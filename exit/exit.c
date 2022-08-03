@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 17:07:46 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/20 12:38:41 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/03 18:21:20 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	print_message(t_bool ctrl_d)
 
 	if (e_false == ctrl_d)
 	{
-		shlvl = atoi(env_handler(BINDING_GET_VALUE, "SHLVL"));
+		shlvl = ft_atoi(env_handler(BINDING_GET_VALUE, "SHLVL"));
 		if (shlvl == *((size_t *) env_handler(INITIAL_SHLVL_RETURN, NULL)))
 			msg = ft_strdup("exit\n");
 	}

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 16:43:28 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 14:59:39 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/03 16:35:40 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@
 t_bool	is_path_name(char *cmd);
 char	*ft_get_cmd_name(char *cmd);
 char	*ft_get_pathname(char *cmd);
+t_bool	is_builtin_command(t_tree_node *root);
 
 #endif

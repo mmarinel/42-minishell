@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 09:39:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/20 11:41:02 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/03 14:54:59 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,16 @@ void	execute_rec(t_tree_node *root, int in, int out)
 {
 	if (!root)
 		return ;
+	subtree:
 	{
 		signal(SIGUSR1, shell_executor_handler);
 		signal(SIGUSR2, shell_executor_handler);
 		if (root->launch_subshell == e_true)
+		{
+			// printf("HEEERREEEEE");
+			// exit(0);
 			execute_subshell(root, in, out);
+		}
 		else
 			execute_in_shell(root, in, out);
 	}
@@ -51,7 +56,7 @@ static void	execute_subshell(t_tree_node *root, int in, int out)
 
 	root->launch_subshell = e_false;
 	subshell_pid = fork();
-	if (!subshell_pid)
+	if (subshell_pid == 0)
 	{
 		new_shlvl = atoi(env_handler(BINDING_GET_VALUE, "SHLVL")) + 1;
 		env_handler(BINDING_UPDATE,

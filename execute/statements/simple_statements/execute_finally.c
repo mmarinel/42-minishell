@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirect_and_execute.c                             :+:      :+:    :+:   */
+/*   execute_finally.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:15:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/20 13:50:42 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/03 16:49:01 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "simple_statements.h"
 
-static void	executor_handle_redirs(t_redirection redir, int cur_in_out,
-			int	std_in_out, t_bool input_redir_case);
-
-static void	execute_cmd_builtin(t_simple_command_node simple_cmd);
-
-// * end of declarations //
-
-
-void	execute_simple_cmd(t_tree_node *root, int in, int out)
+void	execute_external_simple_cmd(t_tree_node *root, int in, int out)
 {
 	char		*cmd_simple_name;
 	char		*cmd_full_path;
 	char		**args_split;
 	t_bindings	*env;
 
+	// printf("cmd name is: %s\tin is: %d, out is: %d\n", ft_get_cmd_name(root->content->simple_cmd.cmd_name), in, out);
 	env = env_handler(ENV_RETURN, NULL);
-	executor_handle_redirs(root->content->in_redir,
+	external_handle_redirs(root->content->in_redir,
 		in, STDIN_FILENO, e_true);
-	executor_handle_redirs(root->content->out_redir,
+	external_handle_redirs(root->content->out_redir,
 		out, STDOUT_FILENO, e_false);
 	cmd_simple_name = ft_get_cmd_name(root->content->simple_cmd.cmd_name);
 	cmd_full_path = ft_get_pathname(root->content->simple_cmd.cmd_name);
@@ -51,36 +44,13 @@ void	execute_simple_cmd(t_tree_node *root, int in, int out)
 			cmd_full_path, cmd_simple_name, args_split);
 }
 
-void	execute_builtin(t_tree_node *root, int in, int out)
+void	execute_env_statement(t_env_decl_node env_statement)
 {
-	int	stdin_clone;
-	int	stdout_clone;
-
-	int clone = dup(in); //TODO debug
-	int clone_ = dup(out); //TODO debug
-	stdin_clone = dup(STDIN_FILENO);
-	stdout_clone = dup(STDOUT_FILENO);
-	executor_handle_redirs(root->content->in_redir,
-		in, STDIN_FILENO, e_true);
-	executor_handle_redirs(root->content->out_redir,
-		out, STDOUT_FILENO, e_false);
-	if (root->content->content_type == ENV_STATEMENT)
-	{
-		execute_env_statement(root->content->env_decl);
-	}
-	else if (root->content->content_type == REDIR)
-	{
-		execute_redir_only_statement(root, in, out);
-	}
-	else
-	{
-		execute_cmd_builtin(root->content->simple_cmd);
-	}
-	dup2(stdin_clone, STDIN_FILENO);
-	dup2(stdout_clone, STDOUT_FILENO);
+	_execute_env_statement(env_statement);
 }
 
-void	execute_redir_only_statement(t_tree_node *root, int in, int out)
+void	execute_redir_only_statement(t_tree_node *root,
+				int in, int out)
 {
 	int	out_fd;
 
@@ -106,7 +76,7 @@ void	execute_redir_only_statement(t_tree_node *root, int in, int out)
 	{}
 }
 
-static void	execute_cmd_builtin(t_simple_command_node simple_cmd)
+void	execute_cmd_builtin(t_simple_command_node simple_cmd)
 {
 	char	*simple_name;
 
@@ -131,34 +101,4 @@ static void	execute_cmd_builtin(t_simple_command_node simple_cmd)
 	// 	exit(EXIT_FAILURE); // * mettere una exit_shell custom in ogni modulo ! (per freeare tutto il necessario)
 	// else
 	// 	exit(EXIT_SUCCESS); // * mettere una exit_shell custom in ogni modulo ! (per freeare tutto il necessario)
-}
-
-static void	executor_handle_redirs(t_redirection redir, int cur_in_out,
-			int	std_in_out, t_bool input_redir_case)
-{
-	if (redir.file_name)
-	{
-		if (cur_in_out != std_in_out) // * this means we are inside a PIPE but have to use the explicit redirection (>, <. etc.)
-		{
-			close(cur_in_out);
-		}
-		{
-			if (input_redir_case == e_true)
-				cur_in_out = open(redir.file_name, O_RDONLY);
-			else
-			{
-				if (redir.append_mode == e_true)
-					cur_in_out = ft_open(redir.file_name,
-								O_CREAT | O_APPEND | O_WRONLY, 0777, e_false);
-				else
-					cur_in_out = ft_open(redir.file_name,
-								O_CREAT | O_TRUNC | O_WRONLY, 0777, e_false);
-			}
-		}
-	}
-	if (cur_in_out != std_in_out)
-	{
-		dup2(cur_in_out, std_in_out);
-		close(cur_in_out);
-	}
 }

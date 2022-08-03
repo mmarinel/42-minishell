@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:34:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/20 11:49:20 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/03 19:29:37 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,27 @@ char	*ft_read_command(char *main_prompt)
 	char		*command;
 	t_status	prompt_status;
 
+	printf("reading...\n");
 	command = ft_readline(main_prompt);
 	if (!command)
+	{
+		// printf("AQUI!!!!!!!!!!!!\n");
+		fflush(stdout);
 		exit_shell(g_env.last_executed_cmd_exit_status, e_true);
+	}
 	prompt_status = complete_line(&command, command);
+	printf("command: %s\tlen: %zu\n", command, ft_strlen(command));
 	ft_add_history(command);
-	command = tee_wrap_command(command);
+	// command = tee_wrap_command(command);
 	if (prompt_status == ERROR)
 	{
 		g_env.last_executed_cmd_exit_status = EXIT_FAILURE;
 		free(command);
 		command = NULL;
+		// exit(0);
+		// printf("SHALAJNJBJNA:\n");
 	}
+	free(main_prompt);
 	return (command);
 }
 
@@ -74,8 +83,6 @@ static t_status	complete_line(char **initial_command_ref,
 	line_cont_prompt_pid = fork();
 	if (!line_cont_prompt_pid)
 	{
-		if (initial_command)
-			;
 		line_continuation_prompt(COMPLETE_LINE, initial_command,
 			line_channel, line_size_channel);
 	}

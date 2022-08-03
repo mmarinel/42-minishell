@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:01:29 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/15 18:03:42 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/03 16:44:00 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "../executor.h"
 #include "../../libft/simple_printf/ft_printf_module.h"
 
-void	execute_env_statement(t_env_decl_node env_statement);
+void	_execute_env_statement(t_env_decl_node env_statement);
 void	execute_export(void);
 void	execute_env(void);
 void	execute_unset(void);

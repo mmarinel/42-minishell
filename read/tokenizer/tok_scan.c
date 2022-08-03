@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:36:45 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/20 10:13:39 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/03 18:06:24 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,26 @@ void	scan(char *command_line, t_token **tok_list_ref)
 	size_t	offset;
 	char	*cursor;
 
-	offset = 0;
-	cursor = command_line;
-	while (command_line[offset])
+	if (command_line == NULL)
+		*tok_list_ref = NULL;
+	else
 	{
-		offset = scan_prologue(command_line, offset, tok_list_ref);
-		offset = scan_body(command_line, offset, tok_list_ref);
-		offset = scan_epilogue(command_line, offset, tok_list_ref);
-		if (cursor == command_line + offset)
-			break ;
-		cursor = command_line + offset;
-	}
-	if (offset < ft_strlen(command_line))
-	{
-		put_error(TOK_NOT_RECOGNIZED_ERROR, 258, command_line + offset);
-		free_tok_list(tok_list_ref);
+		offset = 0;
+		cursor = command_line;
+		while (command_line[offset])
+		{
+			offset = scan_prologue(command_line, offset, tok_list_ref);
+			offset = scan_body(command_line, offset, tok_list_ref);
+			offset = scan_epilogue(command_line, offset, tok_list_ref);
+			if (cursor == command_line + offset)
+				break ;
+			cursor = command_line + offset;
+		}
+		if (offset < ft_strlen(command_line))
+		{
+			put_error(TOK_NOT_RECOGNIZED_ERROR, 258, command_line + offset);
+			free_tok_list(tok_list_ref);
+		}
 	}
 }
 

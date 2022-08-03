@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/20 11:44:32 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/03 19:37:39 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,11 @@ int	main(int argc, char const *argv[], char *const envp[])
 	print_signature();
 	while (e_true)
 	{
+		// printf("reading..\n");
+		// sleep(5);
 		parse_tree = shell_read();
 		execute(parse_tree);
-		printer(CALCULATE_STDOUT_BYTE_SHIFT);
+		// printer(CALCULATE_STDOUT_BYTE_SHIFT);
 		clean_all:
 		{
 			tokenizer_free();
@@ -79,6 +81,8 @@ static void	set_pid_variable(void)
 	}
 	else
 	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
 		close(pid_val_channel[0]);
 		write(pid_val_channel[1], &pid, sizeof(pid_t));
 		waitpid(pid, &shell_exit_value, 0);

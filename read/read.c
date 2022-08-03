@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 16:51:54 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/18 09:25:43 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/03 18:29:16 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_tree_node	*shell_read(void)
 	// 	printf("%s ", tok_to_string(token));
 	// }
 	// printf("\n");
-
+	// exit(0);
 	return (parse());
 	// return (command);
 	// if (envp)

@@ -6,13 +6,36 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:19:46 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/02 14:29:20 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/03 10:08:26 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse_cases_init.h"
+#include "parse_cases.h"
 
-t_token	*atomic_exp_parsing_init(t_parser_status *parser_status)
+static t_token	*atomic_exp_fetch_next_token(t_parser_status *parser_status);
+
+t_tree_node	*parse_atomic_exp(t_parser_status *parser_status)
+{
+	t_token			*token;
+	t_tree_node		*parenthesised;
+
+	token = atomic_exp_fetch_next_token(parser_status);
+	if (!token)
+		return (NULL);
+	if (is_open_paren(token))
+	{
+		parser_status->open.parenthesis += 1;
+		parenthesised = parse_cmd_list(parser_status);
+		// parenthesised = parse_cmd_list(
+		// 	parse_atomic_exp(parser_status), parser_status);
+		parenthesised->launch_subshell = e_true;
+		return (parenthesised);
+	}
+	else
+		return (parse_statement(token));
+}
+
+static t_token	*atomic_exp_fetch_next_token(t_parser_status *parser_status)
 {
 	t_token	*token;
 
@@ -21,14 +44,7 @@ t_token	*atomic_exp_parsing_init(t_parser_status *parser_status)
 	token = take_next_token(parser_status);
 	if (!token)
 		return (NULL);
-	if (
-		token->token_id == e_OPERATOR
-		||
-		(
-			token->token_id == e_PARENTHESIS
-			&& *((char *)token->token_val) != '('
-		)
-	)
+	if (is_operator_tok(token) || is_closing_paren(token))
 	{
 		set_error(&(parser_status->status));
 		return (NULL);

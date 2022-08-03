@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 19:00:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/20 09:18:27 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/03 19:40:47 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,24 +43,25 @@ char	**ft_add_history(char *command)
  * If ctrl-d is hit it returns NULL.
  * 
  * @param prompt 
- * @return char* 
+ * @return char* the next non-empty line read or NULL if ctr+D is hit
  */
 char	*ft_readline(char *prompt)
 {
 	char	*line;
 
 	line = readline(prompt);
-	// printf("%s\n", line);
 	if (!line)
-	{
-		// printf("IS NULL\n");
-		return (NULL);
-	}
+		ctrlD:
+		{
+			// printf("AQUI!!!!!!!!!!!!\n");
+			return (NULL);
+		}
 	else if (*line == '\0')
-	{
-		free(line);
-		return (ft_readline(prompt));
-	}
+		ctrlC:
+		{
+			free(line);
+			return (ft_readline(prompt));
+		}
 	else
 		return (line);
 }

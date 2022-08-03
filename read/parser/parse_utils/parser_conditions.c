@@ -1,23 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_init.c                                      :+:      :+:    :+:   */
+/*   parser_conditions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/02 14:29:47 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/17 11:33:26 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/08/02 15:21:51 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/08/03 10:16:26 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse_cases_init.h"
+#include "parse_utils.h"
 
-void	parser_initialize(t_parser_status *parser_status)
+t_bool	is_operator_tok(t_token *token)
 {
-	parser_status->last_read_token = NULL;
-	parser_status->status = OK;
-	parser_status->open.double_qquotes = 0;
-	parser_status->open.quotes = 0;
-	parser_status->open.parenthesis = 0;
-	parser_status->last_read_tok_pos = 0;
+	return (token->token_id == e_OPERATOR);
+}
+
+t_bool	is_closing_paren(t_token *token)
+{
+	return 
+	(
+		token->token_id == e_PARENTHESIS
+		&&
+		*((char *)token->token_val) == ')'
+	);
+}
+
+t_bool	is_open_paren(t_token *token)
+{
+	return 
+	(
+		token->token_id == e_PARENTHESIS
+		&&
+		*((char *)token->token_val) == '('
+	);
 }

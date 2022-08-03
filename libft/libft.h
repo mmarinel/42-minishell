@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:24:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/16 16:02:07 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/03 11:23:02 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ typedef enum e_bool
 char			*ft_strjoin(char *pre, char *post, t_bool free_pre, t_bool free_post);
 char			*ft_strdup(char *str);
 int				ft_strcmp(const char *s1, const char *s2);
+int				ft_strncmp(const char *s1, const char *s2, size_t n);
 void			ft_str_replace(char **str, char *new);
 size_t			ft_strlcpy(char **dst, const char *src, size_t dstsize);
 size_t			ft_strlen(const char *str);
-int				ft_strncmp(const char *s1, const char *s2, size_t n);
 char			*ft_strcpy(char *buf, char *src, int copy_len);
 t_bool			str_not_empty(char *str);
 
