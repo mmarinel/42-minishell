@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 10:45:53 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/20 10:31:49 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/04 16:10:14 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # include "../signals/signals.h"
 # include "../read/read_module.h"
 # include "../error_handling/error_handling_module.h"
-# include "../print/print_module.h"
 # include "../exit/exit_module.h"
 
 // * user defined SUBmodules //

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 09:49:38 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/03 16:37:15 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/04 20:14:49 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,9 @@ static void	spawn_and_wait_command(t_tree_node *root, int in, int out)
 		execute_simple_statement(root, in, out);
 	else
 	{
-		waitpid(statement_execution.pid, &statement_execution.exit_status, 0);
-		g_env.last_executed_cmd_exit_status = statement_execution.exit_status;
+		waitpid(statement_execution.pid, &(statement_execution.exit_status), 0);
+		g_env.last_executed_cmd_exit_status
+			= WEXITSTATUS(statement_execution.exit_status);
 		// printf("tee exited!");
 		// if (!WIFEXITED(statement_execution.exit_status)
 		// 	|| WEXITSTATUS(statement_execution.exit_status))

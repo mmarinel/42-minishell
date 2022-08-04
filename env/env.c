@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:00:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/13 12:16:53 by earendil         ###   ########.fr       */
+/*   Updated: 2022/08/04 15:30:15 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "env.h"
 
 static void	*env_return_cases(t_bindings *env, t_bindings *export,
-					size_t *initial_shlvl_ref, t_env_handl_opcode opcode);
+					t_env_handl_opcode opcode);
 static void	*env_management_cases(t_bindings **env, t_bindings **export,
 					t_env_handl_opcode opcode, void *argument);
 static void	*env_operations_cases(t_bindings **env_ref, t_bindings **export_ref,
@@ -25,20 +25,16 @@ void	*env_handler(t_env_handl_opcode opcode, void *argument)
 {
 	static t_bindings	*env = NULL;
 	static t_bindings	*export = NULL;
-	static size_t		initial_shlvl;
 
 	if (opcode == ENV_INITIALIZE
 		|| opcode == ENV_CLEAN)
 	{
 		env_management_cases(&env, &export, opcode, argument);
 	}
-	if (opcode == SET_INITIAL_SHLVL)
-		initial_shlvl = ft_atoi(env_handler(BINDING_GET_VALUE, "SHLVL"));
 	if (opcode == ENV_RETURN
 		|| opcode == EXPORT_RETURN
-		|| opcode == INITIAL_SHLVL_RETURN
 		|| opcode == ENV_LIST_TO_ARRAY)
-		return (env_return_cases(env, export, &initial_shlvl, opcode));
+		return (env_return_cases(env, export, opcode));
 	if (opcode == BINDING_UPDATE
 		|| opcode == BINDING_UNSET
 		|| opcode == BINDING_GET_VALUE)
@@ -49,7 +45,7 @@ void	*env_handler(t_env_handl_opcode opcode, void *argument)
 }
 
 static void	*env_return_cases(t_bindings *env, t_bindings *export,
-					size_t *initial_shlvl_ref, t_env_handl_opcode opcode)
+					t_env_handl_opcode opcode)
 {
 	if (opcode == ENV_RETURN)
 	{
@@ -58,10 +54,6 @@ static void	*env_return_cases(t_bindings *env, t_bindings *export,
 	if (opcode == EXPORT_RETURN)
 	{
 		return (export);
-	}
-	if (opcode == INITIAL_SHLVL_RETURN)
-	{
-		return (initial_shlvl_ref);
 	}
 	if (opcode == ENV_LIST_TO_ARRAY)
 	{

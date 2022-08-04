@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 12:02:01 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/03 10:39:22 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/04 17:01:25 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static void	tree_to_string_rec(t_tree_node *subtree_root, size_t space);
 
 void	tree_to_string(t_tree_node *root)
 {
+	printf("\n");
 	tree_to_string_rec(root, 0);
 }
 
@@ -61,7 +62,7 @@ static void	tree_to_string_rec(t_tree_node *subtree_root, size_t spaces)
 		i = 0;
 		while (i < spaces)
 		{
-			printf(" ");
+			printf("\t");
 			i++;
 		}
 		if (subtree_root->launch_subshell == e_true)
@@ -88,7 +89,7 @@ static void	tree_to_string_rec(t_tree_node *subtree_root, size_t spaces)
 			else if (subtree_root->content->operator_node.operator == e_AND)
 				printf("&&");
 		}
-		printf("\n");
+		printf("\n\n");
 		tree_to_string_rec(subtree_root->left, spaces + 1);
 	}
 }

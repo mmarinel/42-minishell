@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_syntax_errors_msgs.c                        :+:      :+:    :+:   */
+/*   put_error_message.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/20 09:53:49 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/20 10:23:30 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/07/14 18:23:05 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/08/04 16:08:58 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "print.h"
+#include "error_messages.h"
 
-void	put_parser_syntax_error_message(t_parser_status *parser_status)
+void	put_error_message(char *preamble, char *message, char *epilogue,
+			t_bool free_epilogue)
 {
-	if (parser_status->last_read_tok_pos)
-		put_error_message(
-			"parser: parse error near token ",
-			tok_to_string(parser_status->last_read_token),
-			ft_strjoin(
-				"at pos ",
-				ft_itoa(parser_status->last_read_tok_pos),
-				e_false, e_true
-			),
-			e_true);
+	ft_printf("%s", preamble);
+	ft_printf(RED "%s" RESET, message);
+	ft_printf("\n");
+	if (epilogue)
+		ft_printf("%s\n", epilogue);
+	if (free_epilogue && epilogue)
+		free(epilogue);
 }

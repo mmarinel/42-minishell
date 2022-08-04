@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_types.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:03:20 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/13 11:25:55 by earendil         ###   ########.fr       */
+/*   Updated: 2022/08/04 15:29:25 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ typedef enum e_env_hndl_opcode
 	BINDING_UPDATE,
 	BINDING_UNSET,
 	BINDING_GET_VALUE,
-	SET_INITIAL_SHLVL,
 	ENV_RETURN,
 	EXPORT_RETURN,
-	INITIAL_SHLVL_RETURN,
 	ENV_LIST_TO_ARRAY,
 	ENV_CLEAN,
 	ENV_INITIALIZE,

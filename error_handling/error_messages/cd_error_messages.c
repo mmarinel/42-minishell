@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tok_syntax_error.c                                 :+:      :+:    :+:   */
+/*   cd_error_messages.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/20 09:36:51 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/20 09:48:27 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/07/20 10:28:15 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/08/04 16:09:24 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "print.h"
+#include "error_messages.h"
 
-void	put_unbalanced_input_error_message(void)
+void	put_cd_path_error_message(void)
 {
-	put_error_message("Syntax Error: ",
-		"unbalanced input string",
-		"you have at least one pending quote or parenthesis",
-		e_false);
-}
-
-void	put_token_not_found_error_message(char *cursor)
-{
-	put_error_message("Syntax Error: ",
-		"token not recognized",
-		ft_strjoin("near ...", cursor, e_false, e_false),
-		e_true);
+	put_error_message(
+		"minishell at execute cd: ", "HOME not set",
+		NULL, e_false
+	);
 }

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 09:58:33 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/03 15:40:41 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/04 20:15:15 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ void	execute_pipe_statement(t_tree_node *root, int in, int out)
 	{
 		pipe_execute_branch(root->right, new_in_out[1], new_in_out[0], out);
 	}
-	close(new_in_out[0]);
-	close(new_in_out[1]);
+	close_pipe(new_in_out);
 	waitpid(left_hand_side.pid, NULL, 0);
 	waitpid(right_hand_side.pid, &(right_hand_side.exit_status), 0);
-	g_env.last_executed_cmd_exit_status = right_hand_side.exit_status;
+	g_env.last_executed_cmd_exit_status
+		= WEXITSTATUS(right_hand_side.exit_status);
 }
 
 void	execute_and_statement(t_tree_node *root, int in, int out)
@@ -62,5 +62,11 @@ static void	pipe_execute_branch(t_tree_node *branch, int unused_pipe_side,
 {
 	close(unused_pipe_side);
 	execute_rec(branch, new_in, new_out);
-	exit(g_env.last_executed_cmd_exit_status);
+	// if (g_env.last_executed_cmd_exit_status == 256)
+	// {
+	// 	printf("ciaociao\n");
+	// 	exit(1);
+	// }
+	// else
+		exit(g_env.last_executed_cmd_exit_status);
 }

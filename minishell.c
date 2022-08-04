@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/03 19:37:39 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/04 16:17:50 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,8 @@ int	main(int argc, char const *argv[], char *const envp[])
 	print_signature();
 	while (e_true)
 	{
-		// printf("reading..\n");
-		// sleep(5);
 		parse_tree = shell_read();
 		execute(parse_tree);
-		// printer(CALCULATE_STDOUT_BYTE_SHIFT);
 		clean_all:
 		{
 			tokenizer_free();
@@ -53,7 +50,7 @@ int	main(int argc, char const *argv[], char *const envp[])
  */
 static void	set_env(char *const envp[])
 {
-	size_t	cur_shlvl;
+	size_t			cur_shlvl;
 
 	set_pid_variable();
 	printf("my pid is %d\n", g_env.pid);
@@ -61,7 +58,14 @@ static void	set_env(char *const envp[])
 	cur_shlvl = ft_atoi(env_handler(BINDING_GET_VALUE, "SHLVL"));
 	env_handler(BINDING_UPDATE,
 		get_new_binding("SHLVL", ft_itoa(cur_shlvl + 1), e_false));
-	env_handler(SET_INITIAL_SHLVL, NULL);
+	if (env_handler(BINDING_GET_VALUE, "minishell_first_call") == NULL)
+	setting_stdout_backup:
+	{
+		printf("in stdout_clone set\n");
+		env_handler(BINDING_UPDATE,
+			get_new_binding("minishell_first_call", "1", e_false));
+		g_env.stdout_clone = dup(STDOUT_FILENO);
+	}
 	g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
 	// env_handler(_PRINT_ENV_, NULL); //* DEBUG
 }
@@ -119,7 +123,13 @@ static void	unlink_here_docs(void)
 
 static void	print_signature(void)
 {
-	printf(RED "\
+	int		cur_stdout_backup;
+
+	printing_to_real_stdout:
+	{
+		cur_stdout_backup = dup(STDOUT_FILENO);
+		dup2(g_env.stdout_clone, STDOUT_FILENO);
+		printf(RED "\
 888b     d888 d8b          d8b          888               888 888\n\
 8888b   d8888 Y8P          Y8P          888               888 888\n\
 88888b.d88888                           888               888 888\n\
@@ -128,6 +138,9 @@ static void	print_signature(void)
 888  Y8P  888 888 888  888 888 Y8888b.  888  888 8888888  888 888\n\
 888       888 888 888  888 888      X88 888  888 Y8b.     888 888\n\
 888       888 888 888  888 888  88888P  888  888  Y8888   888 888\n\n" RESET);
-	printf(RED "As Beautiful as a Shell 😏\n\n" RESET);
-	printf(CYAN "Courtesy of:\n\tmmarinel\n\taligabbos\n\n" RESET);
+		printf(RED "As Beautiful as a Shell 😏\n\n" RESET);
+		printf(CYAN "Courtesy of:\n\tmmarinel\n\taligabbos\n\n" RESET);
+		dup2(cur_stdout_backup, STDOUT_FILENO);
+		close(cur_stdout_backup);
+	}
 }

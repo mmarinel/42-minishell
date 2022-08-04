@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 14:45:22 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/20 10:20:16 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/04 16:14:33 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # include "read/read_module.h"
 # include "execute/executor_module.h"
 # include "error_handling/error_handling_module.h"
-# include "print/print_module.h"
 # include "exit/exit_module.h"
 
 // * user defined types

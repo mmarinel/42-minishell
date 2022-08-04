@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_module.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 10:13:40 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/12 11:09:59 by evento           ###   ########.fr       */
+/*   Updated: 2022/08/04 16:13:47 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  * @param exit_status exit status chosen
  * @param go_on_new_line iff true, a '\ n ' gets printed before exiting.
  */
-void	exit_shell(int exit_status, t_bool ctrl_d);
+void	exit_shell(int exit_status);
 
 // void	exit_command_subshell(int exit_status, char *message);
 

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 09:58:36 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/20 10:10:41 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/04 16:07:15 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <errno.h>
 
 // * user defined modules //
-# include "../print/print_module.h"
+# include "error_messages/error_messages_module.h"
 # include "../exit/exit_module.h"
 
 // * user defined types //

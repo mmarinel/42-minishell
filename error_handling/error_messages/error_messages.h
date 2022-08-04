@@ -1,26 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_module.h                                     :+:      :+:    :+:   */
+/*   error_messages.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/14 18:23:22 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/20 10:58:19 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/07/14 18:23:33 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/08/04 16:09:46 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINT_MODULE_H
-# define PRINT_MODULE_H
+#ifndef ERROR_MESSAGES_H
+# define ERROR_MESSAGES_H
+
+//* system libraries
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
 
 //* user defined types
-# include "print_types.h"
-# include "../read/parser/parser_types.h"
-# include "../types.h"
+# include "../../colors.h"
+# include "../../types.h"
+
+//* user defined modules
+# include "../../utils/ft_utils.h"
+# include "../../env/env_module.h"
+# include "../../read/tokenizer/tokenizer_module.h"
+# include "../../read/parser/parser_module.h"
+
+//* user defined libraries
+# include "../../libft/libft.h"
 
 //* user defined exposed functions
 
-size_t	printer(t_print_opcode opcode);
+void	put_error_message(char *preamble, char *message, char *epilogue,
+			t_bool free_epilogue);
 
 //* 		put_error_message cases (main, tokenizer, parser, executor)
 
@@ -39,9 +54,5 @@ void	put_cmd_failed_error_message(char *cmd_name);
 void	put_cd_path_error_message(void);
 void	put_exit_args_error_message(void);
 void	put_pwd_args_error_message(void);
-
-//* 		stdout byte shift manage
-
-char	*get_stdout_dump_file_name(void);
 
 #endif

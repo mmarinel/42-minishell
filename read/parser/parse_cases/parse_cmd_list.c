@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:23:44 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/03 17:54:13 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/04 18:17:45 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,20 @@
 
 static t_tree_node	*parse_logical_chain(t_tree_node *current,
 						t_parser_status *parser_status);
-static t_tree_node	*parse_pipe_statement(t_parser_status *parser_status);
+static t_tree_node	*parse_pipe_chain(t_tree_node *current,
+						t_parser_status *parser_status);
 static t_token		*take_next_operator_token(t_parser_status *parser_status);
+
+//* end of static declarations
 
 t_tree_node	*parse_cmd_list(t_parser_status *parser_status)
 {
 	return (
 		parse_logical_chain(
-			parse_pipe_statement(parser_status),
+			parse_pipe_chain(
+				parse_atomic_exp(parser_status),
+				parser_status
+			),
 			parser_status
 		)
 	);
@@ -53,7 +59,10 @@ static t_tree_node	*parse_logical_chain(t_tree_node *current,
 				new_tree_node(
 					current,
 					parse_operator(operator_tok), e_false,
-					parse_pipe_statement(parser_status)
+					parse_pipe_chain(
+						parse_atomic_exp(parser_status),
+						parser_status
+					)
 				),
 				parser_status
 			)
@@ -61,39 +70,38 @@ static t_tree_node	*parse_logical_chain(t_tree_node *current,
 }
 
 /**
- * @brief this function parses the next pipe statement
- * (i.e.: atomic exp [| atomic exp]<-if pipe token is
- * found after next atomic expression)
+ * @brief this function parses the next pipe chain of command
+ * (i.e.: atomic exp [| atomic exp...])
  * 
  * @param parser_status 
  * @return t_token* 
  */
-static t_tree_node	*parse_pipe_statement(t_parser_status *parser_status)
+static t_tree_node	*parse_pipe_chain(t_tree_node *current,
+						t_parser_status *parser_status)
 {
-	t_tree_node	*left_subtree;
 	t_token		*operator_tok;
-	t_tree_node	*right_subtree;
 
-	left_subtree = parse_atomic_exp(parser_status);
-	if (left_subtree == NULL)
-	{
-		set_error(&parser_status->status);
-		return (NULL);
-	}
-	operator_tok = take_next_token(parser_status);
-	if (operator_tok == NULL
-		|| 0 != ft_strcmp(operator_tok->token_val, "|"))
-		return (left_subtree);
+	if (parser_status->status == ERROR)
+		return (current);
 	else
 	{
-		right_subtree = parse_atomic_exp(parser_status);
-		return (
-			new_tree_node(
-				left_subtree,
-				parse_operator(operator_tok), e_false,
-				right_subtree
-			)
-		);
+		operator_tok = take_next_token(parser_status);
+		if (operator_tok == NULL
+			|| 0 != ft_strcmp(operator_tok->token_val, "|"))
+			return (current);
+		else
+		{
+			return (
+				parse_pipe_chain(
+					new_tree_node(
+						current,
+						parse_operator(operator_tok), e_false,
+						parse_atomic_exp(parser_status)
+					),
+					parser_status
+				)
+			);
+		}
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 23:13:26 by earendil          #+#    #+#             */
-/*   Updated: 2022/07/15 17:23:40 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/04 09:59:43 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@
 
 //* user defined modules //
 # include "utils/ft_printf_utils.h"
+
+//* external modules
+# include "../../global.h"
+
+# define PF_STDOUT_SET 0
+# define PF_STDOUT_RESTORE 1
 
 //* includes end //
 

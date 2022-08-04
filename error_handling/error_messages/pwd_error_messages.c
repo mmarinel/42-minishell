@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   arg_error_message.c                                :+:      :+:    :+:   */
+/*   pwd_error_messages.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/20 09:32:58 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/20 11:01:31 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/07/20 10:42:53 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/08/04 16:08:53 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "print.h"
+#include "error_messages.h"
 
-void	put_args_error_message(char *arg_found)
+void	put_pwd_args_error_message(void)
 {
-	char	*epilogue;
-
-	epilogue = ft_strjoin("\nfound argument: ", arg_found, e_false, e_false);
 	put_error_message(
-		"minishell: ", "no arguments allowed",
-		epilogue,
-		e_true
+		"minishell at execute_pwd: ", "Illegal Arguments found",
+		" --no arguments expected", e_false
 	);
 }
