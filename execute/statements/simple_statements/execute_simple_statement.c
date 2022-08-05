@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 09:49:38 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/05 12:18:29 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/05 20:23:15 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,17 @@ static void	spawn_and_wait_command(t_tree_node *root, int in, int out)
 {
 	t_branch	statement_execution;
 
+	int	cur_stdout_backup = dup(STDOUT_FILENO);
+	signal(SIGINT, SIG_IGN);
 	statement_execution.pid = fork();
 	if (statement_execution.pid == 0)
 		execute_simple_statement(root, in, out);
 	else
 	{
 		waitpid(statement_execution.pid, &(statement_execution.exit_status), 0);
+		dup2(cur_stdout_backup, STDOUT_FILENO);
+		close(cur_stdout_backup);
+		signal(SIGINT, sig_handler);
 		g_env.last_executed_cmd_exit_status
 			= WEXITSTATUS(statement_execution.exit_status);
 	}

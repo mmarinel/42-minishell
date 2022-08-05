@@ -6,21 +6,20 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 08:22:23 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/02 14:16:57 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/05 17:19:24 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse_utils.h"
 
 t_tree_node	*new_tree_node(t_tree_node *left, t_node_content *content,
-				t_bool launch_subshell, t_tree_node *right)
+				t_tree_node *right)
 {
 	t_tree_node	*new_node;
 
 	new_node = (t_tree_node *) malloc(sizeof(t_tree_node));
 	new_node->left = left;
 	new_node->content = content;
-	new_node->launch_subshell = launch_subshell;
 	new_node->right = right;
 	return (new_node);
 }

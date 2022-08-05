@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 16:51:54 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/05 12:31:24 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/05 19:53:11 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,32 +25,37 @@ t_tree_node	*shell_read(void)
 				ft_strjoin(RESET, "\2", e_false, e_false),
 				e_true, e_true)
 	);
-	// command = ft_readline
-	// 	(
-	// 		ft_strjoin(
-	// 			get_current_working_directory(),
-	// 			ft_strjoin(RESET, "\2", e_false, e_false),
-	// 			e_true, e_true),
-	// 		e_true
-	// 	);
-	// printf("line read: %s\n", command);
-	tokenizer_feed_input(command);
-	free(command);
-	// t_token	*token;
-	// while (e_true)
-	// {
-	// 	token =  next_token();
-	// 	if (!token)
-	// 		break ;
-	// 	// print_token(token);
-	// 	printf("%s ", tok_to_string(token));
-	// }
-	// printf("\n");
-	// exit(0);
-	return (parse());
-	// return (command);
-	// if (envp)
-	// 	;
+	if (!command)
+		return (NULL);
+	else
+	{
+		// command = ft_readline
+		// 	(
+		// 		ft_strjoin(
+		// 			get_current_working_directory(),
+		// 			ft_strjoin(RESET, "\2", e_false, e_false),
+		// 			e_true, e_true),
+		// 		e_true
+		// 	);
+		// printf("line read: %s\n", command);
+		tokenizer_feed_input(command);
+		free(command);
+		// t_token	*token;
+		// while (e_true)
+		// {
+		// 	token =  next_token();
+		// 	if (!token)
+		// 		break ;
+		// 	// print_token(token);
+		// 	printf("%s ", tok_to_string(token));
+		// }
+		// printf("\n");
+		// exit(0);
+		return (parse());
+		// return (command);
+		// if (envp)
+		// 	;
+	}
 }
 
 	// t_token	*token;

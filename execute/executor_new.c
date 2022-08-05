@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 09:39:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/05 13:13:29 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/05 20:05:29 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	execute_rec(t_tree_node *root, int in, int out)
 	{
 		signal(SIGUSR1, shell_executor_handler);
 		signal(SIGUSR2, shell_executor_handler);
-		if (root->content->content_type == PAREN_EXP)//root->launch_subshell == e_true)
+		if (root->content->content_type == PAREN_EXP)
 		{
 			execute_subshell(root, in, out);
 		}
@@ -51,7 +51,6 @@ static void	execute_subshell(t_tree_node *root, int in, int out)
 	int			subshell_exit_status;
 	size_t		new_shlvl;
 
-	root->launch_subshell = e_false;
 	subshell_pid = fork();
 	if (subshell_pid == 0)
 	{

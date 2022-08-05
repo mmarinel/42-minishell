@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/04 16:17:50 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/05 19:37:18 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static void	set_pid_variable(void)
 		close(pid_val_channel[0]);
 		write(pid_val_channel[1], &pid, sizeof(pid_t));
 		waitpid(pid, &shell_exit_value, 0);
-		exit(shell_exit_value);
+		exit(WEXITSTATUS(shell_exit_value));
 	}
 }
 

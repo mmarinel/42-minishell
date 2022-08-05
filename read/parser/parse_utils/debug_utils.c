@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 12:02:01 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/05 13:21:09 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/05 18:01:32 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,14 @@ static void	tree_to_string_rec(t_tree_node *subtree_root, size_t space);
 
 void	tree_to_string(t_tree_node *root)
 {
-	printf("\n");
+	int		cur_stdout_backup;
+
+	cur_stdout_backup = dup(STDOUT_FILENO);
+	dup2(g_env.stdout_clone, STDOUT_FILENO);
+	ft_printf("\n");
 	tree_to_string_rec(root, 0);
+	dup2(cur_stdout_backup, STDOUT_FILENO);
+	close(cur_stdout_backup);
 }
 
 static void	tree_to_string_rec(t_tree_node *subtree_root, size_t spaces)
@@ -62,42 +68,37 @@ static void	tree_to_string_rec(t_tree_node *subtree_root, size_t spaces)
 		i = 0;
 		while (i < spaces)
 		{
-			printf("\t");
+			ft_printf("\t");
 			i++;
 		}
-		if (subtree_root->content->out_redir.file_name)
-			printf("out_redir present\n");
-		if (subtree_root->content->in_redir.file_name)
-			printf("in_redir present\n");
-		if (subtree_root->launch_subshell == e_true)
-			printf(">nsb >");
 		if (subtree_root->content->content_type == REDIR)
-			printf("REDIR_ONLY ");
+			ft_printf("REDIR_ONLY ");
 		else if (subtree_root->content->content_type == SIMPL_CMD)
 		{
-			printf("(cmd: %s; args: %s)", subtree_root->content->simple_cmd.cmd_name, subtree_root->content->simple_cmd.cmd_args); //print_simple_command(root);
+			ft_printf("(cmd: %s; args: %s)", subtree_root->content->simple_cmd.cmd_name, subtree_root->content->simple_cmd.cmd_args); //print_simple_command(root);
 		}
 		else if (subtree_root->content->content_type == ENV_STATEMENT)
 		{
 			if (subtree_root->content->env_decl.set)
-				printf("SET ENV_STATEMENT "); //print_env_statement(root);
+				ft_printf("SET ENV_STATEMENT "); //print_env_statement(root);
 			else
-				printf("UNSET ENV_STATEMENT "); //print_env_statement(root);
+				ft_printf("UNSET ENV_STATEMENT "); //print_env_statement(root);
 		}
 		else if (subtree_root->content->content_type == PAREN_EXP)
 		{
-			tree_to_string(subtree_root->content->parenthesis_node.subtree);
+			ft_printf("PAREN\n\n");
+			tree_to_string_rec(subtree_root->content->parenthesis_node.subtree, spaces + 1);
 		}
 		else
 		{
 			if(subtree_root->content->operator_node.operator == e_PIPE)
-				printf("|");
+				ft_printf("|");
 			else if (subtree_root->content->operator_node.operator == e_OR)
-				printf("||");
+				ft_printf("||");
 			else if (subtree_root->content->operator_node.operator == e_AND)
-				printf("&&");
+				ft_printf("&&");
 		}
-		printf("\n\n");
+		ft_printf("\n\n");
 		tree_to_string_rec(subtree_root->left, spaces + 1);
 	}
 }

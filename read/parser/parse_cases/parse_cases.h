@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:21:31 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/05 09:28:53 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/05 16:48:30 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,20 @@ t_tree_node	*parse_atomic_exp(t_parser_status *parser_status);
 t_tree_node	*parse_cmd_list(t_parser_status *parser_status);
 
 	//* simple statement
-t_tree_node		*parse_statement(t_token *token);
-t_node_content	*parse_operator(t_token *token);
+t_tree_node		*parse_statement(t_token *token,
+					t_parser_status *parser_status);
+t_node_content	*parse_operator(t_token *token,
+					t_parser_status *parser_status);
 t_node_content	*parse_parenthesis_exp(t_parser_status *parser_status);
 t_node_content	*parse_simple_command(t_token *token,
-					t_node_content *node_content);
+					t_node_content *node_content,
+					t_parser_status *parser_status);
 t_node_content	*parse_env_statement(t_token *token,
-					t_node_content *node_content);
+					t_node_content *node_content,
+					t_parser_status *parser_status);
 void			parse_redir(t_node_content *node_content,
-					char *file_name, t_token_id in_out);
+					char *file_name, t_token_id in_out,
+					t_parser_status *parser_status);
 
 // //* utils
 // void	parser_initialize(t_parser_status *parser_status);

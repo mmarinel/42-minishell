@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:13:24 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/05 13:30:51 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/05 16:33:32 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ t_status	open_paren_node_redirs(int *in, int *out,
 		else
 			*out = ft_open(parenthesis_node->out_redir.file_name,
 						O_CREAT | O_TRUNC | O_WRONLY, 0777, e_false);
-		printf("HERE\n");
+		// printf("HERE\n");
 	}
 	return (OK);
 }

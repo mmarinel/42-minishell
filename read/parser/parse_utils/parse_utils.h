@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 12:56:38 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/03 10:16:40 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/05 17:52:57 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,12 @@
 # include "../../../types.h"
 # include "../parser_types.h"
 # include "../../tokenizer/tok_types.h"
+# include "../../../global.h"
 
 // * parse utils //
+
 t_tree_node		*new_tree_node(t_tree_node *left, t_node_content *content,
-					t_bool launch_subshell, t_tree_node *right);
+					t_tree_node *right);
 void			free_tree(t_tree_node **root_ref);
 t_token			*take_next_token(t_parser_status *parser_status);
 

@@ -6,34 +6,34 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:33:42 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/05 09:33:07 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/05 17:21:45 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse_cases.h"
 
 static t_token	*parse_statement_redirs(t_token *token,
-	t_node_content **node_content_ref);
+	t_node_content **node_content_ref, t_parser_status *parser_status);
 //* end of static declarations
 
-t_tree_node	*parse_statement(t_token *token)
+t_tree_node	*parse_statement(t_token *token, t_parser_status *parser_status)
 {
 	t_node_content	*node_content;
 
-	token = parse_statement_redirs(token, &node_content);
+	token = parse_statement_redirs(token, &node_content, parser_status);
 	if (!token)
-		return (new_tree_node(NULL, node_content, e_false, NULL));
+		return (new_tree_node(NULL, node_content, NULL));
 	else
 	{
 		if (token->token_id == e_CMD_NAME
 			|| token->token_id == e_CMD_ARG)
 			return (new_tree_node(NULL,
-						parse_simple_command(token, node_content), e_false,
+						parse_simple_command(token, node_content, parser_status),
 						NULL));
 		else if (token->token_id == e_ENV_VAR_DECL
 				|| token->token_id == e_ENV_VAR_UNSET)
 			return (new_tree_node(NULL,
-						parse_env_statement(token, node_content), e_false,
+						parse_env_statement(token, node_content, parser_status),
 						NULL));
 		ft_free(node_content->in_redir.file_name);
 		ft_free(node_content->out_redir.file_name);
@@ -43,7 +43,7 @@ t_tree_node	*parse_statement(t_token *token)
 }
 
 static t_token	*parse_statement_redirs(t_token *token,
-	t_node_content **node_content_ref)
+	t_node_content **node_content_ref, t_parser_status *parser_status)
 {
 	(*node_content_ref) = (t_node_content *) malloc(sizeof(t_node_content));
 	(*node_content_ref)->in_redir.file_name = NULL;
@@ -55,13 +55,13 @@ static t_token	*parse_statement_redirs(t_token *token,
 		|| token->token_id == e_OUT_FILE_APPEND
 	)
 	{
-		parse_redir(*node_content_ref, token->token_val, token->token_id);
-		token = next_token();
+		parse_redir(*node_content_ref, token->token_val, token->token_id,
+			parser_status);
+		token = take_next_token(parser_status);
 		if (!token)
 		{
 			(*node_content_ref)->content_type = REDIR;
 			break ;
-			// return (new_tree_node(NULL, node_content, e_false, NULL));
 		}
 	}
 	return (token);

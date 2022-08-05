@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:48:27 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/05 09:38:17 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/05 17:17:59 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,9 @@ struct s_node_content
 
 struct s_tree_node
 {
-	t_node_content		*content;
-	t_bool				launch_subshell;
 	void				(*to_string)(struct s_tree_node *node);
-	t_bool				is_parse_tree_root;
 	struct s_tree_node	*left;
+	t_node_content		*content;
 	struct s_tree_node	*right;
 };
 

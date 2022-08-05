@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:26:21 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/03 17:44:10 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/05 17:22:07 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ t_tree_node	*parse(void)
 
 	parser_initialize(&parser_status);
 	tree = parse_cmd_list(&parser_status);
-	// tree->is_parse_tree_root = e_true;
 	if (parser_status.status == ERROR)
 	{
 		put_error(PARSE_ERROR, 258, &parser_status);

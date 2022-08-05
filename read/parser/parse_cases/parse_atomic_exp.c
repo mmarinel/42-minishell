@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:19:46 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/05 09:28:20 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/05 17:20:21 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,13 @@ t_tree_node	*parse_atomic_exp(t_parser_status *parser_status)
 		parser_status->open.parenthesis += 1;
 		parenthesised = new_tree_node(
 			NULL,
-			parse_parenthesis_exp(parser_status), e_true,
+			parse_parenthesis_exp(parser_status),
 			NULL
 		);
-		parenthesised->launch_subshell = e_true;
 		return (parenthesised);
 	}
 	else
-		return (parse_statement(token));
+		return (parse_statement(token, parser_status));
 }
 
 static t_token	*atomic_exp_fetch_next_token(t_parser_status *parser_status)

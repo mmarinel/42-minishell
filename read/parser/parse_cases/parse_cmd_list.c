@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:23:44 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/05 12:59:22 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/05 18:49:22 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static t_tree_node	*parse_logical_chain(t_tree_node *current,
 			parse_logical_chain(
 				new_tree_node(
 					current,
-					parse_operator(operator_or_paren_tok), e_false,
+					parse_operator(operator_or_paren_tok, parser_status),
 					parse_pipe_chain(
 						parse_atomic_exp(parser_status),
 						parser_status
@@ -90,30 +90,27 @@ static t_tree_node	*parse_pipe_chain(t_tree_node *current,
 
 	if (parser_status->status == ERROR)
 		return (current);
-	else
+	operator_tok = take_next_operator_or_paren_token(parser_status);
+	if (operator_tok == NULL
+		|| 0 != ft_strcmp(operator_tok->token_val, "|"))
 	{
-		operator_tok = take_next_operator_or_paren_token(parser_status);
-		if (operator_tok == NULL
-			|| 0 != ft_strcmp(operator_tok->token_val, "|"))
-		{
-			// tree_to_string(current);
-			// exit(0);
-			return (current);
-		}
-		else
-		{
-			return (
-				parse_pipe_chain(
-					new_tree_node(
-						current,
-						parse_operator(operator_tok), e_false,
-						parse_atomic_exp(parser_status)
-					),
-					parser_status
-				)
-			);
-		}
+		if (operator_tok
+			&& operator_tok->token_id != e_PARENTHESIS
+			&& operator_tok->token_id != e_OPERATOR)
+			set_error(&(parser_status->status));
+		return (current);
 	}
+	else
+		return (
+			parse_pipe_chain(
+				new_tree_node(
+					current,
+					parse_operator(operator_tok, parser_status),
+					parse_atomic_exp(parser_status)
+				),
+				parser_status
+			)
+		);
 }
 
 /**
