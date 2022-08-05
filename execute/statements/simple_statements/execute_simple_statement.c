@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 09:49:38 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/04 20:14:49 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/05 12:18:29 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,26 +31,27 @@ void	execute_simple_statement(t_tree_node *root, int in, int out)
 
 static void	execute_builtin(t_tree_node *root, int in, int out)
 {
-	int	stdin_clone;
-	int	stdout_clone;
+	int			stdin_clone;
+	int			stdout_clone;
 
 	stdin_clone = dup(STDIN_FILENO);
 	stdout_clone = dup(STDOUT_FILENO);
-	builtin_handle_redirs(root->content->in_redir,
-		in, STDIN_FILENO, e_true);
-	builtin_handle_redirs(root->content->out_redir,
-		out, STDOUT_FILENO, e_false);
-	if (root->content->content_type == ENV_STATEMENT)
+	if (ERROR == builtin_handle_redirs(root->content->in_redir,
+			in, STDIN_FILENO, e_true))
 	{
-		execute_env_statement(root->content->env_decl);
-	}
-	else if (root->content->content_type == REDIR)
-	{
-		execute_redir_only_statement(root, in, out);
+		perror("minishell: ");
+		g_env.last_executed_cmd_exit_status = 1;
 	}
 	else
 	{
-		execute_cmd_builtin(root->content->simple_cmd);
+		builtin_handle_redirs(root->content->out_redir,
+			out, STDOUT_FILENO, e_false);
+		if (root->content->content_type == ENV_STATEMENT)
+			execute_env_statement(root->content->env_decl);
+		else if (root->content->content_type == REDIR)
+			execute_redir_only_statement(root, in, out);
+		else
+			execute_cmd_builtin(root->content->simple_cmd);
 	}
 	dup2(stdin_clone, STDIN_FILENO);
 	dup2(stdout_clone, STDOUT_FILENO);
@@ -69,8 +70,8 @@ static void	execute_external(t_tree_node *root, int in, int out)
 	else
 	{
 		execute_command_and_exit(root, in, out);
-		close(in);
-		close(out);
+		// close(in);
+		// close(out);
 	}
 }
 
@@ -86,12 +87,6 @@ static void	spawn_and_wait_command(t_tree_node *root, int in, int out)
 		waitpid(statement_execution.pid, &(statement_execution.exit_status), 0);
 		g_env.last_executed_cmd_exit_status
 			= WEXITSTATUS(statement_execution.exit_status);
-		// printf("tee exited!");
-		// if (!WIFEXITED(statement_execution.exit_status)
-		// 	|| WEXITSTATUS(statement_execution.exit_status))
-		// 	g_env.last_executed_cmd_exit_status = EXIT_FAILURE;
-		// else
-		// 	g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
 	}
 }
 

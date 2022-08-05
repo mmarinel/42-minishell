@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 18:23:33 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/04 16:09:46 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/05 10:51:25 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	put_parser_syntax_error_message(t_parser_status *parser_status);
 
 void	put_cmd_not_found_error_message(char *cmd_name);
 void	put_cmd_failed_error_message(char *cmd_name);
+
+void	put_non_existing_error_message(char *file_name);
 
 //*		bultin commands error messages
 

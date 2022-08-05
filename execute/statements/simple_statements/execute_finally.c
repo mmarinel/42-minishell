@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:15:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/03 16:49:01 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/05 12:21:14 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,35 @@ void	execute_external_simple_cmd(t_tree_node *root, int in, int out)
 	t_bindings	*env;
 
 	// printf("cmd name is: %s\tin is: %d, out is: %d\n", ft_get_cmd_name(root->content->simple_cmd.cmd_name), in, out);
-	env = env_handler(ENV_RETURN, NULL);
-	external_handle_redirs(root->content->in_redir,
-		in, STDIN_FILENO, e_true);
-	external_handle_redirs(root->content->out_redir,
-		out, STDOUT_FILENO, e_false);
-	cmd_simple_name = ft_get_cmd_name(root->content->simple_cmd.cmd_name);
-	cmd_full_path = ft_get_pathname(root->content->simple_cmd.cmd_name);
-	args_split = ft_split(
-			ft_strjoin(
-				ft_strjoin(cmd_simple_name, " ", e_false, e_false),
-				expand(ft_strdup(root->content->simple_cmd.cmd_args)),
-				e_true, e_true
-			),
-		' ');
-	if (!cmd_full_path)
-		command_not_found_failure(root,
-			cmd_full_path, cmd_simple_name, args_split);
-	// if (0 == ft_strcmp(cmd_simple_name, "minishell"))
-	// 	redirector(STDOUT_RESTORE);
-	if (-1 == execve(cmd_full_path, args_split, bindings_list_to_array(env)))
-		command_execution_failure(root,
-			cmd_full_path, cmd_simple_name, args_split);
+	if (ERROR == external_handle_redirs(root->content->in_redir,
+		in, STDIN_FILENO, e_true))
+	{
+		perror("minishell: ");
+		exit(1);
+	}
+	else
+	{
+		external_handle_redirs(root->content->out_redir,
+			out, STDOUT_FILENO, e_false);
+		env = env_handler(ENV_RETURN, NULL);
+		cmd_simple_name = ft_get_cmd_name(root->content->simple_cmd.cmd_name);
+		cmd_full_path = ft_get_pathname(root->content->simple_cmd.cmd_name);
+		args_split = ft_split(
+				ft_strjoin(
+					ft_strjoin(cmd_simple_name, " ", e_false, e_false),
+					expand(ft_strdup(root->content->simple_cmd.cmd_args)),
+					e_true, e_true
+				),
+			' ');
+		if (!cmd_full_path)
+			command_not_found_failure(root,
+				cmd_full_path, cmd_simple_name, args_split);
+		// if (0 == ft_strcmp(cmd_simple_name, "minishell"))
+		// 	redirector(STDOUT_RESTORE);
+		if (-1 == execve(cmd_full_path, args_split, bindings_list_to_array(env)))
+			command_execution_failure(root,
+				cmd_full_path, cmd_simple_name, args_split);
+	}
 }
 
 void	execute_env_statement(t_env_decl_node env_statement)

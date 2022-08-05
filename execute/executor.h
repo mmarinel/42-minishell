@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 10:45:53 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/04 16:10:14 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/05 11:43:32 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # include "builtin/builtin.h"
 # include "expander/expander_module.h"
 # include "statements/exec_statements.h"
+# include "statements/simple_statements/simple_statements.h"
 # include "exec_errors/exec_errors.h"
 # include "exec_utils/exec_utils.h"
 

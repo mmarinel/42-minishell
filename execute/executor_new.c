@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 09:39:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/03 14:54:59 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/05 13:13:29 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	execute_in_shell(t_tree_node *root, int in, int out);
 static void	execute_subshell(t_tree_node *root, int in, int out);
 
 // * end of declarations //
-
 
 void	execute(t_tree_node *parse_tree)
 {
@@ -37,10 +36,8 @@ void	execute_rec(t_tree_node *root, int in, int out)
 	{
 		signal(SIGUSR1, shell_executor_handler);
 		signal(SIGUSR2, shell_executor_handler);
-		if (root->launch_subshell == e_true)
+		if (root->content->content_type == PAREN_EXP)//root->launch_subshell == e_true)
 		{
-			// printf("HEEERREEEEE");
-			// exit(0);
 			execute_subshell(root, in, out);
 		}
 		else
@@ -62,22 +59,18 @@ static void	execute_subshell(t_tree_node *root, int in, int out)
 		env_handler(BINDING_UPDATE,
 			get_new_binding("SHLVL", ft_itoa(new_shlvl), e_false)
 		);
-		// redirector(STDOUT_RESTORE);
-		// redirector(STDOUT_2_DUMP);
-		execute_rec(root, in, out);
-		// redirector(STDOUT_RESTORE);
-		// TODO replace with exit(g_env.last_executed_cmd_exit_status);
-		if (!WIFEXITED(g_env.last_executed_cmd_exit_status)
-			|| WEXITSTATUS(g_env.last_executed_cmd_exit_status))
-			exit(EXIT_FAILURE);
-		else
-			exit(EXIT_SUCCESS);
+		if (ERROR
+			== open_paren_node_redirs(&in, &out,
+				root->content))
+		{
+			perror("minishell: ");
+			exit(1);
+		}
+		execute_rec(root->content->parenthesis_node.subtree, in, out);
+		exit(g_env.last_executed_cmd_exit_status);
 	}
 	waitpid(subshell_pid, &subshell_exit_status, 0);
-	if (!WIFEXITED(subshell_exit_status) || WEXITSTATUS(subshell_exit_status))
-		g_env.last_executed_cmd_exit_status = EXIT_FAILURE;
-	else
-		g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
+	g_env.last_executed_cmd_exit_status = WEXITSTATUS(subshell_exit_status);
 }
 
 static void	execute_in_shell(t_tree_node *root, int in, int out)
@@ -99,44 +92,3 @@ static void	execute_in_shell(t_tree_node *root, int in, int out)
 			exit(EXIT_FAILURE);
 	}
 }
-
-	// // * in
-	// if (root->content->in_redir.file_name)
-	// {
-	// 	if (in != STDIN_FILENO)
-	// 		close(in);
-	// 	in = open(root->content->in_redir.file_name, O_RDONLY);
-	// }
-	// if (in != STDIN_FILENO)
-	// {
-	// 	dup2(in, STDIN_FILENO);
-	// 	close(in);
-	// }
-	// // * out
-	// if (root->content->out_redir.file_name)
-	// {
-	// 	if (out != STDOUT_FILENO)
-	// 		close(out);
-	// 	if (root->content->out_redir.append_mode == e_true)
-	// 		out = open(root->content->out_redir.file_name, O_CREAT | O_APPEND | O_WRONLY, 0777);
-	// 	else
-	// 		out = open(root->content->out_redir.file_name, O_CREAT | O_TRUNC | O_WRONLY, 0777);
-	// }
-	// if (out != STDOUT_FILENO)
-	// {
-	// 	dup2(out, STDOUT_FILENO);
-	// 	close(out);
-	// }
-	// // * redir END
-
-
-
-
-
-
-
-
-
-
-
-

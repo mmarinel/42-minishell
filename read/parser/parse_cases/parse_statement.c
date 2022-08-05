@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:33:42 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/03 10:10:34 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/05 09:33:07 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static t_token	*parse_statement_redirs(t_token *token,
 	t_node_content **node_content_ref);
+//* end of static declarations
 
 t_tree_node	*parse_statement(t_token *token)
 {

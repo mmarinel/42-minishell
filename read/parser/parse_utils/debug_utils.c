@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 12:02:01 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/04 17:01:25 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/05 13:21:09 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,10 @@ static void	tree_to_string_rec(t_tree_node *subtree_root, size_t spaces)
 			printf("\t");
 			i++;
 		}
+		if (subtree_root->content->out_redir.file_name)
+			printf("out_redir present\n");
+		if (subtree_root->content->in_redir.file_name)
+			printf("in_redir present\n");
 		if (subtree_root->launch_subshell == e_true)
 			printf(">nsb >");
 		if (subtree_root->content->content_type == REDIR)
@@ -79,6 +83,10 @@ static void	tree_to_string_rec(t_tree_node *subtree_root, size_t spaces)
 				printf("SET ENV_STATEMENT "); //print_env_statement(root);
 			else
 				printf("UNSET ENV_STATEMENT "); //print_env_statement(root);
+		}
+		else if (subtree_root->content->content_type == PAREN_EXP)
+		{
+			tree_to_string(subtree_root->content->parenthesis_node.subtree);
 		}
 		else
 		{

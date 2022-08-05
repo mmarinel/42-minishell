@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:36:45 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/03 18:06:24 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/05 10:02:01 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ static size_t	scan_epilogue(char *command_line, size_t offset,
 
 	offset = scan_redirs(command_line, offset, token_list);
 	offset = scan_parenthesis(command_line, offset, token_list);
+	offset = scan_redirs(command_line, offset, token_list);
 	offset = scan_operator(command_line, offset, token_list);
 	return (offset);
 }

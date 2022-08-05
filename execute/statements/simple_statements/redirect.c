@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:13:24 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/04 09:20:35 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/05 13:30:51 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	ft_dup(int cur_in_out, int std_in_out, t_bool close_cur);
  * @param std_in_out 
  * @param input_redir_case 
  */
-void	external_handle_redirs(t_redirection redir, int cur_in_out,
+t_status	external_handle_redirs(t_redirection redir, int cur_in_out,
 			int	std_in_out, t_bool input_redir_case)
 {
 	if (redir.file_name)
@@ -37,7 +37,11 @@ void	external_handle_redirs(t_redirection redir, int cur_in_out,
 		redir_in_or_out:
 		{
 			if (input_redir_case == e_true)
+			{
 				cur_in_out = open(redir.file_name, O_RDONLY);
+				if (-1 == cur_in_out)
+					return (ERROR);
+			}
 			else
 			{
 				if (redir.append_mode == e_true)
@@ -50,6 +54,7 @@ void	external_handle_redirs(t_redirection redir, int cur_in_out,
 		}
 	}
 	ft_dup(cur_in_out, std_in_out, e_true);
+	return (OK);
 }
 
 /**
@@ -62,13 +67,17 @@ void	external_handle_redirs(t_redirection redir, int cur_in_out,
  * @param std_in_out 
  * @param input_redir_case 
  */
-void	builtin_handle_redirs(t_redirection redir, int cur_in_out,
+t_status	builtin_handle_redirs(t_redirection redir, int cur_in_out,
 			int	std_in_out, t_bool input_redir_case)
 {
 	if (redir.file_name)
 	{
 		if (input_redir_case == e_true)
+		{
 			cur_in_out = open(redir.file_name, O_RDONLY);
+			if (-1 == cur_in_out)
+				return (ERROR);
+		}
 		else
 		{
 			if (redir.append_mode == e_true)
@@ -84,6 +93,29 @@ void	builtin_handle_redirs(t_redirection redir, int cur_in_out,
 	{
 		ft_dup(cur_in_out, std_in_out, e_false);
 	}
+	return (OK);
+}
+
+t_status	open_paren_node_redirs(int *in, int *out,
+				t_node_content *parenthesis_node)
+{
+	if (parenthesis_node->in_redir.file_name)
+	{
+		*in = open(parenthesis_node->in_redir.file_name, O_RDONLY);
+		if (*in == -1)
+			return (ERROR);
+	}
+	if (parenthesis_node->out_redir.file_name)
+	{
+		if (parenthesis_node->out_redir.append_mode == e_true)
+			*out = ft_open(parenthesis_node->out_redir.file_name,
+						O_CREAT | O_APPEND | O_WRONLY, 0777, e_false);
+		else
+			*out = ft_open(parenthesis_node->out_redir.file_name,
+						O_CREAT | O_TRUNC | O_WRONLY, 0777, e_false);
+		printf("HERE\n");
+	}
+	return (OK);
 }
 
 static void	ft_dup(int cur_in_out, int std_in_out, t_bool close_cur)

@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handling_types.h                             :+:      :+:    :+:   */
+/*   non_existing_file_error_msg.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/29 10:01:36 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/05 10:47:36 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/08/05 10:48:19 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/08/05 10:51:01 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_HANDLING_TYPES_H
-# define ERROR_HANDLING_TYPES_H
+#include "error_messages.h"
 
-typedef enum e_err_handl_opcodes
+void	put_non_existing_error_message(char *file_name)
 {
-	NON_EXISTING_FILE,
-	ARGS_ERROR,
-	TOK_UNBALANCED_ERROR,
-	TOK_NOT_RECOGNIZED_ERROR,
-	PARSE_ERROR,
-	CD_PATH_ERROR,
-	EXIT_ARGS_ERROR,
-	PWD_ARGS_ERROR,
-	CMD_NOT_FOUND_ERROR,
-	CMD_FAILED_ERROR,
-}	t_err_handl_opcodes;
-
-#endif
+	if (file_name)
+		;
+	perror("minishell: ");
+}
