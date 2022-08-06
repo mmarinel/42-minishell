@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:24:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/03 11:23:02 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/06 16:21:03 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ size_t			skip_consecutive_chars(char *string, size_t offset,
 size_t			skip_past_char(char *str, size_t offset,
 					char to_skip, int direction);
 t_bool			ft_isspace(char c);
+t_bool			ft_is_digit_string(char *str);
 t_bool			char_is_alpha(char c);
 t_bool			char_is_digit(char c);
 char			take_starting_quote(char *str);

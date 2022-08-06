@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 09:58:24 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/05 10:52:43 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/06 16:33:19 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	put_error(t_err_handl_opcodes error_type, int error_status,
 	if (error_type == CMD_FAILED_ERROR)
 		put_cmd_failed_error_message(argument);
 	if (error_type == CD_PATH_ERROR
-		|| error_type == EXIT_ARGS_ERROR
+		|| error_type == EXIT_NON_NUMERIC_ARGS_ERROR
+		|| error_type == EXIT_TOO_MANY_ARGS_ERROR
 		|| error_type == PWD_ARGS_ERROR)
 		put_builtin_error(error_type, argument);
 	setting_error_code:
@@ -46,10 +47,12 @@ static void	put_builtin_error(t_err_handl_opcodes error_type, void *argument)
 {
 	if (error_type == CD_PATH_ERROR)
 		put_cd_path_error_message();
-	if (error_type == EXIT_ARGS_ERROR)
-		put_exit_args_error_message();
 	if (error_type == PWD_ARGS_ERROR)
 		put_pwd_args_error_message();
+	if (error_type == EXIT_NON_NUMERIC_ARGS_ERROR)
+		put_exit_non_numeric_err_msg();
+	if (error_type == EXIT_TOO_MANY_ARGS_ERROR)
+		put_exit_too_many_args_err_msg();
 	if (argument)
 	{}
 }

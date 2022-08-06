@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:45:17 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/16 16:46:48 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/06 16:22:35 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,29 @@ char	*ft_itoa(int nbr)
 	if (nbr > 9)
 		return (ft_strjoin(ft_itoa(nbr / 10), digit, e_true, e_false));
 	return (ft_strjoin("", digit, e_false, e_false));
+}
+
+/**
+ * @brief true iff str is a string containing
+ * only digits and whitespace characters.
+ * 
+ * @param str 
+ * @return t_bool 
+ */
+t_bool	ft_is_digit_string(char *str)
+{
+	size_t	offset;
+
+	offset = 0;
+	if (str[offset] == '+'
+		|| str[offset] == '-')
+		offset += 1;
+	while(str[offset])
+	{
+		if (e_false == char_is_digit(str[offset])
+			&& e_false == ft_isspace(str[offset]))
+			return (e_false);
+		offset += 1;
+	}
+	return (e_true);
 }
