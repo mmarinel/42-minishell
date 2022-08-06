@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 09:39:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/05 20:05:29 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/06 10:39:29 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ static void	execute_subshell(t_tree_node *root, int in, int out)
 		execute_rec(root->content->parenthesis_node.subtree, in, out);
 		exit(g_env.last_executed_cmd_exit_status);
 	}
+	// signal(SIGINT, SIG_IGN);
 	waitpid(subshell_pid, &subshell_exit_status, 0);
 	g_env.last_executed_cmd_exit_status = WEXITSTATUS(subshell_exit_status);
 }

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:15:50 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/17 22:28:36 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/06 11:43:43 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,14 @@ void	sig_handler(int signum)
 	{
 		// printf ("in main prompt\n");
 		g_env.last_executed_cmd_exit_status = EXIT_FAILURE;
-		printf("\n");
+		ft_printf("\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
+	}
+	if (signum == SIGTERM)
+	{
+		exit(1);
 	}
 }
 
@@ -52,6 +56,7 @@ void	sig_handling_set(t_sig_handling_opcode opcode)
 		tty_attrs_new.c_lflag &= ~(ECHOCTL);
 		tcsetattr(STDIN_FILENO, TCSANOW, &tty_attrs_new);
 		signal(SIGINT, sig_handler);
+		signal(SIGTERM, sig_handler);
 		signal(SIGQUIT, SIG_IGN);
 	}
 	else

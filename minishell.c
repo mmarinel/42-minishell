@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/05 19:37:18 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/06 11:26:42 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char const *argv[], char *const envp[])
 
 	if (argc != 1)
 	{
-		put_error(ARGS_ERROR, EXIT_FAILURE, (void *)(*argv + 1));
+		put_error(ARGS_ERROR, EXIT_FAILURE, (void *)(argv[1]));
 		exit(EXIT_FAILURE);
 	}
 	set_env(envp);
@@ -82,6 +82,7 @@ static void	set_pid_variable(void)
 	{
 		close(pid_val_channel[1]);
 		read(pid_val_channel[0], &g_env.pid, sizeof(pid_t));
+		close(pid_val_channel[0]);
 	}
 	else
 	{

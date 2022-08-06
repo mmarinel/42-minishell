@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 07:51:39 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/17 18:56:02 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/06 10:22:28 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 // * user defined modules //
 # include "../read/prompt/prompt_module.h"
 # include "../env/env_module.h"
+# include "../libft/libft.h"
 # include "../global.h"
 # include "../read/prompt/here_doc/here_doc_module.h"
 

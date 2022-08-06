@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 19:00:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/04 16:15:33 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/06 10:46:52 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*ft_readline(char *prompt)
 		return (NULL);
 	}
 	else if (*line == '\0')
-	ctrlC:
+	newline://ctrlC:
 	{
 		free(line);
 		return (ft_readline(prompt));
