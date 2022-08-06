@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:15:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/05 12:21:14 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/06 20:34:59 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	execute_cmd_builtin(t_simple_command_node simple_cmd)
 	if (0 == ft_strcmp(simple_name, "unset"))
 		execute_unset();
 	if (0 == ft_strcmp(simple_name, "env"))
-		execute_env();
+		execute_env(simple_cmd.cmd_args);
 	free(simple_name);
 	// if (g_env.last_executed_cmd_exit_status == EXIT_FAILURE)
 	// 	exit(EXIT_FAILURE); // * mettere una exit_shell custom in ogni modulo ! (per freeare tutto il necessario)

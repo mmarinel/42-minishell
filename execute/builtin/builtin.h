@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:01:29 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/03 16:44:00 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/06 20:25:27 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 void	_execute_env_statement(t_env_decl_node env_statement);
 void	execute_export(void);
-void	execute_env(void);
+void	execute_env(char *arguments);
 void	execute_unset(void);
 
 void	execute_exit(t_simple_command_node cmd);

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 18:23:33 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/06 16:36:36 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/06 20:30:02 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	put_non_existing_error_message(char *file_name);
 void	put_cd_path_error_message(void);
 void	put_exit_too_many_args_err_msg(void);
 void	put_exit_non_numeric_err_msg(void);
+void	put_env_opt_err(void);
 void	put_pwd_args_error_message(void);
 
 #endif

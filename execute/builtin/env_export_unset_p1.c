@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:01:18 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/03 16:44:48 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/06 20:35:13 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,21 +48,26 @@ void	execute_export(void)
 	g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
 }
 
-void	execute_env(void)
+void	execute_env(char *arguments)
 {
 	t_bindings	*env;
 
-	env = (t_bindings *) env_handler(EXPORT_RETURN, NULL);
-	while (env)
+	if (arguments)
+		put_error(ENV_OPT_ERR, EXIT_FAILURE, NULL);
+	else
 	{
-		if (env->var_val)
+		env = (t_bindings *) env_handler(EXPORT_RETURN, NULL);
+		while (env)
 		{
-			ft_printf("%s=%s\n", env->var_name, env->var_val);
+			if (env->var_val)
+			{
+				ft_printf("%s=%s\n", env->var_name, env->var_val);
+			}
+			env = env->next;
 		}
-		env = env->next;
+		g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
+	
 	}
-	g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
-
 }
 
 static void	add_update_bindings(t_bindings *head)
