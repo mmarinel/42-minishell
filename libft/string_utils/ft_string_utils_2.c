@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:45:17 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/06 16:22:35 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/07 10:17:32 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ t_bool	ft_is_digit_string(char *str)
 {
 	size_t	offset;
 
+	if (str == NULL)
+		return (e_false);
 	offset = 0;
 	if (str[offset] == '+'
 		|| str[offset] == '-')
