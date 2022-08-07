@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_bindings_manage.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 09:18:17 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/13 12:16:21 by earendil         ###   ########.fr       */
+/*   Updated: 2022/08/07 12:04:25 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,7 @@ void	copy_env(char **envp)
 		// binding_add_new(head,
 		// 	get_new_binding(var_name, var_val, e_false),
 		// 	in_order);
-		free(split[0]);
-		free(split[1]);
-		free(split);
+		ft_splitclear(split);
 		envp++;
 	}
 }

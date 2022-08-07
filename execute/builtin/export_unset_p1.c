@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_export_unset_p1.c                              :+:      :+:    :+:   */
+/*   export_unset_p1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:01:18 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/06 20:35:13 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/07 11:30:56 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,28 +46,6 @@ void	execute_export(void)
 		export = export->next;
 	}
 	g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
-}
-
-void	execute_env(char *arguments)
-{
-	t_bindings	*env;
-
-	if (arguments)
-		put_error(ENV_OPT_ERR, EXIT_FAILURE, NULL);
-	else
-	{
-		env = (t_bindings *) env_handler(EXPORT_RETURN, NULL);
-		while (env)
-		{
-			if (env->var_val)
-			{
-				ft_printf("%s=%s\n", env->var_name, env->var_val);
-			}
-			env = env->next;
-		}
-		g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
-	
-	}
 }
 
 static void	add_update_bindings(t_bindings *head)

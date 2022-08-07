@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:45:17 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/07 10:17:32 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/07 12:17:57 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,30 @@ t_bool	ft_is_digit_string(char *str)
 	while(str[offset])
 	{
 		if (e_false == char_is_digit(str[offset])
+			&& e_false == ft_isspace(str[offset]))
+			return (e_false);
+		offset += 1;
+	}
+	return (e_true);
+}
+
+/**
+ * @brief true iff str is a string containing
+ * only alphanumeric and whitespace characters.
+ * 
+ * @param str 
+ * @return t_bool 
+ */
+t_bool	ft_is_alpha_string(char *str)
+{
+	size_t	offset;
+
+	if (str == NULL)
+		return (e_false);
+	offset = 0;
+	while(str[offset])
+	{
+		if (e_false == char_is_alpha(str[offset])
 			&& e_false == ft_isspace(str[offset]))
 			return (e_false);
 		offset += 1;

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:24:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/06 16:21:03 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/07 12:16:14 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ size_t			skip_past_char(char *str, size_t offset,
 					char to_skip, int direction);
 t_bool			ft_isspace(char c);
 t_bool			ft_is_digit_string(char *str);
+t_bool			ft_is_alpha_string(char *str);
 t_bool			char_is_alpha(char c);
 t_bool			char_is_digit(char c);
 char			take_starting_quote(char *str);
@@ -81,6 +82,7 @@ int				str_number_occurrences(char *str, char c);
 char			**ft_split(char const *string, char delimiter);
 void			*ft_splitclear(char **split);
 char			*split_merge(char	**split, char *const sep, t_bool free_split);
+size_t			split_len(char **split);
 
 
 //* math utils
