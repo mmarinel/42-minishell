@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 11:30:34 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/08 09:58:58 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/08 11:50:59 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ static t_status	execute_env_arguments_handling(char *arguments,
 static void	execute_env_print_error(t_simple_command_node cmd_node)
 {
 	if (0 == ft_strcmp(cmd_node.cmd_name, "export")
-		|| 0 == ft_strcmp(cmd_node.cmd_name, "unset"))
+		|| 0 == ft_strcmp(cmd_node.cmd_name, "unset")
+		|| 0 == ft_strcmp(cmd_node.cmd_name, "exit"))
 		put_error(ENV_CMD_NOT_FOUND_ERR, 127, cmd_node.cmd_name);
 	else
 		put_error(ENV_OPT_ERR, EXIT_FAILURE, NULL);

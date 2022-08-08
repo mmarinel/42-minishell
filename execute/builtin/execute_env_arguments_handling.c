@@ -6,83 +6,72 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 19:01:19 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/08 10:17:55 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/08 11:50:08 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-static t_status	env_set_body(
-					char *word,
-					t_env_decl_node *bindings_node,
-					t_bool	*unset_export_found_ref);
-static t_status	env_set_utility(char **split,
+static t_status	exec_env_add_binding(char *word,
+			t_env_decl_node *bindings_node);
+static t_status	exec_env_set_utility(char **split,
 					t_simple_command_node *cmd_node,
 					int utility_split_index);
-static t_bool	illegal_body_el(char **pair);
+static t_bool	exec_env_illegal_body_el(char **pair);
 //* end of static declarations
 
 t_status	env_set_bindings_and_utility(char **split,
 					t_simple_command_node *cmd_node,
 					t_env_decl_node *bindings_node)
 {
+	t_status	outcome;
 	size_t		split_ln;
 	size_t		i;
-	t_bool		unset_export_found;
 
-	unset_export_found = e_false;
+	outcome = OK;
 	split_ln = split_len(split);
 	i = 0;
-	while (e_true)
+	while (i < split_ln && outcome)
 	{
-		if (ERROR == env_set_body(split[i], bindings_node,
-				&unset_export_found))
+		if (NULL != ft_get_pathname(split[i])
+			|| 0 == ft_strcmp(split[i], "export")
+			|| 0 == ft_strcmp(split[i], "unset")
+			|| 0 == ft_strcmp(split[i], "exit"))
 		{
-			
-			if (i == split_ln - 1
-				|| unset_export_found)
-				break ;
-			else
-				return (ERROR);
+			outcome = exec_env_set_utility(split, cmd_node, i);
+			break ;
 		}
+		else
+			outcome = exec_env_add_binding(split[i], bindings_node);
 		i++;
-		if (i == split_ln)
-			return (OK);
 	}
-	return (env_set_utility(split, cmd_node, i));
+	return (outcome);
 }
 
-static t_status	env_set_body(
-					char *word,
-					t_env_decl_node *bindings_node,
-					t_bool	*unset_export_found_ref)
+static t_status	exec_env_add_binding(char *word,
+			t_env_decl_node *bindings_node)
 {
 	t_status	outcome;
 	char		**pair;
 	t_bindings	*new_binding;
 
 	pair = ft_split(word, '=');
-	if (illegal_body_el(pair))
-	{
-		if (0 == ft_strcmp("export", pair[0])
-			|| 0 == ft_strcmp("unset", pair[0]))
-			*unset_export_found_ref = e_true;
+	if (exec_env_illegal_body_el(pair))
 		outcome = ERROR;
-	}
 	else
 	{
+		outcome = OK;
 		new_binding = get_new_binding(pair[0], pair[1], e_false);
 		if (e_true == binding_exist(bindings_node->bindings, new_binding))
 			binding_over_write(bindings_node->bindings, new_binding);
 		else
 			binding_add_new(&(bindings_node->bindings), new_binding, e_false);
-		outcome = OK;
 	}
 	ft_splitclear(pair);
 	return (outcome);
 }
 
-static t_status	env_set_utility(char **split,
+static t_status	exec_env_set_utility(char **split,
 					t_simple_command_node *cmd_node,
 					int utility_split_index)
 {
@@ -91,9 +80,11 @@ static t_status	env_set_utility(char **split,
 
 	cmd_word = ft_split(split[utility_split_index], ' ');
 	cmd_node->cmd_name = ft_strdup(cmd_word[0]);
-	cmd_node->cmd_args = split_merge(cmd_word + 1, " ", e_false);
+	cmd_node->cmd_args = split_merge(split + utility_split_index + 1, " ", e_false);
 	if (0 == ft_strcmp("export", cmd_node->cmd_name)
-		|| 0 == ft_strcmp("unset", cmd_node->cmd_name))
+		|| 0 == ft_strcmp("unset", cmd_node->cmd_name)
+		|| 0 == ft_strcmp("exit", cmd_node->cmd_name)
+	)
 		outcome = ERROR;
 	else
 		outcome = OK;
@@ -101,15 +92,13 @@ static t_status	env_set_utility(char **split,
 	return (outcome);
 }
 
-static t_bool	illegal_body_el(char **pair)
+static t_bool	exec_env_illegal_body_el(char **pair)
 {
 	return (
 		pair &&
 		(
 			split_len(pair) > 2
 			|| e_false == ft_is_alpha_string(pair[0])
-			|| 0 == ft_strcmp("export", pair[0])
-			|| 0 == ft_strcmp("unset", pair[0])
 		)
 	);
 }

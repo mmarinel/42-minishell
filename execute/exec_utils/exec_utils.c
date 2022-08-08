@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 16:43:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/11 21:47:37 by evento           ###   ########.fr       */
+/*   Updated: 2022/08/08 10:39:58 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static char	*return_path_name(char *cmd, char **pathlist)
 
 	if (is_path_name(cmd) == e_true
 		&& access(cmd, X_OK) == 0)
-			return (ft_strcpy(NULL, cmd, ft_strlen(cmd)));
+			return (ft_strdup(cmd));
 	while (*pathlist)
 	{
 		cur_full_name_candidate
