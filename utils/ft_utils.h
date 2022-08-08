@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:13:18 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/08 15:19:59 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/08 19:12:12 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
 // * shell utils
 
 size_t			bash_next_word_len(char *command_line, size_t offset);
+size_t			bash_next_string_len(char *str, size_t offset);
+t_bool			is_env_var_name(char *str);
 t_bool			bash_word_is_empty(char *command);
 t_bool			command_is_empty(char *command);
 void			set_error(t_status *status);

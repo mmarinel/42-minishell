@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 19:01:19 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/08 11:50:08 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/08 19:12:38 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ static t_bool	exec_env_illegal_body_el(char **pair)
 		pair &&
 		(
 			split_len(pair) > 2
-			|| e_false == ft_is_alpha_string(pair[0])
+			|| e_false == is_env_var_name(pair[0])
 		)
 	);
 }

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 16:29:04 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/08 15:19:33 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/08 19:11:46 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,6 +231,55 @@ t_bool	command_is_empty(char *command)
 		if (e_false == ft_isspace(command[offset]))
 			return (e_false);
 		offset++;
+	}
+	return (e_true);
+}
+
+/**
+ * @brief this function takes the len of the next bash string
+ * (i.e.: a string delimiting by bash control characters other than '$'
+ * or end/start of string).
+ * 
+ * @param str 
+ * @param offset 
+ * @return size_t 
+ */
+size_t	bash_next_string_len(char *str, size_t offset)
+{
+	size_t	bash_string_len;
+	int		new_offset;
+	t_bool	repeat;
+
+	new_offset = offset;
+	{
+		repeat = e_true;
+		while (repeat)
+		{
+			new_offset = skip_consecutive_chars(str, new_offset, '$', +1);
+			new_offset += bash_next_word_len(str, new_offset);
+			if (str[new_offset] != '$')
+				repeat = e_false;
+		}
+		bash_string_len = new_offset - offset;
+	}
+	return (bash_string_len);
+}
+
+t_bool	is_env_var_name(char *str)
+{
+	size_t	offset;
+
+	if (str == NULL
+		|| (e_false == char_is_alpha(str[0]) && '_' != str[0]))
+		return (e_false);
+	offset = 1;
+	while(str[offset])
+	{
+		if (e_false == char_is_alpha(str[offset])
+			&& e_false == char_is_digit(str[offset])
+			&& '_' != str[offset])
+			return (e_false);
+		offset += 1;
 	}
 	return (e_true);
 }
