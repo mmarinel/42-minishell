@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:15:50 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/06 11:43:43 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/08 15:06:25 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	sig_handling_set(t_sig_handling_opcode opcode)
 		tcsetattr(STDIN_FILENO, TCSANOW, &tty_attrs_new);
 		signal(SIGINT, sig_handler);
 		signal(SIGTERM, sig_handler);
-		signal(SIGQUIT, SIG_IGN);
+		signal(SIGQUIT, sig_ign);
 	}
 	else
 		tcsetattr(STDIN_FILENO, TCSANOW, &tty_attrs_old);

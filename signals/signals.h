@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 07:51:39 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/06 10:22:28 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/08 15:04:56 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ extern void	rl_replace_line(const char *text, int clear_undo);
  * @param signum 
  */
 void	sig_handler(int signum);
+void	sig_ign(int signum);
 void	sig_handling_set(t_sig_handling_opcode opcode);
 void	shell_executor_handler(int signum);
 void	line_completion_prompt_sig_handler(int signum);

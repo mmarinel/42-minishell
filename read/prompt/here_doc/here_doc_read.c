@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 10:01:00 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/19 10:08:23 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/08 15:06:08 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_status	here_doc_read(char *command)
 	if (here_docs_count(command) == 0)
 		return (OK);
 	outcome = OK;
-	signal(SIGINT, SIG_IGN);
+	signal(SIGINT, sig_ign);
 	cur_hdoc_cont_id = here_docs_count(command) - 1;//* n - 1
 	here_doc_delims = here_doc_take_delimiters(command);
 	while (cur_hdoc_cont_id > -1)

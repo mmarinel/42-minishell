@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:34:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/05 19:50:53 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/08 15:06:03 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static t_status	complete_line(char **initial_command_ref,
 	}
 	else
 	{
-		signal(SIGINT, SIG_IGN);
+		signal(SIGINT, sig_ign);
 		outcome = read_completed_line(initial_command_ref,
 					line_cont_prompt_pid,
 					line_channel, line_size_channel);

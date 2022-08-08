@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 16:27:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/03 19:40:16 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/08 15:06:12 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ t_status	here_doc_handling(char *last)
 	// }
 	t_status	prompt_status;
 
-	signal(SIGINT, SIG_IGN);
+	signal(SIGINT, sig_ign);
 	prompt_status = here_doc_read(last);
 	signal(SIGINT, line_completion_prompt_sig_handler);
 	if (prompt_status == ERROR)
