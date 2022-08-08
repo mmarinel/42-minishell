@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 19:01:19 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/07 19:27:30 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/08 10:17:55 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,12 @@
 
 static t_status	env_set_body(
 					char *word,
-					t_env_decl_node *bindings_node);
-static t_status	env_set_utility(char **split, t_simple_command_node *cmd_node);
+					t_env_decl_node *bindings_node,
+					t_bool	*unset_export_found_ref);
+static t_status	env_set_utility(char **split,
+					t_simple_command_node *cmd_node,
+					int utility_split_index);
+static t_bool	illegal_body_el(char **pair);
 //* end of static declarations
 
 t_status	env_set_bindings_and_utility(char **split,
@@ -24,15 +28,19 @@ t_status	env_set_bindings_and_utility(char **split,
 {
 	size_t		split_ln;
 	size_t		i;
+	t_bool		unset_export_found;
 
+	unset_export_found = e_false;
 	split_ln = split_len(split);
 	i = 0;
 	while (e_true)
 	{
-		if (ERROR == env_set_body(split[i], bindings_node))
+		if (ERROR == env_set_body(split[i], bindings_node,
+				&unset_export_found))
 		{
 			
-			if (i == split_ln - 1)
+			if (i == split_ln - 1
+				|| unset_export_found)
 				break ;
 			else
 				return (ERROR);
@@ -41,21 +49,24 @@ t_status	env_set_bindings_and_utility(char **split,
 		if (i == split_ln)
 			return (OK);
 	}
-	return (env_set_utility(split, cmd_node));
+	return (env_set_utility(split, cmd_node, i));
 }
 
 static t_status	env_set_body(
 					char *word,
-					t_env_decl_node *bindings_node)
+					t_env_decl_node *bindings_node,
+					t_bool	*unset_export_found_ref)
 {
 	t_status	outcome;
 	char		**pair;
 	t_bindings	*new_binding;
 
 	pair = ft_split(word, '=');
-	if (split_len(pair) > 2
-		|| (pair && e_false == ft_is_alpha_string(pair[0])))
+	if (illegal_body_el(pair))
 	{
+		if (0 == ft_strcmp("export", pair[0])
+			|| 0 == ft_strcmp("unset", pair[0]))
+			*unset_export_found_ref = e_true;
 		outcome = ERROR;
 	}
 	else
@@ -71,15 +82,34 @@ static t_status	env_set_body(
 	return (outcome);
 }
 
-static t_status	env_set_utility(char **split, t_simple_command_node *cmd_node)
+static t_status	env_set_utility(char **split,
+					t_simple_command_node *cmd_node,
+					int utility_split_index)
 {
-	char	**cmd_word;
-	size_t	split_ln;
+	t_status	outcome;
+	char		**cmd_word;
 
-	split_ln = split_len(split);
-	cmd_word = ft_split(split[split_ln - 1], ' ');
+	cmd_word = ft_split(split[utility_split_index], ' ');
 	cmd_node->cmd_name = ft_strdup(cmd_word[0]);
 	cmd_node->cmd_args = split_merge(cmd_word + 1, " ", e_false);
+	if (0 == ft_strcmp("export", cmd_node->cmd_name)
+		|| 0 == ft_strcmp("unset", cmd_node->cmd_name))
+		outcome = ERROR;
+	else
+		outcome = OK;
 	ft_splitclear(cmd_word);
-	return (OK);
+	return (outcome);
+}
+
+static t_bool	illegal_body_el(char **pair)
+{
+	return (
+		pair &&
+		(
+			split_len(pair) > 2
+			|| e_false == ft_is_alpha_string(pair[0])
+			|| 0 == ft_strcmp("export", pair[0])
+			|| 0 == ft_strcmp("unset", pair[0])
+		)
+	);
 }

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/06 11:26:42 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/08 09:35:29 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ static void	set_env(char *const envp[])
 	cur_shlvl = ft_atoi(env_handler(BINDING_GET_VALUE, "SHLVL"));
 	env_handler(BINDING_UPDATE,
 		get_new_binding("SHLVL", ft_itoa(cur_shlvl + 1), e_false));
-	if (env_handler(BINDING_GET_VALUE, "minishell_first_call") == NULL)
+	if (env_handler(BINDING_GET_VALUE, "minishell_first_call_set") == NULL)
 	setting_stdout_backup:
 	{
 		printf("in stdout_clone set\n");
 		env_handler(BINDING_UPDATE,
-			get_new_binding("minishell_first_call", "1", e_false));
+			get_new_binding("minishell_first_call_set", "1", e_false));
 		g_env.stdout_clone = dup(STDOUT_FILENO);
 	}
 	g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
