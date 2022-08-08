@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/19 18:15:55 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/08 17:14:06 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,23 @@ size_t	scan_simple_command(char *command_line, size_t offset,
 {
 	t_token	*token;
 	int		len_cmd_name;
+	t_bool	repeat;
 
 //	pre_offset = scan_invariants(command_line, offset);
 	// printf(YELLOW "inside scan_simple_command\n" RESET);
 	if (!command_line[offset])
 		return (offset);
-	len_cmd_name = bash_next_word_len(command_line, offset);
+	len_cmd_name = offset;
+	// ! DA REFATTORIZZARE! --------------> NAME of function: 
+	repeat = e_true;
+	while (repeat)
+	{
+		len_cmd_name = skip_consecutive_chars(command_line, len_cmd_name, '$', +1);
+		len_cmd_name += bash_next_word_len(command_line, len_cmd_name);//* was ALONE!!!!!!!!!!!!!!!
+		if (command_line[len_cmd_name] != '$')
+			repeat = e_false;
+	}
+	len_cmd_name = len_cmd_name - offset;
 	if (len_cmd_name == 0)
 		return (offset);
 	token = (t_token *) malloc(sizeof(t_token));

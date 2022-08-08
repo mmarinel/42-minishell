@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:15:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/08 12:15:22 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/08 17:44:42 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,47 @@ void	execute_external_simple_cmd(t_tree_node *root, int in, int out)
 	}
 	else
 	{
-		env = env_handler(ENV_RETURN, NULL);
-		cmd_simple_name = ft_get_cmd_name(root->content->simple_cmd.cmd_name);
-		cmd_full_path = ft_get_pathname(root->content->simple_cmd.cmd_name);
-		args_split = ft_split(
-				ft_strjoin(
-					ft_strjoin(cmd_simple_name, " ", e_false, e_false),
-					expand(ft_strdup(root->content->simple_cmd.cmd_args)),
-					e_true, e_true
-				),
-			' ');
-		if (!cmd_full_path)
-			command_not_found_failure(root,
-				cmd_full_path, cmd_simple_name, args_split);
-		// if (0 == ft_strcmp(cmd_simple_name, "minishell"))
-		// 	redirector(STDOUT_RESTORE);
-		if (-1 == execve(cmd_full_path, args_split, bindings_list_to_array(env)))
-			command_execution_failure(root,
-				cmd_full_path, cmd_simple_name, args_split);
+		root->content->simple_cmd.cmd_name = expand(root->content->simple_cmd.cmd_name);
+		root->content->simple_cmd.cmd_args = expand(root->content->simple_cmd.cmd_args);
+		while (e_true)
+		{
+			char	**splitting;
+
+			if (NULL == root->content->simple_cmd.cmd_name
+				&& root->content->simple_cmd.cmd_args)
+			{
+				splitting = ft_split(root->content->simple_cmd.cmd_args, ' ');
+				root->content->simple_cmd.cmd_name = expand(ft_strdup(splitting[0]));
+				ft_str_replace(&root->content->simple_cmd.cmd_args, splitting[1]);
+				root->content->simple_cmd.cmd_args = expand(root->content->simple_cmd.cmd_args);
+				ft_splitclear(splitting);
+			}
+			else
+				break ;
+		}
+		if (NULL == root->content->simple_cmd.cmd_name)
+			exit(EXIT_SUCCESS);
+		else
+		{
+			env = env_handler(ENV_RETURN, NULL);
+			cmd_simple_name = ft_get_cmd_name(root->content->simple_cmd.cmd_name);
+			cmd_full_path = ft_get_pathname(root->content->simple_cmd.cmd_name);
+			args_split = ft_split(
+					ft_strjoin(
+						ft_strjoin(cmd_simple_name, " ", e_false, e_false),
+						expand(ft_strdup(root->content->simple_cmd.cmd_args)),
+						e_true, e_true
+					),
+				' ');
+			if (!cmd_full_path)
+				command_not_found_failure(root,
+					cmd_full_path, cmd_simple_name, args_split);
+			// if (0 == ft_strcmp(cmd_simple_name, "minishell"))
+			// 	redirector(STDOUT_RESTORE);
+			if (-1 == execve(cmd_full_path, args_split, bindings_list_to_array(env)))
+				command_execution_failure(root,
+					cmd_full_path, cmd_simple_name, args_split);
+		}
 	}
 }
 
@@ -87,22 +110,45 @@ void	execute_cmd_builtin(t_simple_command_node simple_cmd)
 {
 	char	*simple_name;
 
+	simple_cmd.cmd_name = expand(simple_cmd.cmd_name);
 	simple_cmd.cmd_args = expand(simple_cmd.cmd_args);
-	simple_name = ft_get_cmd_name(simple_cmd.cmd_name);
-	if (0 == ft_strcmp(simple_name, "echo"))
-		execute_echo(simple_cmd);
-	if (0 == ft_strcmp(simple_name, "cd"))
-		execute_cd(simple_cmd);
-	if (0 == ft_strcmp(simple_name, "exit"))
-		execute_exit(simple_cmd);
-	if (0 == ft_strcmp(simple_name, "pwd"))
-		execute_pwd(simple_cmd);
-	if (0 == ft_strcmp(simple_name, "export"))
-		execute_export();
-	if (0 == ft_strcmp(simple_name, "unset"))
-		execute_unset();
-	if (0 == ft_strcmp(simple_name, "env"))
-		execute_env(simple_cmd.cmd_args);
+	while (e_true)
+	{
+		char	**splitting;
+
+		if (NULL == simple_cmd.cmd_name
+			&& simple_cmd.cmd_args)
+		{
+			splitting = ft_split(simple_cmd.cmd_args, ' ');
+			simple_cmd.cmd_name = expand(ft_strdup(splitting[0]));
+			ft_str_replace(&simple_cmd.cmd_args, splitting[1]);
+			simple_cmd.cmd_args = expand(simple_cmd.cmd_args);
+			ft_splitclear(splitting);
+		}
+		else
+			break ;
+	}
+	if (NULL == simple_cmd.cmd_name)
+		g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
+	else
+	{
+		// simple_cmd.cmd_args = expand(simple_cmd.cmd_args);
+		simple_name = ft_get_cmd_name(simple_cmd.cmd_name);
+		if (0 == ft_strcmp(simple_name, "echo"))
+			execute_echo(simple_cmd);
+		if (0 == ft_strcmp(simple_name, "cd"))
+			execute_cd(simple_cmd);
+		if (0 == ft_strcmp(simple_name, "exit"))
+			execute_exit(simple_cmd);
+		if (0 == ft_strcmp(simple_name, "pwd"))
+			execute_pwd(simple_cmd);
+		if (0 == ft_strcmp(simple_name, "export"))
+			execute_export();
+		if (0 == ft_strcmp(simple_name, "unset"))
+			execute_unset();
+		if (0 == ft_strcmp(simple_name, "env"))
+			execute_env(simple_cmd.cmd_args);
+	}
 	free(simple_name);
 	// if (g_env.last_executed_cmd_exit_status == EXIT_FAILURE)
 	// 	exit(EXIT_FAILURE); // * mettere una exit_shell custom in ogni modulo ! (per freeare tutto il necessario)

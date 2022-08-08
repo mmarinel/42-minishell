@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 16:29:04 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/20 12:55:50 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/08 15:19:33 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,22 @@ t_bool	bash_word_is_empty(char *command)
 	{
 		if (e_false == ft_isspace(command[offset]
 			&& e_false == ft_is_quote(command[offset])))
+			return (e_false);
+		offset++;
+	}
+	return (e_true);
+}
+
+t_bool	command_is_empty(char *command)
+{
+	size_t	offset;
+
+	if (!command)
+		return (e_true);
+	offset = 0;
+	while (command[offset])
+	{
+		if (e_false == ft_isspace(command[offset]))
 			return (e_false);
 		offset++;
 	}

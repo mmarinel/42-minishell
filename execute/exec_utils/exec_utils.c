@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 16:43:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/08 10:39:58 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/08 17:17:37 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ char	*ft_get_cmd_name(char *cmd)
 	int			slash_idx;
 	size_t		i;
 
+	if (!cmd)
+		return (NULL);
 	name = NULL;
 	slash_idx = -1;
 	i = 0;
@@ -49,6 +51,8 @@ char	*ft_get_pathname(char *cmd)
 	char		**env_paths_split;
 	char		*path;
 
+	if (!cmd)
+		return (NULL);
 	env_paths_split = return_paths();
 	if (!env_paths_split)
 		return (NULL);

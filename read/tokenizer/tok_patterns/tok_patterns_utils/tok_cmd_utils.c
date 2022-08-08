@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 09:06:47 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/19 19:12:47 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/08 17:08:47 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ size_t	scan_next_cmd_arg(char *command_line, size_t offset,
 static size_t	take_next_arg_len(char *command_line, size_t offset)
 {
 	size_t	new_offset;
+	size_t	arg_len;
 	t_bool	repeat;
 
 	new_offset = offset;
@@ -93,7 +94,8 @@ static size_t	take_next_arg_len(char *command_line, size_t offset)
 		if (command_line[new_offset] != '$')
 			repeat = e_false;
 	}
-	return (new_offset - offset);
+	arg_len = new_offset - offset;
+	return (arg_len);
 }
 
 	// if (e_true == bash_control_character(command_line[new_offset])
