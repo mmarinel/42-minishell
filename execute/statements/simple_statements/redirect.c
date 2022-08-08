@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:13:24 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/05 16:33:32 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/08 12:10:49 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ t_status	external_handle_redirs(t_redirection redir, int cur_in_out,
 			if (input_redir_case == e_true)
 			{
 				cur_in_out = open(redir.file_name, O_RDONLY);
-				if (-1 == cur_in_out)
-					return (ERROR);
 			}
 			else
 			{
@@ -51,6 +49,8 @@ t_status	external_handle_redirs(t_redirection redir, int cur_in_out,
 					cur_in_out = ft_open(redir.file_name,
 								O_CREAT | O_TRUNC | O_WRONLY, 0777, e_false);
 			}
+			if (-1 == cur_in_out)
+				return (ERROR);
 		}
 	}
 	ft_dup(cur_in_out, std_in_out, e_true);
@@ -75,8 +75,6 @@ t_status	builtin_handle_redirs(t_redirection redir, int cur_in_out,
 		if (input_redir_case == e_true)
 		{
 			cur_in_out = open(redir.file_name, O_RDONLY);
-			if (-1 == cur_in_out)
-				return (ERROR);
 		}
 		else
 		{
@@ -88,6 +86,8 @@ t_status	builtin_handle_redirs(t_redirection redir, int cur_in_out,
 							O_CREAT | O_TRUNC | O_WRONLY, 0777, e_false);
 		}
 		ft_dup(cur_in_out, std_in_out, e_true);
+		if (-1 == cur_in_out)
+			return (ERROR);
 	}
 	else
 	{
@@ -113,6 +113,8 @@ t_status	open_paren_node_redirs(int *in, int *out,
 		else
 			*out = ft_open(parenthesis_node->out_redir.file_name,
 						O_CREAT | O_TRUNC | O_WRONLY, 0777, e_false);
+		if (*out == -1)
+			return (ERROR);
 		// printf("HERE\n");
 	}
 	return (OK);

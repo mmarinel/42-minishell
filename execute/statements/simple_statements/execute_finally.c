@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:15:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/06 20:34:59 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/08 12:15:22 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ void	execute_external_simple_cmd(t_tree_node *root, int in, int out)
 
 	// printf("cmd name is: %s\tin is: %d, out is: %d\n", ft_get_cmd_name(root->content->simple_cmd.cmd_name), in, out);
 	if (ERROR == external_handle_redirs(root->content->in_redir,
-		in, STDIN_FILENO, e_true))
+		in, STDIN_FILENO, e_true)
+		|| ERROR == external_handle_redirs(root->content->out_redir,
+			out, STDOUT_FILENO, e_false))
 	{
-		perror("minishell: ");
+		perror("minishell");
 		exit(1);
 	}
 	else
 	{
-		external_handle_redirs(root->content->out_redir,
-			out, STDOUT_FILENO, e_false);
 		env = env_handler(ENV_RETURN, NULL);
 		cmd_simple_name = ft_get_cmd_name(root->content->simple_cmd.cmd_name);
 		cmd_full_path = ft_get_pathname(root->content->simple_cmd.cmd_name);

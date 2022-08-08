@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 09:49:38 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/06 11:42:41 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/08 12:14:55 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@ static void	execute_builtin(t_tree_node *root, int in, int out)
 	stdin_clone = dup(STDIN_FILENO);
 	stdout_clone = dup(STDOUT_FILENO);
 	if (ERROR == builtin_handle_redirs(root->content->in_redir,
-			in, STDIN_FILENO, e_true))
+			in, STDIN_FILENO, e_true)
+		|| ERROR == builtin_handle_redirs(root->content->out_redir,
+			out, STDOUT_FILENO, e_false))
 	{
-		perror("minishell: ");
+		perror("minishell");
 		g_env.last_executed_cmd_exit_status = 1;
 	}
 	else
 	{
-		builtin_handle_redirs(root->content->out_redir,
-			out, STDOUT_FILENO, e_false);
 		if (root->content->content_type == ENV_STATEMENT)
 			execute_env_statement(root->content->env_decl);
 		else if (root->content->content_type == REDIR)
