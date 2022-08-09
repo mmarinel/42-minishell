@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cases.h                                            :+:      :+:    :+:   */
+/*   expander_cases.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 19:43:48 by earendil          #+#    #+#             */
-/*   Updated: 2022/07/09 19:45:54 by earendil         ###   ########.fr       */
+/*   Updated: 2022/08/09 16:35:16 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 # include "../expander.h"
 
 // * cases //
-char	*expand_star_case(char *args);
-char	*expand_dollar_case(char *args);
+char	*expand_dollar_segment(char *next_segment,
+				char containing_sequence);
+// char	*expand_star_case(char *args, t_seg_sequence seg_sequence);
+// char	*expand_dollar_case(char *args, t_seg_sequence seg_sequence);
 
 
 #endif
