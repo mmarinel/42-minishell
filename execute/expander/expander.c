@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:15:42 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/09 19:15:20 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/09 19:56:36 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ char	*expand(char *args)
 {
 	if (!args || !(*args))
 		return (args);
-	return (expand_rec(args, '\0'));
+	printf("args: %s\tlen: %zu\n", args, ft_strlen(args));
+	char	*s = expand_rec(args, '\0');
+	printf("final expansion: %s\tlen: %zu\n", s, ft_strlen(s));
+	return (s);
 }
 
 static char	*expand_rec(char *args,
@@ -34,9 +37,10 @@ static char	*expand_rec(char *args,
 	char	*args_post;
 
 	// printf("HERE\n");
-	if (NULL == args)
+	if (NULL == args || args[0] == 0)
 		return (NULL);
 	expansion_split(args, &next_segment, &args_post);
+	printf("next seg: %s\targs_post: %s\n", next_segment, args_post);
 	free(args);
 	return (
 		ft_strjoin(
@@ -72,7 +76,8 @@ static char	*expand_segment(char *segment, char containing_quote)
 	else
 	{
 		segment = expand_dollar_segment(segment, containing_quote);
-		printf("segment is %s\tlen is: %zu\n", segment, ft_strlen(segment));
+		if (segment)
+			printf("segment is %s\tlen is: %zu\n", segment, ft_strlen(segment));
 		// segment = expand_star_case(segment, containing_quotes);
 	}
 	return (segment);

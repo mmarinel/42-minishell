@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 11:35:33 by evento            #+#    #+#             */
-/*   Updated: 2022/07/20 13:02:22 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/09 19:32:26 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	execute_echo(t_simple_command_node cmd)
 		else
 			print_trailing_nl = e_false;
 	}
-	while (e_true == ft_isspace(cmd.cmd_args[offset]))
-		offset++;
+	// while (offset && e_true == ft_isspace(cmd.cmd_args[offset]))
+	// 	offset++;
 	ft_printf("%s", cmd.cmd_args + offset);
 	if (print_trailing_nl)
 		ft_printf("\n");
@@ -46,14 +46,17 @@ static size_t	take_n_option(char *args)
 		if (args[i] == '-' && args[i + 1] == 'n')
 		{
 			i += 2;
-			while (args[i] == '\'' || args[i] == '"')
-			{
-				if (args[i + 1] != args[i])
-					return (0);
-				i += 2;
-			}
+			// while (args[i] == '\'' || args[i] == '"')
+			// {
+			// 	if (args[i + 1] != args[i])
+			// 		return (0);
+			// 	i += 2;
+			// }
 			if (e_false == ft_isspace(args[i]))
 				return (0);
+			else
+				while (e_true == ft_isspace(args[i]))
+					i++;
 			return (i);
 		}
 		else if (e_false == ft_isspace(args[i]))

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 19:49:32 by earendil          #+#    #+#             */
-/*   Updated: 2022/08/09 19:00:19 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/09 19:39:26 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*expand_dollar_segment(char *next_segment,
 	char	*expansion;
 
 	printf("HERE");
+	if (!next_segment)
+		return (NULL);
 	if (containing_sequence != '\'')
 	{
 		if (next_segment[0] != '$')

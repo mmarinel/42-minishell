@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:36:03 by earendil          #+#    #+#             */
-/*   Updated: 2022/08/09 19:16:04 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/09 20:02:55 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	take_next_segment_boundaries(char *str,
 	{
 		offset = 0;
 		while (str[offset + 1]
-				&& str[offset + 1] != '*'
+				&& str[offset + 1] != '*'//TODO:---------------> TOGLIERE !
 				&& str[offset + 1] != '$'
 				&& e_false == bash_control_character(str[offset + 1]))
 			offset++;
@@ -67,7 +67,10 @@ static void	take_next_segment_boundaries(char *str,
 static char	*get_segment(char *str,
 				size_t start, size_t end)
 {
-	return (ft_strcpy(NULL, str + start, end - start + 1));
+	if (start > end)
+		return (NULL);
+	else
+		return (ft_strcpy(NULL, str + start, end - start + 1));
 }
 
 static char	*get_suffix(char *str, size_t cutting_index)
