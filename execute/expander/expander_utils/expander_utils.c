@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 17:27:45 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/10 15:00:58 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/10 19:42:20 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,28 +70,20 @@ char	**clean_results(char **results)
 	return (cleared);
 }
 
-size_t	parse_uninterpreted_prefix(char *segment,
-			char **uninterpreted_prefix_ref)
-{
-	size_t	suffix_offset;
-
-	if (segment[0] == '"' || segment[0] == '\'')
-	{
-		suffix_offset = skip_past_char(segment, 0 + 1, segment[0], +1);
-		*uninterpreted_prefix_ref = string_strip(
-			ft_strcpy(NULL, segment, suffix_offset),
-			segment[0], e_true
-		);
-	}
-	else
-	{
-		*uninterpreted_prefix_ref = NULL;
-		suffix_offset = 0;
-	}
-	return (suffix_offset);
-}
-
-char	get_seg_enclosing_quote(char *segment,
+/**
+ * @brief this function splits the first input
+ * in [segment]=[qs | rest] where qs is a quoted sequence
+ * (i.e.: a string delimited by quotes or a single
+ * -whitespace delimited- word).
+ * 
+ * @param segment 
+ * @param pre_ref 
+ * @param post_ref 
+ * @return char the quote delimiting the quoted sequence taken from [segment]
+ * or null byte if the found quoted sequence consists
+ * of a single -whitespace delimited- word.
+ */
+char	split_quoted_sequence(char *segment,
 			char **pre_ref, char **post_ref)
 {
 	char	enclosing_quotes;
@@ -109,14 +101,30 @@ char	get_seg_enclosing_quote(char *segment,
 	else
 	{
 		post_beginning = skip_past_char(segment, 1, segment[0], +1);
-		// printf("segment is %s\tpost beginning is: %zu\n", segment, post_beginning);
+		if (post_beginning == 1)
+		{
+			*pre_ref = ft_strdup(segment);
+			*post_ref = NULL;
+			return ('\0');
+		}
 		*pre_ref = ft_strcpy(NULL, segment + 1, post_beginning - 2);
 		if (segment[post_beginning])
-			*post_ref = ft_strcpy(NULL, segment + post_beginning, seg_len - post_beginning + 1);
+			*post_ref = ft_strcpy(NULL, segment + post_beginning,
+				seg_len - post_beginning + 1);
 		else
 			*post_ref = NULL;
 		enclosing_quotes = segment[0];
 		free(segment);
 	}
 	return (enclosing_quotes);
+}
+
+char	*quote_as_string(char quote)
+{
+	if (quote == '\'')
+		return ("\'");
+	else if (quote == '\"')
+		return ("\"");
+	else
+		return (NULL);
 }
