@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:15:42 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/09 19:56:36 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/10 10:02:29 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ char	*expand(char *args)
 {
 	if (!args || !(*args))
 		return (args);
-	printf("args: %s\tlen: %zu\n", args, ft_strlen(args));
-	char	*s = expand_rec(args, '\0');
-	printf("final expansion: %s\tlen: %zu\n", s, ft_strlen(s));
-	return (s);
+	return (expand_rec(args, '\0'));
 }
 
 static char	*expand_rec(char *args,
@@ -36,11 +33,9 @@ static char	*expand_rec(char *args,
 	char	*next_segment;
 	char	*args_post;
 
-	// printf("HERE\n");
 	if (NULL == args || args[0] == 0)
 		return (NULL);
 	expansion_split(args, &next_segment, &args_post);
-	printf("next seg: %s\targs_post: %s\n", next_segment, args_post);
 	free(args);
 	return (
 		ft_strjoin(
@@ -61,13 +56,9 @@ static char	*expand_segment(char *segment, char containing_quote)
 		ft_str_replace(&segment,
 					ft_strcpy(NULL, segment + 1, ft_strlen(segment) - 2)
 		);
-		printf("jcckljskljck--------0 %s\tlen is: %zu\n", segment, ft_strlen(segment));
 		if (seg_enclosing_quote == containing_quote
 			|| 0 == containing_quote)
-		{
-			printf("AQUIIIII\n");
 			return (expand_rec(segment, seg_enclosing_quote));
-		}
 		else
 			return (expand_segment_preserve_quotes(segment,
 				seg_enclosing_quote,
@@ -76,8 +67,6 @@ static char	*expand_segment(char *segment, char containing_quote)
 	else
 	{
 		segment = expand_dollar_segment(segment, containing_quote);
-		if (segment)
-			printf("segment is %s\tlen is: %zu\n", segment, ft_strlen(segment));
 		// segment = expand_star_case(segment, containing_quotes);
 	}
 	return (segment);

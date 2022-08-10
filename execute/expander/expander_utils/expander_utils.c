@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 17:27:45 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/09 19:09:05 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/10 10:03:10 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,7 @@ char	get_seg_enclosing_quote(char *segment)
 	else
 	{
 		if (*segment == '\'' || *segment == '\"')
-		{
-			printf("iushus--> %s\n", segment);
 			return (*segment);
-		}
 		else
 			return ('\0');
 	}

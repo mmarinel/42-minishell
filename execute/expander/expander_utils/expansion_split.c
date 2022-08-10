@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:36:03 by earendil          #+#    #+#             */
-/*   Updated: 2022/08/09 20:02:55 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/10 10:09:07 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,12 @@ static void	take_next_segment_boundaries(char *str,
 	else if (str[0] == '$' && str[1] == '$')
 		*end = 1;
 	else if (e_true == ft_isspace(str[0]))
-	{
 		*end = skip_consecutive_chars(str, 1, str[0], +1) - 1;
-		printf("END %zu\n", *end);
-	}
 	else
 	{
 		offset = 0;
 		while (str[offset + 1]
-				&& str[offset + 1] != '*'//TODO:---------------> TOGLIERE !
+				// && str[offset + 1] != '*'//TODO:---------------> TOGLIERE !
 				&& str[offset + 1] != '$'
 				&& e_false == bash_control_character(str[offset + 1]))
 			offset++;
