@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:36:03 by earendil          #+#    #+#             */
-/*   Updated: 2022/08/10 11:42:49 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/10 17:10:43 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ static void	take_next_segment_boundaries(char *str,
 		*end = 1;
 	else if (str[0] == '$' && str[1] == '$')
 		*end = 1;
+	else if (str[0] == '$' && ft_is_quote(str[1]))
+	{
+		*start = 1;
+		*end = skip_past_char(str, 2, str[1], +1) - 1;
+	}
 	else if (e_true == ft_isspace(str[0]))
 		*end = skip_consecutive_chars(str, 1, str[0], +1) - 1;
 	else

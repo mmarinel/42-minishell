@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tok_var_patterns_utils.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 08:56:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/12 17:24:32 by evento           ###   ########.fr       */
+/*   Updated: 2022/08/10 17:32:32 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ size_t	scan_var_value(char *str, size_t offset, char **value,
 	if (str[offset + 1] == '"' || str[offset + 1] == '\'')
 	{
 		*value = ft_substr(str + (offset + 2), str[offset + 1]);
-		return (offset + 2 + ft_strlen(*value));
+		return (offset + 2 + ft_strlen(*value) + 1);
 	}
 	value_len = 0;
 	while (str[offset + 1 + value_len])
