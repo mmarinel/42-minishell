@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 19:49:32 by earendil          #+#    #+#             */
-/*   Updated: 2022/08/10 10:33:33 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/10 16:39:49 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ char	*expand_dollar_segment(char *next_segment,
 	dollar_exp_split(next_segment, &var_name, &exp_post);
 	if (containing_sequence != '\'')
 	{
-		if (var_name[0] != '$')
+		if (var_name[0] == '$' && var_name[1] == '\0')
+			expansion = ft_strdup("$");
+		else if (var_name[0] != '$')
 			expansion = ft_strdup(var_name);
 		else if (var_name[0] == '$' && var_name[1] == '$')
 			expansion = ft_itoa(g_env.pid);

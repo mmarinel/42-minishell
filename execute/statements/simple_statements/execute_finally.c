@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:15:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/09 19:40:59 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/10 16:20:20 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,11 @@ void	execute_external_simple_cmd(t_tree_node *root, int in, int out)
 			args_split = ft_split(
 					ft_strjoin(
 						ft_strjoin(cmd_simple_name, " ", e_false, e_false),
-						expand(ft_strdup(root->content->simple_cmd.cmd_args)),
+						ft_strdup(root->content->simple_cmd.cmd_args),
 						e_true, e_true
 					),
 				' ');
+			printf("expanded args: %s\n", root->content->simple_cmd.cmd_args);
 			if (!cmd_full_path)
 				command_not_found_failure(root,
 					cmd_full_path, cmd_simple_name, args_split);

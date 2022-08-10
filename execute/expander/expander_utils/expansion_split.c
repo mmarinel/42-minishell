@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:36:03 by earendil          #+#    #+#             */
-/*   Updated: 2022/08/10 10:09:07 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/10 11:42:49 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ static void	take_next_segment_boundaries(char *str,
 	if (!str || !str[0])
 		return ;
 	*start = 0;
-	if (str[0] == '"' || str[0] == '\'')
-			*end = skip_past_char(str, 1, str[0], +1) - 1;
-	else if (str[0] == '$' && str[1] == '*')
+	// if (str[0] == '"' || str[0] == '\'')
+	// 		*end = skip_past_char(str, 1, str[0], +1) - 1;
+	if (str[0] == '$' && str[1] == '*')//* was else if
 		*end = 1;
 	else if (str[0] == '$' && str[1] == '$')
 		*end = 1;
@@ -52,6 +52,8 @@ static void	take_next_segment_boundaries(char *str,
 	else
 	{
 		offset = 0;
+		if (str[offset] == '"' || str[offset] == '\'')
+			offset = skip_past_char(str, offset + 1, str[offset], +1) - 1;
 		while (str[offset + 1]
 				// && str[offset + 1] != '*'//TODO:---------------> TOGLIERE !
 				&& str[offset + 1] != '$'

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 17:27:45 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/10 10:03:10 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/10 15:00:58 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,32 @@ size_t	parse_uninterpreted_prefix(char *segment,
 	return (suffix_offset);
 }
 
-char	get_seg_enclosing_quote(char *segment)
+char	get_seg_enclosing_quote(char *segment,
+			char **pre_ref, char **post_ref)
 {
-	if (NULL == segment)
-		return ('\0');
+	char	enclosing_quotes;
+	size_t	post_beginning;
+	size_t	seg_len;
+
+	seg_len = ft_strlen(segment);
+	if (NULL == segment
+		|| (segment[0] != '\'' && segment[0] != '\"'))
+	{
+		*pre_ref = NULL;
+		*post_ref = NULL;
+		enclosing_quotes = '\0';
+	}
 	else
 	{
-		if (*segment == '\'' || *segment == '\"')
-			return (*segment);
+		post_beginning = skip_past_char(segment, 1, segment[0], +1);
+		// printf("segment is %s\tpost beginning is: %zu\n", segment, post_beginning);
+		*pre_ref = ft_strcpy(NULL, segment + 1, post_beginning - 2);
+		if (segment[post_beginning])
+			*post_ref = ft_strcpy(NULL, segment + post_beginning, seg_len - post_beginning + 1);
 		else
-			return ('\0');
+			*post_ref = NULL;
+		enclosing_quotes = segment[0];
+		free(segment);
 	}
+	return (enclosing_quotes);
 }

@@ -6,15 +6,18 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:15:42 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/10 10:02:29 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/10 16:33:09 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
-//!													Forse non usare cotaining_sequence gia da qui
+
 static char	*expand_rec(char *args,
 				char containing_quotes);
 static char	*expand_segment(char *segment, char containing_quotes);
+static char	*expand_quoted_sequence(char *pre, char *post,
+				char seg_enclosing_quote,
+				char containing_quote);
 static char	*expand_segment_preserve_quotes(char *segment,
 				char seg_enclosing_quote,
 				char containing_quote);
@@ -36,6 +39,7 @@ static char	*expand_rec(char *args,
 	if (NULL == args || args[0] == 0)
 		return (NULL);
 	expansion_split(args, &next_segment, &args_post);
+	printf("next_seg: %s\targs_post: %s\n", next_segment, args_post);
 	free(args);
 	return (
 		ft_strjoin(
@@ -49,27 +53,45 @@ static char	*expand_rec(char *args,
 static char	*expand_segment(char *segment, char containing_quote)
 {
 	char	seg_enclosing_quote;
+	char	*pre;
+	char	*post;
 
-	seg_enclosing_quote = get_seg_enclosing_quote(segment);
+	seg_enclosing_quote = get_seg_enclosing_quote(segment, &pre, &post);
 	if (seg_enclosing_quote)
 	{
-		ft_str_replace(&segment,
-					ft_strcpy(NULL, segment + 1, ft_strlen(segment) - 2)
-		);
-		if (seg_enclosing_quote == containing_quote
-			|| 0 == containing_quote)
-			return (expand_rec(segment, seg_enclosing_quote));
-		else
-			return (expand_segment_preserve_quotes(segment,
-				seg_enclosing_quote,
-				containing_quote));
+		return (expand_quoted_sequence(pre, post,
+			seg_enclosing_quote,
+			containing_quote));
 	}
 	else
 	{
 		segment = expand_dollar_segment(segment, containing_quote);
-		// segment = expand_star_case(segment, containing_quotes);
+		segment = expand_star_segment(segment, containing_quote);
+		return (segment);
 	}
-	return (segment);
+}
+
+static char	*expand_quoted_sequence(char *pre, char *post,
+				char seg_enclosing_quote,
+				char containing_quote)
+{
+	char	*expansion;
+
+	if (seg_enclosing_quote == containing_quote || 0 == containing_quote)
+	{
+		expansion = expand_rec(pre, seg_enclosing_quote);
+		if (post)
+			return (expand_star_segment(
+				ft_strjoin(expansion, post, e_true, e_true),
+				containing_quote));
+		else
+			return (expansion);
+	}
+	else
+		expansion = (expand_segment_preserve_quotes(pre,
+			seg_enclosing_quote,
+			containing_quote));
+	return (expansion);
 }
 
 static char	*expand_segment_preserve_quotes(char *segment,
