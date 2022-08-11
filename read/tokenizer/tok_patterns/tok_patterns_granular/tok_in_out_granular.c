@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tok_in_out_utils.c                                 :+:      :+:    :+:   */
+/*   tok_in_out_granular.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 11:07:49 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/11 09:49:05 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 12:15:48 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tok_patterns_utils.h"
+#include "tok_patterns_granular.h"
 
 static size_t	take_here_docs(void);
-
 //* end of static declarations
-
 
 t_token_id	scan_redir_type(char *command_line, size_t offset)
 {
@@ -33,14 +31,14 @@ t_token_id	scan_redir_type(char *command_line, size_t offset)
 	return (_in_out_);
 }
 
-t_token	*in_out_tok_record_file_name(char *next_word_begin, size_t next_word_len,
+t_token	*in_out_tok_record_file_name(char *next_word_begin,
+			size_t next_word_len,
 			t_token_id _in_out_)
 {
 	t_token		*token;
 	static int	cur_hdoc_cont_id = -1;
 	size_t		here_docs;
 
-	here_doc_init:
 	{
 		here_docs = take_here_docs();
 		if (cur_hdoc_cont_id == -1)
@@ -54,9 +52,9 @@ t_token	*in_out_tok_record_file_name(char *next_word_begin, size_t next_word_len
 	else
 	{
 		token->token_val = ft_strjoin(
-			".here_doc-",
-			ft_itoa((here_docs - cur_hdoc_cont_id) - 1),//ft_itoa(*here_docs),
-			e_false, e_true);
+				".here_doc-",
+				ft_itoa((here_docs - cur_hdoc_cont_id) - 1),
+				e_false, e_true);
 		printf("cur here_doc name: %s\n", token->token_val);
 		cur_hdoc_cont_id--;
 	}
@@ -81,7 +79,6 @@ size_t	read_file_name(char *str, size_t offset)
 	alphanumeric_offset = skip_consecutive_chars(str, offset, '$', +1);
 	len_file_name = prefix_len + bash_next_word_len(str, alphanumeric_offset)
 		+ (alphanumeric_offset - offset);
-	// len_file_name = prefix_len + bash_next_word_len(str, offset);
 	return (len_file_name);
 }
 
@@ -98,16 +95,15 @@ static size_t	take_here_docs(void)
 	while (repeat)
 	{
 		hdoc_file_name = ft_strjoin(
-			prefix, ft_itoa(i),
-			e_false, e_true
-		);
+				prefix, ft_itoa(i),
+				e_false, e_true
+				);
 		if (0 != access(hdoc_file_name, R_OK | W_OK))
 			repeat = e_false;
 		else
 			i++;
 		free(hdoc_file_name);
-		// i++;
 	}
-	printf("%zu here-docs detected\n", i); 
+	printf("%zu here-docs detected\n", i);
 	return (i);
 }

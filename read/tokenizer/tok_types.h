@@ -6,14 +6,14 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 14:50:02 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/01 17:03:01 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 11:50:59 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOK_TYPES_H
 # define TOK_TYPES_H
 
-#include "../../types.h"
+# include "../../types.h"
 
 typedef enum e_op_code
 {
@@ -45,14 +45,5 @@ typedef struct s_token
 	void			(*to_string)(struct s_token *token);
 	struct s_token	*next;
 }	t_token;
-
-// TODO tolgliere perche gia incluso types.h
-// typedef struct s_bindings
-// {
-// 	t_bool				concat_mode;
-// 	char				*var_name;
-// 	char				*var_val;
-// 	struct s_bindings	*next;
-// }	t_bindings;
 
 #endif

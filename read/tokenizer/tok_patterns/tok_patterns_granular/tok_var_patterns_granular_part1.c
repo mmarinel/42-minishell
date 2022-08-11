@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tok_var_patterns_utils.c                           :+:      :+:    :+:   */
+/*   tok_var_patterns_granular_part1.c                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 08:56:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/10 17:32:32 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 12:18:27 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tok_patterns_utils.h"
+#include "tok_patterns_granular.h"
 
 /**
  * @brief <spaces><closed_quotes>name<space|control character|eof|=>
@@ -106,7 +106,6 @@ size_t	scan_var(char *str, size_t offset,
 	concat_mode = e_false;
 	var_name = NULL;
 	var_value = NULL;
-	// new_offset = scan_inout_file(str, offset, NULL); // ! considerare le redirection subito dopo export?
 	new_offset = scan_var_name(str, offset, &var_name);
 	if (!var_name)
 		return (offset);

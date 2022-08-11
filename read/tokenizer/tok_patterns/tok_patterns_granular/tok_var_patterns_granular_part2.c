@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tok_var_patterns_utils_2.c                         :+:      :+:    :+:   */
+/*   tok_var_patterns_granular_part2.c                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evento <evento@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 08:47:20 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/12 17:35:03 by evento           ###   ########.fr       */
+/*   Updated: 2022/08/11 12:19:41 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tok_patterns_utils.h"
+#include "tok_patterns_granular.h"
 
 size_t	scan_env_revert(t_token *token, size_t offset)
 {
@@ -21,14 +21,15 @@ size_t	scan_env_revert(t_token *token, size_t offset)
 	while (cur)
 	{
 		prev = cur;
-		cur =  cur->next;
+		cur = cur->next;
 		free(prev);
 	}
 	free(token);
 	return (offset);
 }
 
-size_t	scan_initial_keyword_set_token(char *str, size_t offset, t_token **token)
+size_t	scan_initial_keyword_set_token(char *str, size_t offset,
+			t_token **token)
 {
 	(*token) = (t_token *) malloc(sizeof(t_token));
 	(*token)->token_val = NULL;
@@ -36,17 +37,17 @@ size_t	scan_initial_keyword_set_token(char *str, size_t offset, t_token **token)
 	(*token)->next = NULL;
 	if (ft_strncmp(str + offset, "export", 6) == 0)
 	{
-		(*token)->token_id =  e_ENV_VAR_DECL;
+		(*token)->token_id = e_ENV_VAR_DECL;
 		return (offset + 6);
 	}
 	if (ft_strncmp(str + offset, "unset", 5) == 0)
 	{
-		(*token)->token_id =  e_ENV_VAR_UNSET;
+		(*token)->token_id = e_ENV_VAR_UNSET;
 		return (offset + 5);
 	}
 	else
 	{
-		(*token)->token_id =  e_ENV_VAR_DECL;
+		(*token)->token_id = e_ENV_VAR_DECL;
 		return (offset);
 	}
 }
@@ -55,7 +56,6 @@ void	env_tok_add_new_binding(t_token **token_ref,
 		t_bindings *next_binding)
 {
 	next_binding->next = (t_bindings *)(*token_ref)->token_val;
-	// next_binding->prev = NULL;
 	(*token_ref)->token_val = next_binding;
 }
 

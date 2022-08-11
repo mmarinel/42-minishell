@@ -6,17 +6,15 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 18:48:51 by earendil          #+#    #+#             */
-/*   Updated: 2022/08/11 09:21:30 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 11:53:18 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 
-static void	*tokenizer(char *command_line, t_op_code op_code);
+static void		*tokenizer(char *command_line, t_op_code op_code);
 static t_token	*tokenize(char	*command_line);
-
-//* end of declarations //
-
+//* end of static declarations //
 
 /**
  * 
@@ -64,11 +62,7 @@ static t_token	*tokenize(char	*command_line)
 	if (occ_outside_quotes(command_line, '\'') % 2 != 0
 		|| occ_outside_quotes(command_line, '"') % 2 != 0
 		|| occ_outside_quotes(command_line, '(')
-			!= occ_outside_quotes(command_line, ')')
-		// str_number_occurrences(command_line, '\'') % 2 != 0
-		// || str_number_occurrences(command_line, '"') % 2 != 0
-		// || str_number_occurrences(command_line, '(')
-		// 	!= str_number_occurrences(command_line, ')')
+		!= occ_outside_quotes(command_line, ')')
 	)
 	{
 		put_error(TOK_UNBALANCED_ERROR, 258, NULL);

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tok_patterns_utils.h                               :+:      :+:    :+:   */
+/*   tok_patterns_granular.h                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 08:52:26 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/19 10:40:32 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 12:10:22 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOK_PATTERNS_UTILS_H
-# define TOK_PATTERNS_UTILS_H
+#ifndef TOK_PATTERNS_GRANULAR_H
+# define TOK_PATTERNS_GRANULAR_H
 
 // * standard libraries
 # include <unistd.h>

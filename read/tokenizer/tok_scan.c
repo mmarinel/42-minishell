@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:36:45 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/05 10:02:01 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 11:54:08 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ static size_t	scan_body(char *command_line, size_t offset,
 					t_token **token_list);
 static size_t	scan_prologue(char *command_line, size_t offset,
 					t_token **token_list);
-
 //* end of static declarations //
-
 
 void	scan(char *command_line, t_token **tok_list_ref)
 {
@@ -63,10 +61,7 @@ static size_t	scan_prologue(char *command_line, size_t offset,
 static size_t	scan_body(char *command_line, size_t offset,
 					t_token **token_list)
 {
-	// printf(YELLOW "inside scan_body\n" RESET);
 	offset = scan_invariants(command_line, offset);
-	// if (ft_strncmp(command_line + offset, "export", 6) == 0
-	// 	|| ft_strncmp(command_line + offset, "unset", 5) == 0)
 	if (e_true == is_env_statement(command_line, offset))
 		return (scan_env_declaration(command_line, offset, token_list));
 	else

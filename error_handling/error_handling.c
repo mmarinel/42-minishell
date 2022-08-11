@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 09:58:24 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/11 10:29:46 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 12:59:04 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@ static void	put_builtin_error(t_err_handl_opcodes error_type, void *argument);
 void	put_error(t_err_handl_opcodes error_type, int error_status,
 			void *argument)
 {
+	int	stdout_clone;
+
+	stdout_clone = dup(STDOUT_FILENO);
+	dup2(STDERR_FILENO, STDOUT_FILENO);
 	if (error_type == ARGS_ERROR)
 		put_args_error_message(argument);
 	if (error_type == TOK_UNBALANCED_ERROR)
@@ -37,7 +41,8 @@ void	put_error(t_err_handl_opcodes error_type, int error_status,
 		|| error_type == ENV_CMD_NOT_FOUND_ERR
 		|| error_type == PWD_ARGS_ERROR)
 		put_builtin_error(error_type, argument);
-		g_env.last_executed_cmd_exit_status = error_status;
+	g_env.last_executed_cmd_exit_status = error_status;
+	dup2(stdout_clone, STDOUT_FILENO);
 }
 
 static void	put_builtin_error(t_err_handl_opcodes error_type, void *argument)

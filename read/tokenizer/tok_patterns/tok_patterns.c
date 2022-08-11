@@ -6,20 +6,28 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/08 18:47:15 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 12:03:34 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tok_patterns.h"
 
-// ! in case of here_doc, len_file_name is len of delimiter
+/**
+ * @brief this function scans the next redir token
+ * (here_doc is a redir token too)
+ * 
+ * @param command_line 
+ * @param offset 
+ * @param token_list 
+ * @return size_t 
+ */
 size_t	scan_inout_file(char *command_line, size_t offset, t_token **token_list)
 {
-	t_token_id		_in_out_;
-	size_t			next_word_len; //* file name or here_doc delimiter
-	size_t			pre_offset;
+	t_token_id	_in_out_;
+	size_t		next_word_len;
+	size_t		pre_offset;
 
-	pre_offset = scan_invariants(command_line, offset); // ! ONLY scan_spaces!
+	pre_offset = scan_invariants(command_line, offset);
 	_in_out_ = scan_redir_type(command_line, pre_offset);
 	if (_in_out_ == e_NONE)
 		return (offset);
@@ -34,8 +42,8 @@ size_t	scan_inout_file(char *command_line, size_t offset, t_token **token_list)
 	tok_add_back(
 		token_list,
 		in_out_tok_record_file_name(command_line + pre_offset, next_word_len,
-				_in_out_)
-	);
+			_in_out_)
+		);
 	return (pre_offset + next_word_len);
 }
 
@@ -72,7 +80,7 @@ size_t	scan_env_declaration(char *str, size_t offset, t_token **token_list)
 	while (e_true)
 	{
 		next_var = NULL;
-		new_offset = scan_redirs(str, new_offset, token_list); //scan_inout_file(str, new_offset, token_list);
+		new_offset = scan_redirs(str, new_offset, token_list);
 		new_offset = scan_var(str, new_offset, token->token_id, &next_var);
 		if (!next_var)
 			break ;

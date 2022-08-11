@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tok_cmd_utils.c                                    :+:      :+:    :+:   */
+/*   tok_cmd_granular.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 09:06:47 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/08 18:48:11 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 12:13:46 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tok_patterns_utils.h"
+#include "tok_patterns_granular.h"
 
 static size_t	take_next_arg_len(char *command_line, size_t offset);
-
 //* end of static declarations
-
 
 size_t	scan_cmd_arg(char *command_line, size_t offset, t_token **token_list)
 {
@@ -24,14 +22,13 @@ size_t	scan_cmd_arg(char *command_line, size_t offset, t_token **token_list)
 	size_t	pre_offset;
 	size_t	new_offset;
 
-	// printf(YELLOW "inside scan_cmd_arg\n" RESET);
 	new_offset = scan_invariants(command_line, offset);
 	if (!command_line[new_offset])
 		return (offset);
 	args = NULL;
 	while (command_line[new_offset])
 	{
-		new_offset = scan_invariants(command_line, new_offset); //
+		new_offset = scan_invariants(command_line, new_offset);
 		pre_offset = new_offset;
 		new_offset = scan_next_cmd_arg(command_line, new_offset,
 				&args, token_list);
@@ -54,7 +51,7 @@ size_t	scan_next_cmd_arg(char *command_line, size_t offset,
 	size_t	len_cmd_arg;
 	char	*next_arg;
 
-	new_offset = scan_invariants(command_line, offset); // * questo lo mettiamo nel chiamante!
+	new_offset = scan_invariants(command_line, offset);
 	if (e_true == redirect_char(command_line[new_offset]))
 	{
 		new_offset = scan_inout_file(command_line, new_offset, token_list);
@@ -62,10 +59,6 @@ size_t	scan_next_cmd_arg(char *command_line, size_t offset,
 	else
 	{
 		len_cmd_arg = take_next_arg_len(command_line, new_offset);
-		// if (command_line[new_offset] == '$')
-		// 	len_cmd_arg = bash_next_word_len(command_line, new_offset + 1) + 1;
-		// else
-		// 	len_cmd_arg = bash_next_word_len(command_line, new_offset);
 		next_arg = ft_strcpy(NULL, command_line + new_offset, len_cmd_arg);
 		if (!(*cur_arg_string))
 			*cur_arg_string = next_arg;
@@ -83,9 +76,3 @@ static size_t	take_next_arg_len(char *command_line, size_t offset)
 {
 	return (bash_next_string_len(command_line, offset));
 }
-
-	// if (e_true == bash_control_character(command_line[new_offset])
-	// 	&& e_false == ft_is_quote(command_line[new_offset])
-	// 	&& e_false == ft_isspace(command_line[new_offset])
-	// 	&& e_false == redirect_char(command_line[new_offset]))
-	// 	return (offset);
