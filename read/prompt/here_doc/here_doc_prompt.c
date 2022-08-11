@@ -6,13 +6,14 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 12:09:03 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/17 19:04:57 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 09:36:49 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "here_doc.h"
 
 static void	hdoc_read_until_complete(int hdoc_fd, char *delimiter);
+//* end of static declarations
 
 void	here_doc_prompt(t_hdoc_prompt_behav opcode, char *delimiter,
 			char *hdoc_file_name)
