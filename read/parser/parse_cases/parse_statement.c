@@ -6,14 +6,15 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:33:42 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/05 17:21:45 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 18:19:45 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse_cases.h"
 
 static t_token	*parse_statement_redirs(t_token *token,
-	t_node_content **node_content_ref, t_parser_status *parser_status);
+					t_node_content **node_content_ref,
+					t_parser_status *parser_status);
 //* end of static declarations
 
 t_tree_node	*parse_statement(t_token *token, t_parser_status *parser_status)
@@ -28,13 +29,13 @@ t_tree_node	*parse_statement(t_token *token, t_parser_status *parser_status)
 		if (token->token_id == e_CMD_NAME
 			|| token->token_id == e_CMD_ARG)
 			return (new_tree_node(NULL,
-						parse_simple_command(token, node_content, parser_status),
-						NULL));
+					parse_simple_command(token, node_content, parser_status),
+					NULL));
 		else if (token->token_id == e_ENV_VAR_DECL
-				|| token->token_id == e_ENV_VAR_UNSET)
+			|| token->token_id == e_ENV_VAR_UNSET)
 			return (new_tree_node(NULL,
-						parse_env_statement(token, node_content, parser_status),
-						NULL));
+					parse_env_statement(token, node_content, parser_status),
+					NULL));
 		ft_free(node_content->in_redir.file_name);
 		ft_free(node_content->out_redir.file_name);
 		free(node_content);
@@ -55,8 +56,7 @@ static t_token	*parse_statement_redirs(t_token *token,
 		|| token->token_id == e_OUT_FILE_APPEND
 	)
 	{
-		parse_redir(*node_content_ref, token->token_val, token->token_id,
-			parser_status);
+		parse_redir(*node_content_ref, token->token_val, token->token_id);
 		token = take_next_token(parser_status);
 		if (!token)
 		{

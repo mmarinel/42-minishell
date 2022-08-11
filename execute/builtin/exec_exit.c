@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 11:07:59 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/07 17:16:34 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 18:23:50 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	execute_exit(t_simple_command_node cmd)
 		exit_shell(g_env.last_executed_cmd_exit_status);
 	else
 	{
-		if (e_false == ft_is_digit_string(arguments[0]))
+		if (arguments[0] && e_false == ft_is_digit_string(arguments[0]))
 		{
 			put_error(EXIT_NON_NUMERIC_ARGS_ERROR, 255, NULL);
 		}
@@ -40,7 +40,7 @@ void	execute_exit(t_simple_command_node cmd)
 		{
 			if (split_len(arguments) > 1)
 				put_error(EXIT_TOO_MANY_ARGS_ERROR, 1, NULL);
-			else
+			else if (arguments[0])
 				g_env.last_executed_cmd_exit_status
 					= ft_atoi(arguments[0]);
 		}

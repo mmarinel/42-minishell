@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:48:27 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/05 17:17:59 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 17:57:05 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_simple_command_node	t_simple_command_node;
 typedef struct s_parenthesis_node		t_parenthesis_node;
 typedef struct s_env_decl_node			t_env_decl_node;
 typedef struct s_redirection			t_redirection;
-typedef	struct s_node_content			t_node_content;
+typedef struct s_node_content			t_node_content;
 typedef struct s_tree_node				t_tree_node;
 typedef struct s_groupings				t_groupings;
 typedef struct s_parser_status			t_parser_status;

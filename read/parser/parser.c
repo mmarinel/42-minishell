@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:26:21 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/05 17:22:07 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 17:56:33 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_tree_node	*parse(void)
 	{
 		put_error(PARSE_ERROR, 258, &parser_status);
 		free_tree(&tree);
-		tokenizer_free(); // * meglio se la chiamo nello entry point di minishell insieme a parser_free
+		tokenizer_free();
 	}
 	tree_to_string(tree);
 	return (tree);

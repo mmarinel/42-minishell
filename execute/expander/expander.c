@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:15:42 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/10 19:14:19 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 18:40:18 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,16 @@ static char	*expand_quoted_sequence(char *pre, char *post,
 
 char	*expand(char *args)
 {
-	if (!args || !(*args))
-		return (args);
-	return (expand_rec(args, '\0'));
+	char	*expansion;
+
+	expansion = expand_rec(args, '\0');
+	if (command_is_empty(expansion))
+	{
+		free(expansion);
+		return (NULL);
+	}
+	else
+		return (expansion);
 }
 
 static char	*expand_rec(char *args,

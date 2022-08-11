@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:23:44 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/05 18:49:22 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 18:18:09 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ static t_tree_node	*parse_pipe_chain(t_tree_node *current,
 						t_parser_status *parser_status);
 static t_token		*take_next_operator_or_paren_token(
 						t_parser_status *parser_status);
-
+static t_tree_node	*parse_logical_chain_recursive_call(t_tree_node *current,
+						t_token *operator_or_paren_tok,
+						t_parser_status *parser_status);
 //* end of static declarations
 
 t_tree_node	*parse_cmd_list(t_parser_status *parser_status)
@@ -62,18 +64,30 @@ static t_tree_node	*parse_logical_chain(t_tree_node *current,
 	}
 	else
 		return (
-			parse_logical_chain(
-				new_tree_node(
-					current,
-					parse_operator(operator_or_paren_tok, parser_status),
-					parse_pipe_chain(
-						parse_atomic_exp(parser_status),
-						parser_status
-					)
-				),
-				parser_status
-			)
+			parse_logical_chain_recursive_call(
+				current,
+				operator_or_paren_tok,
+				parser_status)
 		);
+}
+
+static t_tree_node	*parse_logical_chain_recursive_call(t_tree_node *current,
+						t_token *operator_or_paren_tok,
+						t_parser_status *parser_status)
+{
+	return (
+		parse_logical_chain(
+			new_tree_node(
+				current,
+				parse_operator(operator_or_paren_tok),
+				parse_pipe_chain(
+					parse_atomic_exp(parser_status),
+					parser_status
+				)
+			),
+			parser_status
+		)
+	);
 }
 
 /**
@@ -105,7 +119,7 @@ static t_tree_node	*parse_pipe_chain(t_tree_node *current,
 			parse_pipe_chain(
 				new_tree_node(
 					current,
-					parse_operator(operator_tok, parser_status),
+					parse_operator(operator_tok),
 					parse_atomic_exp(parser_status)
 				),
 				parser_status

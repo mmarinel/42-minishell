@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:19:46 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/05 17:20:21 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 18:16:25 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ t_tree_node	*parse_atomic_exp(t_parser_status *parser_status)
 	{
 		parser_status->open.parenthesis += 1;
 		parenthesised = new_tree_node(
-			NULL,
-			parse_parenthesis_exp(parser_status),
-			NULL
-		);
+				NULL,
+				parse_parenthesis_exp(parser_status),
+				NULL
+				);
 		return (parenthesised);
 	}
 	else
