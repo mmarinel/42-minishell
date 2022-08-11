@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:13:24 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/08 12:10:49 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 19:31:24 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ t_status	open_paren_node_redirs(int *in, int *out,
 						O_CREAT | O_TRUNC | O_WRONLY, 0777, e_false);
 		if (*out == -1)
 			return (ERROR);
-		// printf("HERE\n");
 	}
 	return (OK);
 }

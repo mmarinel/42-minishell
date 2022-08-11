@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 09:58:33 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/04 20:15:15 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 19:30:53 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static void	pipe_execute_branch(t_tree_node *branch, int unused_pipe_side,
 				int new_in, int new_out);
-
 // * end of static declarations //
 
 void	execute_pipe_statement(t_tree_node *root, int in, int out)
@@ -62,11 +61,5 @@ static void	pipe_execute_branch(t_tree_node *branch, int unused_pipe_side,
 {
 	close(unused_pipe_side);
 	execute_rec(branch, new_in, new_out);
-	// if (g_env.last_executed_cmd_exit_status == 256)
-	// {
-	// 	printf("ciaociao\n");
-	// 	exit(1);
-	// }
-	// else
-		exit(g_env.last_executed_cmd_exit_status);
+	exit(g_env.last_executed_cmd_exit_status);
 }
