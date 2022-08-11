@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 12:09:03 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/11 09:36:49 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 15:56:44 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	hdoc_read_until_complete(int hdoc_fd, char *delimiter)
 	}
 	else
 	{
-		next_line = ft_strjoin(next_line, "\n", e_true, e_false);
+		next_line = expand(ft_strjoin(next_line, "\n", e_true, e_false));
 		write(hdoc_fd, next_line, ft_strlen(next_line));
 		free(next_line);
 	}

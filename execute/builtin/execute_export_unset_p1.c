@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_unset_p1.c                                  :+:      :+:    :+:   */
+/*   execute_export_unset_p1.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:01:18 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/07 11:30:56 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 15:51:01 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	add_update_bindings(t_bindings *head)
 	while (cur)
 	{
 		env_handler(BINDING_UPDATE,
-			get_new_binding(cur->var_name, cur->var_val, cur->concat_mode));
+			get_new_binding(cur->var_name, expand(cur->var_val), cur->concat_mode));
 		cur = cur->next;
 	}
 	g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;

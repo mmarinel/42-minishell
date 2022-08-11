@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 16:27:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/08 15:06:12 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 13:26:51 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 static void	read_until_complete_rec(char **command_ref, char *last);
 static void	send_command_to_parent(char *command,
-			int line_channel[2], int line_size_channel[2]);
+				int line_channel[2], int line_size_channel[2]);
 t_status	here_doc_handling(char *last);
-
 // * end of static declarations //
-
 
 void	line_continuation_prompt(t_prompt_behav opcode, char *initial_command,
 			int line_channel[2], int line_size_channel[2])
@@ -36,7 +34,6 @@ void	line_continuation_prompt(t_prompt_behav opcode, char *initial_command,
 	else
 	{
 		command = NULL;
-		// printf("initial command is: %s\n", initial_command);
 		clone_pipe(line_channel, line_chl);
 		clone_pipe(line_size_channel, line_size_chl);
 		close(line_chl[0]);
@@ -55,13 +52,10 @@ static void	read_until_complete_rec(char **command_ref, char *last)
 
 	if (*command_ref)
 		*command_ref = ft_strjoin(
-			ft_strjoin(*command_ref, " ", e_true, e_false),
-			last,
-			e_true, e_false
-		);
+				ft_strjoin(*command_ref, " ", e_true, e_false), last,
+				e_true, e_false);
 	else
 		*command_ref = ft_strdup(last);
-	// *command_ref = ft_strjoin(*command_ref, last, e_true, e_false);
 	if (OK == here_doc_handling(last))
 	{
 		if (e_true == ft_pending_pipe(last)
@@ -82,10 +76,6 @@ static void	read_until_complete_rec(char **command_ref, char *last)
 
 t_status	here_doc_handling(char *last)
 {
-	// if (last)
-	// {
-	// 	return (OK);
-	// }
 	t_status	prompt_status;
 
 	signal(SIGINT, sig_ign);

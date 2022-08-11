@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:34:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/08 15:06:03 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 13:18:14 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,19 @@ static t_status	complete_line(char **initial_command_ref,
 static t_status	read_completed_line(char **command,
 					pid_t line_completion_prompt_pid,
 					int line_channel[], int line_size_channel[]);
-
 // * end of static declarations //
 
-
-//									perche gli altri non devono essere gestiti
-// TODO :-> fare line completion anche con {`, &, pipe, (, \} --> {&, pipe, (}
 // * alert 1
 // ! readline library function always takes terminating '\n' off,
 // ! so a new line is actually EOF (\0)
-// * alert 2
-// ! non empty means NO CHAR present except '\0'
-// ! (i.e.: a string full of spaces is not considered empty!)
 /**
- * @brief This function tries to read a line until a non-empty/non-pending 
+ * @brief This function tries to read a line until a non-empty/non-pending
  * one is entered or ctr + D is hit.
+ * n.b.: A string containing only whitespaces is not considered empty
+ * for this function.
  * Here_Doc is managed too.
  * 
  * @param prompt the prompt to be displayed with the readline library function.
- * @param free_prompt true iff prompt needs to be freed after use
  * @return char* the next line read
  * (except here_doc content which is put in a hidden file for later use)
  */
@@ -83,8 +77,8 @@ static t_status	complete_line(char **initial_command_ref,
 	{
 		signal(SIGINT, sig_ign);
 		outcome = read_completed_line(initial_command_ref,
-					line_cont_prompt_pid,
-					line_channel, line_size_channel);
+				line_cont_prompt_pid,
+				line_channel, line_size_channel);
 		signal(SIGINT, sig_handler);
 	}
 	close_pipe(line_channel);
@@ -135,9 +129,9 @@ char	*get_current_working_directory(void)
 	abs_path = getcwd(NULL, PATH_MAX);
 	if (0 == ft_strcmp(abs_path, env_handler(BINDING_GET_VALUE, "HOME")))
 		return (ft_strjoin(
-			ft_itoa(g_env.last_executed_cmd_exit_status), 
-			" in 📁:-" CYAN " ~ " RESET,
-			e_true, e_false)
+				ft_itoa(g_env.last_executed_cmd_exit_status),
+				" in 📁:-" CYAN " ~ " RESET,
+				e_true, e_false)
 		);
 	last_slash_idx = 0;
 	idx = -1;
@@ -187,44 +181,3 @@ static char	*get_decorated_cwd(char *cwd)
 		)
 	);
 }
-
-// * char	*ft_readline(char *prompt, t_bool free_prompt)
-// {
-// 	char		*command;
-// 	t_status	prompt_status;
-
-// 	// command = readline(prompt);
-// 	// if (!command)
-// 	// {
-// 	// 	free(prompt);
-// 	// 	exit_shell(g_env.last_executed_cmd_exit_status, e_true);
-// 	// }
-// 	// else if (*command == '\0')
-// 	// {
-// 	// 	free(command);
-// 	// 	return (ft_readline(prompt, free_prompt));
-// 	// }
-// 	command = NULL;
-// 	if (!command)
-// 	{
-// 		free(prompt);
-// 		exit_shell(g_env.last_executed_cmd_exit_status, e_true);
-// 	}
-// 	else if (*command == '\0')
-// 	{
-// 		free(command);
-// 		return (ft_readline(prompt, free_prompt));
-// 	}
-// 	prompt_status = complete_line(&command, prompt);
-// 	ft_add_history(command);
-// 	{
-// 		if (free_prompt) // TODO remove
-// 			free(prompt);
-// 		if (prompt_status == ERROR)
-// 		{
-// 			free(command);
-// 			command = NULL;
-// 		}
-// 	}
-// 	return (command);
-// }

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 19:00:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/06 10:46:52 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 15:00:55 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ char	**ft_add_history(char *command)
 }
 
 /**
- * @brief this function reads a non-empty line using the readline library function.
+ * @brief this function reads a non-empty line
+ * using the readline library function.
  * If ctrl-d is hit it returns NULL.
  * 
  * @param prompt 
@@ -50,7 +51,6 @@ char	*ft_readline(char *prompt)
 	char	*line;
 	int		cur_stdout_backup;
 
-	readline_on_real_stdout:
 	{
 		cur_stdout_backup = dup(STDOUT_FILENO);
 		dup2(g_env.stdout_clone, STDOUT_FILENO);
@@ -59,12 +59,12 @@ char	*ft_readline(char *prompt)
 		close(cur_stdout_backup);
 	}
 	if (!line)
-	ctrlD:
+		ctrlD:
 	{
 		return (NULL);
 	}
 	else if (*line == '\0')
-	newline://ctrlC:
+		newline:
 	{
 		free(line);
 		return (ft_readline(prompt));
