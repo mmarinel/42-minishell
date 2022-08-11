@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 18:04:02 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/17 19:06:13 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 16:18:37 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ t_status	here_doc_read(char *command);
 
 //* prompt
 
-void	here_doc_prompt(t_hdoc_prompt_behav opcode, char *delimiter,
+void	here_doc_prompt(t_hdoc_prompt_behav opcode, char enclosing_quote,
+			char *delimiter,
 			char *hdoc_file_name);
 
 //* utils

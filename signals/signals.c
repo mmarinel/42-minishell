@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:15:50 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/11 15:35:53 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 16:19:17 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	here_doc_prompt_sig_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
-		here_doc_prompt(KILL_HDOC, NULL, NULL);
+		here_doc_prompt(KILL_HDOC, '\0', NULL, NULL);
 	}
 }
 
