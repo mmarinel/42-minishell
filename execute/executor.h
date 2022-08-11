@@ -6,12 +6,12 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 10:45:53 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/05 11:43:32 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 19:22:45 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTE_H
-# define EXECUTE_H
+#ifndef EXECUTOR_H
+# define EXECUTOR_H
 
 // * standard libraries //
 # include <unistd.h>

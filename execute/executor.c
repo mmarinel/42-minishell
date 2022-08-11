@@ -1,174 +1,86 @@
-// /* ************************************************************************** */
-// /*                                                                            */
-// /*                                                        :::      ::::::::   */
-// /*   executor.c                                         :+:      :+:    :+:   */
-// /*                                                    +:+ +:+         +:+     */
-// /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
-// /*                                                +#+#+#+#+#+   +#+           */
-// /*   Created: 2022/06/29 10:46:16 by mmarinel          #+#    #+#             */
-// /*   Updated: 2022/07/01 09:11:25 by mmarinel         ###   ########.fr       */
-// /*                                                                            */
-// /* ************************************************************************** */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   executor.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/01 09:39:10 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/08/11 19:28:00 by mmarinel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// # include "executor.h"
+#include "executor.h"
 
-// void	execute(t_tree_node *parse_tree)
-// {
-// 	pid_t	executor;
+static void	execute_in_shell(t_tree_node *root, int in, int out);
+static void	execute_subshell(t_tree_node *root, int in, int out);
 
-// 	if (parse_tree == NULL)
-// 		return ;
-// 	executor = fork();
-// 	if (!executor)
-// 		execute_rec(parse_tree, STDIN_FILENO, STDOUT_FILENO);
-// 	waitpid(executor, &(g_env.last_executed_cmd_exit_status), 0);
-// }
+// * end of declarations //
 
-// void	execute_rec(t_tree_node *root, int in, int out)
-// {
-// 	t_branch	left_hand_side;
-// 	t_branch	right_hand_side;
-// 	int			new_in_out[2];
+void	execute(t_tree_node *parse_tree)
+{
+	if (parse_tree)
+		execute_rec(parse_tree, STDIN_FILENO, STDOUT_FILENO);
+}
 
-// 	if (root->content->content_type == SIMPL_CMD
-// 		|| root->content->content_type == ENV_STATEMENT
-// 		|| root->content->content_type == REDIR)
-// 		execute_statement(root, in, out, g_env.export);
-// 	else
-// 	{
-// 		if (root->content->operator_node.operator == e_PIPE)
-// 		{
-// 			pipe(new_in_out[2]);
-// 			left_hand_side.branch = fork();
-// 			if (!left_hand_side.branch)
-// 			{
-// 				close(new_in_out[0]);
-// 				execute_rec(root->left, in, new_in_out[1]);
-// 			}
-// 			right_hand_side.branch = fork();
-// 			if (!right_hand_side.branch)
-// 			{
-// 				close(new_in_out[1]);
-// 				execute_rec(root->right, new_in_out[0], out);
-// 			}
-// 			close(new_in_out[0]);
-// 			close(new_in_out[1]);
-// 			waitpid(left_hand_side.branch, &(left_hand_side.exit_status), 0);
-// 			waitpid(right_hand_side.branch, &(right_hand_side.exit_status), 0);
-// 			if ((!WIFEXITED(left_hand_side.exit_status) || WEXITSTATUS(left_hand_side.exit_status))
-// 				|| (!WIFEXITED(right_hand_side.exit_status) || WEXITSTATUS(right_hand_side.exit_status)))
-// 				exit(EXIT_FAILURE);
-// 			exit(EXIT_SUCCESS);
-// 		}
-// 		if (root->content->operator_node.operator == e_AND)
-// 		{
-// 			pipe(new_in_out[2]);
-// 			left_hand_side.branch = fork();
-// 			if (!left_hand_side.branch)
-// 			{
-// 				close(new_in_out[0]);
-// 				execute_rec(root->left, in, new_in_out[1]);
-// 			}
-// 			waitpid(left_hand_side.branch, &(left_hand_side.exit_status), 0);
-// 			if ((!WIFEXITED(left_hand_side.exit_status) || WEXITSTATUS(left_hand_side.exit_status)))
-// 			{
-// 				close(new_in_out[0]);
-// 				close(new_in_out[1]);
-// 				exit(EXIT_FAILURE);
-// 			}
-// 			right_hand_side.branch = fork();
-// 			if (!right_hand_side.branch)
-// 			{
-// 				close(new_in_out[1]);
-// 				execute_rec(root->right, new_in_out[0], out);
-// 			}
-// 			waitpid(right_hand_side.branch, &(right_hand_side.exit_status), 0);
-// 			close(new_in_out[0]);
-// 			close(new_in_out[1]);
-// 			if ((!WIFEXITED(right_hand_side.exit_status) || WEXITSTATUS(right_hand_side.exit_status)))
-// 				exit(EXIT_FAILURE);
-// 			exit(EXIT_SUCCESS);
-// 		}
-// 		if (root->content->operator_node.operator == e_OR)
-// 		{
-// 			pipe(new_in_out[2]);
-// 			left_hand_side.branch = fork();
-// 			if (!left_hand_side.branch)
-// 			{
-// 				close(new_in_out[0]);
-// 				execute_rec(root->left, in, new_in_out[1]);
-// 			}
-// 			waitpid(left_hand_side.branch, &(left_hand_side.exit_status), 0);
-// 			if (WIFEXITED(left_hand_side.exit_status) && !WEXITSTATUS(left_hand_side.exit_status))
-// 			{
-// 				close(new_in_out[0]);
-// 				close(new_in_out[1]);
-// 				exit(EXIT_SUCCESS);
-// 			}
-// 			right_hand_side.branch = fork();
-// 			if (!right_hand_side.branch)
-// 			{
-// 				close(new_in_out[1]);
-// 				execute_rec(root->right, new_in_out[0], out);
-// 			}
-// 			waitpid(right_hand_side.branch, &(right_hand_side.exit_status), 0);
-// 			close(new_in_out[0]);
-// 			close(new_in_out[1]);
-// 			if ((!WIFEXITED(right_hand_side.exit_status) || WEXITSTATUS(right_hand_side.exit_status)))
-// 				exit(EXIT_FAILURE);
-// 			exit(EXIT_SUCCESS);
-// 		}
-// 	}
-// }
+void	execute_rec(t_tree_node *root, int in, int out)
+{
+	if (!root)
+		return ;
+	{
+		signal(SIGUSR1, shell_executor_handler);
+		signal(SIGUSR2, shell_executor_handler);
+		if (root->content->content_type == PAREN_EXP)
+		{
+			execute_subshell(root, in, out);
+		}
+		else
+			execute_in_shell(root, in, out);
+	}
+}
 
-// void	exit_execution(t_branch left_hand_side, t_branch right_hand_side, t_operator operator, int new_in_out[2])
-// {
-// 	close(new_in_out[0]);
-// 	close(new_in_out[1]);
-// 	if (operator != e_PIPE)
-// 		exit(EXIT_SUCCESS);
-// 	else
-// 	{
-// 		waitpid(left_hand_side.branch, &(left_hand_side.exit_status), 0);
-// 		waitpid(right_hand_side.branch, &(right_hand_side.exit_status), 0);
-// 		if (
-// 			(
-// 				!WIFEXITED(left_hand_side.exit_status)
-// 				|| WEXITSTATUS(left_hand_side.exit_status)
-// 			)
-// 			||
-// 			(
-// 				!WIFEXITED(right_hand_side.exit_status)
-// 				|| WEXITSTATUS(right_hand_side.exit_status)
-// 			)
-// 		)
-// 			exit(EXIT_FAILURE);
-// 		exit(EXIT_SUCCESS);
-// 	}
-// }
+static void	execute_subshell(t_tree_node *root, int in, int out)
+{
+	int			subshell_pid;
+	int			subshell_exit_status;
+	size_t		new_shlvl;
 
-// t_branch	execute_branch(t_tree_node *new_root, t_operator operator,int old_in_out, int new_in_out[2])
-// {
-// 	t_branch	branch_handle;
+	subshell_pid = fork();
+	if (subshell_pid == 0)
+	{
+		new_shlvl = atoi(env_handler(BINDING_GET_VALUE, "SHLVL")) + 1;
+		env_handler(BINDING_UPDATE,
+			get_new_binding("SHLVL", ft_itoa(new_shlvl), e_false)
+			);
+		if (ERROR
+			== open_paren_node_redirs(&in, &out,
+				root->content))
+		{
+			perror("minishell");
+			exit(1);
+		}
+		execute_rec(root->content->parenthesis_node.subtree, in, out);
+		exit(g_env.last_executed_cmd_exit_status);
+	}
+	waitpid(subshell_pid, &subshell_exit_status, 0);
+	g_env.last_executed_cmd_exit_status = WEXITSTATUS(subshell_exit_status);
+}
 
-// 	branch_handle.branch = fork();
-// 	if (!branch_handle.branch)
-// 	{
-// 		// TODO .....
-// 	}
-// 	else
-// 	{
-// 		// TODO ......
-// 	}
-// }
-
-
-
-
-
-
-
-
-
-
-
+static void	execute_in_shell(t_tree_node *root, int in, int out)
+{
+	if (root->content->content_type == SIMPL_CMD
+		|| root->content->content_type == ENV_STATEMENT
+		|| root->content->content_type == REDIR)
+		execute_simple_statement(root, in, out);
+	else if (root->content->content_type == OPERATOR)
+	{
+		if (root->content->operator_node.operator == e_PIPE)
+			execute_pipe_statement(root, in, out);
+		else if (root->content->operator_node.operator == e_AND)
+			execute_and_statement(root, in, out);
+		else if (root->content->operator_node.operator == e_OR)
+			execute_or_statement(root, in, out);
+		else
+			exit(EXIT_FAILURE);
+	}
+}
