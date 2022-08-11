@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 09:30:11 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/08 17:25:29 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 11:13:25 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	ft_strcmp(const char *s1, const char *s2)
 
 void	ft_str_replace(char **str, char *new)
 {
-	// ! risky!!
 	ft_free(*str);
 	*str = ft_strdup(new);
 }
@@ -40,7 +39,7 @@ size_t	skip_consecutive_chars(char *string, size_t offset,
 			char to_skip, int direction)
 {
 	while (string[offset] == to_skip
-			&& e_false == (offset == 0 && direction == -1))
+		&& e_false == (offset == 0 && direction == -1))
 		offset += direction;
 	return (offset);
 }
@@ -78,5 +77,5 @@ char	*ft_strdup(char *str)
 		duplicate[len - 1] = str[len - 1];
 		len -= 1;
 	}
- 	return (duplicate); 
+	return (duplicate);
 }

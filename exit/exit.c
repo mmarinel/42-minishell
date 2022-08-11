@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 17:07:46 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/04 16:12:58 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 11:23:00 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 
 static void	print_exit_to_real_stdout(void);
 static void	clear_last_history_entry(void);
-
 // * end of static declarations //
 
 /**
  * @brief this function exits the current shell.
  * 
  * @param exit_status exit status chosen
- * @param go_on_new_line iff true, a '\ n ' gets printed before exiting.
  */
 void	exit_shell(int exit_status)
 {
@@ -29,8 +27,6 @@ void	exit_shell(int exit_status)
 	clear_last_history_entry();
 	rl_clear_history();
 	sig_handling_set(SIG_AT_EXIT);
-	// ft_unlink(get_stdout_dump_file_name(), e_true);
-	//* clear_all();
 	exit(exit_status);
 }
 

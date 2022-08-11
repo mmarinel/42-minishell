@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 15:26:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/05 15:26:40 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 10:35:09 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	binding_add_in_order(t_bindings **head, t_bindings *new_binding)
 		}
 		new_binding->next = cursor;
 		new_binding->prev = cursor->prev;
-		cursor->prev->next =  new_binding;
+		cursor->prev->next = new_binding;
 		cursor->prev = new_binding;
 	}
 }

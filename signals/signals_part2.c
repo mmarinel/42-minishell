@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd_error_messages.c                                :+:      :+:    :+:   */
+/*   signals_part2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/20 10:28:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/11 10:26:12 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/08/08 15:03:41 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/08/11 10:21:35 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "error_messages.h"
+#include "signals.h"
 
-void	put_cd_path_error_message(void)
+/**
+ * @brief custom SIG_IGN sig handler when using SIG_IGN macro is unfeasible.
+ * 
+ * @param signum 
+ */
+void	sig_ign(int signum)
 {
-	put_error_message(
-		"minishell at execute cd: ", "HOME not set",
-		NULL, e_false
-		);
+	if (signum)
+		;
 }

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:24:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/08 18:56:39 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 11:15:39 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,21 @@
 
 # ifndef T_BOOL_H
 #  define T_BOOL_H
+
 typedef enum e_bool
 {
 	e_true = 1,
 	e_false = 0
 }	t_bool;
+
 # endif
 
 //* string utils
 
-	//* common
+//* common
 
-char			*ft_strjoin(char *pre, char *post, t_bool free_pre, t_bool free_post);
+char			*ft_strjoin(char *pre, char *post,
+					t_bool free_pre, t_bool free_post);
 char			*ft_strdup(char *str);
 int				ft_strcmp(const char *s1, const char *s2);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -43,25 +46,22 @@ size_t			ft_strlen(const char *str);
 char			*ft_strcpy(char *buf, char *src, int copy_len);
 t_bool			str_not_empty(char *str);
 
-
-	//*  string strip
+//*  string strip
 
 char			*string_strip(char *str, char to_strip, t_bool free_input);
 char			*str_strip_spaces(char *str);
 
-
-	//*substr, word, etc.
+//*substr, word, etc.
 
 char			*ft_substr(char *str, char delimiter);
 char			*take_substr(char *str, char *substr);
 char			*take_next_word(char *str);
 
+// * itoa
 
-	// * itoa
 char			*ft_itoa(int nbr);
 
-
-	//* special chars, occurrences, etc.
+//* special chars, occurrences, etc.
 
 size_t			skip_consecutive_chars(char *string, size_t offset,
 					char to_skip, int direction);
@@ -74,17 +74,15 @@ t_bool			ft_is_alphanumeric_string(char *str);
 t_bool			char_is_alpha(char c);
 t_bool			char_is_digit(char c);
 char			take_starting_quote(char *str);
-t_bool			ft_quote_occurrence_balanced(char *str);
 int				str_number_occurrences(char *str, char c);
-
 
 //* split
 
 char			**ft_split(char const *string, char delimiter);
 void			*ft_splitclear(char **split);
-char			*split_merge(char	**split, char *const sep, t_bool free_split);
+char			*split_merge(char	**split, char *const sep,
+					t_bool free_split);
 size_t			split_len(char **split);
-
 
 //* math utils
 

@@ -6,20 +6,21 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:00:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/04 15:30:15 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 10:59:59 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "env.h"
+#include "env.h"
 
 static void	*env_return_cases(t_bindings *env, t_bindings *export,
-					t_env_handl_opcode opcode);
+				t_env_handl_opcode opcode);
 static void	*env_management_cases(t_bindings **env, t_bindings **export,
-					t_env_handl_opcode opcode, void *argument);
+				t_env_handl_opcode opcode, void *argument);
 static void	*env_operations_cases(t_bindings **env_ref, t_bindings **export_ref,
 				t_env_handl_opcode opcode, void *argument);
 static void	*debug_cases(t_bindings *env, t_bindings *export,
-				t_env_handl_opcode opcode, void *argument); // * debug
+				t_env_handl_opcode opcode, void *argument);
+//* end of static declarations
 
 void	*env_handler(t_env_handl_opcode opcode, void *argument)
 {
@@ -68,7 +69,6 @@ static void	*env_management_cases(t_bindings **env_ref, t_bindings **exprt_ref,
 	if (opcode == ENV_INITIALIZE)
 	{
 		copy_env(argument);
-		// copy_env(exprt_ref, (char **)argument, e_true);
 	}
 	if (opcode == ENV_CLEAN)
 	{
@@ -99,9 +99,8 @@ static void	*env_operations_cases(t_bindings **env_ref, t_bindings **export_ref,
 	}
 	if (opcode == BINDING_UNSET)
 	{
-		binding_remove(env_ref,((t_bindings *) argument)->var_name);
-		binding_remove(export_ref,((t_bindings *) argument)->var_name);
-		// env_handler(_PRINT_ENV_, NULL);
+		binding_remove(env_ref, ((t_bindings *) argument)->var_name);
+		binding_remove(export_ref, ((t_bindings *) argument)->var_name);
 	}
 	if (opcode == BINDING_GET_VALUE)
 	{
@@ -116,7 +115,7 @@ static void	*debug_cases(t_bindings *env, t_bindings *export,
 	t_bindings	*current;
 
 	if (env && export && argument)
-	{}
+		;
 	if (opcode == _PRINT_ENV_)
 	{
 		current = export;
@@ -125,7 +124,6 @@ static void	*debug_cases(t_bindings *env, t_bindings *export,
 			printf("%s=%s\n", current->var_name, current->var_val);
 			current = current->next;
 		}
-		// exit(0);
 	}
 	return (NULL);
 }

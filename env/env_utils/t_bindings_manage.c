@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 09:18:17 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/07 12:04:25 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 10:32:20 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,6 @@ void	copy_env(char **envp)
 		var_val = split[1];
 		env_handler(BINDING_UPDATE,
 			get_new_binding(var_name, var_val, e_false));
-		// binding_add_new(head,
-		// 	get_new_binding(var_name, var_val, e_false),
-		// 	in_order);
 		ft_splitclear(split);
 		envp++;
 	}

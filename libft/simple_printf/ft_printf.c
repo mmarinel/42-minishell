@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 10:48:03 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/04 10:14:15 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 11:05:17 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 static int	print_format(const char *fm_str, int fspec_index, va_list args,
 				int *count);
 static void	stdout_manage(int opcode);
-
 //* end of static delcarations //
-
 
 int	ft_printf(const char *format_string, ...)
 {
@@ -61,16 +59,4 @@ static void	stdout_manage(int opcode)
 {
 	if (opcode)
 		;
-	// static int	cur_stdout_backup;
-
-	// if (opcode == PF_STDOUT_SET)
-	// {
-	// 	cur_stdout_backup = dup(STDOUT_FILENO);
-	// 	dup2(STDOUT_FILENO, g_env.stdout_clone);
-	// }
-	// else if (opcode == PF_STDOUT_RESTORE)
-	// {
-	// 	dup2(cur_stdout_backup, STDOUT_FILENO);
-	// 	close(cur_stdout_backup);
-	// }
 }

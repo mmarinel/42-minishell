@@ -6,15 +6,16 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 20:53:13 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/15 17:25:11 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 11:08:22 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
 static size_t	ft_count_words(char *s, char c);
-static	void 	allocate_words(char *str, char delimiter, char **split);
+static void		allocate_words(char *str, char delimiter, char **split);
 static void		ft_get_split(char *str, char delimiter, char **split);
+//* end of static declarations
 
 char	**ft_split(char const *string, char delimiter)
 {
@@ -26,7 +27,6 @@ char	**ft_split(char const *string, char delimiter)
 	words = ft_count_words((char *) string, delimiter);
 	split = (char **) ft_malloc((words + 1) * sizeof(char *));
 	split[words] = NULL;
-	// printf("words: %zu\n", words);
 	allocate_words((char *)string, delimiter, split);
 	ft_get_split((char *) string, delimiter, split);
 	return (split);
@@ -55,7 +55,7 @@ static size_t	ft_count_words(char *str, char delimiter)
 	return (words);
 }
 
-static	void allocate_words(char *str, char delimiter, char **split)
+static void	allocate_words(char *str, char delimiter, char **split)
 {
 	size_t	word_len;
 

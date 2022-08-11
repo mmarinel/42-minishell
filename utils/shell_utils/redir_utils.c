@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals_2.c                                        :+:      :+:    :+:   */
+/*   redir_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/08 15:03:41 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/08 15:04:18 by mmarinel         ###   ########.fr       */
+/*   Created: 2022/08/11 11:25:51 by mmarinel          #+#    #+#             */
+/*   Updated: 2022/08/11 11:26:19 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "signals.h"
+#include "../ft_utils.h"
 
-void	sig_ign(int signum)
+void	close_pipe(int pipe_[])
 {
-	if (signum)
-		;
+	close(pipe_[0]);
+	close(pipe_[1]);
+}
+
+void	clone_pipe(int target[2], int clone[2])
+{
+	clone[0] = target[0];
+	clone[1] = target[1];
 }

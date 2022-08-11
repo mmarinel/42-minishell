@@ -6,17 +6,14 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 10:15:50 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/08 17:56:16 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 10:19:56 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "signals.h"
 
-// * end of static declarations //
-
-
 /**
- * @brief handler for all
+ * @brief handler for all signals when in main shell (no here_doc mode etc.)
  * 
  * @param signum 
  */
@@ -26,7 +23,6 @@ void	sig_handler(int signum)
 		exit(EXIT_FAILURE);
 	if (signum == SIGINT)
 	{
-		// printf ("in main prompt\n");
 		g_env.last_executed_cmd_exit_status = EXIT_FAILURE;
 		ft_printf("\n");
 		rl_replace_line("", 0);
@@ -40,8 +36,9 @@ void	sig_handler(int signum)
 }
 
 /**
- * @brief this function sets signals handlers
- * and disable echoing of special characters -ctr+c (^C), ...
+ * @brief this function sets signal handlers
+ * and disables echoing of special characters -ctr+c (^C), etc-
+ * or restores it depending on [opcode] argument.
  * 
  */
 void	sig_handling_set(t_sig_handling_opcode opcode)
@@ -64,7 +61,7 @@ void	sig_handling_set(t_sig_handling_opcode opcode)
 }
 
 /**
- * @brief EXIT_FAILURE is "thrown" for ctrl + C
+ * @brief EXIT_FAILURE is "thrown" for ctrl + C in line completion shell.
  * 
  * @param signum 
  */
@@ -77,7 +74,7 @@ void	line_completion_prompt_sig_handler(int signum)
 }
 
 /**
- * @brief EXIT_FAILURE is "thrown" for ctrl + C
+ * @brief EXIT_FAILURE is "thrown" for ctrl + C in here_doc shell.
  * 
  * @param signum 
  */

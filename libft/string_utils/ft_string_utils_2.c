@@ -6,43 +6,11 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:45:17 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/08 18:59:06 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 11:11:42 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
-
-/**
- * @brief this function checks wether the number of occurrences
- * of the first quote occurring in the input string is balanced
- * 
- * @param str 
- * @return t_bool 
- */
-t_bool	ft_quote_occurrence_balanced(char *str)
-{
-	// char	quote;
-	// int		occurrences;
-
-	return (
-			str_number_occurrences(str, '\'') % 2 == 0
-		&&
-			str_number_occurrences(str, '"') % 2 == 0
-	);
-	// if (!str)
-	// 	return (e_true);
-	// quote = take_starting_quote(str);
-	// if (quote != '"' && quote != '\'')
-	// 	return (e_true);
-	// occurrences = 0;
-	// while (*str)
-	// {
-	// 	if (*str == quote)
-	// 		occurrences += 1;
-	// 	str++;
-	// }
-	// return (occurrences % 2 == 0);
-}
 
 char	take_starting_quote(char *str)
 {
@@ -93,7 +61,7 @@ t_bool	ft_is_digit_string(char *str)
 	if (str[offset] == '+'
 		|| str[offset] == '-')
 		offset += 1;
-	while(str[offset])
+	while (str[offset])
 	{
 		if (e_false == char_is_digit(str[offset])
 			&& e_false == ft_isspace(str[offset]))
@@ -117,7 +85,7 @@ t_bool	ft_is_alpha_string(char *str)
 	if (str == NULL)
 		return (e_false);
 	offset = 0;
-	while(str[offset])
+	while (str[offset])
 	{
 		if (e_false == char_is_alpha(str[offset])
 			&& e_false == ft_isspace(str[offset]))
@@ -134,7 +102,7 @@ t_bool	ft_is_alphanumeric_string(char *str)
 	if (str == NULL)
 		return (e_false);
 	offset = 0;
-	while(str[offset])
+	while (str[offset])
 	{
 		if (e_false == char_is_alpha(str[offset])
 			&& e_false == char_is_digit(str[offset])

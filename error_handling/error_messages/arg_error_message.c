@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 09:32:58 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/04 16:09:30 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 10:26:03 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ void	put_args_error_message(char *arg_found)
 		"minishell: ", "no arguments allowed",
 		epilogue,
 		e_true
-	);
+		);
 }

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 09:27:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/06 09:31:23 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 11:26:37 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,32 +44,3 @@ t_bool	ft_is_alpha(char c)
 		|| (c >= 'A' && c <= 'Z')
 	);
 }
-
-// ! REMOVE FROM HERE (it's in token utils)
-// int	scan_alternate_invariant_spaces_quotes(char *str)
-// {
-// 	int	idx;
-
-// 	idx = 0;
-// 	while (str[idx])
-// 	{
-// 		// READING ALL INVARIANT QUOTES
-// 		while (str[idx] == '"' || str[idx] == '\'')
-// 		{
-// 			if (str[idx + 1] != str[idx])
-// 				break ;
-// 			idx += 2;
-// 		}
-// 		// READING ALL FINAL SPACES
-// 		while (str[idx])
-// 		{
-// 			if (e_false == ft_isspace(str[idx]))
-// 				break ;
-// 			idx++;
-// 		}
-// 		if (str[idx] != '"' && str[idx] != '\''
-// 			&& e_false == ft_isspace(str[idx]))
-// 			break ;
-// 	}
-// 	return (idx);
-// }

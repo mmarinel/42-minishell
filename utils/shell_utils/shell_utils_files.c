@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell_utils_misc_p2.c                              :+:      :+:    :+:   */
+/*   shell_utils_files.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 16:19:03 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/20 09:23:41 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 11:33:32 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,10 @@ int	ft_open(char *file_name, unsigned long long flags, int mode,
 			|| std_fd == STDERR_FILENO
 		)
 		&& file_name[2] == '\0')
-		new_fd =  (std_fd);
+		new_fd = (std_fd);
 	else
 		new_fd = (open(file_name, flags, mode));
-	free_stuff:
 	{
-		// printf("file_nae is: %s\n", file_name);
 		if (free_file_name && file_name)
 			free(file_name);
 	}

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:40:19 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/06/25 07:53:37 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 11:20:55 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@
 // user dfined headers
 # include "types.h"
 # include "signals/signals.h"
-# include "get_next_line/get_next_line.h"
 # include "read/read.h"
 # include "exit/exit.h"
 # include "colors.h"

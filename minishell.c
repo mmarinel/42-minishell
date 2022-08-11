@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/08 15:05:51 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 10:24:14 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void		set_env(char *const envp[]);
 static void		print_signature(void);
 static void		unlink_here_docs(void);
 static void		set_pid_variable(void);
+//* end of static declarations
 
 int	main(int argc, char const *argv[], char *const envp[])
 {
@@ -40,7 +41,7 @@ int	main(int argc, char const *argv[], char *const envp[])
 			unlink_here_docs();
 		}
 	}
-	return (EXIT_SUCCESS); //* UNREACHABLE
+	return (EXIT_SUCCESS);
 }
 
 /**
@@ -59,7 +60,6 @@ static void	set_env(char *const envp[])
 	env_handler(BINDING_UPDATE,
 		get_new_binding("SHLVL", ft_itoa(cur_shlvl + 1), e_false));
 	if (env_handler(BINDING_GET_VALUE, "minishell_first_call_set") == NULL)
-	setting_stdout_backup:
 	{
 		printf("in stdout_clone set\n");
 		env_handler(BINDING_UPDATE,
@@ -67,7 +67,6 @@ static void	set_env(char *const envp[])
 		g_env.stdout_clone = dup(STDOUT_FILENO);
 	}
 	g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
-	// env_handler(_PRINT_ENV_, NULL); //* DEBUG
 }
 
 static void	set_pid_variable(void)
@@ -112,7 +111,7 @@ static void	unlink_here_docs(void)
 	while (repeat)
 	{
 		next_here_doc = ft_strjoin(prefix, ft_itoa(progressive_nbr),
-							e_false, e_true);
+				e_false, e_true);
 		if (access(next_here_doc, R_OK | W_OK) != 0)
 			repeat = e_false;
 		else
@@ -122,11 +121,16 @@ static void	unlink_here_docs(void)
 	}
 }
 
+/**
+ * @brief this function prints the project signature to the 'real stdout'
+ * ('real' as long we didn't redirect it during first execution through
+ * another shell such as bash, zsh, sh, etc.)
+ * That's why we dup STDOUT_FILENO inside the body.
+ */
 static void	print_signature(void)
 {
 	int		cur_stdout_backup;
 
-	printing_to_real_stdout:
 	{
 		cur_stdout_backup = dup(STDOUT_FILENO);
 		dup2(g_env.stdout_clone, STDOUT_FILENO);

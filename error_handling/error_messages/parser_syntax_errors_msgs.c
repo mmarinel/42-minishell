@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 09:53:49 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/04 16:09:04 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 10:28:16 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	put_parser_syntax_error_message(t_parser_status *parser_status)
 				"at pos ",
 				ft_itoa(parser_status->last_read_tok_pos),
 				e_false, e_true
-			),
-			e_true);
+				),
+			e_true
+			);
 }

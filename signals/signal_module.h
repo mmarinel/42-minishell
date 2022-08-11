@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 19:00:29 by evento            #+#    #+#             */
-/*   Updated: 2022/08/08 15:04:46 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 10:21:47 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,6 @@
 // * user defined types //
 # include "signal_types.h"
 
-/**
- * @brief handler for all
- * 
- * @param signum 
- */
 void	sig_handler(int signum);
 void	sig_ign(int signum);
 void	sig_handling_set(t_sig_handling_opcode opcode);

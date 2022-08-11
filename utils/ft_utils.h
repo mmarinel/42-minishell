@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:13:18 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/08 19:12:12 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 11:32:54 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 
 //* includes end //
 
-
 // * shell utils
 
 size_t			bash_next_word_len(char *command_line, size_t offset);
@@ -46,7 +45,6 @@ t_bool			bash_control_character(char c);
 t_bool			ft_is_quote(char c);
 t_bool			bash_cmd_separator(char c);
 t_bool			redirect_char(char c);
-t_bool			asked_for_termination(char	*command);
 void			clone_pipe(int target[2], int clone[2]);
 void			close_pipe(int pipe_[]);
 int				ft_open(char *file_name,
