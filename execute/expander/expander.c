@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:15:42 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/11 18:40:18 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 18:53:14 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ static char	*expand_segment(char *segment, char containing_quote)
 	if (seg_enclosing_quote)
 	{
 		return (expand_quoted_sequence(pre, post,
-			seg_enclosing_quote,
-			containing_quote));
+				seg_enclosing_quote,
+				containing_quote));
 	}
 	else
 	{
@@ -97,9 +97,10 @@ static char	*expand_quoted_sequence(char *pre, char *post,
 	{
 		expansion = expand_rec(pre, containing_quote);
 		expansion = ft_strjoin(
-			enclosing_quote_as_string,
-			ft_strjoin(expansion, enclosing_quote_as_string, e_true, e_false),
-			e_false, e_true);
+				enclosing_quote_as_string,
+				ft_strjoin(expansion, enclosing_quote_as_string,
+					e_true, e_false),
+				e_false, e_true);
 	}
 	return (expansion);
 }

@@ -6,14 +6,14 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 19:01:19 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/08 19:12:38 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 18:47:53 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
 static t_status	exec_env_add_binding(char *word,
-			t_env_decl_node *bindings_node);
+					t_env_decl_node *bindings_node);
 static t_status	exec_env_set_utility(char **split,
 					t_simple_command_node *cmd_node,
 					int utility_split_index);
@@ -80,7 +80,8 @@ static t_status	exec_env_set_utility(char **split,
 
 	cmd_word = ft_split(split[utility_split_index], ' ');
 	cmd_node->cmd_name = ft_strdup(cmd_word[0]);
-	cmd_node->cmd_args = split_merge(split + utility_split_index + 1, " ", e_false);
+	cmd_node->cmd_args
+		= split_merge(split + utility_split_index + 1, " ", e_false);
 	if (0 == ft_strcmp("export", cmd_node->cmd_name)
 		|| 0 == ft_strcmp("unset", cmd_node->cmd_name)
 		|| 0 == ft_strcmp("exit", cmd_node->cmd_name)
@@ -95,8 +96,8 @@ static t_status	exec_env_set_utility(char **split,
 static t_bool	exec_env_illegal_body_el(char **pair)
 {
 	return (
-		pair &&
-		(
+		pair
+		&& (
 			split_len(pair) > 2
 			|| e_false == is_env_var_name(pair[0])
 		)

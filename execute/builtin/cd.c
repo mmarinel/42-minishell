@@ -6,21 +6,21 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 12:44:55 by evento            #+#    #+#             */
-/*   Updated: 2022/07/20 12:56:04 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 18:46:28 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-static	char	*take_parent_dir(void);
-static void		cd_error(char *path);
+static char	*take_parent_dir(void);
+static void	cd_error(char *path);
+//* end of static declarations
 
 void	execute_cd(t_simple_command_node cmd)
 {
 	char	*path;
 
 	path = cmd.cmd_args;
-	taking_path:
 	{
 		if (bash_word_is_empty(path))
 			path = ft_strdup(env_handler(BINDING_GET_VALUE, "HOME"));
@@ -59,7 +59,7 @@ static	char	*take_parent_dir(void)
 	if (last_slash_pos == 0)
 		return (ft_strdup("/"));
 	else
-		return (ft_strcpy(NULL, cwd, last_slash_pos)); // * was last_slash_pos + 1
+		return (ft_strcpy(NULL, cwd, last_slash_pos));
 }
 
 static void	cd_error(char *path)

@@ -6,11 +6,16 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 17:27:45 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/10 19:42:20 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 19:08:11 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander_utils.h"
+
+static char	split_quoted_seq_clean_case(char **pre_ref, char **post_ref);
+static char	split_quoted_seq_quotes_case(char *segment,
+				char **pre_ref, char **post_ref);
+//* end of static declarations
 
 char	*cwd_read(void)
 {
@@ -28,46 +33,14 @@ char	*cwd_read(void)
 			if (cwd_entry == NULL)
 				break ;
 			expansion = ft_strjoin(
-				ft_strjoin(expansion, " ", e_true, e_false),
-				cwd_entry->d_name,
-				e_true, e_false
-			);
+					ft_strjoin(expansion, " ", e_true, e_false),
+					cwd_entry->d_name,
+					e_true, e_false
+					);
 		}
 		closedir(cwd);
 	}
 	return (expansion);
-}
-
-char	**clean_results(char **results)
-{
-	char	**cleared;
-	size_t	count;
-	size_t	i;
-	size_t	j;
-
-	count = 0;
-	i = 0;
-	while (results[i])
-	{
-		if ('\0' != *(results[i]))
-			count++;
-		i++;
-	}
-	cleared =  (char **) malloc((count + 1) * sizeof(char *));
-	cleared[count] = NULL;
-	i = 0;
-	j = 0;
-	while (results[i])
-	{
-		if ('\0' != *(results[i]))
-		{
-			cleared[j] = ft_strcpy(NULL, results[i], ft_strlen(results[i]));
-			j++;
-		}
-		i++;
-	}
-	ft_splitclear(results);
-	return (cleared);
 }
 
 /**
@@ -86,37 +59,11 @@ char	**clean_results(char **results)
 char	split_quoted_sequence(char *segment,
 			char **pre_ref, char **post_ref)
 {
-	char	enclosing_quotes;
-	size_t	post_beginning;
-	size_t	seg_len;
-
-	seg_len = ft_strlen(segment);
 	if (NULL == segment
 		|| (segment[0] != '\'' && segment[0] != '\"'))
-	{
-		*pre_ref = NULL;
-		*post_ref = NULL;
-		enclosing_quotes = '\0';
-	}
+		return (split_quoted_seq_clean_case(pre_ref, post_ref));
 	else
-	{
-		post_beginning = skip_past_char(segment, 1, segment[0], +1);
-		if (post_beginning == 1)
-		{
-			*pre_ref = ft_strdup(segment);
-			*post_ref = NULL;
-			return ('\0');
-		}
-		*pre_ref = ft_strcpy(NULL, segment + 1, post_beginning - 2);
-		if (segment[post_beginning])
-			*post_ref = ft_strcpy(NULL, segment + post_beginning,
-				seg_len - post_beginning + 1);
-		else
-			*post_ref = NULL;
-		enclosing_quotes = segment[0];
-		free(segment);
-	}
-	return (enclosing_quotes);
+		return (split_quoted_seq_quotes_case(segment, pre_ref, post_ref));
 }
 
 char	*quote_as_string(char quote)
@@ -127,4 +74,37 @@ char	*quote_as_string(char quote)
 		return ("\"");
 	else
 		return (NULL);
+}
+
+static char	split_quoted_seq_clean_case(char **pre_ref, char **post_ref)
+{
+	*pre_ref = NULL;
+	*post_ref = NULL;
+	return ('\0');
+}
+
+static char	split_quoted_seq_quotes_case(char *segment,
+				char **pre_ref, char **post_ref)
+{
+	char	enclosing_quotes;
+	size_t	post_beginning;
+	size_t	seg_len;
+
+	seg_len = ft_strlen(segment);
+	post_beginning = skip_past_char(segment, 1, segment[0], +1);
+	if (post_beginning == 1)
+	{
+		*pre_ref = ft_strdup(segment);
+		*post_ref = NULL;
+		return ('\0');
+	}
+	*pre_ref = ft_strcpy(NULL, segment + 1, post_beginning - 2);
+	if (segment[post_beginning])
+		*post_ref = ft_strcpy(NULL, segment + post_beginning,
+				seg_len - post_beginning + 1);
+	else
+		*post_ref = NULL;
+	enclosing_quotes = segment[0];
+	free(segment);
+	return (enclosing_quotes);
 }

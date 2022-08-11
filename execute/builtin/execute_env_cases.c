@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 18:34:00 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/07 19:28:13 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 18:48:34 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static t_tree_node	*create_cmd_tree_node(t_simple_command_node cmd_node);
  * @param bindings_node 
  * @param cmd_node 
  */
-void		execute_utility(t_env_decl_node bindings_node,
-					t_simple_command_node cmd_node)
+void	execute_utility(t_env_decl_node bindings_node,
+				t_simple_command_node cmd_node)
 {
 	t_branch	utility;
 	t_tree_node	*cmd_tree_node;
@@ -55,7 +55,7 @@ void		execute_utility(t_env_decl_node bindings_node,
  * @param bindings_node the argument given to the env utility
  * @param cmd_node 
  */
-void		execute_empty_utility(t_env_decl_node bindings_node)
+void	execute_empty_utility(t_env_decl_node bindings_node)
 {
 	t_bindings	*bindings;
 

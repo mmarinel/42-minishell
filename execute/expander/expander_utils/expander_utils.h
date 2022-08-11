@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 17:27:57 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/10 18:54:03 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 19:08:50 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 char	*cwd_read(void);
 char	**clean_results(char **results);
 void	expansion_split(
-				char *args,
-				char **next_segment_ref,
-				char **post_ref);
+			char *args,
+			char **next_segment_ref,
+			char **post_ref);
 char	split_quoted_sequence(char *segment,
 			char **pre_ref, char **post_ref);
 char	*quote_as_string(char quote);

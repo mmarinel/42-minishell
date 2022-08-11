@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 19:49:32 by earendil          #+#    #+#             */
-/*   Updated: 2022/08/10 16:52:05 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 18:54:03 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ static void	dollar_exp_split(char *next_segment,
 	{
 		next_star_occ_offset = str_member(next_segment, '*');
 		*var_name_ref = ft_strcpy(NULL,
-							next_segment,
-							next_star_occ_offset);
+				next_segment,
+				next_star_occ_offset);
 		*exp_post_ref = ft_strcpy(NULL,
-							next_segment + next_star_occ_offset,
-							seg_len - next_star_occ_offset + 1);
+				next_segment + next_star_occ_offset,
+				seg_len - next_star_occ_offset + 1);
 	}
 	free(next_segment);
 }

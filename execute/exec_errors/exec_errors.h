@@ -6,12 +6,12 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:20:23 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/14 18:22:13 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 18:49:53 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_FAILURES_H
-# define EXEC_FAILURES_H
+#ifndef EXEC_ERRORS_H
+# define EXEC_ERRORS_H
 
 # include "../executor.h"
 

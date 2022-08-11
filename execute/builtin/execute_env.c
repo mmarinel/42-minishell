@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 11:30:34 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/08 11:50:59 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 18:47:10 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	execute_env(char *arguments)
 	cmd_node.cmd_args = NULL;
 	bindings_node.bindings = NULL;
 	if (ERROR == execute_env_arguments_handling(arguments,
-					&bindings_node, &cmd_node))
+			&bindings_node, &cmd_node))
 		execute_env_print_error(cmd_node);
 	else
 		execute_env_happy_path(arguments, cmd_node, bindings_node);
@@ -49,7 +49,7 @@ static t_status	execute_env_arguments_handling(char *arguments,
 	{
 		split = ft_split(arguments, ' ');
 		outcome = env_set_bindings_and_utility(split,
-					cmd_node, bindings_node);
+				cmd_node, bindings_node);
 		ft_splitclear(split);
 	}
 	else

@@ -6,13 +6,15 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:36:03 by earendil          #+#    #+#             */
-/*   Updated: 2022/08/10 17:10:43 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 19:12:57 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander_utils.h"
 
 static void	take_next_segment_boundaries(char *str,
+				size_t *start, size_t *end);
+static void	take_boundaries_general_case(char *str,
 				size_t *start, size_t *end);
 static char	*get_segment(char *str,
 				size_t start, size_t end);
@@ -40,32 +42,38 @@ static void	take_next_segment_boundaries(char *str,
 
 	if (!str || !str[0])
 		return ;
+	{
+		*start = 0;
+		if (str[0] == '$' && str[1] == '*')
+			*end = 1;
+		else if (str[0] == '$' && str[1] == '$')
+			*end = 1;
+		else if (str[0] == '$' && ft_is_quote(str[1]))
+		{
+			*start = 1;
+			*end = skip_past_char(str, 2, str[1], +1) - 1;
+		}
+		else if (e_true == ft_isspace(str[0]))
+			*end = skip_consecutive_chars(str, 1, str[0], +1) - 1;
+		else
+			take_boundaries_general_case(str, start, end);
+	}
+}
+
+static void	take_boundaries_general_case(char *str,
+				size_t *start, size_t *end)
+{
+	size_t	offset;
+
 	*start = 0;
-	// if (str[0] == '"' || str[0] == '\'')
-	// 		*end = skip_past_char(str, 1, str[0], +1) - 1;
-	if (str[0] == '$' && str[1] == '*')//* was else if
-		*end = 1;
-	else if (str[0] == '$' && str[1] == '$')
-		*end = 1;
-	else if (str[0] == '$' && ft_is_quote(str[1]))
-	{
-		*start = 1;
-		*end = skip_past_char(str, 2, str[1], +1) - 1;
-	}
-	else if (e_true == ft_isspace(str[0]))
-		*end = skip_consecutive_chars(str, 1, str[0], +1) - 1;
-	else
-	{
-		offset = 0;
-		if (str[offset] == '"' || str[offset] == '\'')
-			offset = skip_past_char(str, offset + 1, str[offset], +1) - 1;
-		while (str[offset + 1]
-				// && str[offset + 1] != '*'//TODO:---------------> TOGLIERE !
-				&& str[offset + 1] != '$'
-				&& e_false == bash_control_character(str[offset + 1]))
-			offset++;
-		*end = offset;
-	}
+	offset = 0;
+	if (str[offset] == '"' || str[offset] == '\'')
+		offset = skip_past_char(str, offset + 1, str[offset], +1) - 1;
+	while (str[offset + 1]
+		&& str[offset + 1] != '$'
+		&& e_false == bash_control_character(str[offset + 1]))
+		offset++;
+	*end = offset;
 }
 
 static char	*get_segment(char *str,

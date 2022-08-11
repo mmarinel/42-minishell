@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:01:29 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/07 19:02:07 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 18:45:28 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 //* user defined modules //
 # include "../executor.h"
 # include "../../env/env_utils/env_utils.h"
-#include "../../libft/simple_printf/ft_printf_module.h"
+# include "../../libft/simple_printf/ft_printf_module.h"
 
 void		_execute_env_statement(t_env_decl_node env_statement);
 void		execute_export(void);
@@ -26,8 +26,8 @@ void		execute_unset(void);
 
 void		execute_env(char *arguments);
 t_status	env_set_bindings_and_utility(char **split,
-					t_simple_command_node *cmd_node,
-					t_env_decl_node *bindings_node);
+				t_simple_command_node *cmd_node,
+				t_env_decl_node *bindings_node);
 void		execute_utility(t_env_decl_node bindings_node,
 				t_simple_command_node cmd_node);
 void		execute_empty_utility(t_env_decl_node bindings_node);
