@@ -6,16 +6,14 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 18:03:26 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/11 16:10:30 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 17:35:48 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "here_doc.h"
 
 static char	*take_next_delimiter(char *command, size_t offset);
-
 //* end of static declarations
-
 
 t_bool	here_doc_line(char *command)
 {
@@ -43,12 +41,6 @@ size_t	here_docs_count(char *command)
 	}
 	return (here_docs);
 }
-
-		// if (command[i] == '<' && command[i + 1] == '<'
-		// 	&& command[i + 2] == '<')
-		// 	return (0);
-		// if (command[i] == '<' && command[i + 1] == '<')// && command[i + 2] != '<')
-		// 	here_docs++;
 
 char	**here_doc_take_delimiters(char *command)
 {
@@ -90,9 +82,5 @@ static char	*take_next_delimiter(char *command, size_t offset)
 	delimiter_len = bash_next_word_len(command, alphanumeric_offset)
 		+ (alphanumeric_offset - offset);
 	delimiter = ft_strcpy(NULL, command + offset, delimiter_len);
-	//* delimiter = expand(delimiter);
-	// delimiter_len = 0;
-	// while (e_false == bash_control_character(command[delimiter_len + offset]))
-	// 	delimiter_len++;
 	return (delimiter);
 }

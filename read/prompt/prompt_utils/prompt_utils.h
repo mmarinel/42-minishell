@@ -6,13 +6,12 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 19:04:09 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/04 16:15:50 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 16:53:49 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PROMPT_UTILS_H
 # define PROMPT_UTILS_H
-
 
 // * standard libraries
 # include <unistd.h>
@@ -30,15 +29,14 @@
 # include "../../../signals/signal_module.h"
 # include "../prompt_types.h"
 
-
 // * user defined module
 # include "../../../exit/exit.h"
 
 // * includes end //
 
-
 /**
- * @brief this function reads a non-empty line using the readline library function.
+ * @brief this function reads a non-empty line
+ * using the readline library function.
  * If ctrl-d is hit it returns NULL.
  * 
  * @param prompt 

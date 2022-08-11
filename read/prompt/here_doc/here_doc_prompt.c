@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 12:09:03 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/11 16:17:56 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 16:56:37 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	here_doc_prompt(t_hdoc_prompt_behav opcode, char enclosing_quote,
 		signal(SIGINT, here_doc_prompt_sig_handler);
 		unlink(hdoc_file_name);
 		fd_here_document = open(hdoc_file_name,
-			O_CREAT | O_RDWR | O_TRUNC, 0777);
+				O_CREAT | O_RDWR | O_TRUNC, 0777);
 		if (-1 == fd_here_document)
 		{
 			perror("minishell at here_doc_prompt");
