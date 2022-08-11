@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 13:04:29 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/16 17:05:03 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/11 09:18:58 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ size_t	scan_simple_command(char *command_line, size_t offset,
 void	tok_add_back(t_token **token_list, t_token *token);
 void	free_tok_list(t_token **token_list);
 
+size_t	occ_outside_quotes(char *str, char to_count);
 int		scan_alternate_invariant_spaces_quotes(char *str);
 size_t	bash_next_word_len(char *command_line, size_t offset);
 
