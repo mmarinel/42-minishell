@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 09:49:38 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/12 16:23:12 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/12 21:58:31 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void		execute_builtin(t_tree_node *root, int in, int out);
 
 void	execute_simple_statement(t_tree_node *root, int in, int out)
 {
-	if (e_true == is_builtin_command(root))
+	if (is_builtin_command(root))
 		execute_builtin(root, in, out);
 	else
 		execute_external(root, in, out);

@@ -6,12 +6,12 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:32:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/11 11:02:09 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/12 22:57:56 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
-
+#include <stdio.h>
 static int	ft_atoi_rec(const char *str, int *exponent);
 //* end of static declarations //
 
@@ -19,6 +19,8 @@ int	ft_atoi(const char *str)
 {
 	int	e;
 
+		printf("str: %s\tlen: %zu\n", str, ft_strlen(str));
+		// exit(0);
 	return (ft_atoi_rec(str, &e));
 }
 
@@ -27,7 +29,7 @@ static int	ft_atoi_rec(const char *str, int *exponent)
 	int	rec_res;
 	int	res;
 
-	if (!(*str)
+	if (!str || !(*str)
 		|| (*str < '0' || *str > '9'))
 		return (*exponent = 0);
 	rec_res = ft_atoi_rec(str + 1, exponent);
