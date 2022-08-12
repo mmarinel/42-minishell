@@ -6,7 +6,7 @@
 #    By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/10 12:28:57 by mmarinel          #+#    #+#              #
-#    Updated: 2022/07/18 15:07:21 by mmarinel         ###   ########.fr        #
+#    Updated: 2022/08/12 19:44:41 by mmarinel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@
 CC = @gcc
 # HOME = /Users/mmarinel
 CFLAGS = -I -Wall -Werror -Wextra -fsanitize=address -static-libsan -g
+# CFLAGS = -I -Wall -Werror -Wextra
 READLINE_FLAGS = -L/usr/include -lreadline -L$$HOME/.brew/opt/readline/lib -I $$HOME/.brew/opt/readline/include/readline
 OBJS_DIR = ".objs"
 

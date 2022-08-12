@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 16:43:14 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/11 18:52:01 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/12 17:54:46 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,15 @@ static char	**return_paths(void);
 static char	*return_path_name(char *cmd, char **pathlist);
 // * end of declarations //
 
-t_bool	is_path_name(char *cmd)
+void	dup_std_fd(int cur_in_out, int std_in_out,
+			t_bool close_cur)
 {
-	return (take_substr(cmd, "/") != NULL);
+	if (cur_in_out != std_in_out)
+	{
+		dup2(cur_in_out, std_in_out);
+		if (close_cur)
+			close(cur_in_out);
+	}
 }
 
 char	*ft_get_cmd_name(char *cmd)

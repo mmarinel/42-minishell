@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 16:29:25 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/18 09:25:01 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/12 18:20:31 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
  * (except here_doc content which is put in a hidden file for later use)
  */
 char	*ft_read_command(char *main_prompt);
-// char	*ft_readline(char *prompt, t_bool free_prompt);
 
 /**
  * @brief Get the current working directory (not with full path)

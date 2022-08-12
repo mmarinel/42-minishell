@@ -6,11 +6,16 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 16:35:07 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/03 16:35:29 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/12 15:55:54 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_utils.h"
+
+t_bool	is_path_name(char *cmd)
+{
+	return (take_substr(cmd, "/") != NULL);
+}
 
 t_bool	is_builtin_command(t_tree_node *root)
 {

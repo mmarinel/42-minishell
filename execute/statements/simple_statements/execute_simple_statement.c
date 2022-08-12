@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 09:49:38 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/11 15:38:31 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/12 16:23:12 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void		execute_command_and_exit(t_tree_node *root, int in, int out);
 static void		execute_external(t_tree_node *root, int in, int out);
 
 static void		execute_builtin(t_tree_node *root, int in, int out);
-
 // * end of declarations //
 
 void	execute_simple_statement(t_tree_node *root, int in, int out)
@@ -70,8 +69,6 @@ static void	execute_external(t_tree_node *root, int in, int out)
 	else
 	{
 		execute_command_and_exit(root, in, out);
-		// close(in);
-		// close(out);
 	}
 }
 
@@ -79,7 +76,6 @@ static void	spawn_and_wait_command(t_tree_node *root, int in, int out)
 {
 	t_branch	statement_execution;
 
-	// int	cur_stdout_backup = dup(STDOUT_FILENO);
 	signal(SIGINT, sig_ign);
 	signal(SIGTERM, sig_ign);
 	signal(SIGQUIT, sig_ign);
@@ -88,9 +84,8 @@ static void	spawn_and_wait_command(t_tree_node *root, int in, int out)
 		execute_simple_statement(root, in, out);
 	else
 	{
-		waitpid(statement_execution.pid, &(statement_execution.exit_status), 0);
-		// dup2(cur_stdout_backup, STDOUT_FILENO);
-		// close(cur_stdout_backup);
+		waitpid(statement_execution.pid,
+			&(statement_execution.exit_status), 0);
 		signal(SIGINT, sig_handler);
 		signal(SIGTERM, sig_handler);
 		signal(SIGQUIT, SIG_IGN);
@@ -103,6 +98,4 @@ static void	execute_command_and_exit(t_tree_node *root, int in, int out)
 {
 	if (root->content->content_type == SIMPL_CMD)
 		execute_external_simple_cmd(root, in, out);
-	// if (root->content->content_type == REDIR)
-	// 	execute_redir_only_statement(root, in, out);
 }

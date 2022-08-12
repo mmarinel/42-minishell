@@ -6,16 +6,16 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/11 10:24:14 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/12 21:14:05 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void		set_env(char *const envp[]);
-static void		print_signature(void);
-static void		unlink_here_docs(void);
-static void		set_pid_variable(void);
+static void	set_env(char *const envp[]);
+static void	print_signature(void);
+static void	unlink_here_docs(void);
+static void	set_pid_variable(void);
 //* end of static declarations
 
 int	main(int argc, char const *argv[], char *const envp[])
@@ -34,7 +34,6 @@ int	main(int argc, char const *argv[], char *const envp[])
 	{
 		parse_tree = shell_read();
 		execute(parse_tree);
-		clean_all:
 		{
 			tokenizer_free();
 			free_tree(&parse_tree);
@@ -45,7 +44,13 @@ int	main(int argc, char const *argv[], char *const envp[])
 }
 
 /**
- * @brief this function saves the current env after incrementing variable SHLVL
+ * ```
+ * this function sets the current env,
+ * increments SHLVL variable, duplicates 'real' stdout
+ * (as long as it wasn't redirected throught the outside -non minishell-shell)
+ * if this is the first minishell call
+ * and sets $? variable to 0.
+ * ```
  * 
  * @param envp 
  */
@@ -56,10 +61,12 @@ static void	set_env(char *const envp[])
 	set_pid_variable();
 	printf("my pid is %d\n", g_env.pid);
 	env_handler(ENV_INITIALIZE, (char **)envp);
-	cur_shlvl = ft_atoi(env_handler(BINDING_GET_VALUE, "SHLVL"));
-	env_handler(BINDING_UPDATE,
-		get_new_binding("SHLVL", ft_itoa(cur_shlvl + 1), e_false));
-	if (env_handler(BINDING_GET_VALUE, "minishell_first_call_set") == NULL)
+	{
+		cur_shlvl = ft_atoi(env_handler(BINDING_GET_VALUE, "SHLVL"));
+		env_handler(BINDING_UPDATE,
+			get_new_binding("SHLVL", ft_itoa(cur_shlvl + 1), e_false));
+	}
+	if (NULL == env_handler(BINDING_GET_VALUE, "minishell_first_call_set"))
 	{
 		printf("in stdout_clone set\n");
 		env_handler(BINDING_UPDATE,
@@ -69,6 +76,10 @@ static void	set_env(char *const envp[])
 	g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
 }
 
+/**
+ * @brief this function sets the [$$] env variable
+ * 
+ */
 static void	set_pid_variable(void)
 {
 	pid_t	pid;
