@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:32:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/12 22:57:56 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/13 12:29:03 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int	ft_atoi(const char *str)
 {
 	int	e;
 
-		printf("str: %s\tlen: %zu\n", str, ft_strlen(str));
-		// exit(0);
 	return (ft_atoi_rec(str, &e));
 }
 

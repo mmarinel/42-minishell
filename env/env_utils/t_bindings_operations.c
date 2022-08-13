@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 13:42:44 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/11 10:33:22 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/13 12:43:01 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ char	*binding_get_value(t_bindings *head, char *name)
 	while (cursor)
 	{
 		if (0 == ft_strcmp(cursor->var_name, name))
-			return (ft_strdup(cursor->var_val));
+			return (cursor->var_val);
 		cursor = cursor->next;
 	}
 	return (NULL);

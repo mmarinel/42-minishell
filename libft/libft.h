@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:24:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/11 11:15:39 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/13 13:38:18 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
+# include <stdio.h>//TODO: TOGLIEREEEEE!
 
 //* user defined modules //
 # include "simple_printf/ft_printf_module.h"
+# include "../colors.h"
 
 # ifndef T_BOOL_H
 #  define T_BOOL_H

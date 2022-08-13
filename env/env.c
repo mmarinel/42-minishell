@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:00:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/12 23:40:11 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/13 12:25:38 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,6 @@ void	*env_handler(t_env_handl_opcode opcode, void *argument)
 	if (opcode == ENV_INITIALIZE
 		|| opcode == ENV_CLEAN)
 	{
-		if (env == NULL && export == NULL)
-			printf("dasvidania\n");
-		if (NULL != argument)
-			printf("caracho!\n");
 		env_management_cases(&env, &export, opcode, argument);
 	}
 	if (opcode == ENV_RETURN

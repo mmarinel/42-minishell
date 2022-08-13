@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 11:07:49 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/11 12:15:48 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/13 16:22:20 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ t_token	*in_out_tok_record_file_name(char *next_word_begin,
 			cur_hdoc_cont_id = here_docs - 1;
 	}
 	token = (t_token *) malloc(sizeof(t_token));
+	// printf(YELLOW "malloc in tok_in_out_granular.c line 48: %p\n" RESET, token);
+	// fflush(stdout);
 	token->token_id = _in_out_;
 	if (_in_out_ != e_HERE_DOC)
 		token->token_val

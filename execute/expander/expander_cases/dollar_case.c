@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 19:49:32 by earendil          #+#    #+#             */
-/*   Updated: 2022/08/11 18:54:03 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/13 12:41:01 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,11 @@ char	*expand_dollar_segment(char *next_segment,
 		else if (var_name[0] == '$' && var_name[1] == '?')
 			expansion = ft_itoa(g_env.last_executed_cmd_exit_status);
 		else
-			expansion = env_handler(BINDING_GET_VALUE, var_name + 1);
+			expansion
+				= ft_strdup(env_handler(BINDING_GET_VALUE, var_name + 1));
 	}
 	else
-	{
 		expansion = ft_strdup(var_name);
-	}
 	return (ft_strjoin(expansion, exp_post, e_true, e_true));
 }
 

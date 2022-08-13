@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: earendil <earendil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:00:48 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/07/13 11:12:45 by earendil         ###   ########.fr       */
+/*   Updated: 2022/08/13 13:16:39 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 // * user defined types //
 # include "../types.h"
 # include "env_types.h"
+# include "../colors.h"
 
 // * user defined modules //
 # include "../utils/ft_utils.h"

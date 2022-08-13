@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 09:18:17 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/11 10:32:20 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/13 16:23:52 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,24 @@
 
 void	copy_env(char **envp)
 {
+	size_t	i;
 	char	**split;
 	char	*var_name;
 	char	*var_val;
 
-	while (*envp)
+	if (*envp)
 	{
-		split = ft_split(*envp, '=');
-		var_name = split[0];
-		var_val = split[1];
-		env_handler(BINDING_UPDATE,
-			get_new_binding(var_name, var_val, e_false));
-		ft_splitclear(split);
-		envp++;
+		i = 0;
+		while (envp[i])
+		{
+			split = ft_split(envp[i], '=');
+			var_name = split[0];
+			var_val = split[1];
+			env_handler(BINDING_UPDATE,
+				get_new_binding(var_name, var_val, e_false));
+			ft_splitclear(split);
+			i++;
+		}
 	}
 }
 
@@ -48,6 +53,8 @@ char	**bindings_list_to_array(t_bindings *head)
 
 	env_len = bindings_len(head);
 	envp = (char **) malloc((env_len + 1) * sizeof(char *));
+	// printf(YELLOW "malloc in t_bindings_manage.c line 56: %p\n" RESET, envp);
+	// fflush(stdout);
 	envp[env_len] = NULL;
 	cur = head;
 	j = 0;
@@ -68,6 +75,8 @@ t_bindings	*get_new_binding(char *var_name, char *var_val, t_bool concat_mode)
 	t_bindings	*new_binding;
 
 	new_binding = (t_bindings *) malloc(sizeof(t_bindings));
+	// printf(YELLOW "malloc in t_bindings_manage.c line 77: %p\n" RESET, new_binding);
+	// fflush(stdout);
 	new_binding->var_name = ft_strdup(var_name);
 	new_binding->var_val = ft_strdup(var_val);
 	new_binding->concat_mode = concat_mode;

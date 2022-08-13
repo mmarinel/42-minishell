@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:34:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/12 21:02:40 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/13 16:21:32 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ static t_status	read_completed_line(char **command,
 	if (completion_len)
 	{
 		completed = (char *) malloc((completion_len + 1) * sizeof(char));
+		// printf(YELLOW "malloc in prompt.c line 109: %p\n" RESET, completed);
+		// fflush(stdout);
 		read(line_channel[0], completed, completion_len * sizeof(char));
 		completed[completion_len] = '\0';
 		ft_str_replace(command, completed);
@@ -128,17 +130,20 @@ char	*get_current_working_directory(void)
 
 	abs_path = getcwd(NULL, PATH_MAX);
 	if (0 == ft_strcmp(abs_path, env_handler(BINDING_GET_VALUE, "HOME")))
-		return (ft_strjoin(
+		cwd = (ft_strjoin(
 				ft_itoa(g_env.last_executed_cmd_exit_status),
 				" in 📁:-" CYAN " ~ " RESET,
 				e_true, e_false)
-		);
-	last_slash_idx = 0;
-	idx = -1;
-	while (abs_path[++idx])
-		if (abs_path[idx] == '/')
-			last_slash_idx = idx;
-	cwd = get_decorated_cwd(abs_path + last_slash_idx);
+				);
+	else
+	{
+		last_slash_idx = 0;
+		idx = -1;
+		while (abs_path[++idx])
+			if (abs_path[idx] == '/')
+				last_slash_idx = idx;
+		cwd = get_decorated_cwd(abs_path + last_slash_idx);
+	}
 	free(abs_path);
 	return (cwd);
 }

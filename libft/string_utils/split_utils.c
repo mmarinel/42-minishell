@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 16:59:11 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/11 11:16:37 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/13 11:57:50 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,21 @@
 
 void	*ft_splitclear(char **split)
 {
+	size_t	i;
 	char	**backup;
 
 	if (!split)
 		return (NULL);
-	backup = split;
-	while (*split)
-		ft_free(*split++);
-	ft_free(backup);
+	{
+		backup = split;
+		i = 0;
+		while (split[i])
+		{
+			ft_free(split[i]);
+			i++;
+		}
+		ft_free(backup);
+	}
 	return (NULL);
 }
 

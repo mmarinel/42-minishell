@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 08:47:20 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/11 12:19:41 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/13 16:22:56 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ size_t	scan_initial_keyword_set_token(char *str, size_t offset,
 			t_token **token)
 {
 	(*token) = (t_token *) malloc(sizeof(t_token));
+	// printf(YELLOW "malloc in tok_var_patterns_granular_part2.c line 35: %p\n" RESET, *token);
+	// fflush(NULL);
 	(*token)->token_val = NULL;
 	(*token)->to_string = NULL;
 	(*token)->next = NULL;

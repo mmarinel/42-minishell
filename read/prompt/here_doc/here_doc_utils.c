@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 18:03:26 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/11 17:35:48 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/13 16:21:46 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ char	**here_doc_take_delimiters(char *command)
 	if (here_docs == 0)
 		return (NULL);
 	here_docs_delimiters = (char **) malloc((here_docs + 1) * sizeof(char *));
+	// printf(YELLOW "malloc in here_doc_utils.c line 56: %p\n" RESET, here_docs_delimiters);
+	// fflush(stdout);
 	here_docs_delimiters[here_docs] = NULL;
 	j = 0;
 	i = 0;

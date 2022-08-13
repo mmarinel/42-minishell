@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/12 23:33:19 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/13 12:43:21 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,18 @@ int	main(int argc, char const *argv[], char *const envp[])
  */
 static void	set_env(char *const envp[])
 {
-	size_t			cur_shlvl;
+	size_t	cur_shlvl;
+	char	*new_shlvl_str;
 
-	set_pid_variable();
-	printf("my pid is %d\tenvp[0]: %s\n", g_env.pid, envp[23]);
+	// set_pid_variable();
+	printf("my pid is %d\n", g_env.pid);
 	env_handler(ENV_INITIALIZE, (char **)envp);
 	{
-		printf("env addess: %s\n", ((t_bindings *)env_handler(ENV_RETURN, NULL))->var_name);
 		cur_shlvl = ft_atoi(env_handler(BINDING_GET_VALUE, "SHLVL"));
+		new_shlvl_str = ft_itoa(cur_shlvl + 1);
 		env_handler(BINDING_UPDATE,
-			get_new_binding("SHLVL", ft_itoa(cur_shlvl + 1), e_false));
+			get_new_binding("SHLVL", new_shlvl_str, e_false));
+		free(new_shlvl_str);
 	}
 	if (NULL == env_handler(BINDING_GET_VALUE, "minishell_first_call_set"))
 	{

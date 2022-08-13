@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 18:58:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/11 18:59:00 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/13 16:24:08 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ char	**clean_results(char **results)
 
 	count = results_count_entries(results);
 	cleared = (char **) malloc((count + 1) * sizeof(char *));
+	// printf(YELLOW "malloc in expander_utils_clear.c line 27: %p\n" RESET, cleared);
+	// fflush(stdout);
 	cleared[count] = NULL;
 	i = 0;
 	j = 0;
