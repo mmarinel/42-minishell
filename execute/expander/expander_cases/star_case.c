@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:16:31 by earendil          #+#    #+#             */
-/*   Updated: 2022/08/10 10:58:55 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/13 17:32:22 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,11 @@ char	*expand_star_segment(char *segment,
 static char	*expand_star_segment_rec(char *segment)
 {
 	char	**entries;
+	char	*cwd_string;
 	size_t	i;
 
-	entries = ft_split(cwd_read(), ' ');
+	cwd_string = cwd_read();
+	entries = ft_split(cwd_string, ' ');
 	i = 0;
 	while (entries[i])
 	{
@@ -50,6 +52,7 @@ static char	*expand_star_segment_rec(char *segment)
 		i++;
 	}
 	entries = clean_results(entries);
+	free(cwd_string);
 	return (expansion_return(entries, segment));
 }
 

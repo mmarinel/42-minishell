@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 17:27:45 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/11 19:08:11 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/13 17:31:36 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ static char	split_quoted_seq_quotes_case(char *segment,
 				char **pre_ref, char **post_ref);
 //* end of static declarations
 
+/**
+ * @brief this function returns a string of entries in the current directory.
+ * 
+ * @return char* 
+ */
 char	*cwd_read(void)
 {
 	char			*expansion;
@@ -66,16 +71,6 @@ char	split_quoted_sequence(char *segment,
 		return (split_quoted_seq_quotes_case(segment, pre_ref, post_ref));
 }
 
-char	*quote_as_string(char quote)
-{
-	if (quote == '\'')
-		return ("\'");
-	else if (quote == '\"')
-		return ("\"");
-	else
-		return (NULL);
-}
-
 static char	split_quoted_seq_clean_case(char **pre_ref, char **post_ref)
 {
 	*pre_ref = NULL;
@@ -107,4 +102,14 @@ static char	split_quoted_seq_quotes_case(char *segment,
 	enclosing_quotes = segment[0];
 	free(segment);
 	return (enclosing_quotes);
+}
+
+char	*quote_as_string(char quote)
+{
+	if (quote == '\'')
+		return ("\'");
+	else if (quote == '\"')
+		return ("\"");
+	else
+		return (NULL);
 }

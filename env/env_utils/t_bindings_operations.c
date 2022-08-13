@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 13:42:44 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/13 12:43:01 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/13 16:57:05 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,15 @@ t_bindings	*binding_over_write(t_bindings *head, t_bindings *binding)
 		{
 			if (binding->concat_mode == e_true)
 				cursor->var_val
-					= ft_strjoin(cursor->var_val, new_val, e_true, e_true);
+					= ft_strjoin(cursor->var_val, new_val, e_true, e_false);
 			else
 				ft_str_replace(&(cursor->var_val), new_val);
-			return (cursor);
+			break ;
 		}
 		cursor = cursor->next;
 	}
-	return (NULL);
+	free(new_val);
+	return (cursor);
 }
 
 void	binding_remove(t_bindings **head, char *var_name)

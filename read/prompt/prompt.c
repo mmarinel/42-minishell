@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:34:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/13 16:21:32 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/13 19:23:45 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ static t_status	read_completed_line(char **command,
 		read(line_channel[0], completed, completion_len * sizeof(char));
 		completed[completion_len] = '\0';
 		ft_str_replace(command, completed);
+		free(completed);
 	}
 	return (outcome);
 }

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 16:51:54 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/13 13:08:09 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/13 19:06:10 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ t_tree_node	*shell_read(void)
 	char	*command;
 
 	command = read_next_command();
+	{
+		ft_free(command);
+		return (NULL);
+	}
 	if (command_is_empty(command))
 	{
 		ft_free(command);

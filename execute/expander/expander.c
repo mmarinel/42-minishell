@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:15:42 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/11 18:53:14 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/13 17:28:49 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ static char	*expand_rec(char *args,
 	char	*args_post;
 
 	if (NULL == args || args[0] == 0)
+	{
+		ft_free(args);
 		return (NULL);
+	}
 	expansion_split(args, &next_segment, &args_post);
 	free(args);
 	return (
