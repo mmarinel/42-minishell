@@ -6,13 +6,14 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 12:23:11 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/11 12:29:05 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/14 10:40:27 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tok_utils.h"
 
 static void	free_tok_list_rec(t_token *token);
+static void	free_tok_val(t_token *token);
 // * end of declarations //
 
 /**
@@ -53,5 +54,21 @@ static void	free_tok_list_rec(t_token *token)
 {
 	if (token->next)
 		free_tok_list_rec(token->next);
+	free_tok_val(token);
 	free(token);
+}
+
+static void	free_tok_val(t_token *token)
+{
+	if (token->token_id == e_CMD_NAME
+		|| token->token_id == e_CMD_ARG
+		|| token->token_id == e_OUT_FILE_APPEND
+		|| token->token_id == e_OUT_FILE_TRUNC
+		|| token->token_id == e_IN_FILE_TRUNC
+		|| token->token_id == e_HERE_DOC
+		|| token->token_id == e_PARENTHESIS)
+		free(token->token_val);
+	if (token->token_id == e_ENV_VAR_DECL
+		|| token->token_id == e_ENV_VAR_UNSET)
+		free_env(token->token_val);
 }

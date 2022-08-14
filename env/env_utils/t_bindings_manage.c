@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 09:18:17 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/13 16:23:52 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/14 10:32:33 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	free_env(t_bindings *head)
 	free_env(head->next);
 	free(head->var_name);
 	free(head->var_val);
+	free(head);
 }
 
 char	**bindings_list_to_array(t_bindings *head)

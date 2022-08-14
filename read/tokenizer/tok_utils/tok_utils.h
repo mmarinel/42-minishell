@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 13:04:29 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/11 12:29:36 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/14 10:30:29 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "../tok_types.h"
 # include "../../../types.h"
 # include "../../../global.h"
+# include "../../../env/env_utils/env_utils.h"
 // * user defined functions
 
 size_t	scan_simple_command(char *command_line, size_t offset,
