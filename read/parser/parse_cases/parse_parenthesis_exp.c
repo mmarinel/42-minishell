@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 09:12:26 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/13 16:25:21 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/14 11:30:47 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ t_node_content	*parse_parenthesis_exp(t_parser_status *parser_status)
 	// fflush(stdout);
 	paren_exp->content_type = PAREN_EXP;
 	paren_exp->parenthesis_node.subtree = parse_cmd_list(parser_status);
+	paren_exp->parenthesis_node.in_redir.file_name = NULL;
+	paren_exp->parenthesis_node.out_redir.file_name = NULL;
 	paren_exp->in_redir.file_name = NULL;
 	paren_exp->out_redir.file_name = NULL;
 	next_redir = take_next_token(parser_status);

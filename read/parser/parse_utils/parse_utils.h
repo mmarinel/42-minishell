@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 12:56:38 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/05 17:52:57 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/14 11:02:25 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 // * user defined modules
 # include "../../../colors.h"
+# include "../../../env/env_utils/env_utils.h"
 # include "../../tokenizer/tokenizer_module.h"
 
 // * user defined types
