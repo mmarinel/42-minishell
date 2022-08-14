@@ -6,36 +6,36 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 17:58:05 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/12 18:02:21 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/14 19:12:03 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "simple_statements.h"
 
-void	execute_cmd_builtin(t_simple_command_node simple_cmd)
+void	execute_cmd_builtin(t_simple_command_node *simple_cmd)
 {
 	char	*simple_name;
 
-	cmd_expand(&simple_cmd);
-	if (NULL == simple_cmd.cmd_name)
+	cmd_expand(simple_cmd);
+	if (NULL == simple_cmd->cmd_name)
 		g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
 	else
 	{
-		simple_name = ft_get_cmd_name(simple_cmd.cmd_name);
+		simple_name = ft_get_cmd_name(simple_cmd->cmd_name);
 		if (0 == ft_strcmp(simple_name, "echo"))
-			execute_echo(simple_cmd);
+			execute_echo(*simple_cmd);
 		if (0 == ft_strcmp(simple_name, "cd"))
-			execute_cd(simple_cmd);
+			execute_cd(*simple_cmd);
 		if (0 == ft_strcmp(simple_name, "exit"))
-			execute_exit(simple_cmd);
+			execute_exit(*simple_cmd);
 		if (0 == ft_strcmp(simple_name, "pwd"))
-			execute_pwd(simple_cmd);
+			execute_pwd(*simple_cmd);
 		if (0 == ft_strcmp(simple_name, "export"))
 			execute_export();
 		if (0 == ft_strcmp(simple_name, "unset"))
 			execute_unset();
 		if (0 == ft_strcmp(simple_name, "env"))
-			execute_env(simple_cmd.cmd_args);
+			execute_env(simple_cmd->cmd_args);
 		free(simple_name);
 	}
 }

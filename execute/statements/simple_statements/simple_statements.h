@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 10:10:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/12 15:49:21 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/14 19:11:03 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ void		execute_external_simple_cmd(t_tree_node *root, int in, int out);
 void		execute_env_statement(t_env_decl_node env_statement);
 void		execute_redir_only_statement(t_tree_node *root,
 				int in, int out);
-void		execute_cmd_builtin(t_simple_command_node simple_cmd);
+void		execute_cmd_builtin(t_simple_command_node *simple_cmd);
 
 #endif

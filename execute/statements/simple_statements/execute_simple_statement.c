@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 09:49:38 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/12 21:58:31 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/14 19:10:41 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	execute_builtin(t_tree_node *root, int in, int out)
 		else if (root->content->content_type == REDIR)
 			execute_redir_only_statement(root, in, out);
 		else
-			execute_cmd_builtin(root->content->simple_cmd);
+			execute_cmd_builtin(&root->content->simple_cmd);
 	}
 	dup2(stdin_clone, STDIN_FILENO);
 	dup2(stdout_clone, STDOUT_FILENO);

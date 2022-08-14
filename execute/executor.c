@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 09:39:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/14 12:43:18 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/14 18:15:56 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static void	execute_in_shell(t_tree_node *root, int in, int out);
 static void	execute_subshell(t_tree_node *root, int in, int out);
-
 // * end of declarations //
 
 void	execute(t_tree_node *parse_tree)
