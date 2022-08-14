@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 12:44:55 by evento            #+#    #+#             */
-/*   Updated: 2022/08/11 18:46:28 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/14 12:22:17 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	execute_cd(t_simple_command_node cmd)
 
 static	char	*take_parent_dir(void)
 {
+	char	*parent_directory;
 	char	*cwd;
 	size_t	last_slash_pos;
 	size_t	offset;
@@ -57,9 +58,11 @@ static	char	*take_parent_dir(void)
 		offset++;
 	}
 	if (last_slash_pos == 0)
-		return (ft_strdup("/"));
+		parent_directory = ft_strdup("/");
 	else
-		return (ft_strcpy(NULL, cwd, last_slash_pos));
+		parent_directory = ft_strcpy(NULL, cwd, last_slash_pos);
+	free(cwd);
+	return (parent_directory);
 }
 
 static void	cd_error(char *path)

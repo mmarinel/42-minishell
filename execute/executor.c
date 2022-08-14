@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 09:39:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/13 17:34:14 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/14 12:43:18 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void	execute_subshell(t_tree_node *root, int in, int out);
 
 void	execute(t_tree_node *parse_tree)
 {
-	return ;
 	if (parse_tree)
 		execute_rec(parse_tree, STDIN_FILENO, STDOUT_FILENO);
 }
