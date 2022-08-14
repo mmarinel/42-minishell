@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 11:07:59 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/14 12:44:09 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/14 19:17:28 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	execute_exit_args_present(char **arguments);
 static void	execute_exit_args_absent(char **arguments);
+static void	exit_normally(char **arguments);
 //* end of static declarations
 
 /**
@@ -51,8 +52,7 @@ static void	execute_exit_args_present(char **arguments)
 	if (e_false == ft_is_digit_string(arguments[0]))
 	{
 		put_error(EXIT_NON_NUMERIC_ARGS_ERROR, 255, NULL);
-		ft_splitclear(arguments);
-		exit(g_env.last_executed_cmd_exit_status);
+		exit_normally(arguments);
 	}
 	else
 	{
@@ -64,8 +64,14 @@ static void	execute_exit_args_present(char **arguments)
 		else
 		{
 			g_env.last_executed_cmd_exit_status = ft_atoi(arguments[0]);
-			ft_splitclear(arguments);
-			exit(g_env.last_executed_cmd_exit_status);
+			exit_normally(arguments);
 		}
 	}
+}
+
+static void	exit_normally(char **arguments)
+{
+	//TODO:--------------free tree !!!!!!!!
+	ft_splitclear(arguments);
+	exit(g_env.last_executed_cmd_exit_status);
 }

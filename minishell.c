@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/14 18:16:55 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/14 20:06:07 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ static void	set_env(char *const envp[])
 	size_t	cur_shlvl;
 	char	*new_shlvl_str;
 
-	// set_pid_variable();
-	printf("my pid is %d\n", g_env.pid);
 	env_handler(ENV_INITIALIZE, (char **)envp);
+	set_pid_variable();
+	printf("my pid is %d\n", g_env.pid);
 	{
 		cur_shlvl = ft_atoi(env_handler(BINDING_GET_VALUE, "SHLVL"));
 		new_shlvl_str = ft_itoa(cur_shlvl + 1);
@@ -103,6 +103,8 @@ static void	set_pid_variable(void)
 		signal(SIGQUIT, sig_ign);
 		close(pid_val_channel[0]);
 		write(pid_val_channel[1], &pid, sizeof(pid_t));
+		close(pid_val_channel[1]);
+		env_handler(ENV_CLEAN, NULL);
 		waitpid(pid, &shell_exit_value, 0);
 		exit(WEXITSTATUS(shell_exit_value));
 	}
