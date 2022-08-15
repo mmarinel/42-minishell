@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 08:22:23 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/14 12:11:09 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:59:39 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ t_tree_node	*new_tree_node(t_tree_node *left, t_node_content *content,
 	t_tree_node	*new_node;
 
 	new_node = (t_tree_node *) malloc(sizeof(t_tree_node));
-	// printf(YELLOW "malloc in parse_utils.c line 21: %p\n" RESET, new_node);
-	// fflush(stdout);
 	new_node->left = left;
 	new_node->content = content;
 	new_node->right = right;
@@ -47,8 +45,6 @@ void	free_tree(t_tree_node **root_ref)
 
 static void	free_tree_content(t_node_content *content)
 {
-	// ft_free(content->in_redir.file_name);
-	// ft_free(content->out_redir.file_name);
 	if (content->content_type == SIMPL_CMD)
 	{
 		free(content->simple_cmd.cmd_args);

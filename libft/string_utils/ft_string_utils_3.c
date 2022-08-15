@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:01:21 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/13 16:25:01 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:49:30 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ char	*string_strip(char *str, char to_strip, t_bool free_input)
 	occurrences = str_number_occurrences(str, to_strip);
 	stripped = (char *) malloc(
 			(ft_strlen(str) - occurrences + 1) * sizeof(char));
-	// printf(YELLOW "malloc in ft_string_utils_3.c line 32: %p\n" RESET, stripped);
-	// fflush(stdout);
 	idx_stripped = 0;
 	idx_input = 0;
 	while (idx_input < (int)ft_strlen(str))

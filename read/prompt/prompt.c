@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 08:34:15 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/13 19:23:45 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 16:01:47 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,6 @@ static t_status	read_completed_line(char **command,
 	if (completion_len)
 	{
 		completed = (char *) malloc((completion_len + 1) * sizeof(char));
-		// printf(YELLOW "malloc in prompt.c line 109: %p\n" RESET, completed);
-		// fflush(stdout);
 		read(line_channel[0], completed, completion_len * sizeof(char));
 		completed[completion_len] = '\0';
 		ft_str_replace(command, completed);
@@ -132,9 +130,9 @@ char	*get_current_working_directory(void)
 	abs_path = getcwd(NULL, PATH_MAX);
 	if (0 == ft_strcmp(abs_path, env_handler(BINDING_GET_VALUE, "HOME")))
 		cwd = (ft_strjoin(
-				ft_itoa(g_env.last_executed_cmd_exit_status),
-				" in 📁:-" CYAN " ~ " RESET,
-				e_true, e_false)
+					ft_itoa(g_env.last_executed_cmd_exit_status),
+					" in 📁:-" CYAN " ~ " RESET,
+					e_true, e_false)
 				);
 	else
 	{

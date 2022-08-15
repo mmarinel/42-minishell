@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 18:34:00 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/13 16:24:01 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 16:10:03 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,10 @@ static t_tree_node	*create_cmd_tree_node(t_simple_command_node cmd_node)
 	t_tree_node	*cmd_tree_node;
 
 	cmd_tree_node = (t_tree_node *) malloc(sizeof(t_tree_node));
-	// printf(YELLOW "malloc in t_env_cases.c line 99: %p\n" RESET, cmd_tree_node);
-	// fflush(stdout);
 	cmd_tree_node->left = NULL;
 	cmd_tree_node->right = NULL;
 	cmd_tree_node->to_string = NULL;
 	cmd_tree_node->content = (t_node_content *) malloc(sizeof(t_node_content));
-	// printf(YELLOW "malloc in t_env_cases.c line 104: %p\n" RESET, cmd_tree_node->content);
-	// fflush(stdout);
 	cmd_tree_node->content->content_type = SIMPL_CMD;
 	cmd_tree_node->content->simple_cmd.cmd_name = ft_strdup(cmd_node.cmd_name);
 	cmd_tree_node->content->simple_cmd.cmd_args = ft_strdup(cmd_node.cmd_args);

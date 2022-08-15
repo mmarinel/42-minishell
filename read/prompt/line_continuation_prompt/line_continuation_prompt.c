@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 16:27:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/13 19:04:38 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 16:00:38 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ static void	send_command_to_parent(char *command,
 	else
 	{
 		final_command_len = 0;
-		// command = ft_strcpy(NULL, "garbage", sizeof("garbage"));
 	}
 	write(line_size_channel[1], &final_command_len, sizeof(final_command_len));
 	write(line_channel[1], command, final_command_len * sizeof(char));

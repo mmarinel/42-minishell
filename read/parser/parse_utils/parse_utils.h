@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 12:56:38 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/14 11:02:25 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 16:13:08 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void			print_simple_command(t_tree_node *node);
 void			print_env_statement(t_tree_node *node);
 
 //* parser conditions
-t_bool	is_operator_tok(t_token *token);
-t_bool	is_closing_paren(t_token *token);
-t_bool	is_open_paren(t_token *token);
+t_bool			is_operator_tok(t_token *token);
+t_bool			is_closing_paren(t_token *token);
+t_bool			is_open_paren(t_token *token);
 
 #endif

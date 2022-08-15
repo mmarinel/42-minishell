@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 09:12:26 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/14 11:30:47 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:58:56 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ t_node_content	*parse_parenthesis_exp(t_parser_status *parser_status)
 	t_token			*next_redir;
 
 	paren_exp = (t_node_content *) malloc(sizeof(t_node_content));
-	// printf(YELLOW "malloc in parse_parenthesis_exp.c line 21: %p\n" RESET, paren_exp);
-	// fflush(stdout);
 	paren_exp->content_type = PAREN_EXP;
 	paren_exp->parenthesis_node.subtree = parse_cmd_list(parser_status);
 	paren_exp->parenthesis_node.in_redir.file_name = NULL;

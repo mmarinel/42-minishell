@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 09:06:47 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/13 16:22:13 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 16:04:53 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ size_t	scan_cmd_arg(char *command_line, size_t offset, t_token **token_list)
 	if (args == NULL)
 		return (offset);
 	token = (t_token *) malloc(sizeof(t_token));
-	// printf(YELLOW "malloc in tok_cmd_granular.c line 41: %p\n" RESET, token);
-	// fflush(stdout);
 	token->token_id = e_CMD_ARG;
 	token->token_val = args;
 	tok_add_back(token_list, token);

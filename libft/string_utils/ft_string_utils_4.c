@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 18:16:45 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/13 16:25:10 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:49:47 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ char	*take_next_word(char *str)
 		i++;
 	word_len = i;
 	word = (char *) malloc((word_len + 1) * sizeof(char));
-	// printf(YELLOW "malloc in ft_string_utils_4.c line 35: %p\n" RESET, word);
-	// fflush(stdout);
 	word[word_len] = '\0';
 	ft_strcpy(word, str, word_len);
 	return (word);

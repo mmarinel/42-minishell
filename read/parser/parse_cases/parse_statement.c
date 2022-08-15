@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 14:33:42 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/13 16:21:17 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:59:21 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ static t_token	*parse_statement_redirs(t_token *token,
 	t_node_content **node_content_ref, t_parser_status *parser_status)
 {
 	(*node_content_ref) = (t_node_content *) malloc(sizeof(t_node_content));
-	// printf(YELLOW "malloc in parse_statement.c line 50: %p\n" RESET, *node_content_ref);
-	// fflush(stdout);
 	(*node_content_ref)->in_redir.file_name = NULL;
 	(*node_content_ref)->out_redir.file_name = NULL;
 	while (

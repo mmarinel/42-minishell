@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:13:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/13 16:22:07 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 16:04:39 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ size_t	scan_simple_command(char *command_line, size_t offset,
 	if (len_cmd_name == 0)
 		return (offset);
 	token = (t_token *) malloc(sizeof(t_token));
-	// printf(YELLOW "malloc in tok_patterns.c line 63: %p\n" RESET, token);
-	// fflush(stdout);
 	token->token_id = e_CMD_NAME;
 	token->token_val = ft_strcpy(NULL, command_line + offset, len_cmd_name);
 	offset += len_cmd_name;
@@ -118,8 +116,6 @@ size_t	scan_operator(char *command_line, size_t offset, t_token **token_list)
 			&& command_line[pre_offset + 1] != '&'))
 		return (offset);
 	token = (t_token *) malloc(sizeof(t_token));
-	// printf(YELLOW "malloc in tok_patterns.c line 120: %p\n" RESET, token);
-	// fflush(stdout);
 	token->token_id = e_OPERATOR;
 	if (command_line[pre_offset] == '&')
 		token->token_val = "&&";
@@ -143,8 +139,6 @@ size_t	scan_single_par(char *command_line, size_t offset,
 	if (command_line[pre_offset] != '(' && command_line[pre_offset] != ')')
 		return (offset);
 	token = (t_token *) malloc(sizeof(t_token));
-	// printf(YELLOW "malloc in tok_patterns.c line 144: %p\n" RESET, token);
-	// fflush(stdout);
 	token->token_id = e_PARENTHESIS;
 	if (command_line[pre_offset] == '(')
 		token->token_val = "(";

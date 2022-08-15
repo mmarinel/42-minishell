@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 10:14:30 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/13 16:25:27 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:56:18 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ t_node_content	*parse_operator(t_token *token)
 	if (token == NULL)
 		return (NULL);
 	new = (t_node_content *) malloc(sizeof(t_node_content));
-	// printf(YELLOW "malloc in parse_statement_granular.c line 22: %p\n" RESET, new);
-	// fflush(stdout);
 	new->content_type = OPERATOR;
 	new->in_redir.file_name = NULL;
 	new->out_redir.file_name = NULL;

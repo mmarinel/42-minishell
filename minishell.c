@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/15 14:27:17 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:51:43 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	set_env(char *const envp[])
 	char	*new_shlvl_str;
 
 	env_handler(ENV_INITIALIZE, (char **)envp);
-	// set_pid_variable();
+	set_pid_variable();
 	printf("my pid is %d\n", g_env.pid);
 	{
 		cur_shlvl = ft_atoi(env_handler(BINDING_GET_VALUE, "SHLVL"));

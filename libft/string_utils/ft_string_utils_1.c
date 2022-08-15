@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 19:54:58 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/13 16:24:51 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:49:16 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ size_t	ft_strlcpy(char **dst, const char *src, size_t dstsize)
 	if (!src || !(*src))
 		return (0);
 	*dst = (char *) ft_malloc((ft_strlen(src) + 1) * sizeof(char));
-	// printf(YELLOW "malloc in ft_string_utils_1.c line 22: %p\n" RESET, *dst);
-	// fflush(stdout);
 	i = 0;
 	while (src[i] != '\0' && dstsize && i < (dstsize - 1))
 	{
@@ -74,8 +72,6 @@ char	*ft_strcpy(char *buf, char *src, int copy_len)
 	if (!buf)
 	{
 		buf = (char *) malloc((copy_len + 1) * sizeof(char));
-		// printf(YELLOW "malloc in ft_string_utils_1.c line 76: %p\n" RESET, buf);
-		// fflush(stdout);
 		buf[copy_len] = '\0';
 	}
 	i = 0;
@@ -99,8 +95,6 @@ char	*ft_strjoin(char *pre, char *post, t_bool free_pre, t_bool free_post)
 		return (ft_strjoin(pre, "", free_pre, e_false));
 	joined = (char *) malloc(sizeof(char)
 			* (ft_strlen(pre) + ft_strlen(post) + 1));
-	// printf(YELLOW "malloc in ft_string_utils_1.c line 100: %p\n" RESET, joined);
-	// fflush(stdout);
 	joined[ft_strlen(pre) + ft_strlen(post)] = '\0';
 	ft_strcpy(joined, pre, ft_strlen(pre));
 	ft_strcpy(joined + ft_strlen(pre), post, ft_strlen(post));

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 11:07:59 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/14 19:17:28 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 16:09:42 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ static void	execute_exit_args_present(char **arguments)
 
 static void	exit_normally(char **arguments)
 {
-	//TODO:--------------free tree !!!!!!!!
 	ft_splitclear(arguments);
 	exit(g_env.last_executed_cmd_exit_status);
 }

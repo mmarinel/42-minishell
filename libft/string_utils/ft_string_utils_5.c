@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 09:30:11 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/13 16:25:16 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:50:01 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ char	*ft_strdup(char *str)
 		return (NULL);
 	len = ft_strlen(str);
 	duplicate = (char *) malloc((len + 1) * sizeof(char));
-	// printf(YELLOW "malloc in ft_string_utils_5.c line 74: %p\n" RESET, duplicate);
-	// fflush(stdout);
 	duplicate[len] = '\0';
 	while (len - 1 >= 0)
 	{

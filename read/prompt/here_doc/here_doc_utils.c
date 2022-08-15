@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 18:03:26 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/15 15:37:55 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 16:00:24 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ static size_t	hdoc_read_file_name(char *str, size_t offset)
 	len_file_name = bash_next_word_len(str, alphanumeric_offset)
 		+ (alphanumeric_offset - offset);
 	if (str[offset + len_file_name] && str[offset + len_file_name] == '$')
-		return (len_file_name + hdoc_read_file_name(str, offset + len_file_name));
+		return (len_file_name
+			+ hdoc_read_file_name(str, offset + len_file_name));
 	else
 		return (len_file_name);
 }

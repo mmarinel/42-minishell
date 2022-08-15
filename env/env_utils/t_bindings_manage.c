@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 09:18:17 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/14 10:32:33 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:46:35 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ char	**bindings_list_to_array(t_bindings *head)
 
 	env_len = bindings_len(head);
 	envp = (char **) malloc((env_len + 1) * sizeof(char *));
-	// printf(YELLOW "malloc in t_bindings_manage.c line 56: %p\n" RESET, envp);
-	// fflush(stdout);
 	envp[env_len] = NULL;
 	cur = head;
 	j = 0;
@@ -76,8 +74,6 @@ t_bindings	*get_new_binding(char *var_name, char *var_val, t_bool concat_mode)
 	t_bindings	*new_binding;
 
 	new_binding = (t_bindings *) malloc(sizeof(t_bindings));
-	// printf(YELLOW "malloc in t_bindings_manage.c line 77: %p\n" RESET, new_binding);
-	// fflush(stdout);
 	new_binding->var_name = ft_strdup(var_name);
 	new_binding->var_val = ft_strdup(var_val);
 	new_binding->concat_mode = concat_mode;
