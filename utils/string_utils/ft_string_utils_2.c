@@ -6,11 +6,11 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 09:45:17 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/11 18:22:49 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 16:45:12 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../ft_utils.h"
 
 char	take_starting_quote(char *str)
 {

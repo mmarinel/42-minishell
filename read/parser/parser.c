@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:26:21 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/14 19:31:16 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 16:16:09 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ t_tree_node	*parse(void)
 		free_tree(&tree);
 		tokenizer_free();
 	}
-	tree_to_string(tree);
 	return (tree);
 }
 

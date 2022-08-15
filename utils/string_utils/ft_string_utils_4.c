@@ -6,11 +6,11 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 18:16:45 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/15 15:49:47 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 16:45:21 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../ft_utils.h"
 
 /**
  * @brief this function takes the next word

@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 18:07:22 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/11 16:18:19 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 16:44:10 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 //* user defined module //
 # include "../../../signals/signal_module.h"
 # include "../../../utils/ft_utils.h"
-# include "../../../libft/libft.h"
 # include "../../../execute/expander/expander_module.h"
 
 //* user defined types //

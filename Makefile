@@ -6,106 +6,49 @@
 #    By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/10 12:28:57 by mmarinel          #+#    #+#              #
-#    Updated: 2022/08/14 19:38:10 by mmarinel         ###   ########.fr        #
+#    Updated: 2022/08/15 17:00:40 by mmarinel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-#SAY = say
-#NORMINETTE = norminette -R CheckForbiddenSourceHeader
 CC = @gcc
-# HOME = /Users/mmarinel
-# CFLAGS = -I -Wall -Werror -Wextra -fsanitize=address -static-libsan -g
 CFLAGS = -I -Wall -Werror -Wextra
 READLINE_FLAGS = -L/usr/include -lreadline -L$$HOME/.brew/opt/readline/lib -I $$HOME/.brew/opt/readline/include/readline
-OBJS_DIR = ".objs"
 
 INCLUDES = $(shell find . -name "*.h" -print)
-MANDATORY_OBJS = $(shell find . -name "*.c" -print | grep -v bonus.c | sed 's/\.c/\.o/g' | sed 's/\.\///') # last cmd removes ./ at the beginning of each file
-BONUS_OBJS = $(shell find . -name "*.c" -print | grep -v mand | sed 's/\.c/\.o/g' | sed 's/\.\///') # last cmd removes ./ at the beginning of each file
-OBJS = $(MANDATORY_OBJS) $(BONUS_OBJS)
 
-LIBFT_OBJS = $(OBJS_DIR)/libft/**/*.o
-LIBFT_SRCS = libft/**/*.c
+OBJS_DIR = bin
+OBJS_NOPREFIX = $(shell find . -name "*.c" -print | sed 's/\.c/\.o/g' | sed 's/\.\///')# last cmd removes ./ at the beginning of each file
+OBJS = $(addprefix $(OBJS_DIR)/, $(OBJS_NOPREFIX))
 
+NAME = minishell
 
-####################### Unvoiced Makes #########################
-all:
-	@$(MAKE) .ADD_MANDATORY SAY="say -o /dev/null"
-bonus:
-	@$(MAKE) .ADD_BONUS SAY="say -o /dev/null"
-norm:
-	@$(MAKE) n SAY="say -o /dev/null"
-clean:
-	@$(MAKE) cl OBJS="$(addprefix $(OBJS_DIR)/, $(OBJS))" SAY="say -o /dev/null"
-fclean:
-	@$(MAKE) fcl OBJS="$(addprefix $(OBJS_DIR)/, $(OBJS))" SAY="say -o /dev/null"
+all: .BUILD
 
-####################### VOCAL ASSISTANT #########################
-say: .ADD_MANDATORY
-bonus_say: .ADD_BONUS
-norm_say: n
-clean_say: cl
-fclean_say: fcl
-re_say: fclean_say say
-re_bonus_say: fclean_say bonus_say
+bonus: $(NAME)
 
-
-####################### NORMINETTE #########################
-# NORM_ERRS = 
-# ifndef final_msg
-# 	ifeq ($(shell test $(shell norminette -R CheckForbiddenSourceHeader | grep Error: | wc -l) -gt 0; echo $$?), 0)
-# 			final_msg = "My disappointment is immeasurable and my day is ruined"
-# 			final_msg_voice = Karen
-# 			norm_fail = $(shell norminette -R CheckForbiddenSourceHeader | grep Error: | wc -l)
-# 			ifeq (test $(shell norminette -R CheckForbiddenSourceHeader | grep Error: | wc -l) -gt 1; echo $$?, 0)
-# 				norm_fail += " Norm Errors found!"
-# 			else
-# 				norm_fail += " Norm Error found!"
-# 			endif
-# 	else
-# 		final_msg = "Good Job, GG, you are a piece of shit"
-# 		final_msg_voice = Karen
-# 		norm_success = $(shell echo "No Norm Errors found!")
-# 	endif 
-# endif
-
-
-####################### CORE #######################################
-do_bonus: $(NAME)
-do_mandatory: $(NAME)
-
-$(NAME): $(OBJS) $(LIBFT_OBJS) $(INCLUDES)
+$(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(READLINE_FLAGS) $(OBJS) -o $(NAME)
+	@printf "\033[1m\033[32mMinishell Compiled!\n"
+	@echo "\033[0;37m"
 
-$(LIBFT_OBJS): $(LIBFT_SRCS)
-	@cd libft && make && cd ..
-
-$(shell echo $(OBJS_DIR))/%.o: %.c $(wildcard $(<D)/*.h)
+$(shell echo $(OBJS_DIR))/%.o: %.c $(INCLUDES)#$(wildcard $(<D)/*.h)------this recompiles only for headers in the same folder!
 	@mkdir -p '$(@D)'
 	$(CC) -c $(CFLAGS) $< -o $@
 
-cl:
+clean:
 	@printf "removing Object files...\n"
 	@/bin/rm -f $(OBJS)
 	@printf "\033[0;35mObject files removed!\n"
 	@echo "\033[0;37m"
 
-fcl: cl
+fclean: clean
 	@printf "removing program executable...\n"
-	@/bin/rm -f ./minishell; /bin/rm -f ./minishell_bonus
+	@/bin/rm -f ./minishell
 	@printf "\033[0;35mExecutable removed!\n"
 	@echo "\033[0;37m"
 
 re: fclean all
 
-re_bonus: fclean bonus
-
-.ADD_MANDATORY:
-	@printf "\033[0;36mMaking Mandatory part\n"
-	@echo "\033[0;37m"
-	@$(MAKE) do_mandatory OBJS="$(addprefix $(OBJS_DIR)/, $(MANDATORY_OBJS))" NAME="minishell"
-
-.ADD_BONUS:
-	@printf "\033[1;36mMaking Bonus part\n"
-	@echo "\033[0;37m"
-	@$(MAKE) do_bonus OBJS="$(addprefix $(OBJS_DIR)/, $(BONUS_OBJS))" NAME="minishell"
+.BUILD:
+	@printf "\033[1m\033[33mMaking Project...\033[0m\n"
+	@$(MAKE) $(NAME)

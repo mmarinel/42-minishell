@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 18:23:33 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/08 09:51:47 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 16:43:53 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,6 @@
 # include "../../env/env_module.h"
 # include "../../read/tokenizer/tokenizer_module.h"
 # include "../../read/parser/parser_module.h"
-
-//* user defined libraries
-# include "../../libft/libft.h"
 
 //* user defined exposed functions
 

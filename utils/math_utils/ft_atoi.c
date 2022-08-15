@@ -6,11 +6,11 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 17:32:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/15 15:50:26 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 16:44:40 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../ft_utils.h"
 
 static int	ft_atoi_rec(const char *str, int *exponent);
 //* end of static declarations //

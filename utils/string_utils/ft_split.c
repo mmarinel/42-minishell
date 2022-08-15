@@ -6,11 +6,11 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 20:53:13 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/15 15:48:51 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 16:45:04 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../ft_utils.h"
 
 static size_t	ft_count_words(char *s, char c);
 static void		allocate_words(char *str, char delimiter, char **split);

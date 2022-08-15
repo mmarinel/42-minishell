@@ -6,11 +6,11 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 09:30:11 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/15 15:50:01 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 16:45:25 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../ft_utils.h"
 
 int	ft_strcmp(const char *s1, const char *s2)
 {
