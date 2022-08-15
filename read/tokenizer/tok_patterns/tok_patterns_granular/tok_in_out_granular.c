@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 11:07:49 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/15 16:05:36 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 17:04:44 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ t_token	*in_out_tok_record_file_name(char *next_word_begin,
 				".here_doc-",
 				ft_itoa((here_docs - cur_hdoc_cont_id) - 1),
 				e_false, e_true);
-		printf("cur here_doc name: %s\n", token->token_val);
 		cur_hdoc_cont_id--;
 	}
 	return (token);
@@ -97,6 +96,5 @@ static size_t	take_here_docs(void)
 			i++;
 		free(hdoc_file_name);
 	}
-	printf("%zu here-docs detected\n", i);
 	return (i);
 }

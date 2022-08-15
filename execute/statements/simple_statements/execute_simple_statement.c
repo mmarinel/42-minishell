@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 09:49:38 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/14 19:10:41 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 17:36:06 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,21 +76,26 @@ static void	spawn_and_wait_command(t_tree_node *root, int in, int out)
 {
 	t_branch	statement_execution;
 
-	signal(SIGINT, sig_ign);
-	signal(SIGTERM, sig_ign);
-	signal(SIGQUIT, sig_ign);
 	statement_execution.pid = fork();
+	signal(SIGQUIT, sig_ign);
 	if (statement_execution.pid == 0)
+	{
+		signal(SIGINT, sig_ign);
+		signal(SIGTERM, sig_ign);
 		execute_simple_statement(root, in, out);
+	}
 	else
 	{
+		signal(SIGINT, cmd_launcher_sig_handler);
+		signal(SIGQUIT, cmd_launcher_sig_handler);
 		waitpid(statement_execution.pid,
 			&(statement_execution.exit_status), 0);
 		signal(SIGINT, sig_handler);
 		signal(SIGTERM, sig_handler);
 		signal(SIGQUIT, SIG_IGN);
-		g_env.last_executed_cmd_exit_status
-			= WEXITSTATUS(statement_execution.exit_status);
+		if (WIFEXITED(statement_execution.exit_status))
+			g_env.last_executed_cmd_exit_status
+				= WEXITSTATUS(statement_execution.exit_status);
 	}
 }
 

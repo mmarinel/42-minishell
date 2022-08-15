@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 11:35:33 by evento            #+#    #+#             */
-/*   Updated: 2022/08/13 16:14:17 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 17:03:53 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	execute_echo(t_simple_command_node cmd)
 	t_bool	print_trailing_nl;
 	size_t	offset;
 
-	printf("echo args are: %s\n", cmd.cmd_args);
 	offset = remove_n_option_part(cmd.cmd_args);
 	{
 		if (offset == 0)
