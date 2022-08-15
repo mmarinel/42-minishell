@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 17:52:55 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/11 18:40:11 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 18:05:38 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	execute_pwd(t_simple_command_node cmd)
 	if (cmd.cmd_args == NULL)
 	{
 		ft_printf("%s\n", cwd);
+		g_env.last_executed_cmd_exit_status = EXIT_SUCCESS;
 	}
 	else
 	{
