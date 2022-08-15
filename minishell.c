@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:38:37 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/14 20:06:07 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 14:27:17 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ int	main(int argc, char const *argv[], char *const envp[])
 
 /**
  * ```
- * this function sets the current env,
- * increments SHLVL variable, duplicates 'real' stdout
- * (as long as it wasn't redirected throught the outside -non minishell-shell)
+ * this function sets the current environment,
+ * increments SHLVL variable,
+ * duplicates 'real' stdout (as long as it wasn't redirected through
+ * the outside -non minishell-shell)
  * if this is the first minishell call
- * and sets $? variable to 0.
+ * and sets the $? env variable.
  * ```
  * 
- * @param envp 
  */
 static void	set_env(char *const envp[])
 {
@@ -60,7 +60,7 @@ static void	set_env(char *const envp[])
 	char	*new_shlvl_str;
 
 	env_handler(ENV_INITIALIZE, (char **)envp);
-	set_pid_variable();
+	// set_pid_variable();
 	printf("my pid is %d\n", g_env.pid);
 	{
 		cur_shlvl = ft_atoi(env_handler(BINDING_GET_VALUE, "SHLVL"));
@@ -80,7 +80,7 @@ static void	set_env(char *const envp[])
 }
 
 /**
- * @brief this function sets the [$$] env variable
+ * @brief this function sets the $$ env variable
  * 
  */
 static void	set_pid_variable(void)

@@ -6,13 +6,14 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 18:03:26 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/13 16:21:46 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:37:55 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "here_doc.h"
 
-static char	*take_next_delimiter(char *command, size_t offset);
+static char		*take_next_delimiter(char *command, size_t offset);
+static size_t	hdoc_read_file_name(char *str, size_t offset);
 //* end of static declarations
 
 t_bool	here_doc_line(char *command)
@@ -53,8 +54,6 @@ char	**here_doc_take_delimiters(char *command)
 	if (here_docs == 0)
 		return (NULL);
 	here_docs_delimiters = (char **) malloc((here_docs + 1) * sizeof(char *));
-	// printf(YELLOW "malloc in here_doc_utils.c line 56: %p\n" RESET, here_docs_delimiters);
-	// fflush(stdout);
 	here_docs_delimiters[here_docs] = NULL;
 	j = 0;
 	i = 0;
@@ -76,13 +75,24 @@ char	**here_doc_take_delimiters(char *command)
 static char	*take_next_delimiter(char *command, size_t offset)
 {
 	char	*delimiter;
-	size_t	alphanumeric_offset;
 	size_t	delimiter_len;
 
 	offset = skip_consecutive_chars(command, offset, ' ', +1);
-	alphanumeric_offset = skip_consecutive_chars(command, offset, '$', +1);
-	delimiter_len = bash_next_word_len(command, alphanumeric_offset)
-		+ (alphanumeric_offset - offset);
+	delimiter_len = hdoc_read_file_name(command, offset);
 	delimiter = ft_strcpy(NULL, command + offset, delimiter_len);
 	return (delimiter);
+}
+
+static size_t	hdoc_read_file_name(char *str, size_t offset)
+{
+	size_t	len_file_name;
+	size_t	alphanumeric_offset;
+
+	alphanumeric_offset = skip_consecutive_chars(str, offset, '$', +1);
+	len_file_name = bash_next_word_len(str, alphanumeric_offset)
+		+ (alphanumeric_offset - offset);
+	if (str[offset + len_file_name] && str[offset + len_file_name] == '$')
+		return (len_file_name + hdoc_read_file_name(str, offset + len_file_name));
+	else
+		return (len_file_name);
 }

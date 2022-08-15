@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 10:01:00 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/11 17:33:26 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:40:42 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,19 +92,13 @@ static char	*hdoc_next_file_name(void)
 static void	expand_delimiter_take_quote(char **delimiter,
 				char *delimiter_enclosing_quote)
 {
-	if ((*delimiter)
-		&& ((*delimiter)[0] == '\'' || (*delimiter)[0] == '"'))
-		*delimiter_enclosing_quote = (*delimiter)[0];
+	if (NULL == *delimiter
+		|| ((*delimiter)[0] != '\'' && (*delimiter)[0] != '"'))
+		*delimiter_enclosing_quote = '\0';
 	else
-		*delimiter_enclosing_quote = 0;
 	{
-		if (0 == *delimiter_enclosing_quote)
-			(*delimiter) = expand((*delimiter));
-		else
-			ft_str_replace(
-				delimiter,
-				ft_strcpy(NULL, *delimiter + 1, ft_strlen(*delimiter) - 2)
-				);
+		*delimiter = string_strip(*delimiter, (*delimiter)[0], e_true);
+		*delimiter_enclosing_quote = (*delimiter)[0];
 	}
 }
 

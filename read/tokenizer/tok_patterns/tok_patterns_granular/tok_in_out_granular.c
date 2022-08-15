@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 11:07:49 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/13 16:22:20 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:41:19 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,21 +67,14 @@ size_t	read_file_name(char *str, size_t offset)
 {
 	size_t	len_file_name;
 	size_t	alphanumeric_offset;
-	size_t	prefix_len;
 
-	if (str[offset] == '&' && str[offset + 1] != '&')
-	{
-		offset += 1;
-		prefix_len = 1;
-	}
-	else
-	{
-		prefix_len = 0;
-	}
 	alphanumeric_offset = skip_consecutive_chars(str, offset, '$', +1);
-	len_file_name = prefix_len + bash_next_word_len(str, alphanumeric_offset)
+	len_file_name = bash_next_word_len(str, alphanumeric_offset)
 		+ (alphanumeric_offset - offset);
-	return (len_file_name);
+	if (str[offset + len_file_name] && str[offset + len_file_name] == '$')
+		return (len_file_name + read_file_name(str, offset + len_file_name));
+	else
+		return (len_file_name);
 }
 
 static size_t	take_here_docs(void)
