@@ -6,7 +6,7 @@
 #    By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/10 12:28:57 by mmarinel          #+#    #+#              #
-#    Updated: 2022/08/15 17:00:40 by mmarinel         ###   ########.fr        #
+#    Updated: 2022/08/16 10:27:56 by mmarinel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ NAME = minishell
 
 all: .BUILD
 
-bonus: $(NAME)
+bonus: .BUILD
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(READLINE_FLAGS) $(OBJS) -o $(NAME)

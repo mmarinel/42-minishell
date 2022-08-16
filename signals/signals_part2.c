@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 15:03:41 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/15 17:29:28 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/16 10:34:13 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,14 @@ void	sig_ign(int signum)
 		;
 }
 
+/**
+ * @brief sig handler for the cmd_launcher
+ * when interpreting non-builtin commands.
+ * This handler checks for abrupt termination of external commands
+ * (ctrl+c, ctrl+\ sent to them) exiting with respective exit statuses.
+ * 
+ * @param signum 
+ */
 void	cmd_launcher_sig_handler(int signum)
 {
 	if (signum == SIGINT)

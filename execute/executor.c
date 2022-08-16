@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 09:39:10 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/14 18:15:56 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/16 10:37:44 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	execute_subshell(t_tree_node *root, int in, int out)
 	subshell_pid = fork();
 	if (subshell_pid == 0)
 	{
-		new_shlvl = atoi(env_handler(BINDING_GET_VALUE, "SHLVL")) + 1;
+		new_shlvl = ft_atoi(env_handler(BINDING_GET_VALUE, "SHLVL")) + 1;
 		env_handler(BINDING_UPDATE,
 			get_new_binding("SHLVL", ft_itoa(new_shlvl), e_false)
 			);

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   .tok_debug_utils.c                                 :+:      :+:    :+:   */
+/*   tok_debug_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 12:24:02 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/15 16:16:52 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/16 10:27:14 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tok_utils.h"
 
-char *tok_to_string(t_token *token)
+char	*tok_to_string(t_token *token)
 {
 	if (token->token_id == e_CMD_NAME)
 		return ("CMD_NAME");
