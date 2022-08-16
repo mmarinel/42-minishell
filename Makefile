@@ -6,7 +6,7 @@
 #    By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/10 12:28:57 by mmarinel          #+#    #+#              #
-#    Updated: 2022/08/16 10:27:56 by mmarinel         ###   ########.fr        #
+#    Updated: 2022/08/16 10:56:48 by mmarinel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,10 @@ $(NAME): $(OBJS)
 	@printf "\033[1m\033[32mMinishell Compiled!\n"
 	@echo "\033[0;37m"
 
+#
+#	this rule compiles sources in <path>.c and puts them in <obj_dir>/<path>.o
+#
+#
 $(shell echo $(OBJS_DIR))/%.o: %.c $(INCLUDES)#$(wildcard $(<D)/*.h)------this recompiles only for headers in the same folder!
 	@mkdir -p '$(@D)'
 	$(CC) -c $(CFLAGS) $< -o $@
