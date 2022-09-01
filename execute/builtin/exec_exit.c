@@ -6,7 +6,7 @@
 /*   By: mmarinel <mmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 11:07:59 by mmarinel          #+#    #+#             */
-/*   Updated: 2022/08/15 16:09:42 by mmarinel         ###   ########.fr       */
+/*   Updated: 2022/08/29 18:53:23 by mmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	execute_exit(t_simple_command_node cmd)
 	char	**arguments;
 
 	arguments = ft_split(cmd.cmd_args, ' ');
-	if (NULL == arguments || '\0' == arguments[0])
+	if (NULL == arguments || '\0' == arguments[0][0])
 	{
 		execute_exit_args_absent(arguments);
 	}
