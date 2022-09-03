@@ -351,7 +351,7 @@ What this tells us it that the original sentence is a pipe operation of two expr
 We used a modified version of a recursive-descent top-down parser. For a reference, please watch this [video](https://youtu.be/SToUyjAsaFk) made by a Professor of Portland State University, which was the main source of inspiration for both my tokenizer and parser modules.
 
 A top-down parser is a kind of parser that reads input from left to right and that tries to build its representation (i.e.: the parse tree) from top, meaning the start symbol of our grammar (the Axiom), to bottom, meaning the terminal symbols of our grammar.
-</br>The other kind of parser is known as a "bottom-up" parser, which is given this name because it tries to build the parse tree from the terminal symbols up to the Axiom. What this means is that the derivation process starts we previously saw goes the opposite way: from the original sentence up to the axiom.
+</br>The other kind of parser is known as a "bottom-up" parser, which is given this name because it tries to build the parse tree from the terminal symbols up to the Axiom. What this means is that the derivation process we previously saw goes the opposite way: from the original sentence up to the axiom.
 
 Now, if you carefully watched the video, you would know that having a [left-recursive grammar](https://en.wikipedia.org/wiki/Left_recursion) is a problem because a recursive-descent parser will go an infinite loop without ever terminating!
 
